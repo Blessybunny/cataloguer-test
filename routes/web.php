@@ -15,9 +15,10 @@ use Illuminate\Support\Facades\Route;
     
 // LOGIN
 // to-do: place login here
-Route::get('/', function () { return view('primary/dashboard'); });//login
+Route::get('/', function () { return view('dashboard/students'); });//login
 
 // DASHBOARD ELEMENTS
+Route::get('/students', 'App\Http\Controllers\StudentController@index');
 Route::get('/student-viewer', function () { return view('dashboard/student-viewer'); });
 
 
@@ -26,8 +27,6 @@ Route::get('/student-viewer', function () { return view('dashboard/student-viewe
 
 
 // PRIMARY
-Route::get('/', function () { return view('primary/students'); });
-Route::get('/students', function () { return view('primary/students'); });
 Route::get('/classes', function () { return view('primary/classes'); });
 Route::get('/subjects', function () { return view('primary/subjects'); });
 

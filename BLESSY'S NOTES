@@ -1,9 +1,17 @@
-BLADE Notes:
+BLADE STATUS:
+    - dashboard:
+        - 
+    - layouts:
+        - grade-card                - clean | no db
+        - master                    - clean
+        - page                      - clean
+        - permanent-form            - clean | no db
+    - login:
+
+BLADE STRUCTURE:
     - master:
-        - note: put all global scripts/stylesheets here
         - yield: title
         - yield: head
         - yield: master-content
     - page:
-        - note: use this extension to make pages
         - yield: content

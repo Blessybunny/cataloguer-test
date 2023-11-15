@@ -29,7 +29,7 @@
 @font-header-small: sourceSansPro;
 
 @size-spacing: 30px;
-@size-width-print: 1260px;
+@size-width-print: 1250px; /* Only affects permanent form and grade card */
 
 /* HTML */
 h1, h2, h3, h4, h5, h6 { font-family: @font-header-large; }
@@ -88,6 +88,7 @@ table {
     .nav {
         border: @border-all;
         margin-bottom: (@size-spacing / 2);
+        padding: 0;
     }
     .nav-link {
         border-radius: 0;
@@ -100,14 +101,17 @@ table {
             color: @color-active;
         }
     }
+    .tab-content {
+        border: @border-all;
+        overflow: auto;
+        padding: 0;
+    }
 }
 #permanent-form {
-    border: @border-all;
     max-width: @size-width-print;
     min-width: @size-width-print;
 }
 #grade-card {
-    border: @border-all;
     max-width: @size-width-print;
     min-width: @size-width-print;
 }
