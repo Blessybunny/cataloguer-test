@@ -1,0 +1,9 @@
+BLADE Notes:
+    - master:
+        - note: put all global scripts/stylesheets here
+        - yield: title
+        - yield: head
+        - yield: master-content
+    - page:
+        - note: use this extension to make pages
+        - yield: content

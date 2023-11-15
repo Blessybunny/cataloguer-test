@@ -1,0 +1,145 @@
+/* FONT*/
+@font-face {
+    font-family: poppins;
+    src: url(../font/poppins-regular.ttf);
+}
+@font-face {
+    font-family: roboto;
+    src: url(../font/roboto-regular.ttf);
+}
+@font-face {
+    font-family: sourceSansPro;
+    src: url(../font/source-sans-pro-regular.otf);
+}
+
+/* LESS */
+@opacity-step: 0.25;
+
+@color-active: rgb(125, 125, 150);
+@color-border: rgba(#000, @opacity-step);
+@color-table: rgba(#000, (@opacity-step / 2));
+@color-theme: rgb(255,100,0);
+
+@border-all: 1px @color-border solid;
+
+@font-common: roboto;
+@font-footer: poppins;
+@font-navigation: poppins;
+@font-header-large: sourceSansPro;
+@font-header-small: sourceSansPro;
+
+@size-spacing: 30px;
+@size-width-print: 1260px;
+
+/* HTML */
+h1, h2, h3, h4, h5, h6 { font-family: @font-header-large; }
+h5 { margin-bottom: 0; }
+main { margin: calc(@size-spacing * 4) auto calc(@size-spacing * 2) auto; }
+table {
+    border: @border-all !important;
+
+    th, td { border: @border-all; }
+    th {
+        background-color: @color-table !important;
+        font-family: @font-header-small;
+    }
+}
+
+    
+    /* Table */
+
+    /* Input */
+    input[type = 'checkbox'] {
+        height: 20px;
+        vertical-align: middle;
+        width: 20px;
+    }
+    label {
+        display: inline-block;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+    span { vertical-align: middle; }
+
+/* BOOTSTRAP */
+.align-middle { text-align: center; }
+.align-middle.left { text-align: left; }
+.align-middle.right { text-align: right; }
+.container, .container-fluid { padding: @size-spacing @size-spacing calc(@size-spacing / 2) @size-spacing; }
+.row {
+    font-family: @font-common;
+    font-size: 14px;
+}
+
+/* Clean: NAVIGATION / FOOTER */
+#header {
+    border-bottom: @border-all;
+
+    a, h1 { font-family: @font-navigation; }
+}
+#footer {
+    font-family: @font-footer;
+    padding: @size-spacing * 2;
+}
+
+/* Clean: PAGES */
+#student-viewer {
+    /*.nav { margin-bottom: @size-spacing; }*/
+    .nav {
+        border: @border-all;
+        margin-bottom: (@size-spacing / 2);
+    }
+    .nav-link {
+        border-radius: 0;
+        color: @color-theme;
+        font-family: @font-navigation;
+        font-weight: bolder;
+
+        &.active {
+            background-color: rgba(@color-theme, @opacity-step);
+            color: @color-active;
+        }
+    }
+}
+#permanent-form {
+    border: @border-all;
+    max-width: @size-width-print;
+    min-width: @size-width-print;
+}
+#grade-card {
+    border: @border-all;
+    max-width: @size-width-print;
+    min-width: @size-width-print;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* CUSTOM */
+.bold { font-weight: bold; }
+.custom-btn {
+    background-color: @color-theme;
+    border: none;
+    border-radius: 5px;
+    color: #FFF;
+    display: block;
+    font-family: Segoe UI;
+    font-weight: bold;
+    padding: 5px calc(@size-spacing / 2);
+    text-align: center;
+    text-transform: uppercase;
+
+    &:hover { color: #FFF; }
+}
+.custom-header-bg {
+    background-color: rgba(@color-theme, @opacity-step);
+    margin-bottom: calc(@size-spacing / 2);
+    padding: calc(@size-spacing / 2);
+}

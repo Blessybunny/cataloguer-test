@@ -1,0 +1,49 @@
+
+
+
+
+	
+
+    <!-- Students table -->
+    <section class = "book-a-table">
+		<div class = "container" data-aos = "fade-up">
+
+			<div class = "section-header">
+				<h2>Cataloger</h2>
+				<p>Student Table</p>
+			</div>
+
+			<div class = "row g-0">
+				<form>
+					<table class = "table table-striped">
+						<thead>
+							<tr>
+								<th scope = "col">LRN</th>
+								<th scope = "col">Name</th>
+								<th scope = "col">&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>1</th>
+								<td>Mordecai</td>
+								<td>
+									<a href = "#" class = "btn-book-a-table"><button class = "btn-custom">Grade Card</button></a>
+									<a href = "#" class = "btn-book-a-table"><button class = "btn-custom">Permanent Form</button></a>
+								</td>
+							</tr>
+							<tr>
+								<th>2</th>
+								<td>Rigby</td>
+								<td>
+									<a href = "#" class = "btn-book-a-table"><button class = "btn-custom">Grade Card</button></a>
+									<a href = "#" class = "btn-book-a-table"><button class = "btn-custom">Permanent Form</button></a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</div>
+
+		</div>
+    </section>
