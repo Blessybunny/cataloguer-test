@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
     
 // LOGIN
 // to-do: place login here
-Route::get('/', function () { return view('dashboard/students'); });//login
 
 // DASHBOARD ELEMENTS
+Route::get('/', 'App\Http\Controllers\StudentController@index');
 Route::get('/students', 'App\Http\Controllers\StudentController@index');
 Route::get('/student-viewer', function () { return view('dashboard/student-viewer'); });
 

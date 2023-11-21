@@ -6,27 +6,28 @@ Students
 
 @section('content')
 	
-<main id = "main">
-    <section id = "students" class = "container">
-		@foreach ($students as $student)
-			{{ $student->id }}
-			{{ $student->name_first }}
-			{{ $student->name_middle }}
-			{{ $student->name_last }}
-		@endforeach
-		<div class = "row">
-			<div class = "col">
-				<h2>Lastname, First Name I.</h2>
-				<h5>01-0001-001</h5>
-				<h6>Grade X | Section X</h6>
-				<hr>
-				<a href = "{{ url('/semestral-grades') }}"><button class = "btn-custom">Edit Semestral Grades</button></a>
-				<a href = "{{ url('/grade-card') }}"><button class = "btn-custom">View Grade Card</button></a>
-				<a href = "{{ url('/permanent-form') }}"><button class = "btn-custom">View Permanent Form</button></a>
-				<hr>
+	<main id = "main">
+		<section id = "students" class = "container">
+			<div class = "row">
+				<div class = "col">
+					<h5 class = "align-middle custom-header-bg">All Students</h5>
+					<table class = "table">
+						<tr>
+							<th class = "align-middle" style = "width: 150px">LRN</th>
+							<th class = "align-middle">Name</th>
+							<th class = "align-middle">Grade | Section</th>
+						</tr>
+						@foreach ($students as $student)
+							<tr>
+								<td>01-0001-{{ $student->id }}</td>
+								<td><span class = "uppercase">{{ $student->li_name_last }}</span>, {{ $student->li_name_first }} {{ $student->li_name_middle }}.</td>
+								<td></td>
+							</tr>
+						@endforeach
+					</table>
+				</div>
 			</div>
-		</div>
-    </section>
-</main>
+		</section>
+	</main>
 
 @endsection

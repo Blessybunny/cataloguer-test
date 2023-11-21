@@ -7,6 +7,7 @@
     font-family: roboto;
     src: url(../font/roboto-regular.ttf);
 }
+/*unused*/
 @font-face {
     font-family: sourceSansPro;
     src: url(../font/source-sans-pro-regular.otf);
@@ -25,14 +26,18 @@
 @font-common: roboto;
 @font-footer: poppins;
 @font-navigation: poppins;
-@font-header-large: sourceSansPro;
-@font-header-small: sourceSansPro;
+@font-header: calibri;
+@font-paper: calibri;
 
 @size-spacing: 30px;
-@size-width-print: 1250px; /* Only affects permanent form and grade card */
+@size-width-paper: 1250px; /* Only affects permanent form and grade card */
 
 /* HTML */
-h1, h2, h3, h4, h5, h6 { font-family: @font-header-large; }
+h1, h2, h3, h4, h5, h6 {
+    font-family: @font-header;
+    text-transform: uppercase;
+    font-weight: bold;
+}
 h5 { margin-bottom: 0; }
 main { margin: calc(@size-spacing * 4) auto calc(@size-spacing * 2) auto; }
 table {
@@ -41,7 +46,7 @@ table {
     th, td { border: @border-all; }
     th {
         background-color: @color-table !important;
-        font-family: @font-header-small;
+        font-family: @font-header;
     }
 }
 
@@ -62,13 +67,33 @@ table {
     span { vertical-align: middle; }
 
 /* BOOTSTRAP */
-.align-middle { text-align: center; }
-.align-middle.left { text-align: left; }
-.align-middle.right { text-align: right; }
 .container, .container-fluid { padding: @size-spacing @size-spacing calc(@size-spacing / 2) @size-spacing; }
 .row {
     font-family: @font-common;
     font-size: 14px;
+}
+
+/* CLASSES */
+.align-middle { text-align: center; }
+.align-middle.left { text-align: left; }
+.align-middle.right { text-align: right; }
+.bold { font-weight: bold; }
+.uppercase { text-transform: uppercase; }
+.paper {
+    max-width: @size-width-paper;
+    min-width: @size-width-paper;
+    
+    .row, .col { font-family: @font-paper; }
+
+    .report-card-indent-1 {
+        display: inline-block;
+        text-indent: 50px;
+        text-align: justify;
+    }
+    .report-card-indent-2 { text-indent: 25px; }
+    .report-card-width-thin { width: 50px; }
+    .report-card-width-wide { width: 100px; }
+
 }
 
 /* Clean: NAVIGATION / FOOTER */
@@ -107,16 +132,6 @@ table {
         padding: 0;
     }
 }
-#permanent-form {
-    max-width: @size-width-print;
-    min-width: @size-width-print;
-}
-#grade-card {
-    max-width: @size-width-print;
-    min-width: @size-width-print;
-}
-
-
 
 
 
@@ -127,7 +142,6 @@ table {
 
 
 /* CUSTOM */
-.bold { font-weight: bold; }
 .custom-btn {
     background-color: @color-theme;
     border: none;
@@ -145,5 +159,5 @@ table {
 .custom-header-bg {
     background-color: rgba(@color-theme, @opacity-step);
     margin-bottom: calc(@size-spacing / 2);
-    padding: calc(@size-spacing / 2);
+    padding: calc(@size-spacing / 4);
 }

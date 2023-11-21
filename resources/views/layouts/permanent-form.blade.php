@@ -1,4 +1,4 @@
-<section id = "permanent-form" class = "container">
+<section class = "container paper">
 	<!-- Header -->
 	<div class = "row">
 		<div class = "col-2">
@@ -91,6 +91,12 @@
 	<div class = "row">
 		<div class = "col">
 			<h5 class = "align-middle custom-header-bg">Scholastic Record</h5>
+		</div>
+	</div>
+
+	<!-- Grade 7 -->
+	<div class = "row">
+		<div class = "col">
 			<div class = "row">
 				<div class = "col-2">School:</div>
 				<div class = "col-2">School ID:</div>
@@ -164,7 +170,7 @@
 					<td class = "align-middle"></td>
 				</tr>
 				<tr>
-					<td colspan = "2">Edukasyon sa Pagpapakatao (EsP)</td>
+					<td colspan = "2">Edukasyon sa Pagpapakatao (EP)</td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
@@ -250,6 +256,12 @@
 					<td>&nbsp;</td>
 				</tr>
 			</table>
+		</div>
+	</div>
+
+	<!-- Grade 8 -->
+	<div class = "row">
+		<div class = "col">
 			<div class = "row">
 				<div class = "col-2">School:</div>
 				<div class = "col-2">School ID:</div>
@@ -411,6 +423,9 @@
 			</table>
 		</div>
 	</div>
+
+	<!-- Grade 9 -->
+	<!-- Grade 10 -->
 
 	<!-- Certification -->
 	<div class = "row">

@@ -1,11 +1,21 @@
 BLADE STATUS:
     - dashboard:
-        - 
+        - student-viwer             - wip | has db
+        - students                  - wip | has db
     - layouts:
-        - grade-card                - clean | no db
         - master                    - clean
         - page                      - clean
-        - permanent-form            - clean | no db
+        - permanent-form            - wip | no db
+        - permanent-form-back       - tbd
+        - permanent-form-front      - tbd
+        - report-card-7-back        - clean | no db
+        - report-card-7-front       - clean | no db
+        - report-card-8-back        - clean | no db
+        - report-card-8-front       - clean | no db
+        - report-card-9-back        - tbd
+        - report-card-9-front       - tbd
+        - report-card-10-back       - tbd
+        - report-card-10-front      - tbd
     - login:
 
 BLADE STRUCTURE:
