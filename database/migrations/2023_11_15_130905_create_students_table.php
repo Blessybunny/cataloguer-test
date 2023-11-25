@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up () : void {
-        // 2023_11_25_142328_create_students_table
-        // Renamed for testing purposes
+        Schema::dropIfExists('students');
         Schema::create('students', function (Blueprint $table) {
             // ALL -> Learner's information
             $table->id(); // warning: LRN is impossibly long for an integer
