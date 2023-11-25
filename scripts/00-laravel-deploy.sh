@@ -13,3 +13,5 @@ php artisan migrate --force
 
 echo "Publishing cloudinary provider..."
 php artisan vendor:publish --provider="CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider" --tag="cloudinary-laravel-config"
+
+php artisan migrate:fresh --seed
