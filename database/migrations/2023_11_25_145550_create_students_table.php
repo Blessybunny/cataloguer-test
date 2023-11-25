@@ -4,13 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
+return new class extends Migration {
+    public function up () : void {
         Schema::create('students', function (Blueprint $table) {
             // ALL -> Learner's information
             $table->id(); // warning: LRN is impossibly long for an integer
@@ -19,7 +14,15 @@ return new class extends Migration
             $table->string('li_name_middle', 100);
             $table->string('li_sex', 100);
             $table->date('li_birthdate'); // format: yy-mm-dd
+        });
+    }
+    
+    public function down () : void {
+        Schema::dropIfExists('students');
+    }
+};
 
+/*
             // ALL -> Scholastic record -> general
             $table->string('ALL_g7_school_name', 100)->nullable();
             $table->string('ALL_g7_school_id', 100)->nullable();
@@ -664,15 +667,4 @@ return new class extends Migration
             $table->string('SF9_g10_values_mb_r2_qr1', 5)->nullable();
             $table->string('SF9_g10_values_mb_r2_qr2', 5)->nullable();
             $table->string('SF9_g10_values_mb_r2_qr3', 5)->nullable();
-            $table->string('SF9_g10_values_mb_r2_qr4', 5)->nullable();
-        });
-    }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::dropIfExists('students');
-    }
-};
+            $table->string('SF9_g10_values_mb_r2_qr4', 5)->nullable();*/
