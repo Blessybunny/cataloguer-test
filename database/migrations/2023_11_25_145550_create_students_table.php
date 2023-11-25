@@ -11,7 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::drop('students');
         Schema::create('students', function (Blueprint $table) {
             // ALL -> Learner's information
             $table->id(); // warning: LRN is impossibly long for an integer
