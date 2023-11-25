@@ -4,11 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
-    public function up () : void {
-        Schema::create('students', function (Blueprint $table) {
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('sample', function (Blueprint $table) {
             // ALL -> Learner's information
             $table->id(); // warning: LRN is impossibly long for an integer
+            $table->timestamps();
             $table->string('li_name_last', 100);
             $table->string('li_name_first', 100);
             $table->string('li_name_middle', 100);
@@ -662,8 +668,12 @@ return new class extends Migration {
             $table->string('SF9_g10_values_mb_r2_qr4', 5)->nullable();
         });
     }
-    
-    public function down () : void {
-        Schema::dropIfExists('students');
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('sample');
     }
 };
