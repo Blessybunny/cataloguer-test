@@ -5,10 +5,14 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
+    
+    protected $connection = 'pgsql';
+
     public function up () : void {
         Schema::create('students', function (Blueprint $table) {
             // ALL -> Learner's information
             $table->id(); // warning: LRN is impossibly long for an integer
+            $table->timestamps();
             $table->string('li_name_last', 100);
             $table->string('li_name_first', 100);
             $table->string('li_name_middle', 100);
