@@ -4,8 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
-    public function up () : void {
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
         Schema::dropIfExists('students');
         Schema::create('students', function (Blueprint $table) {
             // ALL -> Learner's information
@@ -663,7 +668,12 @@ return new class extends Migration {
             $table->string('SF9_g10_values_mb_r2_qr4', 5)->nullable();
         });
     }
-    public function down() : void {
-        Schema::dropIfExists('students');
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('test');
     }
 };
