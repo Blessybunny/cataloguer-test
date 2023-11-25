@@ -11,6 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('students', function (Blueprint $table) {
+            // ALL -> Learner's information
+            $table->id(); // warning: LRN is impossibly long for an integer
+            $table->string('li_name_last', 100);
+            $table->string('li_name_first', 100);
+            $table->string('li_name_middle', 100);
+            $table->string('li_sex', 100);
+            $table->date('li_birthdate'); // format: yy-mm-dd
+        });
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -27,6 +36,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('students');
         Schema::dropIfExists('users');
     }
 };
