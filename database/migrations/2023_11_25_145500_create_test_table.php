@@ -12,16 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
             // ALL -> Learner's information
             $table->id(); // warning: LRN is impossibly long for an integer
-            $table->timestamps();
             $table->string('li_name_last', 100);
             $table->string('li_name_first', 100);
             $table->string('li_name_middle', 100);
             $table->string('li_sex', 100);
             $table->date('li_birthdate'); // format: yy-mm-dd
-/*
+
             // ALL -> Scholastic record -> general
             $table->string('ALL_g7_school_name', 100)->nullable();
             $table->string('ALL_g7_school_id', 100)->nullable();
@@ -666,7 +664,7 @@ return new class extends Migration
             $table->string('SF9_g10_values_mb_r2_qr1', 5)->nullable();
             $table->string('SF9_g10_values_mb_r2_qr2', 5)->nullable();
             $table->string('SF9_g10_values_mb_r2_qr3', 5)->nullable();
-            $table->string('SF9_g10_values_mb_r2_qr4', 5)->nullable();*/
+            $table->string('SF9_g10_values_mb_r2_qr4', 5)->nullable();
         });
     }
 
