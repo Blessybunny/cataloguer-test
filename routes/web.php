@@ -14,31 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
     
 // LOGIN
-// to-do: place login here
+Route::get('/', 'App\Http\Controllers\StudentController@index');
 
 // DASHBOARD ELEMENTS
-Route::get('/', 'App\Http\Controllers\StudentController@index');
 Route::get('/students', 'App\Http\Controllers\StudentController@index');
-Route::get('/student-viewer', function () { return view('dashboard/student-viewer'); });
-
-
-
-
-
-
-// PRIMARY
-Route::get('/classes', function () { return view('primary/classes'); });
-Route::get('/subjects', function () { return view('primary/subjects'); });
-
-// SECONDARY
-Route::get('/grade-card', function () { return view('secondary/grade-card'); });
-Route::get('/permanent-form', function () { return view('secondary/permanent-form'); });
-Route::get('/semestral-grades', function () { return view('dashboard/semestral-grades'); });
-/*
-Route::get('/login', 'AuthenticationsController@indexLogin')->name('login');
-Route::post('/login', 'AuthenticationsController@login');
-Route::middleware(['auth'])->group(function () {
-    // to-do: place every other web pages in here
-    Route::get('/logout', 'AuthenticationsController@logout');
-    Route::get('/dashboard', 'DashboardsController@index');
-});*/
+Route::get('/students/manager/{id}', 'App\Http\Controllers\StudentController@manage');

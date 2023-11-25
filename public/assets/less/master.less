@@ -17,16 +17,16 @@
 @opacity-step: 0.25;
 
 @color-active: rgb(125, 125, 150);
-@color-border: rgba(#000, @opacity-step);
 @color-table: rgba(#000, (@opacity-step / 2));
 @color-theme: rgb(255,100,0);
 
-@border-all: 1px @color-border solid;
+@border-light: 1px rgba(#000, @opacity-step) solid;
+@border-dark: 1px #000 solid;
 
 @font-common: roboto;
 @font-footer: poppins;
 @font-navigation: poppins;
-@font-header: calibri;
+@font-header: sourceSansPro;
 @font-paper: calibri;
 
 @size-spacing: 30px;
@@ -41,9 +41,9 @@ h1, h2, h3, h4, h5, h6 {
 h5 { margin-bottom: 0; }
 main { margin: calc(@size-spacing * 4) auto calc(@size-spacing * 2) auto; }
 table {
-    border: @border-all !important;
+    border: @border-light !important;
 
-    th, td { border: @border-all; }
+    th, td { border: @border-light; }
     th {
         background-color: @color-table !important;
         font-family: @font-header;
@@ -78,68 +78,9 @@ table {
 .align-middle.left { text-align: left; }
 .align-middle.right { text-align: right; }
 .bold { font-weight: bold; }
+.capitalize { text-transform: capitalize; }
+.hidden { display: none; }
 .uppercase { text-transform: uppercase; }
-.paper {
-    max-width: @size-width-paper;
-    min-width: @size-width-paper;
-    
-    .row, .col { font-family: @font-paper; }
-
-    .report-card-indent-1 {
-        display: inline-block;
-        text-indent: 50px;
-        text-align: justify;
-    }
-    .report-card-indent-2 { text-indent: 25px; }
-    .report-card-width-thin { width: 50px; }
-    .report-card-width-wide { width: 100px; }
-
-}
-
-/* Clean: NAVIGATION / FOOTER */
-#header {
-    border-bottom: @border-all;
-
-    a, h1 { font-family: @font-navigation; }
-}
-#footer {
-    font-family: @font-footer;
-    padding: @size-spacing * 2;
-}
-
-/* Clean: PAGES */
-#student-viewer {
-    /*.nav { margin-bottom: @size-spacing; }*/
-    .nav {
-        border: @border-all;
-        margin-bottom: (@size-spacing / 2);
-        padding: 0;
-    }
-    .nav-link {
-        border-radius: 0;
-        color: @color-theme;
-        font-family: @font-navigation;
-        font-weight: bolder;
-
-        &.active {
-            background-color: rgba(@color-theme, @opacity-step);
-            color: @color-active;
-        }
-    }
-    .tab-content {
-        border: @border-all;
-        overflow: auto;
-        padding: 0;
-    }
-}
-
-
-
-
-
-
-
-
 
 /* CUSTOM */
 .custom-btn {
@@ -156,8 +97,128 @@ table {
 
     &:hover { color: #FFF; }
 }
-.custom-header-bg {
+.custom-header {
     background-color: rgba(@color-theme, @opacity-step);
     margin-bottom: calc(@size-spacing / 2);
     padding: calc(@size-spacing / 4);
+}
+.custom-paper {
+    ::selection { background-color: transparent; }
+
+    cursor: default;
+    max-width: @size-width-paper;
+    min-width: @size-width-paper;
+    
+    .row, .col { font-family: @font-paper; }
+
+    .permanent-form-custom-border-1 { border-right: none; }
+    .permanent-form-custom-border-2 { border-left: none; }
+    .permanent-form-indent { text-indent: 25px; }
+    .permanent-form-no-margin { margin: 0; }
+    .permanent-form-width-thin { width: 50px; }
+    .permanent-form-width-wide { width: 200px; }
+
+    .report-card-indent-1 {
+        display: inline-block;
+        text-indent: 50px;
+        text-align: justify;
+    }
+    .report-card-indent-2 { text-indent: 25px; }
+    .report-card-no-margin { margin: 0; }
+    .report-card-width-thin { width: 50px; }
+    .report-card-width-wide { width: 100px; }
+}
+
+/* NAVIGATION / FOOTER */
+#header {
+    border-bottom: @border-light;
+
+    a, h1 { font-family: @font-navigation; }
+}
+#footer {
+    font-family: @font-footer;
+    padding: @size-spacing * 2;
+}
+
+/* PAGES */
+#manager {
+    /*.nav { margin-bottom: @size-spacing; }*/
+    .nav {
+        border: @border-light;
+        margin-bottom: (@size-spacing / 2);
+        padding: 0;
+    }
+    .nav-link {
+        border-radius: 0;
+        color: @color-theme;
+        font-family: @font-navigation;
+        font-weight: bolder;
+
+        &.active {
+            background-color: rgba(@color-theme, @opacity-step);
+            color: @color-active;
+        }
+    }
+    .tab-content {
+        border: @border-light;
+        overflow: auto;
+        padding: 0;
+    }
+}
+#prompt {
+    border: @border-light;
+    bottom: 0;
+    height: 250px;
+    left: 0;
+    margin: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 500px;
+    z-index: 100;
+
+    &::before {
+        background-color: rgba(#000, @opacity-step);
+        content: "";
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: -2;
+    }
+    &::after {
+        background-color: #FFF;
+        content: "";
+        height: 100%;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: -1;
+    }
+
+    &.visible { display: block; }
+    &.hidden { display: none; }
+}
+
+
+.debug-has-db-assoc {
+    background-color: rgba(rgb(0, 255, 0), 0.25) !important;
+}
+.debug-no-db-assoc {
+    background-color: rgba(red, 0.25) !important;
+}
+
+
+.prompt-toggle {
+    &:hover {
+        background-color: rgba(@color-theme, @opacity-step);
+        cursor: pointer;
+    }
+}
+.report-card-underline {
+    border-bottom: @border-dark;
+    display: inline-block;
+    margin-top: 10px;
+    width: 200px;
 }

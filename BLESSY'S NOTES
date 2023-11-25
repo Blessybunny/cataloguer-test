@@ -1,21 +1,16 @@
 BLADE STATUS:
     - dashboard:
-        - student-viwer             - wip | has db
+        - manager                   - clean | has db
         - students                  - wip | has db
-    - layouts:
+    - primary layouts:
         - master                    - clean
         - page                      - clean
-        - permanent-form            - wip | no db
-        - permanent-form-back       - tbd
-        - permanent-form-front      - tbd
-        - report-card-7-back        - clean | no db
-        - report-card-7-front       - clean | no db
-        - report-card-8-back        - clean | no db
-        - report-card-8-front       - clean | no db
-        - report-card-9-back        - tbd
-        - report-card-9-front       - tbd
-        - report-card-10-back       - tbd
-        - report-card-10-front      - tbd
+    - dashboard layouts:
+        - permanent-form-back       - wip | no db
+        - permanent-form-front      - wip | no db
+        - prompt                    - wip | no db
+        - report-card-back          - wip | has db
+        - report-card-front         - wip | has db
     - login:
 
 BLADE STRUCTURE:
@@ -25,3 +20,11 @@ BLADE STRUCTURE:
         - yield: master-content
     - page:
         - yield: content
+
+						@php
+							$date = new DateTime($student->li_birthdate);
+							$now = new DateTime();
+							$interval = $now->diff($date);
+
+							echo $interval->y;
+						@endphp
