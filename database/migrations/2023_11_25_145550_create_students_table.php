@@ -226,7 +226,7 @@ return new class extends Migration {
             $table->integer('ALL_g10_subject_ap_rem_cm')->nullable();
             $table->integer('ALL_g10_subject_ap_rem_rf')->nullable();
 
-            // ALL -> Scholastic record -> subject -> edukasyon pagpapakatao (ep)
+            // ALL -> Scholastic record -> subject -> edukasyon sa pagpapakatao (ep)
             $table->integer('ALL_g7_subject_ep_qr1')->nullable();
             $table->integer('ALL_g7_subject_ep_qr2')->nullable();
             $table->integer('ALL_g7_subject_ep_qr3')->nullable();
@@ -530,7 +530,7 @@ return new class extends Migration {
             $table->integer('SF9_g10_attendance_a_nov')->nullable();
             $table->integer('SF9_g10_attendance_a_dec')->nullable();
 
-            // SF9 -> observed values -> maka-diyos
+            // SF9 -> observed values -> maka - diyos
             $table->string('SF9_g7_values_md_r1_qr1', 5)->nullable();
             $table->string('SF9_g7_values_md_r1_qr2', 5)->nullable();
             $table->string('SF9_g7_values_md_r1_qr3', 5)->nullable();
@@ -567,7 +567,7 @@ return new class extends Migration {
             $table->string('SF9_g10_values_md_r2_qr3', 5)->nullable();
             $table->string('SF9_g10_values_md_r2_qr4', 5)->nullable();
 
-            // SF9 -> observed values -> maka-tao
+            // SF9 -> observed values -> maka - tao
             $table->string('SF9_g7_values_mt_r1_qr1', 5)->nullable();
             $table->string('SF9_g7_values_mt_r1_qr2', 5)->nullable();
             $table->string('SF9_g7_values_mt_r1_qr3', 5)->nullable();
@@ -604,7 +604,7 @@ return new class extends Migration {
             $table->string('SF9_g10_values_mt_r2_qr3', 5)->nullable();
             $table->string('SF9_g10_values_mt_r2_qr4', 5)->nullable();
 
-            // SF9 -> observed values -> maka-kalikasan
+            // SF9 -> observed values -> maka - kalikasan
             $table->string('SF9_g7_values_mk_qr1', 5)->nullable();
             $table->string('SF9_g7_values_mk_qr2', 5)->nullable();
             $table->string('SF9_g7_values_mk_qr3', 5)->nullable();
@@ -625,7 +625,7 @@ return new class extends Migration {
             $table->string('SF9_g10_values_mk_qr3', 5)->nullable();
             $table->string('SF9_g10_values_mk_qr4', 5)->nullable();
 
-            // SF9 -> observed values -> maka-bansa
+            // SF9 -> observed values -> maka - bansa
             $table->string('SF9_g7_values_mb_r1_qr1', 5)->nullable();
             $table->string('SF9_g7_values_mb_r1_qr2', 5)->nullable();
             $table->string('SF9_g7_values_mb_r1_qr3', 5)->nullable();

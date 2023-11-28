@@ -14,7 +14,7 @@
 				<tr>
 					<th class = "align-middle uppercase" rowspan = "2">Learning Areas</th>
 					<th class = "align-middle uppercase" colspan = "4">Quarter</th>
-					<th class = "align-middle report-card-width-wide uppercase" rowspan = "2">Final Grade</th>
+					<th class = "align-middle report-card-width-wide uppercase" rowspan = "2">Final Rating</th>
 					<th class = "align-middle report-card-width-wide uppercase" rowspan = "2">Remarks</th>
 				</tr>
 				<tr>
@@ -29,8 +29,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_fil_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_fil_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_fil_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_fil_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_fil_remarks"></td>
 				</tr>
 				<tr>
 					<td>English 7</td>
@@ -38,8 +38,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_eng_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_eng_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_eng_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_eng_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_eng_remarks"></td>
 				</tr>
 				<tr>
 					<td>Mathematics 7</td>
@@ -47,8 +47,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_mat_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_mat_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_mat_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mat_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mat_remarks"></td>
 				</tr>
 				<tr>
 					<td>Science 7</td>
@@ -56,8 +56,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_sci_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_sci_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_sci_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_sci_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_sci_remarks"></td>
 				</tr>
 				<tr>
 					<td>Araling Panlipunan (AP) 7</td>
@@ -65,8 +65,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_ap_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_ap_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_ap_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_ap_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_ap_remarks"></td>
 				</tr>
 				<tr>
 					<td>Edukasyon sa Pagpapakatao (EP) 7</td>
@@ -74,8 +74,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_ep_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_ep_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_ep_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_ep_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_ep_remarks"></td>
 				</tr>
 				<tr>
 					<td>Technology and Livelihood Education (TLE) 7</td>
@@ -83,17 +83,17 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_tle_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_tle_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_tle_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_tle_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_tle_remarks"></td>
 				</tr>
 				<tr>
 					<td>MAPEH 7</td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mapeh_qr1_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mapeh_qr2_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mapeh_qr3_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mapeh_qr4_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mapeh_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mapeh_remarks"></td>
 				</tr>
 				<tr>
 					<td class = "report-card-indent-2">Music</td>
@@ -101,8 +101,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_mus_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_mus_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_mus_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mus_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_mus_remarks"></td>
 				</tr>
 				<tr>
 					<td class = "report-card-indent-2">Arts</td>
@@ -110,8 +110,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_art_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_art_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_art_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_art_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_art_remarks"></td>
 				</tr>
 				<tr>
 					<td class = "report-card-indent-2">Physical Education</td>
@@ -119,8 +119,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_pe_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_pe_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_pe_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_pe_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_pe_remarks"></td>
 				</tr>
 				<tr>
 					<td class = "report-card-indent-2">Health</td>
@@ -128,8 +128,8 @@
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_hp_qr2"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_hp_qr3"></td>
 					<td class = "align-middle debug-has-db-assoc prompt-toggle ALL_g{{ $grade }}_subject_hp_qr4"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_hp_average"></td>
+					<td class = "align-middle debug-has-db-assoc ALL_g{{ $grade }}_subject_hp_remarks"></td>
 				</tr>
 			</table>
 

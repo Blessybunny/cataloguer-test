@@ -1,3 +1,7 @@
+NOTES FOR THE FUTURE:
+    - If changes happen in migrations, delete and recreate a new PostgreSQL database.
+    - Values like "SF9_g7_values_mb_r1_qr1" and its naming of "r1" stands for "row 1" or "statement 1".
+
 BLADE STATUS:
     - dashboard:
         - manager                   - clean | has db
@@ -6,9 +10,9 @@ BLADE STATUS:
         - master                    - clean
         - page                      - clean
     - dashboard layouts:
-        - permanent-form-back       - wip | no db
-        - permanent-form-front      - wip | no db
-        - prompt                    - wip | no db
+        - permanent-form-back       - wip | has db
+        - permanent-form-front      - wip | has db
+        - prompt                    - wip | has db
         - report-card-back          - wip | has db
         - report-card-front         - wip | has db
     - login:
@@ -21,10 +25,11 @@ BLADE STRUCTURE:
     - page:
         - yield: content
 
-						@php
-							$date = new DateTime($student->li_birthdate);
-							$now = new DateTime();
-							$interval = $now->diff($date);
+JUNKYARD:
+    @php
+        $date = new DateTime($student->li_birthdate);
+        $now = new DateTime();
+        $interval = $now->diff($date);
 
-							echo $interval->y;
-						@endphp
+        echo $interval->y;
+    @endphp

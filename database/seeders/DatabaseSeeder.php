@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder {
             'ALL_g7_subject_ap_qr3' => 90,
             'ALL_g7_subject_ap_qr4' => 100,
 
-            // ALL -> Scholastic record -> subject -> edukasyon pagpapakatao (ep)
+            // ALL -> Scholastic record -> subject -> edukasyon sa pagpapakatao (ep)
             'ALL_g7_subject_ep_qr1' => 80,
             'ALL_g7_subject_ep_qr2' => 85,
             'ALL_g7_subject_ep_qr3' => 90,
@@ -111,7 +111,7 @@ class DatabaseSeeder extends Seeder {
             'SF9_g7_attendance_a_nov' => 2,
             'SF9_g7_attendance_a_dec' => 2,
 
-            // SF9 -> observed values -> maka-diyos
+            // SF9 -> observed values -> maka - diyos
             'SF9_g7_values_md_r1_qr1' => 'AO',
             'SF9_g7_values_md_r1_qr2' => 'AO',
             'SF9_g7_values_md_r1_qr3' => 'AO',
@@ -121,7 +121,7 @@ class DatabaseSeeder extends Seeder {
             'SF9_g7_values_md_r2_qr3' => 'AO',
             'SF9_g7_values_md_r2_qr4' => 'AO',
 
-            // SF9 -> observed values -> maka-tao
+            // SF9 -> observed values -> maka - tao
             'SF9_g7_values_mt_r1_qr1' => 'AO',
             'SF9_g7_values_mt_r1_qr2' => 'AO',
             'SF9_g7_values_mt_r1_qr3' => 'AO',
@@ -131,13 +131,13 @@ class DatabaseSeeder extends Seeder {
             'SF9_g7_values_mt_r2_qr3' => 'AO',
             'SF9_g7_values_mt_r2_qr4' => 'AO',
 
-            // SF9 -> observed values -> maka-kalikasan
+            // SF9 -> observed values -> maka - kalikasan
             'SF9_g7_values_mk_qr1' => 'AO',
             'SF9_g7_values_mk_qr2' => 'AO',
             'SF9_g7_values_mk_qr3' => 'AO',
             'SF9_g7_values_mk_qr4' => 'AO',
 
-            // SF9 -> observed values -> maka-bansa
+            // SF9 -> observed values -> maka - bansa
             'SF9_g7_values_mb_r1_qr1' => 'AO',
             'SF9_g7_values_mb_r1_qr2' => 'AO',
             'SF9_g7_values_mb_r1_qr3' => 'AO',

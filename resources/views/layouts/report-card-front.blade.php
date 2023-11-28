@@ -203,8 +203,8 @@
 				<tr>
 					<th class = "align-middle uppercase">Total</th>
 					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
-					<td class = "align-middle debug-no-db-assoc"></td>
+					<td class = "align-middle debug-has-db-assoc SF9_g{{ $grade }}_attendance_p_total"></td>
+					<td class = "align-middle debug-has-db-assoc SF9_g{{ $grade }}_attendance_a_total"></td>
 				</tr>
 			</table>
 

@@ -22,7 +22,12 @@ Manager
 
                     <p>TO-DO: Compute a certain grade's age based on the school year's end relative to the birthdate.</p>
                     <p>TO-DO: Create a more unique id for scholastic records to not conflict between other forms/cards.</p>
-                    <p>TO-DO: Create a new table with corresponding school years to make a global access for no. of days</p>
+                    <p>TO-DO: Create a new table with corresponding school years to make a global access for no. of days.</p>
+                    
+                    <hr>
+
+                    <p>CHECKPOINT: work on prompt.</p>
+                    <p>TO-DO: place javascript events under data-labels in prompt.blade.php.</p>
 
                     <!-- Tabs -->
                     <ul class = "nav nav-fill nav-pills" role = "tablist">
@@ -255,7 +260,7 @@ Manager
                         <!-- Permanent form -->
                         <div
                             id = "view-permanent-form-front"
-                            class = "tab-pane fade"
+                            class = "tab-pane fade show active"
                             role = "tabpanel"
                             aria-labelledby = "tab-permanent-form-front">
                             @include('layouts.permanent-form-front', ['student' => $student])
