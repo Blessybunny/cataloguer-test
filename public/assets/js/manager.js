@@ -7,15 +7,16 @@
     const refresh = () => {
         // Variables
         const grades = [7, 8, 9, 10];
-        const months = [`jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`];
-        const subjects = [`fil`, `eng`, `mat`, `sci`, `ap`, `ep`, `tle`, `mus`, `art`, `pe`, `hp`];
-        const mapeh = [`mus`, `art`, `pe`, `hp`];
         const quarters = [1, 2, 3, 4];
+        const mapeh = [`mus`, `art`, `pe`, `hp`];
+        const subjects = [`fil`, `eng`, `mat`, `sci`, `ap`, `ep`, `tle`, `mus`, `art`, `pe`, `hp`];
+
+        const months = [`jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`];
         const threshold = 75;
 
-        // Database
+        // ALL: Attributes
         for (let i = 0, ii = grades.length; i < ii; i++) {
-            const database = [
+            const attributes = [
                 // ALL -> Scholastic record -> subject -> filipino
                 `ALL_g${grades[i]}_subject_fil_qr1`,
                 `ALL_g${grades[i]}_subject_fil_qr2`,
@@ -147,19 +148,19 @@
                 `SF9_g${grades[i]}_values_mb_r2_qr4`,
             ];
 
-            for (let j = 0, jj = database.length; j < jj; j++) {
-                const input = document.getElementsByClassName(database[j]);
-                const value = document.getElementById(database[j]).value;
-            
+            for (let j = 0, jj = attributes.length; j < jj; j++) {
+                const input = document.querySelectorAll(`[data-attribute = "${attributes[j]}"]`);
+                const value = document.getElementById(attributes[j]).value;
+                
                 for (let k = 0, kk = input.length; k < kk; k++) input[k].innerHTML = value;
             }
         }
 
-        // Rating: Grades
+        // SF9-10: Grade computation
         for (let i = 0, ii = grades.length; i < ii; i++) {
             for (let j = 0, jj = subjects.length; j < jj; j++) {
-                const average = document.getElementsByClassName(`ALL_g${grades[i]}_subject_${subjects[j]}_average`);
-                const remarks = document.getElementsByClassName(`ALL_g${grades[i]}_subject_${subjects[j]}_remarks`);
+                const average = document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_${subjects[j]}_average"]`);
+                const remarks = document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_${subjects[j]}_remarks"]`);
 
                 let total = 0;
                 let remark = ``;
@@ -176,16 +177,16 @@
             }
         }
 
-        // Rating: MAPEH
+        // SF9-10: MAPEH computation
         for (let i = 0, ii = grades.length; i < ii; i++) {
-            const average = document.getElementsByClassName(`ALL_g${grades[i]}_subject_mapeh_average`);
-            const remarks = document.getElementsByClassName(`ALL_g${grades[i]}_subject_mapeh_remarks`);
+            const average = document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_mapeh_average"]`);
+            const remarks = document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_mapeh_remarks"]`);
 
             let totalAll = 0;
             let remarkAll = ``;
             
             for (let j = 0, jj = quarters.length; j < jj; j++) {
-                const quarterAverage = document.getElementsByClassName(`ALL_g${grades[i]}_subject_mapeh_qr${quarters[j]}_average`);
+                const quarterAverage = document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_mapeh_qr${quarters[j]}_average"]`);
 
                 let totalQuarter = 0;
 
@@ -208,19 +209,17 @@
             }
         }
 
-        // Rating: Final Rating
+        // SF9-10: All computation
         for (let i = 0, ii = grades.length; i < ii; i++) {
-            const average = document.getElementsByClassName(`ALL_g${grades[i]}_subject_all_average`);
-            const remarks = document.getElementsByClassName(`ALL_g${grades[i]}_subject_all_remarks`);
+            const average = document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_all_average"]`);
+            const remarks = document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_all_remarks"]`);
 
             let total = 0;
             let remark = ``;
 
-            for (let j = 0, jj = subjects.length; j < jj; j++) {
-                total += parseInt(document.getElementsByClassName(`ALL_g${grades[i]}_subject_${subjects[j]}_average`)[0].innerHTML);
-            }
+            for (let j = 0, jj = subjects.length; j < jj; j++) total += parseInt(document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_${subjects[j]}_average"]`)[0].innerHTML);
 
-            total += parseInt(document.getElementsByClassName(`ALL_g${grades[i]}_subject_mapeh_average`)[0].innerHTML);
+            total += parseInt(document.querySelectorAll(`[data-attribute = "ALL_g${grades[i]}_subject_mapeh_average"]`)[0].innerHTML);
 
             if (!isNaN(total) && total > 0) {
                 total = Math.round(total / (subjects.length + 1));
@@ -231,10 +230,10 @@
             }
         }
 
-        // Attendance
+        // SF9: Attendance
         for (let i = 0, ii = grades.length; i < ii; i++) {
-            const present = document.getElementsByClassName(`SF9_g${grades[i]}_attendance_p_total`);
-            const absent = document.getElementsByClassName(`SF9_g${grades[i]}_attendance_a_total`);
+            const present = document.querySelectorAll(`[data-attribute = "SF9_g${grades[i]}_attendance_p_total`);
+            const absent = document.querySelectorAll(`[data-attribute = "SF9_g${grades[i]}_attendance_a_total`);
 
             let totalPresent = 0;
             let totalAbsent = 0;
@@ -253,24 +252,57 @@
 
     window.onload = () => refresh();
 
-    // PROMPT
-    const prompt = document.getElementById(`prompt`);
+    // FORM
+    (() => {
+        // DOM
+        const form = document.getElementById(`form`);
+        const labelA = document.createElement(`h5`);
+        const labelB = document.createElement(`h6`);
     
-    // Temporary close toggle
-    prompt.addEventListener(`click`, () => {
-        prompt.classList.add(`hidden`);
-        prompt.classList.remove(`close`);
-    });
+        labelA.className = `label-a`;
+        labelB.className = `label-b`;
+    
+        form.insertBefore(labelA, form.children[0]);
+        form.insertBefore(labelB, form.children[1]);
+    
+        labelA.innerHTML = `Label A`;
+        labelB.innerHTML = `Label B`;
+    
+        // Temp close
+        let lastOpenedEditable = undefined;
+/*
+        form.addEventListener(`click`, () => {
+            form.classList.add(`hidden`);
+            form.classList.remove(`visible`);
+    
+            refresh();
 
-    // Variables
-    const tables = document.getElementsByClassName(`prompt-toggle`);
+            lastOpenedEditable.classList.add(`hidden`);
+            lastOpenedEditable.classList.remove(`visible`);
+        });*/
 
-    for (let i = 0, ii = tables.length; i < ii; i++) {
-        tables[i].addEventListener(`click`, function () {
-            // Toggle
-            prompt.classList.add(`visible`);
-            prompt.classList.remove(`hidden`);
-        });
-    }
+        // oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+        /*
+            TO-DO: add attribute "data-restrictions" for "numeric"
+                data-restrictions = "string" should contain 100 characters max as per database rules
+        */
+        // Editables
+        const editables = document.querySelectorAll(`[data-editable = "true"]`);
+        
+        for (let i = 0, ii = editables.length; i < ii; i++) {
+            editables[i].addEventListener(`click`, function () {
+                form.classList.add(`visible`);
+                form.classList.remove(`hidden`);
+
+                lastOpenedEditable = document.getElementById(editables[i].dataset.attribute);
+
+                lastOpenedEditable.classList.add(`visible`);
+                lastOpenedEditable.classList.remove(`hidden`);
+    
+                labelA.innerHTML = lastOpenedEditable.dataset.labelA;
+                labelB.innerHTML = lastOpenedEditable.dataset.labelB;
+            });
+        }
+    })();
 })();
 

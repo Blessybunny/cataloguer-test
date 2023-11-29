@@ -10,9 +10,9 @@ BLADE STATUS:
         - master                    - clean
         - page                      - clean
     - dashboard layouts:
+        - form                      - wip | has db
         - permanent-form-back       - wip | has db
         - permanent-form-front      - wip | has db
-        - prompt                    - wip | has db
         - report-card-back          - wip | has db
         - report-card-front         - wip | has db
     - login:

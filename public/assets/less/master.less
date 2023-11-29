@@ -50,22 +50,6 @@ table {
     }
 }
 
-    
-    /* Table */
-
-    /* Input */
-    input[type = 'checkbox'] {
-        height: 20px;
-        vertical-align: middle;
-        width: 20px;
-    }
-    label {
-        display: inline-block;
-        padding-right: 10px;
-        white-space: nowrap;
-    }
-    span { vertical-align: middle; }
-
 /* BOOTSTRAP */
 .container, .container-fluid { padding: @size-spacing @size-spacing calc(@size-spacing / 2) @size-spacing; }
 .row {
@@ -81,6 +65,7 @@ table {
 .capitalize { text-transform: capitalize; }
 .hidden { display: none; }
 .uppercase { text-transform: uppercase; }
+.visible { display: block; }
 
 /* CUSTOM */
 .custom-btn {
@@ -142,7 +127,6 @@ table {
 
 /* PAGES */
 #manager {
-    /*.nav { margin-bottom: @size-spacing; }*/
     .nav {
         border: @border-light;
         margin-bottom: (@size-spacing / 2);
@@ -153,11 +137,10 @@ table {
         color: @color-theme;
         font-family: @font-navigation;
         font-weight: bolder;
-
-        &.active {
-            background-color: rgba(@color-theme, @opacity-step);
-            color: @color-active;
-        }
+    }
+    .nav-link.active {
+        background-color: rgba(@color-theme, @opacity-step);
+        color: @color-active;
     }
     .tab-content {
         border: @border-light;
@@ -165,16 +148,17 @@ table {
         padding: 0;
     }
 }
-#prompt {
+#form {
     border: @border-light;
     bottom: 0;
     height: 250px;
     left: 0;
     margin: auto;
+    padding: calc(@size-spacing / 2);
     position: fixed;
     right: 0;
     top: 0;
-    width: 500px;
+    width: 720px;
     z-index: 100;
 
     &::before {
@@ -191,23 +175,26 @@ table {
         background-color: #FFF;
         content: "";
         height: 100%;
+        left: 0;
         position: absolute;
         top: 0;
         width: 100%;
         z-index: -1;
     }
 
-    &.visible { display: block; }
-    &.hidden { display: none; }
+    .label-a { text-align: center; }
+    .label-b {
+        border-bottom: @border-light;
+        padding-bottom: calc(@size-spacing / 2);
+        text-align: center;
+    }
+    
 }
 
 
-.debug-has-db-assoc {
-    background-color: rgba(rgb(0, 255, 0), 0.25) !important;
-}
-.debug-no-db-assoc {
-    background-color: rgba(red, 0.25) !important;
-}
+.debug-db { background-color: rgba(blue, 0.25) !important; }
+.debug-js { background-color: rgba(orange, 0.25) !important; }
+.debug-xx { background-color: rgba(red, 0.25) !important; }
 
 
 .prompt-toggle {
@@ -222,3 +209,16 @@ table {
     margin-top: 10px;
     width: 200px;
 }
+
+/* PENDING CHECK *//*
+input [type = 'checkbox'] {
+    height: 20px;
+    vertical-align: middle;
+    width: 20px;
+}
+label {
+    display: inline-block;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+span { vertical-align: middle; }*/
