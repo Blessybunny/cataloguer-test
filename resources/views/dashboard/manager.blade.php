@@ -1,4 +1,4 @@
-@extends('layouts.page')
+@extends('layouts.general.page')
 
 @section('title')
 Manager
@@ -26,9 +26,6 @@ Manager
                 <hr>
 
                 <p>CHECKPOINT: work on prompt.</p>
-                <p>TO-DO: place javascript events under data-labels in prompt.blade.php.</p>
-                <p>TO-DO: place javascript events under data-labels in prompt.blade.php.</p>
-                <p>TO-DO: create an illusionary drop-down for core values that will act as an interchanger for the input tag of it.</p>
 
                 <!-- Tabs -->
                 <ul class = "nav nav-fill nav-pills" role = "tablist">
@@ -197,17 +194,17 @@ Manager
                     <!-- Report card 7 -->
                     <div
                         id = "view-report-card-7-front"
-                        class = "tab-pane fade show active"
+                        class = "tab-pane fade"
                         role = "tabpanel"
                         aria-labelledby = "tab-report-card-7-front">
-                        @include('layouts.report-card-front', ['student' => $student, 'grade' => 7])
+                        @include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 7])
                     </div>
                     <div
                         id = "view-report-card-7-back"
-                        class = "tab-pane fade"
+                        class = "tab-pane fade show active"
                         role = "tabpanel"
                         aria-labelledby = "tab-report-card-7-back">
-                        @include('layouts.report-card-back', ['student' => $student, 'grade' => 7])
+                        @include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 7])
                     </div>
 
                     <!-- Report card 8 -->
@@ -216,14 +213,14 @@ Manager
                         class = "tab-pane fade"
                         role = "tabpanel"
                         aria-labelledby = "tab-report-card-8-front">
-                        @include('layouts.report-card-front', ['student' => $student, 'grade' => 8])
+                        @include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 8])
                     </div>
                     <div
                         id = "view-report-card-8-back"
                         class = "tab-pane fade"
                         role = "tabpanel"
                         aria-labelledby = "tab-report-card-8-back">
-                        @include('layouts.report-card-back', ['student' => $student, 'grade' => 8])
+                        @include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 8])
                     </div>
 
                     <!-- Report card 9 -->
@@ -232,14 +229,14 @@ Manager
                         class = "tab-pane fade"
                         role = "tabpanel"
                         aria-labelledby = "tab-report-card-9-front">
-                        @include('layouts.report-card-front', ['student' => $student, 'grade' => 9])
+                        @include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 9])
                     </div>
                     <div
                         id = "view-report-card-9-back"
                         class = "tab-pane fade"
                         role = "tabpanel"
                         aria-labelledby = "tab-report-card-9-back">
-                        @include('layouts.report-card-back', ['student' => $student, 'grade' => 9])
+                        @include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 9])
                     </div>
 
                     <!-- Report card 10 -->
@@ -248,14 +245,14 @@ Manager
                         class = "tab-pane fade"
                         role = "tabpanel"
                         aria-labelledby = "tab-report-card-10-front">
-                        @include('layouts.report-card-front', ['student' => $student, 'grade' => 10])
+                        @include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 10])
                     </div>
                     <div
                         id = "view-report-card-10-back"
                         class = "tab-pane fade"
                         role = "tabpanel"
                         aria-labelledby = "tab-report-card-10-back">
-                        @include('layouts.report-card-back', ['student' => $student, 'grade' => 10])
+                        @include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 10])
                     </div>
 
                     <!-- Permanent form -->
@@ -264,14 +261,14 @@ Manager
                         class = "tab-pane fade show active"
                         role = "tabpanel"
                         aria-labelledby = "tab-permanent-form-front">
-                        @include('layouts.permanent-form-front', ['student' => $student])
+                        @include('layouts.manager.sf10-front', ['student' => $student])
                     </div>
                     <div
                         id = "view-permanent-form-back"
                         class = "tab-pane fade"
                         role = "tabpanel"
                         aria-labelledby = "tab-permanent-form-back">
-                        @include('layouts.permanent-form-back', ['student' => $student])
+                        @include('layouts.manager.sf10-back', ['student' => $student])
                     </div>
 
                 </div>

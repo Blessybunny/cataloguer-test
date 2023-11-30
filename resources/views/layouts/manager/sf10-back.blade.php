@@ -9,10 +9,10 @@
 		</div>
 		
 		<!-- Grade 9 -->
-		@include('layouts.permanent-form-grade', ['grade' => 9])
+		@include('layouts.manager.sf10-grade', ['grade' => 9])
 
 		<!-- Grade 10 -->
-		@include('layouts.permanent-form-grade', ['grade' => 10])
+		@include('layouts.manager.sf10-grade', ['grade' => 10])
 		
 		<!-- Grade X -->
 		<div class = "col-12">

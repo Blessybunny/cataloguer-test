@@ -115,10 +115,10 @@
 		</div>
 
 		<!-- Grade 7 -->
-		@include('layouts.permanent-form-grade', ['grade' => 7])
+		@include('layouts.manager.sf10-grade', ['grade' => 7])
 
 		<!-- Grade 8 -->
-		@include('layouts.permanent-form-grade', ['grade' => 8])
+		@include('layouts.manager.sf10-grade', ['grade' => 8])
 
 		<!-- Certification -->
 		<div class = "col-12">

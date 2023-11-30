@@ -202,7 +202,7 @@
 				</tr>
 				<tr>
 					<td>Shows adherence to ethical principles by upholding truth.</td>
-					<td class = "align-middle debug-db" data-editable = "true" data-attribute = "SF9_g{{ $grade }}_values_md_r1_qr1"></td>
+					<td class = "align-middle debug-db" data-editable = "true" data-attribute = "SF9_g{{ $grade }}_values_md_r2_qr1"></td>
 					<td class = "align-middle debug-db" data-editable = "true" data-attribute = "SF9_g{{ $grade }}_values_md_r2_qr2"></td>
 					<td class = "align-middle debug-db" data-editable = "true" data-attribute = "SF9_g{{ $grade }}_values_md_r2_qr3"></td>
 					<td class = "align-middle debug-db" data-editable = "true" data-attribute = "SF9_g{{ $grade }}_values_md_r2_qr4"></td>

@@ -255,23 +255,19 @@
     // FORM
     (() => {
         // DOM
-        const form = document.getElementById(`form`);
-        const labelA = document.createElement(`h5`);
-        const labelB = document.createElement(`h6`);
+        const form = document.getElementById(`form-wrapper`);
+        const close = document.createElement(`div`);
     
-        labelA.className = `label-a`;
-        labelB.className = `label-b`;
+        close.className = `close`;
     
-        form.insertBefore(labelA, form.children[0]);
-        form.insertBefore(labelB, form.children[1]);
+        form.insertBefore(close, form.children[0]);
     
-        labelA.innerHTML = `Label A`;
-        labelB.innerHTML = `Label B`;
+        close.innerHTML = `X`;
     
-        // Temp close
+        // Toggle: Close
         let lastOpenedEditable = undefined;
-/*
-        form.addEventListener(`click`, () => {
+
+        close.addEventListener(`click`, function () {
             form.classList.add(`hidden`);
             form.classList.remove(`visible`);
     
@@ -279,14 +275,9 @@
 
             lastOpenedEditable.classList.add(`hidden`);
             lastOpenedEditable.classList.remove(`visible`);
-        });*/
+        });
 
-        // oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-        /*
-            TO-DO: add attribute "data-restrictions" for "numeric"
-                data-restrictions = "string" should contain 100 characters max as per database rules
-        */
-        // Editables
+        // Toggle: Open
         const editables = document.querySelectorAll(`[data-editable = "true"]`);
         
         for (let i = 0, ii = editables.length; i < ii; i++) {
@@ -299,8 +290,38 @@
                 lastOpenedEditable.classList.add(`visible`);
                 lastOpenedEditable.classList.remove(`hidden`);
     
-                labelA.innerHTML = lastOpenedEditable.dataset.labelA;
-                labelB.innerHTML = lastOpenedEditable.dataset.labelB;
+                document.getElementById(`form-label-a`).innerHTML = lastOpenedEditable.dataset.labelA;
+                document.getElementById(`form-label-b`).innerHTML = lastOpenedEditable.dataset.labelB;
+            });
+        }
+
+        // Type: Grade
+        const grades = document.querySelectorAll(`[data-input-type = "grade"]`);
+
+        for (let i = 0, ii = grades.length; i < ii; i++) {
+            grades[i].addEventListener(`input`, function () {
+                const min = parseInt(this.dataset.inputMin);
+                const max = parseInt(this.dataset.inputMax);
+
+                this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                
+                if (this.value < min) this.value = min;
+                if (this.value > max) this.value = max;
+            });
+        }
+
+        // Type: Date
+        const dates = document.querySelectorAll(`[data-input-type = "date"]`);
+
+        for (let i = 0, ii = dates.length; i < ii; i++) {
+            dates[i].addEventListener(`input`, function () {
+                const min = parseInt(this.dataset.inputMin);
+                const max = parseInt(this.dataset.inputMax);
+
+                this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+                
+                if (this.value < min) this.value = min;
+                if (this.value > max) this.value = max;
             });
         }
     })();

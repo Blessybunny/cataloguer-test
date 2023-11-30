@@ -1,4 +1,4 @@
-@extends('layouts.page')
+@extends('layouts.general.page')
 
 @section('title')
 Students
