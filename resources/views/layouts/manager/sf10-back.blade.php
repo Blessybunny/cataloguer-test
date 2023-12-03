@@ -53,14 +53,14 @@
 				<tr>
 					<th class = "align-middle uppercase" colspan = "2" rowspan = "2">Learning Areas</th>
 					<th class = "align-middle uppercase" colspan = "4">Quarter</th>
-					<th class = "align-middle permanent-form-width-wide uppercase" rowspan = "2">Final Rating</th>
-					<th class = "align-middle permanent-form-width-wide uppercase" rowspan = "2">Remarks</th>
+					<th class = "align-middle sf10-width-wide uppercase" rowspan = "2">Final Rating</th>
+					<th class = "align-middle sf10-width-wide uppercase" rowspan = "2">Remarks</th>
 				</tr>
 				<tr>
-					<th class = "align-middle permanent-form-width-thin">1st</th>
-					<th class = "align-middle permanent-form-width-thin">2nd</th>
-					<th class = "align-middle permanent-form-width-thin">3rd</th>
-					<th class = "align-middle permanent-form-width-thin">4th</th>
+					<th class = "align-middle sf10-width-thin">1st</th>
+					<th class = "align-middle sf10-width-thin">2nd</th>
+					<th class = "align-middle sf10-width-thin">3rd</th>
+					<th class = "align-middle sf10-width-thin">4th</th>
 				</tr>
 				<tr>
 					<td colspan = "2">Filipino</td>
@@ -135,7 +135,7 @@
 					<td class = "align-middle"></td>
 				</tr>
 				<tr>
-					<td class = "permanent-form-indent" colspan = "2">Music</td>
+					<td class = "sf10-indent" colspan = "2">Music</td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
@@ -144,7 +144,7 @@
 					<td class = "align-middle"></td>
 				</tr>
 				<tr>
-					<td class = "permanent-form-indent" colspan = "2">Arts</td>
+					<td class = "sf10-indent" colspan = "2">Arts</td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
@@ -153,7 +153,7 @@
 					<td class = "align-middle"></td>
 				</tr>
 				<tr>
-					<td class = "permanent-form-indent" colspan = "2">Physical Education</td>
+					<td class = "sf10-indent" colspan = "2">Physical Education</td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
@@ -162,7 +162,7 @@
 					<td class = "align-middle"></td>
 				</tr>
 				<tr>
-					<td class = "permanent-form-indent" colspan = "2">Health</td>
+					<td class = "sf10-indent" colspan = "2">Health</td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
 					<td class = "align-middle"></td>
@@ -171,8 +171,8 @@
 					<td class = "align-middle"></td>
 				</tr>
 				<tr>
-					<th class = "permanent-form-custom-border-1" colspan = "2"></th>
-					<th class = "align-middle permanent-form-custom-border-2 uppercase" colspan = "4">General Average</th>
+					<th class = "sf10-custom-border-1" colspan = "2"></th>
+					<th class = "align-middle sf10-custom-border-2 uppercase" colspan = "4">General Average</th>
 					<td></td>
 					<td></td>
 				</tr>

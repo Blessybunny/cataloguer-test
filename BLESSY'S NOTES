@@ -1,6 +1,5 @@
 NOTES FOR THE FUTURE:
     - If changes happen in migrations, delete and recreate a new PostgreSQL database.
-    - Values like "SF9_g7_values_mb_r1_qr1" and its naming of "r1" stands for "row 1" or "statement 1".
 
 BLADE STATUS:
     - dashboard:
@@ -33,3 +32,198 @@ JUNKYARD:
 
         echo $interval->y;
     @endphp
+
+
+
+
+        // Phineas And Ferb
+            Student::create([
+            'li_name_last' => 'Fletcher',
+            'li_name_first' => 'Ferb',
+            'li_name_middle' => 'F',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Flynn',
+            'li_name_first' => 'Candace',
+            'li_name_middle' => 'F',
+            'li_sex' => 'Female',
+            'li_birthdate' => '2008-11-11',
+        ]);
+
+        // Star Vs. The Forces Of Evil
+        Student::create([
+            'li_name_last' => 'Diaz',
+            'li_name_first' => 'Marco',
+            'li_name_middle' => 'D',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Banana',
+            'li_name_first' => 'Janna',
+            'li_name_middle' => 'B',
+            'li_sex' => 'Female',
+            'li_birthdate' => '2008-11-11',
+        ]);
+
+        // Gravity Falls
+        Student::create([
+            'li_name_last' => 'Pines',
+            'li_name_first' => 'Dipper',
+            'li_name_middle' => 'P',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Pines',
+            'li_name_first' => 'Mabel',
+            'li_name_middle' => 'P',
+            'li_sex' => 'Female',
+            'li_birthdate' => '2008-11-11',
+        ]);
+
+        // Regular Show
+        Student::create([
+            'li_name_last' => 'Jay',
+            'li_name_first' => 'Mordecai',
+            'li_name_middle' => 'J',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Raccoon',
+            'li_name_first' => 'Rigby',
+            'li_name_middle' => 'R',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+
+        // Infinity Train
+        Student::create([
+            'li_name_last' => 'Olsen',
+            'li_name_first' => 'Tulip',
+            'li_name_middle' => 'O',
+            'li_sex' => 'Female',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Hughes',
+            'li_name_first' => 'Amelia',
+            'li_name_middle' => 'H',
+            'li_sex' => 'Female',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Cosay',
+            'li_name_first' => 'Jesie',
+            'li_name_middle' => 'C',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Monroe',
+            'li_name_first' => 'Grace',
+            'li_name_middle' => 'M',
+            'li_sex' => 'Female',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Laurent',
+            'li_name_first' => 'Simon',
+            'li_name_middle' => 'L',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Akagi',
+            'li_name_first' => 'Ryan',
+            'li_name_middle' => 'A',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Park',
+            'li_name_first' => 'Min-Gi',
+            'li_name_middle' => 'P',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+
+        // The Amazing World Of Gumball
+        Student::create([
+            'li_name_last' => 'Watterson',
+            'li_name_first' => 'Gumball',
+            'li_name_middle' => 'W',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Watterson',
+            'li_name_first' => 'Darwin',
+            'li_name_middle' => 'W',
+            'li_sex' => 'Male',
+            'li_birthdate' => '2008-11-11',
+        ]);
+        Student::create([
+            'li_name_last' => 'Watterson',
+            'li_name_first' => 'Anais',
+            'li_name_middle' => 'W',
+            'li_sex' => 'Female',
+            'li_birthdate' => '2008-11-11',
+        ]);
+
+
+
+
+        <!-- 02 | ALL -> Scholastic record -> general -->
+            <div>
+                <input
+                    name = "ALL_g{{ $i }}_school_name"
+                    id = "ALL_g{{ $i }}_school_name"
+                    class = "hidden"
+                    type = "text"
+                    value = "{{ $student->{'ALL_g'.$i.'_school_name'} }}"
+                    data-input-type = "string"
+                    data-input-length = "100"
+                    data-label-a = "Scholastic Record"
+                    data-label-b = "School Name"
+                >
+                <input
+                    name = "ALL_g{{ $i }}_school_id"
+                    id = "ALL_g{{ $i }}_school_id"
+                    class = "hidden"
+                    type = "text"
+                    value = "{{ $student->{'ALL_g'.$i.'_school_id'} }}"
+                    data-input-type = "string"
+                    data-input-length = "100"
+                    data-label-a = "Scholastic Record"
+                    data-label-b = "School ID"
+                >
+                <input
+                    name = "ALL_g{{ $i }}_school_grade"
+                    id = "ALL_g{{ $i }}_school_grade"
+                    class = "hidden"
+                    type = "text"
+                    value = "{{ $student->{'ALL_g'.$i.'_school_grade'} }}"
+                    data-input-type = "string"
+                    data-input-length = "100"
+                    data-label-a = "Scholastic Record"
+                    data-label-b = "Grade"
+                >
+
+                <!--
+                
+                
+            $table->string('', 100)->nullable();
+            $table->string('', 100)->nullable();
+            $table->string('_school_section', 100)->nullable();
+            $table->string('_school_year', 100)->nullable();
+            $table->string('_school_district', 100)->nullable();
+            $table->string('_school_division', 100)->nullable();
+            $table->string('_school_region', 100)->nullable();
+            $table->string('_school_teacher', 100)->nullable();
+             -->
+             <div>
+            </div>

@@ -18,4 +18,5 @@ Route::get('/', 'App\Http\Controllers\StudentController@index');
 
 // DASHBOARD ELEMENTS
 Route::get('/students', 'App\Http\Controllers\StudentController@index');
-Route::get('/students/manager/{id}', 'App\Http\Controllers\StudentController@manage');
+Route::get('/students/manager/{id}', 'App\Http\Controllers\StudentController@edit');
+Route::post('/students/manager/{id}', 'App\Http\Controllers\StudentController@save');

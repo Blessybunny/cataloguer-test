@@ -16,7 +16,7 @@ Students
 					
 					<table class = "table">
 						<tr>
-							<th class = "align-middle" style = "width: 150px">LRN</th>
+							<th class = "align-middle" style = "width: 150px">ID (not lrn)</th>
 							<th class = "align-middle">Name</th>
 							<th class = "align-middle">Grade</th>
 							<th class = "align-middle">Section</th>
@@ -24,7 +24,7 @@ Students
 						</tr>
 						@foreach ($students as $student)
 							<tr>
-								<td>01-0001-{{ $student->id }}</td>
+								<td>{{ $student->id }}</td>
 								<td>
 									<span class = "uppercase">{{ $student->li_name_last }},</span>
 									{{ $student->li_name_first }} {{ $student->li_name_middle }}.

@@ -7,7 +7,6 @@
     font-family: roboto;
     src: url(../font/roboto-regular.ttf);
 }
-/*unused*/
 @font-face {
     font-family: sourceSansPro;
     src: url(../font/source-sans-pro-regular.otf);
@@ -16,7 +15,6 @@
 /* LESS */
 @opacity-step: 0.25;
 
-@color-active: rgb(125, 125, 150);
 @color-table: rgba(#000, (@opacity-step / 2));
 @color-theme: rgb(255,100,0);
 
@@ -30,7 +28,7 @@
 @font-paper: calibri;
 
 @size-spacing: 30px;
-@size-width-paper: 1250px; /* Only affects permanent form and grade card */
+@size-width-paper: 1250px;
 
 /* HTML */
 h1, h2, h3, h4, h5, h6 {
@@ -96,22 +94,33 @@ table {
     
     .row, .col { font-family: @font-paper; }
 
-    .permanent-form-custom-border-1 { border-right: none; }
-    .permanent-form-custom-border-2 { border-left: none; }
-    .permanent-form-indent { text-indent: 25px; }
-    .permanent-form-no-margin { margin: 0; }
-    .permanent-form-width-thin { width: 50px; }
-    .permanent-form-width-wide { width: 200px; }
+    .debug-field { background-color: rgba(blue, 0.25) !important; }
+    .debug-compute { background-color: rgba(orange, 0.25) !important; }
+    .debug-none { background-color: rgba(red, 0.25) !important; }
 
-    .report-card-indent-1 {
+    .all-custom-border {
+        border-bottom: none;
+        border-top: none;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .sf10-custom-border-1 { border-right: none; }
+    .sf10-custom-border-2 { border-left: none; }
+    .sf10-indent { text-indent: 25px; }
+    .sf10-no-margin { margin: 0; }
+    .sf10-width-thin { width: 50px; }
+    .sf10-width-wide { width: 200px; }
+
+    .sf9-indent-1 {
         display: inline-block;
         text-indent: 50px;
         text-align: justify;
     }
-    .report-card-indent-2 { text-indent: 25px; }
-    .report-card-no-margin { margin: 0; }
-    .report-card-width-thin { width: 50px; }
-    .report-card-width-wide { width: 100px; }
+    .sf9-indent-2 { text-indent: 25px; }
+    .sf9-no-margin { margin: 0; }
+    .sf9-width-thin { width: 50px; }
+    .sf9-width-wide { width: 100px; }
 }
 
 /* NAVIGATION / FOOTER */
@@ -125,23 +134,39 @@ table {
     padding: @size-spacing * 2;
 }
 
-/* PAGES */
+/* MANAGER */
 #manager {
     .nav {
         border: @border-light;
         margin-bottom: (@size-spacing / 2);
-        padding: 0;
     }
     .nav-link {
         border-radius: 0;
         color: @color-theme;
+        cursor: pointer;
         font-family: @font-navigation;
+        font-size: 14px;
         font-weight: bolder;
     }
-    .nav-link.active {
-        background-color: rgba(@color-theme, @opacity-step);
-        color: @color-active;
+
+    .nav-item:hover,
+    .nav-link:active,
+    .nav-link.active,
+    .dropdown-item:hover,
+    .dropdown-item:active,
+    .dropdown-item.active { background-color: rgba(@color-theme, @opacity-step); }
+
+    .dropdown-menu { border-radius: 0; }
+
+    .dropdown-item {
+        color: @color-theme;
+        cursor: pointer;
+        font-family: @font-navigation;
+        font-size: 14px;
     }
+    .dropdown-item:active,
+    .dropdown-item.active { color: @color-theme; }
+
     .tab-content {
         border: @border-light;
         overflow: auto;
@@ -151,6 +176,7 @@ table {
 #form-wrapper {
     border: @border-light;
     bottom: 0;
+    cursor: default;
     height: 180px;
     left: 0;
     margin: auto;
@@ -182,23 +208,10 @@ table {
         z-index: -1;
     }
 
-    .close {
-        align-items: center;
-        background-color: rgba(red, 0.5);
-        color: #FFF;
-        cursor: pointer;
-        display: flex;
-        font-weight: bold;
-        height: 30px;
-        justify-content: center;
-        position: absolute;
-        right: calc(@size-spacing / 2);
-        width: 30px;
-        z-index: 100;
-    }
 
-    select {
+    select, input {
         appearance: none;
+        border: @border-light;
         font-size: 20px;
         height: 70px;
         left: 0;
@@ -211,27 +224,34 @@ table {
     }
     option { text-align: left; }
 }
-
-.debug-db { background-color: rgba(blue, 0.25) !important; }
-.debug-js { background-color: rgba(orange, 0.25) !important; }
-.debug-xx { background-color: rgba(red, 0.25) !important; }
-
-
-.prompt-toggle {
-    &:hover {
-        background-color: rgba(@color-theme, @opacity-step);
-        cursor: pointer;
-    }
+#form-close {
+    align-items: center;
+    background-color: rgba(red, 0.5);
+    color: #FFF;
+    cursor: pointer;
+    display: flex;
+    font-weight: bold;
+    height: 30px;
+    justify-content: center;
+    position: absolute;
+    right: calc(@size-spacing / 2);
+    width: 30px;
+    z-index: 100;
 }
-.report-card-underline {
+
+
+
+
+/* PENDING CHECK */
+
+
+.sf9-underline {
     border-bottom: @border-dark;
     display: inline-block;
     margin-top: 10px;
     width: 200px;
 }
-
-/* PENDING CHECK */
-input [type = 'checkbox'] {
+input [type=checkbox] {
     height: 30px;
     vertical-align: middle;
     width: 30px;

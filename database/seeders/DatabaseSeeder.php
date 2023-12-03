@@ -7,83 +7,126 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
     public function run () : void {
-        // Phineas And Ferb
+        self::student_1();
+    }
+
+    public function student_1 () : void {
+        // 01 | ALL -> learner's information
         Student::create([
-            // ALL -> Learner's information
+            'li_learner_reference_number' => '01-0001-001',
             'li_name_last' => 'Flynn',
             'li_name_first' => 'Phineas',
             'li_name_middle' => 'F',
             'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
+            'li_birthdate_year' => '2007',
+            'li_birthdate_month' => '9',
+            'li_birthdate_day' => '17',
+        ]);
 
-            // ALL -> Scholastic record -> general
-            // ALL -> Scholastic record -> subject -> filipino
+        // 02 | ALL -> scholastic record -> general
+        Student::where('id', 1)->update([
+            'SF9_g7_age' => 13,
+            'ALL_g7_school_grade' => '7',
+            'ALL_g7_school_name' => 'Irisan National High School',
+            'ALL_g7_school_id' => '01-0001-001',
+            'ALL_g7_school_section' => 'Tri-state Braniac',
+            'ALL_g7_school_year' => '2007-2008',
+            'ALL_g7_school_district' => 'Summer Street',
+            'ALL_g7_school_division' => 'Tri-state Area',
+            'ALL_g7_school_region' => 'Danville',
+            'ALL_g7_school_teacher' => 'Heinz Doofenshmirtz',
+        ]);
+
+        // COMPLETE: 03 | ALL -> scholastic record -> subject -> filipino
+        Student::where('id', 1)->update([
             'ALL_g7_subject_fil_qr1' => 80,
             'ALL_g7_subject_fil_qr2' => 85,
             'ALL_g7_subject_fil_qr3' => 90,
             'ALL_g7_subject_fil_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> english
+        // COMPLETE: 04 | ALL -> scholastic record -> subject -> english
+        Student::where('id', 1)->update([
             'ALL_g7_subject_eng_qr1' => 80,
             'ALL_g7_subject_eng_qr2' => 85,
             'ALL_g7_subject_eng_qr3' => 90,
             'ALL_g7_subject_eng_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> mathematics
+        // COMPLETE: 05 | ALL -> scholastic record -> subject -> mathematics
+        Student::where('id', 1)->update([
             'ALL_g7_subject_mat_qr1' => 80,
             'ALL_g7_subject_mat_qr2' => 85,
             'ALL_g7_subject_mat_qr3' => 90,
             'ALL_g7_subject_mat_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> science
+        // COMPLETE: 06 | ALL -> scholastic record -> subject -> science
+        Student::where('id', 1)->update([
             'ALL_g7_subject_sci_qr1' => 80,
             'ALL_g7_subject_sci_qr2' => 85,
             'ALL_g7_subject_sci_qr3' => 90,
             'ALL_g7_subject_sci_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> araling panlipunan (ap)
+        // COMPLETE: 07 | ALL -> scholastic record -> subject -> araling panlipunan (ap)
+        Student::where('id', 1)->update([
             'ALL_g7_subject_ap_qr1' => 80,
             'ALL_g7_subject_ap_qr2' => 85,
             'ALL_g7_subject_ap_qr3' => 90,
             'ALL_g7_subject_ap_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> edukasyon sa pagpapakatao (ep)
+        // COMPLETE: 08 | ALL -> scholastic record -> subject -> edukasyon sa pagpapakatao (ep)
+        Student::where('id', 1)->update([
             'ALL_g7_subject_ep_qr1' => 80,
             'ALL_g7_subject_ep_qr2' => 85,
             'ALL_g7_subject_ep_qr3' => 90,
             'ALL_g7_subject_ep_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> technology and livelihood education (tle)
+        // COMPLETE: 09 | ALL -> scholastic record -> subject -> technology and livelihood education (tle)
+        Student::where('id', 1)->update([
             'ALL_g7_subject_tle_qr1' => 80,
             'ALL_g7_subject_tle_qr2' => 85,
             'ALL_g7_subject_tle_qr3' => 90,
             'ALL_g7_subject_tle_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> music
+        // COMPLETE: 10 | ALL -> scholastic record -> subject -> music
+        Student::where('id', 1)->update([
             'ALL_g7_subject_mus_qr1' => 80,
             'ALL_g7_subject_mus_qr2' => 85,
             'ALL_g7_subject_mus_qr3' => 90,
             'ALL_g7_subject_mus_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> arts
+        // COMPLETE: 11 | ALL -> scholastic record -> subject -> arts
+        Student::where('id', 1)->update([
             'ALL_g7_subject_art_qr1' => 80,
             'ALL_g7_subject_art_qr2' => 85,
             'ALL_g7_subject_art_qr3' => 90,
             'ALL_g7_subject_art_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> physical education
+        // COMPLETE: 12 | ALL -> scholastic record -> subject -> physical education
+        Student::where('id', 1)->update([
             'ALL_g7_subject_pe_qr1' => 80,
             'ALL_g7_subject_pe_qr2' => 85,
             'ALL_g7_subject_pe_qr3' => 90,
             'ALL_g7_subject_pe_qr4' => 100,
+        ]);
 
-            // ALL -> Scholastic record -> subject -> health
+        // COMPLETE: 13 | ALL -> scholastic record -> subject -> health
+        Student::where('id', 1)->update([
             'ALL_g7_subject_hp_qr1' => 80,
             'ALL_g7_subject_hp_qr2' => 85,
             'ALL_g7_subject_hp_qr3' => 90,
             'ALL_g7_subject_hp_qr4' => 100,
+        ]);
 
-            // SF9 -> attendance -> days present
+        // COMPLETE: 14 | SF9 -> attendance -> days present
+        Student::where('id', 1)->update([
             'SF9_g7_attendance_p_jan' => 10,
             'SF9_g7_attendance_p_feb' => 10,
             'SF9_g7_attendance_p_mar' => 10,
@@ -96,8 +139,10 @@ class DatabaseSeeder extends Seeder {
             'SF9_g7_attendance_p_oct' => 10,
             'SF9_g7_attendance_p_nov' => 10,
             'SF9_g7_attendance_p_dec' => 10,
+        ]);
 
-            // SF9 -> attendance -> days absent
+        // COMPLETE: 15 | SF9 -> attendance -> days absent
+        Student::where('id', 1)->update([
             'SF9_g7_attendance_a_jan' => 2,
             'SF9_g7_attendance_a_feb' => 2,
             'SF9_g7_attendance_a_mar' => 2,
@@ -110,178 +155,50 @@ class DatabaseSeeder extends Seeder {
             'SF9_g7_attendance_a_oct' => 2,
             'SF9_g7_attendance_a_nov' => 2,
             'SF9_g7_attendance_a_dec' => 2,
+        ]);
 
-            // SF9 -> observed values -> maka - diyos
-            'SF9_g7_values_md_r1_qr1' => 'AO',
-            'SF9_g7_values_md_r1_qr2' => 'AO',
-            'SF9_g7_values_md_r1_qr3' => 'AO',
-            'SF9_g7_values_md_r1_qr4' => 'AO',
-            'SF9_g7_values_md_r2_qr1' => 'AO',
-            'SF9_g7_values_md_r2_qr2' => 'AO',
-            'SF9_g7_values_md_r2_qr3' => 'AO',
-            'SF9_g7_values_md_r2_qr4' => 'AO',
+        // COMPLETE: 16 | SF9 -> observed values -> maka - diyos
+        Student::where('id', 1)->update([
+            'SF9_g7_values_md_s1_qr1' => 'AO',
+            'SF9_g7_values_md_s1_qr2' => 'AO',
+            'SF9_g7_values_md_s1_qr3' => 'AO',
+            'SF9_g7_values_md_s1_qr4' => 'AO',
+            'SF9_g7_values_md_s2_qr1' => 'AO',
+            'SF9_g7_values_md_s2_qr2' => 'AO',
+            'SF9_g7_values_md_s2_qr3' => 'AO',
+            'SF9_g7_values_md_s2_qr4' => 'AO',
+        ]);
 
-            // SF9 -> observed values -> maka - tao
-            'SF9_g7_values_mt_r1_qr1' => 'AO',
-            'SF9_g7_values_mt_r1_qr2' => 'AO',
-            'SF9_g7_values_mt_r1_qr3' => 'AO',
-            'SF9_g7_values_mt_r1_qr4' => 'AO',
-            'SF9_g7_values_mt_r2_qr1' => 'AO',
-            'SF9_g7_values_mt_r2_qr2' => 'AO',
-            'SF9_g7_values_mt_r2_qr3' => 'AO',
-            'SF9_g7_values_mt_r2_qr4' => 'AO',
+        // COMPLETE: 17 | SF9 -> observed values -> maka - tao
+        Student::where('id', 1)->update([
+            'SF9_g7_values_mt_s1_qr1' => 'AO',
+            'SF9_g7_values_mt_s1_qr2' => 'AO',
+            'SF9_g7_values_mt_s1_qr3' => 'AO',
+            'SF9_g7_values_mt_s1_qr4' => 'AO',
+            'SF9_g7_values_mt_s2_qr1' => 'AO',
+            'SF9_g7_values_mt_s2_qr2' => 'AO',
+            'SF9_g7_values_mt_s2_qr3' => 'AO',
+            'SF9_g7_values_mt_s2_qr4' => 'AO',
+        ]);
 
-            // SF9 -> observed values -> maka - kalikasan
+        // COMPLETE: 18 | SF9 -> observed values -> maka - kalikasan
+        Student::where('id', 1)->update([
             'SF9_g7_values_mk_qr1' => 'AO',
             'SF9_g7_values_mk_qr2' => 'AO',
             'SF9_g7_values_mk_qr3' => 'AO',
             'SF9_g7_values_mk_qr4' => 'AO',
-
-            // SF9 -> observed values -> maka - bansa
-            'SF9_g7_values_mb_r1_qr1' => 'AO',
-            'SF9_g7_values_mb_r1_qr2' => 'AO',
-            'SF9_g7_values_mb_r1_qr3' => 'AO',
-            'SF9_g7_values_mb_r1_qr4' => 'AO',
-            'SF9_g7_values_mb_r2_qr1' => 'AO',
-            'SF9_g7_values_mb_r2_qr2' => 'AO',
-            'SF9_g7_values_mb_r2_qr3' => 'AO',
-            'SF9_g7_values_mb_r2_qr4' => 'AO',
         ]);
-        Student::create([
-            'li_name_last' => 'Fletcher',
-            'li_name_first' => 'Ferb',
-            'li_name_middle' => 'F',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Flynn',
-            'li_name_first' => 'Candace',
-            'li_name_middle' => 'F',
-            'li_sex' => 'Female',
-            'li_birthdate' => '2008-11-11',
-        ]);
-
-        // Star Vs. The Forces Of Evil
-        Student::create([
-            'li_name_last' => 'Diaz',
-            'li_name_first' => 'Marco',
-            'li_name_middle' => 'D',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Banana',
-            'li_name_first' => 'Janna',
-            'li_name_middle' => 'B',
-            'li_sex' => 'Female',
-            'li_birthdate' => '2008-11-11',
-        ]);
-
-        // Gravity Falls
-        Student::create([
-            'li_name_last' => 'Pines',
-            'li_name_first' => 'Dipper',
-            'li_name_middle' => 'P',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Pines',
-            'li_name_first' => 'Mabel',
-            'li_name_middle' => 'P',
-            'li_sex' => 'Female',
-            'li_birthdate' => '2008-11-11',
-        ]);
-
-        // Regular Show
-        Student::create([
-            'li_name_last' => 'Jay',
-            'li_name_first' => 'Mordecai',
-            'li_name_middle' => 'J',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Raccoon',
-            'li_name_first' => 'Rigby',
-            'li_name_middle' => 'R',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-
-        // Infinity Train
-        Student::create([
-            'li_name_last' => 'Olsen',
-            'li_name_first' => 'Tulip',
-            'li_name_middle' => 'O',
-            'li_sex' => 'Female',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Hughes',
-            'li_name_first' => 'Amelia',
-            'li_name_middle' => 'H',
-            'li_sex' => 'Female',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Cosay',
-            'li_name_first' => 'Jesie',
-            'li_name_middle' => 'C',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Monroe',
-            'li_name_first' => 'Grace',
-            'li_name_middle' => 'M',
-            'li_sex' => 'Female',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Laurent',
-            'li_name_first' => 'Simon',
-            'li_name_middle' => 'L',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Akagi',
-            'li_name_first' => 'Ryan',
-            'li_name_middle' => 'A',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Park',
-            'li_name_first' => 'Min-Gi',
-            'li_name_middle' => 'P',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-
-        // The Amazing World Of Gumball
-        Student::create([
-            'li_name_last' => 'Watterson',
-            'li_name_first' => 'Gumball',
-            'li_name_middle' => 'W',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Watterson',
-            'li_name_first' => 'Darwin',
-            'li_name_middle' => 'W',
-            'li_sex' => 'Male',
-            'li_birthdate' => '2008-11-11',
-        ]);
-        Student::create([
-            'li_name_last' => 'Watterson',
-            'li_name_first' => 'Anais',
-            'li_name_middle' => 'W',
-            'li_sex' => 'Female',
-            'li_birthdate' => '2008-11-11',
+        
+        // COMPLETE: 19 | SF9 -> observed values -> maka - bansa
+        Student::where('id', 1)->update([
+            'SF9_g7_values_mb_s1_qr1' => 'AO',
+            'SF9_g7_values_mb_s1_qr2' => 'AO',
+            'SF9_g7_values_mb_s1_qr3' => 'AO',
+            'SF9_g7_values_mb_s1_qr4' => 'AO',
+            'SF9_g7_values_mb_s2_qr1' => 'AO',
+            'SF9_g7_values_mb_s2_qr2' => 'AO',
+            'SF9_g7_values_mb_s2_qr3' => 'AO',
+            'SF9_g7_values_mb_s2_qr4' => 'AO',
         ]);
     }
 }
