@@ -4,264 +4,85 @@
 // MANAGER
 (() => {
     // COMPLETE: VARIABLES
-    const mapeh = [`mus`, `art`, `pe`, `hp`];
     const grand = [`fil`, `eng`, `mat`, `sci`, `ap`, `ep`, `tle`, `mapeh`];
-    const months = [`jan`, `feb`, `mar`, `apr`, `may`, `jun`, `jul`, `aug`, `sep`, `oct`, `nov`, `dec`];
     const grades = [7, 8, 9, 10];
-    const quarters = [1, 2, 3, 4];
-    const subjects = [`fil`, `eng`, `mat`, `sci`, `ap`, `ep`, `tle`, `mus`, `art`, `pe`, `hp`];
     const threshold = 75;
 
-    // COMPLETE: REFRESHER
-    const refresh = {
+    // Refresher
+    const refresher = {
         all: function () {
-            this.subjects();
-            this.attendances();
-            this.values();
+            this.interactiveText();
+            this.interactiveNumber();
+            this.total();
+            this.average();
+            this.remarks();
         },
-        subjects: () => {
-            for (let i = 0, ii = grades.length; i < ii; i++) {
-                const fields = [
-                    // COMPLETE: 03 | ALL -> scholastic record -> subject -> filipino
-                    `ALL_g${grades[i]}_subject_fil_qr1`,
-                    `ALL_g${grades[i]}_subject_fil_qr2`,
-                    `ALL_g${grades[i]}_subject_fil_qr3`,
-                    `ALL_g${grades[i]}_subject_fil_qr4`,
-            
-                    // COMPLETE: 04 | ALL -> scholastic record -> subject -> english
-                    `ALL_g${grades[i]}_subject_eng_qr1`,
-                    `ALL_g${grades[i]}_subject_eng_qr2`,
-                    `ALL_g${grades[i]}_subject_eng_qr3`,
-                    `ALL_g${grades[i]}_subject_eng_qr4`,
-            
-                    // COMPLETE: 05 | ALL -> scholastic record -> subject -> mathematics
-                    `ALL_g${grades[i]}_subject_mat_qr1`,
-                    `ALL_g${grades[i]}_subject_mat_qr2`,
-                    `ALL_g${grades[i]}_subject_mat_qr3`,
-                    `ALL_g${grades[i]}_subject_mat_qr4`,
-            
-                    // COMPLETE: 06 | ALL -> scholastic record -> subject -> science
-                    `ALL_g${grades[i]}_subject_sci_qr1`,
-                    `ALL_g${grades[i]}_subject_sci_qr2`,
-                    `ALL_g${grades[i]}_subject_sci_qr3`,
-                    `ALL_g${grades[i]}_subject_sci_qr4`,
-            
-                    // COMPLETE: 07 | ALL -> scholastic record -> subject -> araling panlipunan (ap) -->
-                    `ALL_g${grades[i]}_subject_ap_qr1`,
-                    `ALL_g${grades[i]}_subject_ap_qr2`,
-                    `ALL_g${grades[i]}_subject_ap_qr3`,
-                    `ALL_g${grades[i]}_subject_ap_qr4`,
-            
-                    // COMPLETE: 08 | ALL -> scholastic record -> subject -> edukasyon sa pagpapakatao (ep)
-                    `ALL_g${grades[i]}_subject_ep_qr1`,
-                    `ALL_g${grades[i]}_subject_ep_qr2`,
-                    `ALL_g${grades[i]}_subject_ep_qr3`,
-                    `ALL_g${grades[i]}_subject_ep_qr4`,
-            
-                    // COMPLETE: 09 | ALL -> scholastic record -> subject -> technology and livelihood education (tle)
-                    `ALL_g${grades[i]}_subject_tle_qr1`,
-                    `ALL_g${grades[i]}_subject_tle_qr2`,
-                    `ALL_g${grades[i]}_subject_tle_qr3`,
-                    `ALL_g${grades[i]}_subject_tle_qr4`,
-            
-                    // COMPLETE: 11 | ALL -> scholastic record -> subject -> arts
-                    `ALL_g${grades[i]}_subject_mus_qr1`,
-                    `ALL_g${grades[i]}_subject_mus_qr2`,
-                    `ALL_g${grades[i]}_subject_mus_qr3`,
-                    `ALL_g${grades[i]}_subject_mus_qr4`,
-            
-                    // COMPLETE: 12 | ALL -> scholastic record -> subject -> physical education
-                    `ALL_g${grades[i]}_subject_art_qr1`,
-                    `ALL_g${grades[i]}_subject_art_qr2`,
-                    `ALL_g${grades[i]}_subject_art_qr3`,
-                    `ALL_g${grades[i]}_subject_art_qr4`,
-            
-                    // COMPLETE: 13 | ALL -> scholastic record -> subject -> health
-                    `ALL_g${grades[i]}_subject_pe_qr1`,
-                    `ALL_g${grades[i]}_subject_pe_qr2`,
-                    `ALL_g${grades[i]}_subject_pe_qr3`,
-                    `ALL_g${grades[i]}_subject_pe_qr4`,
-            
-                    // COMPLETE: 14 | SF9 -> attendance -> days present
-                    `ALL_g${grades[i]}_subject_hp_qr1`,
-                    `ALL_g${grades[i]}_subject_hp_qr2`,
-                    `ALL_g${grades[i]}_subject_hp_qr3`,
-                    `ALL_g${grades[i]}_subject_hp_qr4`,
-                ];
-                
-                for (let j = 0, jj = fields.length; j < jj; j++) {
-                    const input = document.querySelectorAll(`[data-field = "${fields[j]}"]`);
-                    const value = document.getElementById(fields[j]).value;
-                    
-                    for (let k = 0, kk = input.length; k < kk; k++) input[k].innerHTML = value;
-                }
+        interactiveText: () => {
+            const field = document.querySelectorAll(`[data-type = "interactive-text"]`);
+
+            for (let i = 0, ii = field.length; i < ii; i++) {
+                field[i].innerHTML = document.getElementById(field[i].dataset.parameters).value;
             }
         },
-        attendances: () => {
-            for (let i = 0, ii = grades.length; i < ii; i++) {
-                const fields = [
-                    // COMPLETE: 15 | SF9 -> attendance -> days absent
-                    `SF9_g${grades[i]}_attendance_p_jan`,
-                    `SF9_g${grades[i]}_attendance_p_feb`,
-                    `SF9_g${grades[i]}_attendance_p_mar`,
-                    `SF9_g${grades[i]}_attendance_p_apr`,
-                    `SF9_g${grades[i]}_attendance_p_may`,
-                    `SF9_g${grades[i]}_attendance_p_jun`,
-                    `SF9_g${grades[i]}_attendance_p_jul`,
-                    `SF9_g${grades[i]}_attendance_p_aug`,
-                    `SF9_g${grades[i]}_attendance_p_sep`,
-                    `SF9_g${grades[i]}_attendance_p_oct`,
-                    `SF9_g${grades[i]}_attendance_p_nov`,
-                    `SF9_g${grades[i]}_attendance_p_dec`,
-            
-                    // COMPLETE: 16 | SF9 -> observed values -> maka - diyos
-                    `SF9_g${grades[i]}_attendance_a_jan`,
-                    `SF9_g${grades[i]}_attendance_a_feb`,
-                    `SF9_g${grades[i]}_attendance_a_mar`,
-                    `SF9_g${grades[i]}_attendance_a_apr`,
-                    `SF9_g${grades[i]}_attendance_a_may`,
-                    `SF9_g${grades[i]}_attendance_a_jun`,
-                    `SF9_g${grades[i]}_attendance_a_jul`,
-                    `SF9_g${grades[i]}_attendance_a_aug`,
-                    `SF9_g${grades[i]}_attendance_a_sep`,
-                    `SF9_g${grades[i]}_attendance_a_oct`,
-                    `SF9_g${grades[i]}_attendance_a_nov`,
-                    `SF9_g${grades[i]}_attendance_a_dec`,
-                ];
-                
-                for (let j = 0, jj = fields.length; j < jj; j++) {
-                    const input = document.querySelectorAll(`[data-field = "${fields[j]}"]`);
-                    const value = document.getElementById(fields[j]).value;
-                    
-                    for (let k = 0, kk = input.length; k < kk; k++) input[k].innerHTML = value;
-                }
+        interactiveNumber: () => {
+            const field = document.querySelectorAll(`[data-type = "interactive-number"]`);
+
+            for (let i = 0, ii = field.length; i < ii; i++) {
+                const value = parseInt(document.getElementById(field[i].dataset.parameters).value);
+
+                field[i].innerHTML = !isNaN(value) ? value : ``;
             }
         },
-        values: () => {
-            for (let i = 0, ii = grades.length; i < ii; i++) {
-                const fields = [
-                    // COMPLETE: 16 | SF9 -> observed values -> maka - diyos
-                    `SF9_g${grades[i]}_values_md_s1_qr1`,
-                    `SF9_g${grades[i]}_values_md_s1_qr2`,
-                    `SF9_g${grades[i]}_values_md_s1_qr3`,
-                    `SF9_g${grades[i]}_values_md_s1_qr4`,
-                    `SF9_g${grades[i]}_values_md_s2_qr1`,
-                    `SF9_g${grades[i]}_values_md_s2_qr2`,
-                    `SF9_g${grades[i]}_values_md_s2_qr3`,
-                    `SF9_g${grades[i]}_values_md_s2_qr4`,
-            
-                    // COMPLETE: 17 | SF9 -> observed values -> maka - tao
-                    `SF9_g${grades[i]}_values_mt_s1_qr1`,
-                    `SF9_g${grades[i]}_values_mt_s1_qr2`,
-                    `SF9_g${grades[i]}_values_mt_s1_qr3`,
-                    `SF9_g${grades[i]}_values_mt_s1_qr4`,
-                    `SF9_g${grades[i]}_values_mt_s2_qr1`,
-                    `SF9_g${grades[i]}_values_mt_s2_qr2`,
-                    `SF9_g${grades[i]}_values_mt_s2_qr3`,
-                    `SF9_g${grades[i]}_values_mt_s2_qr4`,
-            
-                    // COMPLETE: 18 | SF9 -> observed values -> maka - kalikasan
-                    `SF9_g${grades[i]}_values_mk_qr1`,
-                    `SF9_g${grades[i]}_values_mk_qr2`,
-                    `SF9_g${grades[i]}_values_mk_qr3`,
-                    `SF9_g${grades[i]}_values_mk_qr4`,
-            
-                    // COMPLETE: 19 | SF9 -> observed values -> maka - bansa
-                    `SF9_g${grades[i]}_values_mb_s1_qr1`,
-                    `SF9_g${grades[i]}_values_mb_s1_qr2`,
-                    `SF9_g${grades[i]}_values_mb_s1_qr3`,
-                    `SF9_g${grades[i]}_values_mb_s1_qr4`,
-                    `SF9_g${grades[i]}_values_mb_s2_qr1`,
-                    `SF9_g${grades[i]}_values_mb_s2_qr2`,
-                    `SF9_g${grades[i]}_values_mb_s2_qr3`,
-                    `SF9_g${grades[i]}_values_mb_s2_qr4`,
-                ];
+        total: () => {
+            const field = document.querySelectorAll(`[data-type = "total"]`);
+
+            for (let i = 0, ii = field.length; i < ii; i++) {
+                const parameters = JSON.parse(field[i].dataset.parameters);
                 
-                for (let j = 0, jj = fields.length; j < jj; j++) {
-                    const input = document.querySelectorAll(`[data-field = "${fields[j]}"]`);
-                    const value = document.getElementById(fields[j]).value;
-                    
-                    for (let k = 0, kk = input.length; k < kk; k++) input[k].innerHTML = value;
+                let total = 0;
+
+                for (j = 0, jj = parameters.length; j < jj; j++) {
+                    total += parseInt(document.getElementById(parameters[j]).value);
                 }
+
+                field[i].innerHTML = !isNaN(total) ? total : ``;
+            }
+        },
+        average: () => {
+            const field = document.querySelectorAll(`[data-type = "average"]`);
+
+            for (let i = 0, ii = field.length; i < ii; i++) {
+                const parameters = JSON.parse(field[i].dataset.parameters);
+                
+                let total = 0;
+
+                for (j = 0, jj = parameters.length; j < jj; j++) {
+                    total += parseInt(document.getElementById(parameters[j]).value);
+                }
+
+                field[i].innerHTML = !isNaN(total) ? Math.round(total / parameters.length) : ``;
+            }
+        },
+        remarks: () => {
+            const field = document.querySelectorAll(`[data-type = "remarks"]`);
+
+            for (let i = 0, ii = field.length; i < ii; i++) {
+                const parameters = JSON.parse(field[i].dataset.parameters);
+                
+                let total = 0;
+
+                for (j = 0, jj = parameters.length; j < jj; j++) {
+                    total += parseInt(document.getElementById(parameters[j]).value);
+                }
+
+                field[i].innerHTML = !isNaN(total) ? (Math.round(total / parameters.length) >= threshold ? `Passed` : `Failed`) : ``;
             }
         },
     };
 
-    // COMPLETE: COMPUTER
+    // OLD
     const compute = {
-        all: function () {
-            this.subjects();
-            this.mapeh();
-            this.grand();
-            this.attendances();
-        },
-        subjects: () => {
-            for (let i = 0, ii = grades.length; i < ii; i++) {
-                for (let j = 0, jj = subjects.length; j < jj; j++) {
-                    const averages = document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_${subjects[j]}_average"]`);
-                    const remarks = document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_${subjects[j]}_remarks"]`);
-    
-                    let average = 0;
-                    let remark = ``;
-
-                    for (let k = 0, kk = averages.length; k < kk; k++) averages[k].innerHTML = ``;
-                    for (let k = 0, kk = remarks.length; k < kk; k++) remarks[k].innerHTML = ``;
-
-                    for (let k = 0, kk = quarters.length; k < kk; k++) average += parseInt(document.getElementById(`ALL_g${grades[i]}_subject_${subjects[j]}_qr${quarters[k]}`).value);
-                    
-                    if (!isNaN(average)) {
-                        average = Math.round(average / quarters.length);
-                        remark = average >= threshold ? `Passed` : `Failed`;
-                        
-                        for (let k = 0, kk = averages.length; k < kk; k++) averages[k].innerHTML = average;
-                        for (let k = 0, kk = remarks.length; k < kk; k++) remarks[k].innerHTML = remark;
-                    }
-                }
-            }
-        },
-        mapeh: () => {
-            for (let i = 0, ii = grades.length; i < ii; i++) {
-                const averagesAll = document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_mapeh_average"]`);
-                const remarksAll = document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_mapeh_remarks"]`);
-
-                let averageAll = 0;
-                let remarkAll = ``;
-                let hasIsNaN = false;
-
-                for (let j = 0, jj = averagesAll.length; j < jj; j++) averagesAll[j].innerHTML = ``;
-                for (let j = 0, jj = remarksAll.length; j < jj; j++) remarksAll[j].innerHTML = ``;
-
-                for (let j = 0, jj = quarters.length; j < jj; j++) {
-                    const averages = document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_mapeh_qr${quarters[j]}_average"]`);
-
-                    let average = 0;
-                    
-                    for (let k = 0, kk = averages.length; k < kk; k++) averages[k].innerHTML = ``;
-
-                    for (let k = 0, kk = mapeh.length; k < kk; k++) {
-                        const value = parseInt(document.getElementById(`ALL_g${grades[i]}_subject_${mapeh[k]}_qr${quarters[j]}`).value);
-
-                        if (!isNaN(value)) average += value;
-                        else hasIsNaN = true;
-                    }
-                    
-                    if (!hasIsNaN && !isNaN(average)) {
-                        average = Math.round(average / mapeh.length);
-                        averageAll += average;
-
-                        for (let k = 0, kk = averages.length; k < kk; k++) averages[k].innerHTML = average;
-                    }
-                }
-
-                if (!hasIsNaN) {
-                    averageAll = Math.round(averageAll / quarters.length);
-                    remarkAll = averageAll >= threshold ? `Passed` : `Failed`;
-
-                    for (let j = 0, jj = averagesAll.length; j < jj; j++) averagesAll[j].innerHTML = averageAll;
-                    for (let j = 0, jj = remarksAll.length; j < jj; j++) remarksAll[j].innerHTML = remarkAll;
-                }
-            }
-        },
+        
         grand: () => {
             for (let i = 0, ii = grades.length; i < ii; i++) {
                 const averages = document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_all_average"]`);
@@ -290,49 +111,20 @@
                 }
             }
         },
-        attendances: () => {
-            for (let i = 0, ii = grades.length; i < ii; i++) {
-                const presents = document.querySelectorAll(`[data-compute = "SF9_g${grades[i]}_attendance_p_total`);
-                const absents = document.querySelectorAll(`[data-compute = "SF9_g${grades[i]}_attendance_a_total`);
-    
-                let totalPresent = 0;
-                let totalAbsent = 0;
-                let hasIsNaNPresent = false;
-                let hasIsNaNAbsent = false;
-
-                for (j = 0, jj = presents.length; j < jj; j++) presents[j].innerHTML = ``;
-                for (j = 0, jj = absents.length; j < jj; j++) absents[j].innerHTML = ``;
-    
-                for (let j = 0, jj = months.length; j < jj; j++) {
-                    const value = parseInt(document.getElementById(`SF9_g${grades[i]}_attendance_p_${months[j]}`).value);
-                    
-                    if (!isNaN(value)) totalPresent += value;
-                    else hasIsNaNPresent = true;
-                }
-                for (let j = 0, jj = months.length; j < jj; j++) {
-                    const value = parseInt(document.getElementById(`SF9_g${grades[i]}_attendance_a_${months[j]}`).value);
-
-                    if (!isNaN(value)) totalAbsent += value;
-                    else hasIsNaNAbsent = true;
-                }
-
-                if (!hasIsNaNPresent) for (j = 0, jj = presents.length; j < jj; j++) presents[j].innerHTML = totalPresent;
-                if (!hasIsNaNAbsent) for (j = 0, jj = absents.length; j < jj; j++) absents[j].innerHTML = totalAbsent;
-            }
-        },
     };
 
     // COMPLETE: ONLOAD
     window.onload = () => {
-        refresh.all();
-        compute.all();
+        refresher.all();
     };
 
     // FORM
     (() => {
         // Variables
         const form = document.getElementById(`form-wrapper`);
-        const editables = document.querySelectorAll(`[data-interactive = "true"]`);
+        const interactive_1 = document.querySelectorAll(`[data-type = "interactive-text"]`);
+        const interactive_2 = document.querySelectorAll(`[data-type = "interactive-number"]`);
+        const interactive_3 = document.querySelectorAll(`[data-type = "toggle"]`);
 
         let lastOpenedEditable = undefined;
 
@@ -341,20 +133,47 @@
             form.classList.add(`hidden`);
             form.classList.remove(`visible`);
     
-            refresh.all();
-            compute.all();
+            refresher.all();
 
             lastOpenedEditable.classList.add(`hidden`);
             lastOpenedEditable.classList.remove(`visible`);
         });
 
         // Open
-        for (let i = 0, ii = editables.length; i < ii; i++) {
-            editables[i].addEventListener(`click`, function () {
+        for (let i = 0, ii = interactive_1.length; i < ii; i++) {
+            interactive_1[i].addEventListener(`click`, function () {
                 form.classList.add(`visible`);
                 form.classList.remove(`hidden`);
 
-                lastOpenedEditable = document.getElementById(editables[i].dataset.field);
+                lastOpenedEditable = document.getElementById(interactive_1[i].dataset.parameters);
+
+                lastOpenedEditable.classList.add(`visible`);
+                lastOpenedEditable.classList.remove(`hidden`);
+    
+                document.getElementById(`form-label-a`).innerHTML = lastOpenedEditable.dataset.labelA;
+                document.getElementById(`form-label-b`).innerHTML = lastOpenedEditable.dataset.labelB;
+            });
+        }
+        for (let i = 0, ii = interactive_2.length; i < ii; i++) {
+            interactive_2[i].addEventListener(`click`, function () {
+                form.classList.add(`visible`);
+                form.classList.remove(`hidden`);
+
+                lastOpenedEditable = document.getElementById(interactive_2[i].dataset.parameters);
+
+                lastOpenedEditable.classList.add(`visible`);
+                lastOpenedEditable.classList.remove(`hidden`);
+    
+                document.getElementById(`form-label-a`).innerHTML = lastOpenedEditable.dataset.labelA;
+                document.getElementById(`form-label-b`).innerHTML = lastOpenedEditable.dataset.labelB;
+            });
+        }
+        for (let i = 0, ii = interactive_3.length; i < ii; i++) {
+            interactive_3[i].addEventListener(`click`, function () {
+                form.classList.add(`visible`);
+                form.classList.remove(`hidden`);
+
+                lastOpenedEditable = document.getElementById(interactive_3[i].dataset.parameters);
 
                 lastOpenedEditable.classList.add(`visible`);
                 lastOpenedEditable.classList.remove(`hidden`);

@@ -26,17 +26,27 @@ Students
 							<tr>
 								<td>{{ $student->id }}</td>
 								<td>
-									<span class = "uppercase">{{ $student->li_name_last }},</span>
-									{{ $student->li_name_first }} {{ $student->li_name_middle }}.
+									<span class = "uppercase">{{ $student->ALL_li_name_last }},</span>
+									{{ $student->ALL_li_name_first }} {{ $student->ALL_li_name_middle }}.
 								</td>
 								<td></td>
 								<td></td>
 								<td>
-									<a class = "custom-btn" href = "{{ url('/students/manager', ['id' => $student->id]) }}">Modify</a>
+									<a class = "custom-btn" href = "{{ url('/manager/edit', ['id' => $student->id]) }}">Modify</a>
 								</td>
 							</tr>
 						@endforeach
 					</table>
+
+					<ul>
+						To-do:
+						<hr>
+						<li>CHECKPOINT: work on making everything editable.</li>
+						<li>Create a new database category named "report" that contains the miscellaneous variables from sf9 front and back.</li>
+						<li>Relocate records -> age into NEW report -> age.</li>
+						<hr>
+						<li>ALL: Middle initials must be complete, and spliced on single letter printing.</li>
+					</ul>
 
 				</div>
 			</div>

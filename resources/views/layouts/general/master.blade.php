@@ -44,7 +44,7 @@
 		<script src = "{{ asset('yummy/js/main.js') }}"></script>
 		
 		<!-- Custom -->
-		<script src = "{{ asset('assets/js/less.js') }}"></script>
+		<script src = "{{ asset('assets/js/less.min.js') }}"></script>
         
     </body>
 	

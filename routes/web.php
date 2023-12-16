@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'App\Http\Controllers\StudentController@index');
 
 // DASHBOARD ELEMENTS
-Route::get('/students', 'App\Http\Controllers\StudentController@index');
-Route::get('/students/manager/{id}', 'App\Http\Controllers\StudentController@edit');
-Route::post('/students/manager/{id}', 'App\Http\Controllers\StudentController@save');
+Route::get('/manager', 'App\Http\Controllers\StudentController@index');
+Route::get('/manager/edit/{id}', 'App\Http\Controllers\StudentController@edit');
+Route::post('/manager/save/{id}', 'App\Http\Controllers\StudentController@save');

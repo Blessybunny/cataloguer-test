@@ -12,13 +12,12 @@ Manager
 
                 <!-- Header -->
                 <h1>
-                    <span>{{ $student->li_name_last }},</span>
-                    <span class = "capitalize">{{ $student->li_name_first }} {{ $student->li_name_middle }}.</span>
+                    <span>{{ $student->info_name_last }},</span>
+                    <span class = "capitalize">{{ $student->info_name_first }} {{ $student->info_name_middle }}.</span>
                 </h1>
                 <h4>01-0001-{{ $student->id }}</h4>
                 
                 <hr>
-                <p>CHECKPOINT: work on making everything editable.</p>
                 <hr>
 
                 <!-- Tabs -->
@@ -52,7 +51,7 @@ Manager
                     </li>
 
                     <li class = "nav-item">
-                        <a id = "save" class = "nav-link" data-interactive = "true" data-field = "form-submit">SAVE CHANGES</a>
+                        <a id = "save" class = "nav-link" data-type = "toggle" data-parameters = "form-submit">SAVE CHANGES</a>
                     </li>
 
                 </ul>
@@ -60,7 +59,7 @@ Manager
                 <!-- Content -->
                 <div class = "tab-content">
 
-                    <!-- Report cards -->
+                    <!-- Report cards  -->
                     <div id = "tab-report-card-7-front" class = "tab-pane fade">@include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 7])</div>
                     <div id = "tab-report-card-7-back" class = "tab-pane fade show active">@include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 7])</div>
                     <div id = "tab-report-card-8-front" class = "tab-pane fade">@include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 8])</div>

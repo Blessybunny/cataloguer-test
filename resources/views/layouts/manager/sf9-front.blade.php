@@ -30,27 +30,27 @@
 
 			<div class = "row">
 				<div class = "col-12">
-					<span class = "debug-field">Learner's Reference Number: {{ $student->li_learner_reference_number }}</span>
+					<span class = "debug-field">Learner's Reference Number: {{ $student->info_lrn }}</span>
 					<br>
 					<span class = "debug-field">
 						Name:
-						<span class = "uppercase">{{ $student->li_name_last }},</span>
-						<span class = "capitalize">{{ $student->li_name_first }}</span>
-						<span class = "capitalize">{{ $student->li_name_middle }}.</span>
+						<span class = "uppercase">{{ $student->info_name_last }},</span>
+						<span class = "capitalize">{{ $student->info_name_first }}</span>
+						<span class = "capitalize">{{ $student->info_name_middle }}.</span>
 					</span>
 				</div>
 				<div class = "col-6">
-					<span class = "debug-field">Age: {{ $student->{'SF9_g'.$grade.'_age'} }}</span>
+					<span class = "debug-field">Age: {{ $student->{'record_g'.$grade.'_age'} }}</span>
 					<br>
-					<span class = "debug-field">Grade: {{ $student->{'ALL_g'.$grade.'_school_grade'} }}</span>
+					<span class = "debug-field">Grade: {{ $student->{'record_g'.$grade.'_school_grade'} }}</span>
 				</div>
 				<div class = "col-6">
-					<span class = "debug-field">Sex: {{ $student->li_sex }}</span>
+					<span class = "debug-field">Sex: {{ $student->info_sex }}</span>
 					<br>
-					<span class = "debug-field">Section: {{ $student->{'ALL_g'.$grade.'_school_section'} }}</span>
+					<span class = "debug-field">Section: {{ $student->{'record_g'.$grade.'_school_section'} }}</span>
 				</div>
 				<div class = "col-12">
-					<span class = "debug-field">School Year: {{ $student->{'ALL_g'.$grade.'_school_year'} }}</span>
+					<span class = "debug-field">School Year: {{ $student->{'record_g'.$grade.'_school_year'} }}</span>
 				</div>
 			</div>
 
@@ -131,80 +131,106 @@
 				<tr>
 					<td class = "align-middle">Oct</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_oct"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_oct"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_oct"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_oct"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Nov</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_nov"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_nov"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_nov"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_nov"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Dec</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_dec"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_dec"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_dec"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_dec"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jan</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_jan"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_jan"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_jan"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_jan"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Feb</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_feb"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_feb"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_feb"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_feb"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Mar</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_mar"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_mar"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_mar"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_mar"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Apr</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_apr"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_apr"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_apr"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_apr"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">May</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_may"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_may"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_may"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_may"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jun</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_jun"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_jun"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_jun"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_jun"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jul</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_jul"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_jul"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_jul"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_jul"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Aug</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_aug"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_aug"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_aug"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_aug"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Sep</td>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_p_sep"></td>
-					<td class = "align-middle debug-field" data-interactive = "true" data-field = "SF9_g{{ $grade }}_attendance_a_sep"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_sep"></td>
+					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_sep"></td>
 				</tr>
 				<tr>
 					<th class = "align-middle uppercase">Total</th>
 					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-compute" data-compute = "SF9_g{{ $grade }}_attendance_p_total"></td>
-					<td class = "align-middle debug-compute" data-compute = "SF9_g{{ $grade }}_attendance_a_total"></td>
+					<td class = "align-middle debug-compute" data-type = "total" data-parameters = '[
+						"attendance_g{{ $grade }}_p_jan",
+						"attendance_g{{ $grade }}_p_feb",
+						"attendance_g{{ $grade }}_p_mar",
+						"attendance_g{{ $grade }}_p_apr",
+						"attendance_g{{ $grade }}_p_may",
+						"attendance_g{{ $grade }}_p_jun",
+						"attendance_g{{ $grade }}_p_jul",
+						"attendance_g{{ $grade }}_p_aug",
+						"attendance_g{{ $grade }}_p_sep",
+						"attendance_g{{ $grade }}_p_oct",
+						"attendance_g{{ $grade }}_p_nov",
+						"attendance_g{{ $grade }}_p_dec"
+					]'></td>
+					<td class = "align-middle debug-compute" data-type = "total" data-parameters = '[
+						"attendance_g{{ $grade }}_a_jan",
+						"attendance_g{{ $grade }}_a_feb",
+						"attendance_g{{ $grade }}_a_mar",
+						"attendance_g{{ $grade }}_a_apr",
+						"attendance_g{{ $grade }}_a_may",
+						"attendance_g{{ $grade }}_a_jun",
+						"attendance_g{{ $grade }}_a_jul",
+						"attendance_g{{ $grade }}_a_aug",
+						"attendance_g{{ $grade }}_a_sep",
+						"attendance_g{{ $grade }}_a_oct",
+						"attendance_g{{ $grade }}_a_nov",
+						"attendance_g{{ $grade }}_a_dec"
+					]'></td>
 				</tr>
 			</table>
 

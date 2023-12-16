@@ -7,15 +7,14 @@
 		<div class = "container d-flex align-items-center justify-content-between">
 			
 			<!-- Name -->
-			<a href = "index.html" class = "logo d-flex align-items-center me-auto me-lg-0">
+			<a href = "{{ url('/manager') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
 				<h1 class = "capitalize">Cataloger<span>.</span></h1>
 			</a>
 
 			<!-- Navigation -->
 			<nav id = "navbar" class = "navbar">
 				<ul>
-					<li><a href = "{{ url('/students') }}">Students</a></li>
-					<li><a href = "{{ url('/profile') }}">Profile</a></li>
+					<li><a href = "{{ url('/logout') }}">Log out</a></li>
 				</ul>
 			</nav>
 			<i class = "mobile-nav-toggle mobile-nav-show bi bi-list"></i>
