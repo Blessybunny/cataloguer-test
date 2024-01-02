@@ -24,7 +24,7 @@
 		<link href = "{{ asset('yummy/css/main.css') }}" rel = "stylesheet">
 		
 		<!-- Custom -->
-		<link href = "{{ asset('assets/less/master.less') }}" rel = "stylesheet" type = "text/less">
+		<link href = "{{ asset('assets/less/manager.less') }}" rel = "stylesheet" type = "text/less">
 
 		@yield('head')
 
