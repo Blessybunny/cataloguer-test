@@ -53,7 +53,6 @@ class StudentController extends Controller {
             'enrolment_other_location' => 'nullable',
 
             // Record
-            'record_g7_age' => 'nullable',
             'record_g7_school_grade' => 'nullable',
             'record_g7_school_name' => 'nullable',
             'record_g7_school_id' => 'nullable',
@@ -63,8 +62,9 @@ class StudentController extends Controller {
             'record_g7_school_division' => 'nullable',
             'record_g7_school_region' => 'nullable',
             'record_g7_school_teacher' => 'nullable',
+            'record_g7_remedial_date_start' => 'nullable',
+            'record_g7_remedial_date_end' => 'nullable',
 
-            'record_g8_age' => 'nullable',
             'record_g8_school_grade' => 'nullable',
             'record_g8_school_name' => 'nullable',
             'record_g8_school_id' => 'nullable',
@@ -74,8 +74,9 @@ class StudentController extends Controller {
             'record_g8_school_division' => 'nullable',
             'record_g8_school_region' => 'nullable',
             'record_g8_school_teacher' => 'nullable',
+            'record_g8_remedial_date_start' => 'nullable',
+            'record_g8_remedial_date_end' => 'nullable',
 
-            'record_g9_age' => 'nullable',
             'record_g9_school_grade' => 'nullable',
             'record_g9_school_name' => 'nullable',
             'record_g9_school_id' => 'nullable',
@@ -85,8 +86,9 @@ class StudentController extends Controller {
             'record_g9_school_division' => 'nullable',
             'record_g9_school_region' => 'nullable',
             'record_g9_school_teacher' => 'nullable',
+            'record_g9_remedial_date_start' => 'nullable',
+            'record_g9_remedial_date_end' => 'nullable',
             
-            'record_g10_age' => 'nullable',
             'record_g10_school_grade' => 'nullable',
             'record_g10_school_name' => 'nullable',
             'record_g10_school_id' => 'nullable',
@@ -96,6 +98,17 @@ class StudentController extends Controller {
             'record_g10_school_division' => 'nullable',
             'record_g10_school_region' => 'nullable',
             'record_g10_school_teacher' => 'nullable',
+            'record_g10_remedial_date_start' => 'nullable',
+            'record_g10_remedial_date_end' => 'nullable',
+
+            // Report
+            'report_g7_age' => 'nullable',
+
+            'report_g8_age' => 'nullable',
+            
+            'report_g9_age' => 'nullable',
+
+            'report_g10_age' => 'nullable',
 
             // Subject -> filipino
             'subject_g7_fil_qr1' => 'nullable',
@@ -642,7 +655,6 @@ class StudentController extends Controller {
             'enrolment_other_location' => $validatedFields['enrolment_other_location'],
 
             // Record
-            'record_g7_age' => $validatedFields['record_g7_age'],
             'record_g7_school_grade' => $validatedFields['record_g7_school_grade'],
             'record_g7_school_name' => $validatedFields['record_g7_school_name'],
             'record_g7_school_id' => $validatedFields['record_g7_school_id'],
@@ -652,8 +664,9 @@ class StudentController extends Controller {
             'record_g7_school_division' => $validatedFields['record_g7_school_division'],
             'record_g7_school_region' => $validatedFields['record_g7_school_region'],
             'record_g7_school_teacher' => $validatedFields['record_g7_school_teacher'],
+            'record_g7_remedial_date_start' => $validatedFields['record_g7_remedial_date_start'],
+            'record_g7_remedial_date_end' => $validatedFields['record_g7_remedial_date_end'],
 
-            'record_g8_age' => $validatedFields['record_g8_age'],
             'record_g8_school_grade' => $validatedFields['record_g8_school_grade'],
             'record_g8_school_name' => $validatedFields['record_g8_school_name'],
             'record_g8_school_id' => $validatedFields['record_g8_school_id'],
@@ -663,8 +676,9 @@ class StudentController extends Controller {
             'record_g8_school_division' => $validatedFields['record_g8_school_division'],
             'record_g8_school_region' => $validatedFields['record_g8_school_region'],
             'record_g8_school_teacher' => $validatedFields['record_g8_school_teacher'],
+            'record_g8_remedial_date_start' => $validatedFields['record_g8_remedial_date_start'],
+            'record_g8_remedial_date_end' => $validatedFields['record_g8_remedial_date_end'],
 
-            'record_g9_age' => $validatedFields['record_g9_age'],
             'record_g9_school_grade' => $validatedFields['record_g9_school_grade'],
             'record_g9_school_name' => $validatedFields['record_g9_school_name'],
             'record_g9_school_id' => $validatedFields['record_g9_school_id'],
@@ -674,8 +688,9 @@ class StudentController extends Controller {
             'record_g9_school_division' => $validatedFields['record_g9_school_division'],
             'record_g9_school_region' => $validatedFields['record_g9_school_region'],
             'record_g9_school_teacher' => $validatedFields['record_g9_school_teacher'],
+            'record_g9_remedial_date_start' => $validatedFields['record_g9_remedial_date_start'],
+            'record_g9_remedial_date_end' => $validatedFields['record_g9_remedial_date_end'],
             
-            'record_g10_age' => $validatedFields['record_g10_age'],
             'record_g10_school_grade' => $validatedFields['record_g10_school_grade'],
             'record_g10_school_name' => $validatedFields['record_g10_school_name'],
             'record_g10_school_id' => $validatedFields['record_g10_school_id'],
@@ -685,6 +700,17 @@ class StudentController extends Controller {
             'record_g10_school_division' => $validatedFields['record_g10_school_division'],
             'record_g10_school_region' => $validatedFields['record_g10_school_region'],
             'record_g10_school_teacher' => $validatedFields['record_g10_school_teacher'],
+            'record_g10_remedial_date_start' => $validatedFields['record_g10_remedial_date_start'],
+            'record_g10_remedial_date_end' => $validatedFields['record_g10_remedial_date_end'],
+
+            // Report
+            'report_g7_age' => $validatedFields['report_g7_age'],
+
+            'report_g8_age' => $validatedFields['report_g8_age'],
+
+            'report_g9_age' => $validatedFields['report_g9_age'],
+
+            'report_g10_age' => $validatedFields['report_g10_age'],
 
             // Subject -> filipino
             'subject_g7_fil_qr1' => $validatedFields['subject_g7_fil_qr1'],

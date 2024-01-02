@@ -11,14 +11,13 @@ Manager
             <div class = "col-12" style = "min-height: 500px">
 
                 <!-- Header -->
-                <h1>
+                <h5 class = "align-middle">01-0001-{{ $student->id }}</h5>
+                <h2 class = "align-middle">
                     <span>{{ $student->info_name_last }},</span>
-                    <span class = "capitalize">{{ $student->info_name_first }} {{ $student->info_name_middle }}.</span>
-                </h1>
-                <h4>01-0001-{{ $student->id }}</h4>
-                
-                <hr>
-                <hr>
+                    <span class = "capitalize">{{ $student->info_name_first }},</span>
+                    <span class = "capitalize">{{ $student->info_name_middle }}</span>
+                </h2>
+                <br>
 
                 <!-- Tabs -->
                 <ul class = "nav nav-fill nav-pills">
@@ -50,18 +49,22 @@ Manager
                         </ul>
                     </li>
 
+                    <!-- Options -->
                     <li class = "nav-item">
-                        <a id = "save" class = "nav-link" data-type = "toggle" data-parameters = "form-submit">SAVE CHANGES</a>
+                        <a class = "nav-link" data-type = "toggle" data-parameters = "form-submit">SAVE CHANGES</a>
+                    </li>
+                    <li class = "nav-item">
+                        <a class = "nav-link" onclick = "window.print(); window.close();">PRINT</a>
                     </li>
 
                 </ul>
 
                 <!-- Content -->
-                <div class = "tab-content">
+                <div id = "print-window" class = "tab-content">
 
                     <!-- Report cards  -->
                     <div id = "tab-report-card-7-front" class = "tab-pane fade">@include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 7])</div>
-                    <div id = "tab-report-card-7-back" class = "tab-pane fade show active">@include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 7])</div>
+                    <div id = "tab-report-card-7-back" class = "tab-pane fade">@include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 7])</div>
                     <div id = "tab-report-card-8-front" class = "tab-pane fade">@include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 8])</div>
                     <div id = "tab-report-card-8-back" class = "tab-pane fade">@include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 8])</div>
                     <div id = "tab-report-card-9-front" class = "tab-pane fade">@include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 9])</div>
@@ -70,13 +73,13 @@ Manager
                     <div id = "tab-report-card-10-back" class = "tab-pane fade">@include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 10])</div>
 
                     <!-- Permanent form -->
-                    <div id = "tab-permanent-form-front" class = "tab-pane fade">@include('layouts.manager.sf10-front', ['student' => $student])</div>
+                    <div id = "tab-permanent-form-front" class = "tab-pane fade show active">@include('layouts.manager.sf10-front', ['student' => $student])</div>
                     <div id = "tab-permanent-form-back" class = "tab-pane fade">@include('layouts.manager.sf10-back', ['student' => $student])</div>
 
                 </div>
 
                 <!-- Form -->
-                @include('layouts.form', ['student' => $student])
+                @include('layouts.manager.form', ['student' => $student])
 
             </div>
         </div>

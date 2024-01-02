@@ -41,7 +41,6 @@ return new class extends Migration {
 
         // Record
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('record_g7_age')->nullable();
             $table->tinyInteger('record_g7_school_grade')->nullable();
             $table->string('record_g7_school_name', 100)->nullable();
             $table->string('record_g7_school_id', 100)->nullable();
@@ -51,8 +50,9 @@ return new class extends Migration {
             $table->string('record_g7_school_division', 100)->nullable();
             $table->string('record_g7_school_region', 100)->nullable();
             $table->string('record_g7_school_teacher', 100)->nullable();
+            $table->string('record_g7_remedial_date_start', 100)->nullable();
+            $table->string('record_g7_remedial_date_end', 100)->nullable();
 
-            $table->tinyInteger('record_g8_age')->nullable();
             $table->tinyInteger('record_g8_school_grade')->nullable();
             $table->string('record_g8_school_name', 100)->nullable();
             $table->string('record_g8_school_id', 100)->nullable();
@@ -62,8 +62,9 @@ return new class extends Migration {
             $table->string('record_g8_school_division', 100)->nullable();
             $table->string('record_g8_school_region', 100)->nullable();
             $table->string('record_g8_school_teacher', 100)->nullable();
+            $table->string('record_g8_remedial_date_start', 100)->nullable();
+            $table->string('record_g8_remedial_date_end', 100)->nullable();
 
-            $table->tinyInteger('record_g9_age')->nullable();
             $table->tinyInteger('record_g9_school_grade')->nullable();
             $table->string('record_g9_school_name', 100)->nullable();
             $table->string('record_g9_school_id', 100)->nullable();
@@ -73,8 +74,9 @@ return new class extends Migration {
             $table->string('record_g9_school_division', 100)->nullable();
             $table->string('record_g9_school_region', 100)->nullable();
             $table->string('record_g9_school_teacher', 100)->nullable();
+            $table->string('record_g9_remedial_date_start', 100)->nullable();
+            $table->string('record_g9_remedial_date_end', 100)->nullable();
             
-            $table->tinyInteger('record_g10_age')->nullable();
             $table->tinyInteger('record_g10_school_grade')->nullable();
             $table->string('record_g10_school_name', 100)->nullable();
             $table->string('record_g10_school_id', 100)->nullable();
@@ -84,6 +86,19 @@ return new class extends Migration {
             $table->string('record_g10_school_division', 100)->nullable();
             $table->string('record_g10_school_region', 100)->nullable();
             $table->string('record_g10_school_teacher', 100)->nullable();
+            $table->string('record_g10_remedial_date_start', 100)->nullable();
+            $table->string('record_g10_remedial_date_end', 100)->nullable();
+        });
+
+        // Report
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('report_g7_age')->nullable();
+
+            $table->tinyInteger('report_g8_age')->nullable();
+
+            $table->tinyInteger('report_g9_age')->nullable();
+
+            $table->tinyInteger('report_g10_age')->nullable();
         });
 
         // Subject -> filipino

@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder {
 
         // Record
         Student::where('id', 1)->update([
-            'record_g7_age' => 13,
             'record_g7_school_grade' => '7',
             'record_g7_school_name' => 'Tri-state High School',
             'record_g7_school_id' => '01-0001-001',
@@ -35,6 +34,11 @@ class DatabaseSeeder extends Seeder {
             'record_g7_school_division' => 'Tri-state Area',
             'record_g7_school_region' => 'Danville',
             'record_g7_school_teacher' => 'Heinz Doofenshmirtz',
+        ]);
+
+        // Report
+        Student::where('id', 1)->update([
+            'report_g7_age' => 13,
         ]);
         
         // Subject -> filipino

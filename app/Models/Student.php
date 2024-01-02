@@ -42,7 +42,6 @@ class Student extends Model {
         'enrolment_other_location',
 
         // Record
-        'record_g7_age',
         'record_g7_school_grade',
         'record_g7_school_name',
         'record_g7_school_id',
@@ -52,8 +51,9 @@ class Student extends Model {
         'record_g7_school_division',
         'record_g7_school_region',
         'record_g7_school_teacher',
+        'record_g7_remedial_date_start',
+        'record_g7_remedial_date_end',
 
-        'record_g8_age',
         'record_g8_school_grade',
         'record_g8_school_name',
         'record_g8_school_id',
@@ -63,8 +63,9 @@ class Student extends Model {
         'record_g8_school_division',
         'record_g8_school_region',
         'record_g8_school_teacher',
+        'record_g8_remedial_date_start',
+        'record_g8_remedial_date_end',
 
-        'record_g9_age',
         'record_g9_school_grade',
         'record_g9_school_name',
         'record_g9_school_id',
@@ -74,8 +75,9 @@ class Student extends Model {
         'record_g9_school_division',
         'record_g9_school_region',
         'record_g9_school_teacher',
+        'record_g9_remedial_date_start',
+        'record_g9_remedial_date_end',
         
-        'record_g10_age',
         'record_g10_school_grade',
         'record_g10_school_name',
         'record_g10_school_id',
@@ -85,6 +87,17 @@ class Student extends Model {
         'record_g10_school_division',
         'record_g10_school_region',
         'record_g10_school_teacher',
+        'record_g10_remedial_date_start',
+        'record_g10_remedial_date_end',
+
+        // Report
+        'report_g7_age',
+
+        'report_g8_age',
+
+        'report_g9_age',
+
+        'report_g10_age',
 
         // Subject -> filipino
         'subject_g7_fil_qr1',

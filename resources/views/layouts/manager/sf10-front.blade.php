@@ -13,7 +13,7 @@
 					<br>
 					<span>Department of Education</span>
 					<br>
-					<h6 class = "sf10-no-margin">Learner Permanent Record for Junior High School (SF10-JHS)</h6>
+					<h6 class = "header-no-margin">Learner Permanent Record for Junior High School (SF10-JHS)</h6>
 					<span>(Formerly Form 137)</span>
 				</div>
 				<div class = "col-2">

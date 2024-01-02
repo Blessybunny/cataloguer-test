@@ -1,42 +1,54 @@
-// NOTE:
-// ID naming conventions are shared with the database's columns
-
-// MANAGER
 (() => {
-    // COMPLETE: VARIABLES
-    const grand = [`fil`, `eng`, `mat`, `sci`, `ap`, `ep`, `tle`, `mapeh`];
-    const grades = [7, 8, 9, 10];
-    const threshold = 75;
-
-    // Refresher
+    // Finalized: Refresher
     const refresher = {
         all: function () {
-            this.interactiveText();
-            this.interactiveNumber();
+            this.text();
+            this.number();
             this.total();
             this.average();
             this.remarks();
+            this.grand();
         },
-        interactiveText: () => {
-            const field = document.querySelectorAll(`[data-type = "interactive-text"]`);
+        text: () => {
+            // Fields
+            const field = document.querySelectorAll(`[data-type = "text"]`);
 
             for (let i = 0, ii = field.length; i < ii; i++) {
-                field[i].innerHTML = document.getElementById(field[i].dataset.parameters).value;
+                // Value white-space clean-up
+                const parameter = document.getElementById(field[i].dataset.parameters);
+
+                parameter.value = parameter.value.trim();
+
+                const value = parameter.value;
+
+                // Print
+                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
+                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
+
+                field[i].innerHTML = `${label}${value !== `` ? value : placeholder}`;
             }
         },
-        interactiveNumber: () => {
-            const field = document.querySelectorAll(`[data-type = "interactive-number"]`);
+        number: () => {
+            // Fields
+            const field = document.querySelectorAll(`[data-type = "number"]`);
 
             for (let i = 0, ii = field.length; i < ii; i++) {
+                // Value
                 const value = parseInt(document.getElementById(field[i].dataset.parameters).value);
 
-                field[i].innerHTML = !isNaN(value) ? value : ``;
+                // Print
+                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
+                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
+
+                field[i].innerHTML = `${label}${!isNaN(value) ? value : placeholder}`;
             }
         },
         total: () => {
+            // Fields
             const field = document.querySelectorAll(`[data-type = "total"]`);
 
             for (let i = 0, ii = field.length; i < ii; i++) {
+                // Value
                 const parameters = JSON.parse(field[i].dataset.parameters);
                 
                 let total = 0;
@@ -45,13 +57,19 @@
                     total += parseInt(document.getElementById(parameters[j]).value);
                 }
 
-                field[i].innerHTML = !isNaN(total) ? total : ``;
+                // Print
+                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
+                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
+                
+                field[i].innerHTML = `${label}${!isNaN(total) ? total : placeholder}`;
             }
         },
         average: () => {
+            // Fields
             const field = document.querySelectorAll(`[data-type = "average"]`);
 
             for (let i = 0, ii = field.length; i < ii; i++) {
+                // Value
                 const parameters = JSON.parse(field[i].dataset.parameters);
                 
                 let total = 0;
@@ -60,13 +78,20 @@
                     total += parseInt(document.getElementById(parameters[j]).value);
                 }
 
-                field[i].innerHTML = !isNaN(total) ? Math.round(total / parameters.length) : ``;
+                // Print
+                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
+                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
+
+                field[i].innerHTML = `${label}${!isNaN(total) ? Math.round(total / parameters.length) : placeholder}`;
             }
         },
         remarks: () => {
+            // Fields
             const field = document.querySelectorAll(`[data-type = "remarks"]`);
+            const threshold = 75;
 
             for (let i = 0, ii = field.length; i < ii; i++) {
+                // Value
                 const parameters = JSON.parse(field[i].dataset.parameters);
                 
                 let total = 0;
@@ -75,128 +100,93 @@
                     total += parseInt(document.getElementById(parameters[j]).value);
                 }
 
-                field[i].innerHTML = !isNaN(total) ? (Math.round(total / parameters.length) >= threshold ? `Passed` : `Failed`) : ``;
+                // Print
+                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
+                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
+
+                field[i].innerHTML = `${label}${!isNaN(total) ? (Math.round(total / parameters.length) >= threshold ? `Passed` : `Failed`) : placeholder}`;
             }
         },
-    };
-
-    // OLD
-    const compute = {
-        
         grand: () => {
-            for (let i = 0, ii = grades.length; i < ii; i++) {
-                const averages = document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_all_average"]`);
-                const remarks = document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_all_remarks"]`);
+            // Fields
+            const field = document.querySelectorAll(`[data-type = "grand"]`);
+            const threshold = 75;
 
-                let average = 0;
-                let remark = ``;
-                let hasIsNaN = false;
-
-                for (let j = 0, jj = averages.length; j < jj; j++) averages[j].innerHTML = ``;
-                for (let j = 0, jj = remarks.length; j < jj; j++) remarks[j].innerHTML = ``;
-
-                for (let j = 0, jj = grand.length; j < jj; j++) {
-                    const value = parseInt(document.querySelectorAll(`[data-compute = "ALL_g${grades[i]}_subject_${grand[j]}_average"]`)[0].innerHTML);
-
-                    if (!isNaN(value)) average += value;
-                    else hasIsNaN = true;
-                }
+            for (let i = 0, ii = field.length; i < ii; i++) {
+                // Value
+                const parameters = JSON.parse(field[i].dataset.parameters);
                 
-                if (!hasIsNaN) {
-                    average = Math.round(average / grand.length);
-                    remark = average >= threshold ? `Promoted` : `Failed`;
-                    
-                    for (let j = 0, jj = averages.length; j < jj; j++) averages[j].innerHTML = average;
-                    for (let j = 0, jj = remarks.length; j < jj; j++) remarks[j].innerHTML = remark;
+                let total = 0;
+
+                for (j = 0, jj = parameters.length; j < jj; j++) {
+                    total += parseInt(document.getElementById(parameters[j]).value);
                 }
+
+                // Print
+                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
+                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
+
+                field[i].innerHTML = `${label}${!isNaN(total) ? (Math.round(total / parameters.length) >= threshold ? `Promoted` : `Failed`) : placeholder}`;
             }
         },
     };
 
-    // COMPLETE: ONLOAD
-    window.onload = () => {
+    // Finalized: Interactibles - variables
+    const interactibles = [`text`, `number`, `toggle`];
+    const formWindow = document.getElementById(`form-wrapper`);
+    const formLabelA = document.getElementById(`form-label-a`);
+    const formLabelB = document.getElementById(`form-label-b`);
+    const formClose = document.getElementById(`form-close`);
+
+    let lastParameter = undefined;
+
+    // Finalized: Interactibles - open
+    for (let i = 0, ii = interactibles.length; i < ii; i++) {
+        const interactible = document.querySelectorAll(`[data-type = "${interactibles[i]}"]`);
+
+        for (let j = 0, jj = interactible.length; j < jj; j++) {
+            interactible[j].addEventListener(`click`, function () {
+                formWindow.classList.add(`visible`);
+                formWindow.classList.remove(`hidden`);
+
+                lastParameter = document.getElementById(interactible[j].dataset.parameters);
+
+                lastParameter.classList.add(`visible`);
+                lastParameter.classList.remove(`hidden`);
+    
+                formLabelA.innerHTML = lastParameter.dataset.labelA;
+                formLabelB.innerHTML = lastParameter.dataset.labelB;
+            });
+        }
+    }
+
+    // Finalized: Interactibles - close
+    formClose.addEventListener(`click`, function () {
+        formWindow.classList.add(`hidden`);
+        formWindow.classList.remove(`visible`);
+
+        lastParameter.classList.add(`hidden`);
+        lastParameter.classList.remove(`visible`);
+
         refresher.all();
-    };
+    });
 
-    // FORM
-    (() => {
-        // Variables
-        const form = document.getElementById(`form-wrapper`);
-        const interactive_1 = document.querySelectorAll(`[data-type = "interactive-text"]`);
-        const interactive_2 = document.querySelectorAll(`[data-type = "interactive-number"]`);
-        const interactive_3 = document.querySelectorAll(`[data-type = "toggle"]`);
-
-        let lastOpenedEditable = undefined;
-
-        // Close
-        document.getElementById(`form-close`).addEventListener(`click`, function () {
-            form.classList.add(`hidden`);
-            form.classList.remove(`visible`);
-    
-            refresher.all();
-
-            lastOpenedEditable.classList.add(`hidden`);
-            lastOpenedEditable.classList.remove(`visible`);
-        });
-
-        // Open
-        for (let i = 0, ii = interactive_1.length; i < ii; i++) {
-            interactive_1[i].addEventListener(`click`, function () {
-                form.classList.add(`visible`);
-                form.classList.remove(`hidden`);
-
-                lastOpenedEditable = document.getElementById(interactive_1[i].dataset.parameters);
-
-                lastOpenedEditable.classList.add(`visible`);
-                lastOpenedEditable.classList.remove(`hidden`);
-    
-                document.getElementById(`form-label-a`).innerHTML = lastOpenedEditable.dataset.labelA;
-                document.getElementById(`form-label-b`).innerHTML = lastOpenedEditable.dataset.labelB;
-            });
-        }
-        for (let i = 0, ii = interactive_2.length; i < ii; i++) {
-            interactive_2[i].addEventListener(`click`, function () {
-                form.classList.add(`visible`);
-                form.classList.remove(`hidden`);
-
-                lastOpenedEditable = document.getElementById(interactive_2[i].dataset.parameters);
-
-                lastOpenedEditable.classList.add(`visible`);
-                lastOpenedEditable.classList.remove(`hidden`);
-    
-                document.getElementById(`form-label-a`).innerHTML = lastOpenedEditable.dataset.labelA;
-                document.getElementById(`form-label-b`).innerHTML = lastOpenedEditable.dataset.labelB;
-            });
-        }
-        for (let i = 0, ii = interactive_3.length; i < ii; i++) {
-            interactive_3[i].addEventListener(`click`, function () {
-                form.classList.add(`visible`);
-                form.classList.remove(`hidden`);
-
-                lastOpenedEditable = document.getElementById(interactive_3[i].dataset.parameters);
-
-                lastOpenedEditable.classList.add(`visible`);
-                lastOpenedEditable.classList.remove(`hidden`);
-    
-                document.getElementById(`form-label-a`).innerHTML = lastOpenedEditable.dataset.labelA;
-                document.getElementById(`form-label-b`).innerHTML = lastOpenedEditable.dataset.labelB;
-            });
-        }
-
-        // Input: Number
-        const numbers = document.querySelectorAll(`[data-input-type = "number"]`);
-
-        for (let i = 0, ii = numbers.length; i < ii; i++) {
-            numbers[i].addEventListener(`input`, function () {
-                const min = parseInt(this.dataset.inputMin);
-                const max = parseInt(this.dataset.inputMax);
-
-                this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-                
-                if (this.value < min) this.value = min;
-                if (this.value > max) this.value = max;
-            });
-        }
-    })();
+    // Finalized: Onload
+    window.onload = () => refresher.all();
 })();
+(() => {
+    // Finalized: Input bahavior - numbers
+    const numbers = document.querySelectorAll(`[data-input-type = "number"]`);
 
+    for (let i = 0, ii = numbers.length; i < ii; i++) {
+        numbers[i].addEventListener(`input`, function () {
+            const min = parseInt(this.dataset.inputMin);
+            const max = parseInt(this.dataset.inputMax);
+
+            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1'); // Include decimals: replace(/(\..*)\./g, '$1')
+            
+            if (this.value < min) this.value = min;
+            if (this.value > max) this.value = max;
+        });
+    }
+})();

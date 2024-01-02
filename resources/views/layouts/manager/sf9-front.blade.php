@@ -18,7 +18,7 @@
 					<span>Cordillera Administrative Region</span>
 					<br>
 					<span>Division of Baguio City</span>
-					<h6 class = "sf9-no-margin">Irisan National High School</h6>
+					<h6 class = "header-no-margin">Irisan National High School</h6>
 					<span>Purok 3, Irisan, Baguio City</span>
 				</div>
 				<div class = "col-3 align-middle">
@@ -60,16 +60,16 @@
 				<div class = "col-12">
 					<span>Dear parent:</span>
 					<br>
-					<span class = "sf9-indent-1">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
+					<span class = "paragraph-indent">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
 					<br>
 					<br>
 				</div>
-				<div class = "col-6 align-middle debug-none">
+				<div class = "col-6 align-middle">
 					______________________________
 					<br>
 					OIC - Office of the Principal
 				</div>
-				<div class = "col-6 align-middle debug-none">
+				<div class = "col-6 align-middle">
 					______________________________
 					<br>
 					Adviser
@@ -89,12 +89,12 @@
 					<br>
 					<br>
 				</div>
-				<div class = "col-6 align-middle debug-none">
+				<div class = "col-6 align-middle">
 					______________________________
 					<br>
 					OIC - Office of the Principal
 				</div>
-				<div class = "col-6 align-middle debug-none">
+				<div class = "col-6 align-middle">
 					______________________________
 					<br>
 					Adviser
@@ -130,80 +130,80 @@
 				</tr>
 				<tr>
 					<td class = "align-middle">Oct</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_oct"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_oct"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_oct"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_oct"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Nov</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_nov"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_nov"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_nov"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_nov"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Dec</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_dec"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_dec"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_dec"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_dec"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jan</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_jan"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_jan"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_jan"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_jan"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Feb</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_feb"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_feb"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_feb"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_feb"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Mar</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_mar"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_mar"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_mar"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_mar"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Apr</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_apr"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_apr"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_apr"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_apr"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">May</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_may"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_may"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_may"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_may"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jun</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_jun"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_jun"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_jun"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_jun"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jul</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_jul"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_jul"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_jul"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_jul"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Aug</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_aug"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_aug"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_aug"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_aug"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Sep</td>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_p_sep"></td>
-					<td class = "align-middle debug-field" data-type = "interactive-number" data-parameters = "attendance_g{{ $grade }}_a_sep"></td>
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_sep"></td>
+					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_sep"></td>
 				</tr>
 				<tr>
 					<th class = "align-middle uppercase">Total</th>
-					<td class = "align-middle debug-none"></td>
-					<td class = "align-middle debug-compute" data-type = "total" data-parameters = '[
+					<td class = "align-middle"></td>
+					<td class = "align-middle" data-type = "total" data-parameters = '[
 						"attendance_g{{ $grade }}_p_jan",
 						"attendance_g{{ $grade }}_p_feb",
 						"attendance_g{{ $grade }}_p_mar",
@@ -217,7 +217,7 @@
 						"attendance_g{{ $grade }}_p_nov",
 						"attendance_g{{ $grade }}_p_dec"
 					]'></td>
-					<td class = "align-middle debug-compute" data-type = "total" data-parameters = '[
+					<td class = "align-middle" data-type = "total" data-parameters = '[
 						"attendance_g{{ $grade }}_a_jan",
 						"attendance_g{{ $grade }}_a_feb",
 						"attendance_g{{ $grade }}_a_mar",
@@ -234,7 +234,7 @@
 				</tr>
 			</table>
 
-			<span class = "bold uppercase debug-none">Parent / Guardian's Signature:</span>
+			<span class = "bold uppercase">Parent / Guardian's Signature:</span>
 			<br>
 			<br>
 			<span class = "debug-none">1st Quarter:</span>
