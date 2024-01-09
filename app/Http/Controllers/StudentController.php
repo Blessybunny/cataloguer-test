@@ -10,14 +10,14 @@ class StudentController extends Controller {
     public function index () {
         $students = Student::all();
         
-        return view('manager.index', compact('students'));
+        return view('pages.manager.index', compact('students'));
     }
 
     // Edit
     public function edit ($id) {
         $student = Student::findOrFail($id);
         
-        return view('manager.edit', compact('student'));
+        return view('pages.manager.edit', compact('student'));
     }
 
     // Save

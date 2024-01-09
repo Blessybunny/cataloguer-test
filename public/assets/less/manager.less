@@ -1,14 +1,4 @@
-/* Finalized: FONT*/
-@font-face {
-    font-family: poppins;
-    src: url(../font/poppins-regular.ttf);
-}
-@font-face {
-    font-family: roboto;
-    src: url(../font/roboto-regular.ttf);
-}
-
-/* Finalized: LESS */
+/* LESS */
 @opacity-step: 0.25;
 
 @color-table: rgba(#000, (@opacity-step / 2));
@@ -26,7 +16,7 @@
 @size-spacing: 30px;
 @size-width-paper: 1200px;
 
-/* Finalized: PRINT */
+/* PRINT */
 @media print {
     @page { margin: 0; }
     
@@ -35,12 +25,23 @@
     #print-window {
         left: 0;
         position: absolute;
-        print-color-adjust: exact;          /* General support */
-        -webkit-print-color-adjust: exact;  /* Chromium support */
+        print-color-adjust: exact; /* General support */
+        -webkit-print-color-adjust: exact; /* Chromium support */
         top: 0;
         visibility: visible;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
 
 /* Finalized: HTML */
 h1, h2, h3, h4, h5, h6 {

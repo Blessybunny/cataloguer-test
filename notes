@@ -35,6 +35,24 @@ JUNKYARD:
 
 
 
+					<ul>
+						To-do:
+						<hr>
+						<li>CHECKPOINT: work on making everything editable.</li>
+						<li>Create a new database category named "report" that contains the miscellaneous variables from sf9 front and back.</li>
+						<li>Create an options row that toggles a highlight to make editable fields visibly easier</li>
+						<li>Add general info for each student below their name headers, including the date created and last updated (restore the timestamps).</li>
+						<li>Change observed values comparatives to isset().</li>
+						<hr>
+						<li>Turn required fields into red text if empty.</li>
+					</ul>
+					<ul>
+						Status:
+						<hr>
+						<li>Edit: Complete</li>
+						<li>SF9 Back: Complete</li>
+					</ul>
+
 
         // Phineas And Ferb
             Student::create([

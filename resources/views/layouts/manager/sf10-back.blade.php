@@ -1,20 +1,17 @@
 <section class = "container custom-paper">
 	<div class = "row">
 
-		<!-- Scholastic record -->
+		<!-- Scholastic record 9-10 -->
 		<div class = "col-12">
 			
 			<h6 class = "align-middle custom-header">Scholastic Record</h6>
+		
+			@include('layouts.manager.sf10-table', ['grade' => 9])
+			@include('layouts.manager.sf10-table', ['grade' => 10])
 
 		</div>
 		
-		<!-- Grade 9 -->
-		@include('layouts.manager.sf10-grade', ['grade' => 9])
-
-		<!-- Grade 10 -->
-		@include('layouts.manager.sf10-grade', ['grade' => 10])
-		
-		<!-- Grade X -->
+		<!-- Scholastic record space -->
 		<div class = "col-12">
 			
 			<div class = "row">
@@ -201,48 +198,48 @@
 		<!-- Certification -->
 		<div class = "col-12">
 
-				<span class = "bold uppercase">For Transfer Out / JHS Completer Only</span>
+			<span class = "bold uppercase">For Transfer Out / JHS Completer Only</span>
+			<br>
+			<br>
+		
+			<h6 class = "align-middle custom-header">Certification</h6>
+
+			<div class = "align-middle">
+				<span>I CERTIFY that this is a true record of</span>
+				<span>____________________</span>
+				<span>with LRN</span>
+				<span>____________________</span>
+				<span>and that he / she is eligible for admission to Grade</span>
+				<span>__________</span>
+				<span>.</span>
+				<br>
+				<span>Name of School:</span>
+				<span>________________________________________</span>
+				<span>School ID:</span>
+				<span>________________________________________</span>
+				<span>Last School Year Attended:</span>
+				<span>________________________________________</span>
 				<br>
 				<br>
-			
-				<h6 class = "align-middle custom-header">Certification</h6>
+			</div>
 
-				<div class = "align-middle">
-					<span>I CERTIFY that this is a true record of</span>
+			<div class = "align-middle row">
+				<div class = "col">
 					<span>____________________</span>
-					<span>with LRN</span>
-					<span>____________________</span>
-					<span>and that he / she is eligible for admission to Grade</span>
-					<span>__________</span>
-					<span>.</span>
 					<br>
-					<span>Name of School:</span>
-					<span>________________________________________</span>
-					<span>School ID:</span>
-					<span>________________________________________</span>
-					<span>Last School Year Attended:</span>
-					<span>________________________________________</span>
-					<br>
-					<br>
+					<span>Date</span>
 				</div>
-
-				<div class = "align-middle row">
-					<div class = "col">
-						<span>____________________</span>
-						<br>
-						<span>Date</span>
-					</div>
-					<div class = "col">
-						<span>________________________________________________________________________________</span>
-						<br>
-						<span>Name of Principal / School Head over Printed Name</span>
-					</div>
-					<div class = "col">
-						<span>________________________________________</span>
-						<br>
-						<span>Affix School Seal here</span>
-					</div>
+				<div class = "col">
+					<span>________________________________________________________________________________</span>
+					<br>
+					<span>Name of Principal / School Head over Printed Name</span>
 				</div>
+				<div class = "col">
+					<span>________________________________________</span>
+					<br>
+					<span>Affix School Seal here</span>
+				</div>
+			</div>
 				
 		</div>
 

@@ -107,60 +107,57 @@
 
 		</div>
 
-		<!-- Scholastic record -->
+		<!-- Scholastic record 7-8 -->
 		<div class = "col-12">
 			
 			<h6 class = "align-middle custom-header">Scholastic Record</h6>
 
+			@include('layouts.manager.sf10-table', ['grade' => 7])
+			@include('layouts.manager.sf10-table', ['grade' => 8])
+
 		</div>
-
-		<!-- Grade 7 -->
-		@include('layouts.manager.sf10-grade', ['grade' => 7])
-
-		<!-- Grade 8 -->
-		@include('layouts.manager.sf10-grade', ['grade' => 8])
 
 		<!-- Certification -->
 		<div class = "col-12">
 			
-				<h6 class = "align-middle custom-header">Certification</h6>
+			<h6 class = "align-middle custom-header">Certification</h6>
 
-				<div class = "align-middle">
-					<span>I CERTIFY that this is a true record of</span>
-					<span>____________________</span>
-					<span>with LRN</span>
-					<span>____________________</span>
-					<span>and that he / she is eligible for admission to Grade</span>
-					<span>__________</span>
-					<span>.</span>
-					<br>
-					<span>Name of School:</span>
-					<span>________________________________________</span>
-					<span>School ID:</span>
-					<span>________________________________________</span>
-					<span>Last School Year Attended:</span>
-					<span>________________________________________</span>
-					<br>
-					<br>
-				</div>
+			<div class = "align-middle">
+				<span>I CERTIFY that this is a true record of</span>
+				<span>____________________</span>
+				<span>with LRN</span>
+				<span>____________________</span>
+				<span>and that he / she is eligible for admission to Grade</span>
+				<span>__________</span>
+				<span>.</span>
+				<br>
+				<span>Name of School:</span>
+				<span>________________________________________</span>
+				<span>School ID:</span>
+				<span>________________________________________</span>
+				<span>Last School Year Attended:</span>
+				<span>________________________________________</span>
+				<br>
+				<br>
+			</div>
 
-				<div class = "align-middle row">
-					<div class = "col">
-						<span>____________________</span>
-						<br>
-						<span>Date</span>
-					</div>
-					<div class = "col">
-						<span>________________________________________________________________________________</span>
-						<br>
-						<span>Name of Principal / School Head over Printed Name</span>
-					</div>
-					<div class = "col">
-						<span>________________________________________</span>
-						<br>
-						<span>Affix School Seal here</span>
-					</div>
+			<div class = "align-middle row">
+				<div class = "col">
+					<span>____________________</span>
+					<br>
+					<span>Date</span>
 				</div>
+				<div class = "col">
+					<span>________________________________________________________________________________</span>
+					<br>
+					<span>Name of Principal / School Head over Printed Name</span>
+				</div>
+				<div class = "col">
+					<span>________________________________________</span>
+					<br>
+					<span>Affix School Seal here</span>
+				</div>
+			</div>
 				
 		</div>
 

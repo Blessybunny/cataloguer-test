@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
     
 // LOGIN
-Route::get('/', 'App\Http\Controllers\StudentController@index');
+Route::get('/', function () { return redirect()->to('/login'); });
+Route::get('/login', function () { return view('pages.login.index'); });
 
 // DASHBOARD ELEMENTS
 Route::get('/manager', 'App\Http\Controllers\StudentController@index');
