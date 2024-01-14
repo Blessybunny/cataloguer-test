@@ -12,13 +12,10 @@
 				</div>
 				<div class = "col-6 align-middle">
 					<span>Republic of the Philippines</span>
-					<br>
 					<span>Department of Education</span>
-					<br>
 					<span>Cordillera Administrative Region</span>
-					<br>
 					<span>Division of Baguio City</span>
-					<h6 class = "header-no-margin">Irisan National High School</h6>
+					<h6 class = "margin-none">Irisan National High School</h6>
 					<span>Purok 3, Irisan, Baguio City</span>
 				</div>
 				<div class = "col-3 align-middle">
@@ -60,7 +57,7 @@
 				<div class = "col-12">
 					<span>Dear parent:</span>
 					<br>
-					<span class = "paragraph-indent">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
+					<span class = "align-justify paragraph-indent">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
 					<br>
 					<br>
 				</div>

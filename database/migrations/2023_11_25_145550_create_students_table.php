@@ -6,91 +6,88 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up () : void {
-        // Info
+        // DO-NOT-TOUCH: Info
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('info_lrn', 100)->unique();
             $table->string('info_name_last', 100);
             $table->string('info_name_first', 100);
             $table->string('info_name_middle', 100);
+            $table->string('info_lrn', 100)->unique();
             $table->string('info_sex', 100);
-            $table->smallInteger('info_birthdate_year');
-            $table->tinyInteger('info_birthdate_month');
-            $table->tinyInteger('info_birthdate_day');
+            $table->date('info_birthdate');
         });
 
-        // Enrolment
+        // DO-NOT-TOUCH: Enrollment
         Schema::table('students', function (Blueprint $table) {
-            $table->boolean('enrolment_elementary_boolean')->default(0);
-            $table->tinyInteger('enrolment_elementary_average')->nullable();
-            $table->string('enrolment_elementary_citation', 100)->nullable();
-            $table->string('enrolment_elementary_name', 100)->nullable();
-            $table->string('enrolment_elementary_id', 100)->nullable();
-            $table->string('enrolment_elementary_address', 100)->nullable();
+            $table->boolean('enrollment_elementary_boolean')->default(0);
+            $table->tinyInteger('enrollment_elementary_average')->nullable();
+            $table->string('enrollment_elementary_citation', 100)->nullable();
+            $table->string('enrollment_elementary_name', 100)->nullable();
+            $table->string('enrollment_elementary_id', 100)->nullable();
+            $table->string('enrollment_elementary_address', 100)->nullable();
 
-            $table->boolean('enrolment_other_pept_boolean')->default(0);
-            $table->tinyInteger('enrolment_other_pept_rating')->nullable();
-            $table->boolean('enrolment_other_alsae_boolean')->default(0);
-            $table->tinyInteger('enrolment_other_alsae_rating')->nullable();
-            $table->boolean('enrolment_other_specify_boolean')->default(0);
-            $table->tinyInteger('enrolment_other_specify_rating')->nullable();
-            $table->string('enrolment_other_specify_label', 100)->nullable();
-            $table->string('enrolment_other_date', 100)->nullable();
-            $table->string('enrolment_other_location', 100)->nullable();
+            $table->boolean('enrollment_other_pept_boolean')->default(0);
+            $table->tinyInteger('enrollment_other_pept_rating')->nullable();
+            $table->boolean('enrollment_other_alsae_boolean')->default(0);
+            $table->tinyInteger('enrollment_other_alsae_rating')->nullable();
+            $table->boolean('enrollment_other_specify_boolean')->default(0);
+            $table->string('enrollment_other_specify_label', 100)->nullable();
+            $table->date('enrollment_other_date')->nullable();
+            $table->string('enrollment_other_location', 100)->nullable();
         });
 
-        // Record
+        // DO-NOT-TOUCH: Record
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('record_g7_school_grade')->nullable();
             $table->string('record_g7_school_name', 100)->nullable();
             $table->string('record_g7_school_id', 100)->nullable();
-            $table->string('record_g7_school_section', 100)->nullable();
-            $table->string('record_g7_school_year', 100)->nullable();
             $table->string('record_g7_school_district', 100)->nullable();
             $table->string('record_g7_school_division', 100)->nullable();
             $table->string('record_g7_school_region', 100)->nullable();
+            $table->tinyInteger('record_g7_school_grade')->nullable();
+            $table->string('record_g7_school_section', 100)->nullable();
+            $table->string('record_g7_school_year', 100)->nullable();
             $table->string('record_g7_school_teacher', 100)->nullable();
-            $table->string('record_g7_remedial_date_start', 100)->nullable();
-            $table->string('record_g7_remedial_date_end', 100)->nullable();
+            $table->date('record_g7_remedial_date_start')->nullable();
+            $table->date('record_g7_remedial_date_end')->nullable();
 
-            $table->tinyInteger('record_g8_school_grade')->nullable();
             $table->string('record_g8_school_name', 100)->nullable();
             $table->string('record_g8_school_id', 100)->nullable();
-            $table->string('record_g8_school_section', 100)->nullable();
-            $table->string('record_g8_school_year', 100)->nullable();
             $table->string('record_g8_school_district', 100)->nullable();
             $table->string('record_g8_school_division', 100)->nullable();
             $table->string('record_g8_school_region', 100)->nullable();
+            $table->tinyInteger('record_g8_school_grade')->nullable();
+            $table->string('record_g8_school_section', 100)->nullable();
+            $table->string('record_g8_school_year', 100)->nullable();
             $table->string('record_g8_school_teacher', 100)->nullable();
-            $table->string('record_g8_remedial_date_start', 100)->nullable();
-            $table->string('record_g8_remedial_date_end', 100)->nullable();
+            $table->date('record_g8_remedial_date_start')->nullable();
+            $table->date('record_g8_remedial_date_end')->nullable();
 
-            $table->tinyInteger('record_g9_school_grade')->nullable();
             $table->string('record_g9_school_name', 100)->nullable();
             $table->string('record_g9_school_id', 100)->nullable();
-            $table->string('record_g9_school_section', 100)->nullable();
-            $table->string('record_g9_school_year', 100)->nullable();
             $table->string('record_g9_school_district', 100)->nullable();
             $table->string('record_g9_school_division', 100)->nullable();
             $table->string('record_g9_school_region', 100)->nullable();
+            $table->tinyInteger('record_g9_school_grade')->nullable();
+            $table->string('record_g9_school_section', 100)->nullable();
+            $table->string('record_g9_school_year', 100)->nullable();
             $table->string('record_g9_school_teacher', 100)->nullable();
-            $table->string('record_g9_remedial_date_start', 100)->nullable();
-            $table->string('record_g9_remedial_date_end', 100)->nullable();
-            
-            $table->tinyInteger('record_g10_school_grade')->nullable();
+            $table->date('record_g9_remedial_date_start')->nullable();
+            $table->date('record_g9_remedial_date_end')->nullable();
+
             $table->string('record_g10_school_name', 100)->nullable();
             $table->string('record_g10_school_id', 100)->nullable();
-            $table->string('record_g10_school_section', 100)->nullable();
-            $table->string('record_g10_school_year', 100)->nullable();
             $table->string('record_g10_school_district', 100)->nullable();
             $table->string('record_g10_school_division', 100)->nullable();
             $table->string('record_g10_school_region', 100)->nullable();
+            $table->tinyInteger('record_g10_school_grade')->nullable();
+            $table->string('record_g10_school_section', 100)->nullable();
+            $table->string('record_g10_school_year', 100)->nullable();
             $table->string('record_g10_school_teacher', 100)->nullable();
-            $table->string('record_g10_remedial_date_start', 100)->nullable();
-            $table->string('record_g10_remedial_date_end', 100)->nullable();
+            $table->date('record_g10_remedial_date_start')->nullable();
+            $table->date('record_g10_remedial_date_end')->nullable();
         });
 
-        // Report
+        // DO-NOT-TOUCH: Report
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('report_g7_age')->nullable();
 
@@ -100,6 +97,11 @@ return new class extends Migration {
 
             $table->tinyInteger('report_g10_age')->nullable();
         });
+
+
+
+
+        
 
         // Subject -> filipino
         Schema::table('students', function (Blueprint $table) {

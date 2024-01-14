@@ -22,86 +22,165 @@ class StudentController extends Controller {
 
     // Save
     public function save ($id) {
-        // Validate
-        $validatedFields = request()->validate([
-            // Info
-            'info_lrn' => 'required',
+        // DO-NOT-TOUCH: Info
+        $validate_info = request()->validate([
             'info_name_last' => 'required',
             'info_name_first' => 'required',
             'info_name_middle' => 'required',
+            'info_lrn' => 'required',
             'info_sex' => 'required',
-            'info_birthdate_year' => 'required',
-            'info_birthdate_month' => 'required',
-            'info_birthdate_day' => 'required',
-        
-            // Enrolment
-            'enrolment_elementary_boolean' => 'nullable',
-            'enrolment_elementary_average' => 'nullable',
-            'enrolment_elementary_citation' => 'nullable',
-            'enrolment_elementary_name' => 'nullable',
-            'enrolment_elementary_id' => 'nullable',
-            'enrolment_elementary_address' => 'nullable',
-    
-            'enrolment_other_pept_boolean' => 'nullable',
-            'enrolment_other_pept_rating' => 'nullable',
-            'enrolment_other_alsae_boolean' => 'nullable',
-            'enrolment_other_alsae_rating' => 'nullable',
-            'enrolment_other_specify_boolean' => 'nullable',
-            'enrolment_other_specify_rating' => 'nullable',
-            'enrolment_other_specify_label' => 'nullable',
-            'enrolment_other_date' => 'nullable',
-            'enrolment_other_location' => 'nullable',
+            'info_birthdate' => 'required',
+        ]);
 
-            // Record
-            'record_g7_school_grade' => 'nullable',
+        Student::where('id', $id)->update([
+            'info_name_last' => $validate_info['info_name_last'],
+            'info_name_first' => $validate_info['info_name_first'],
+            'info_name_middle' => $validate_info['info_name_middle'],
+            'info_lrn' => $validate_info['info_lrn'],
+            'info_sex' => $validate_info['info_sex'],
+            'info_birthdate' => $validate_info['info_birthdate'],
+        ]);
+        
+        // DO-NOT-TOUCH: Enrollment
+        $validate_enrolment = request()->validate([
+            'enrollment_elementary_boolean' => 'nullable',
+            'enrollment_elementary_average' => 'nullable',
+            'enrollment_elementary_citation' => 'nullable',
+            'enrollment_elementary_name' => 'nullable',
+            'enrollment_elementary_id' => 'nullable',
+            'enrollment_elementary_address' => 'nullable',
+    
+            'enrollment_other_pept_boolean' => 'nullable',
+            'enrollment_other_pept_rating' => 'nullable',
+            'enrollment_other_alsae_boolean' => 'nullable',
+            'enrollment_other_alsae_rating' => 'nullable',
+            'enrollment_other_specify_boolean' => 'nullable',
+            'enrollment_other_specify_label' => 'nullable',
+            'enrollment_other_date' => 'nullable',
+            'enrollment_other_location' => 'nullable',
+        ]);
+
+        Student::where('id', $id)->update([
+            'enrollment_elementary_boolean' => isset($validate_enrolment['enrollment_elementary_boolean']) ? 1 : 0,
+            'enrollment_elementary_average' => $validate_enrolment['enrollment_elementary_average'],
+            'enrollment_elementary_citation' => $validate_enrolment['enrollment_elementary_citation'],
+            'enrollment_elementary_name' => $validate_enrolment['enrollment_elementary_name'],
+            'enrollment_elementary_id' => $validate_enrolment['enrollment_elementary_id'],
+            'enrollment_elementary_address' => $validate_enrolment['enrollment_elementary_address'],
+
+            'enrollment_other_pept_boolean' => isset($validate_enrolment['enrollment_other_pept_boolean']) ? 1 : 0,
+            'enrollment_other_pept_rating' => $validate_enrolment['enrollment_other_pept_rating'],
+            'enrollment_other_alsae_boolean' => isset($validate_enrolment['enrollment_other_alsae_boolean']) ? 1 : 0,
+            'enrollment_other_alsae_rating' => $validate_enrolment['enrollment_other_alsae_rating'],
+            'enrollment_other_specify_boolean' => isset($validate_enrolment['enrollment_other_specify_boolean']) ? 1 : 0,
+            'enrollment_other_specify_label' => $validate_enrolment['enrollment_other_specify_label'],
+            'enrollment_other_date' => $validate_enrolment['enrollment_other_date'],
+            'enrollment_other_location' => $validate_enrolment['enrollment_other_location'],
+        ]);
+        
+        // DO-NOT-TOUCH: Record
+        $validate_record = request()->validate([
             'record_g7_school_name' => 'nullable',
             'record_g7_school_id' => 'nullable',
-            'record_g7_school_section' => 'nullable',
-            'record_g7_school_year' => 'nullable',
             'record_g7_school_district' => 'nullable',
             'record_g7_school_division' => 'nullable',
             'record_g7_school_region' => 'nullable',
+            'record_g7_school_grade' => 'nullable',
+            'record_g7_school_section' => 'nullable',
+            'record_g7_school_year' => 'nullable',
             'record_g7_school_teacher' => 'nullable',
             'record_g7_remedial_date_start' => 'nullable',
             'record_g7_remedial_date_end' => 'nullable',
 
-            'record_g8_school_grade' => 'nullable',
             'record_g8_school_name' => 'nullable',
             'record_g8_school_id' => 'nullable',
-            'record_g8_school_section' => 'nullable',
-            'record_g8_school_year' => 'nullable',
             'record_g8_school_district' => 'nullable',
             'record_g8_school_division' => 'nullable',
             'record_g8_school_region' => 'nullable',
+            'record_g8_school_grade' => 'nullable',
+            'record_g8_school_section' => 'nullable',
+            'record_g8_school_year' => 'nullable',
             'record_g8_school_teacher' => 'nullable',
             'record_g8_remedial_date_start' => 'nullable',
             'record_g8_remedial_date_end' => 'nullable',
 
-            'record_g9_school_grade' => 'nullable',
             'record_g9_school_name' => 'nullable',
             'record_g9_school_id' => 'nullable',
-            'record_g9_school_section' => 'nullable',
-            'record_g9_school_year' => 'nullable',
             'record_g9_school_district' => 'nullable',
             'record_g9_school_division' => 'nullable',
             'record_g9_school_region' => 'nullable',
+            'record_g9_school_grade' => 'nullable',
+            'record_g9_school_section' => 'nullable',
+            'record_g9_school_year' => 'nullable',
             'record_g9_school_teacher' => 'nullable',
             'record_g9_remedial_date_start' => 'nullable',
             'record_g9_remedial_date_end' => 'nullable',
             
-            'record_g10_school_grade' => 'nullable',
             'record_g10_school_name' => 'nullable',
             'record_g10_school_id' => 'nullable',
-            'record_g10_school_section' => 'nullable',
-            'record_g10_school_year' => 'nullable',
             'record_g10_school_district' => 'nullable',
             'record_g10_school_division' => 'nullable',
             'record_g10_school_region' => 'nullable',
+            'record_g10_school_grade' => 'nullable',
+            'record_g10_school_section' => 'nullable',
+            'record_g10_school_year' => 'nullable',
             'record_g10_school_teacher' => 'nullable',
             'record_g10_remedial_date_start' => 'nullable',
             'record_g10_remedial_date_end' => 'nullable',
+        ]);
 
-            // Report
+        Student::where('id', $id)->update([
+            'record_g7_school_name' => $validate_record['record_g7_school_name'],
+            'record_g7_school_id' => $validate_record['record_g7_school_id'],
+            'record_g7_school_district' => $validate_record['record_g7_school_district'],
+            'record_g7_school_division' => $validate_record['record_g7_school_division'],
+            'record_g7_school_region' => $validate_record['record_g7_school_region'],
+            'record_g7_school_grade' => $validate_record['record_g7_school_grade'],
+            'record_g7_school_section' => $validate_record['record_g7_school_section'],
+            'record_g7_school_year' => $validate_record['record_g7_school_year'],
+            'record_g7_school_teacher' => $validate_record['record_g7_school_teacher'],
+            'record_g7_remedial_date_start' => $validate_record['record_g7_remedial_date_start'],
+            'record_g7_remedial_date_end' => $validate_record['record_g7_remedial_date_end'],
+
+            'record_g8_school_name' => $validate_record['record_g8_school_name'],
+            'record_g8_school_id' => $validate_record['record_g8_school_id'],
+            'record_g8_school_district' => $validate_record['record_g8_school_district'],
+            'record_g8_school_division' => $validate_record['record_g8_school_division'],
+            'record_g8_school_region' => $validate_record['record_g8_school_region'],
+            'record_g8_school_grade' => $validate_record['record_g8_school_grade'],
+            'record_g8_school_section' => $validate_record['record_g8_school_section'],
+            'record_g8_school_year' => $validate_record['record_g8_school_year'],
+            'record_g8_school_teacher' => $validate_record['record_g8_school_teacher'],
+            'record_g8_remedial_date_start' => $validate_record['record_g8_remedial_date_start'],
+            'record_g8_remedial_date_end' => $validate_record['record_g8_remedial_date_end'],
+
+            'record_g9_school_name' => $validate_record['record_g9_school_name'],
+            'record_g9_school_id' => $validate_record['record_g9_school_id'],
+            'record_g9_school_district' => $validate_record['record_g9_school_district'],
+            'record_g9_school_division' => $validate_record['record_g9_school_division'],
+            'record_g9_school_region' => $validate_record['record_g9_school_region'],
+            'record_g9_school_grade' => $validate_record['record_g9_school_grade'],
+            'record_g9_school_section' => $validate_record['record_g9_school_section'],
+            'record_g9_school_year' => $validate_record['record_g9_school_year'],
+            'record_g9_school_teacher' => $validate_record['record_g9_school_teacher'],
+            'record_g9_remedial_date_start' => $validate_record['record_g9_remedial_date_start'],
+            'record_g9_remedial_date_end' => $validate_record['record_g9_remedial_date_end'],
+
+            'record_g10_school_name' => $validate_record['record_g10_school_name'],
+            'record_g10_school_id' => $validate_record['record_g10_school_id'],
+            'record_g10_school_district' => $validate_record['record_g10_school_district'],
+            'record_g10_school_division' => $validate_record['record_g10_school_division'],
+            'record_g10_school_region' => $validate_record['record_g10_school_region'],
+            'record_g10_school_grade' => $validate_record['record_g10_school_grade'],
+            'record_g10_school_section' => $validate_record['record_g10_school_section'],
+            'record_g10_school_year' => $validate_record['record_g10_school_year'],
+            'record_g10_school_teacher' => $validate_record['record_g10_school_teacher'],
+            'record_g10_remedial_date_start' => $validate_record['record_g10_remedial_date_start'],
+            'record_g10_remedial_date_end' => $validate_record['record_g10_remedial_date_end'],
+        ]);
+
+        // DO-NOT-TOUCH: Report
+        $validate_report = request()->validate([
             'report_g7_age' => 'nullable',
 
             'report_g8_age' => 'nullable',
@@ -109,6 +188,24 @@ class StudentController extends Controller {
             'report_g9_age' => 'nullable',
 
             'report_g10_age' => 'nullable',
+        ]);
+
+        Student::where('id', $id)->update([
+            'report_g7_age' => $validate_report['report_g7_age'],
+
+            'report_g8_age' => $validate_report['report_g8_age'],
+
+            'report_g9_age' => $validate_report['report_g9_age'],
+
+            'report_g10_age' => $validate_report['report_g10_age'],
+        ]);
+
+
+
+
+        $validatedFields = request()->validate([
+
+            // Report
 
             // Subject -> filipino
             'subject_g7_fil_qr1' => 'nullable',
@@ -622,96 +719,11 @@ class StudentController extends Controller {
             'values_g10_mb_s2_qr2' => 'nullable',
             'values_g10_mb_s2_qr3' => 'nullable',
             'values_g10_mb_s2_qr4' => 'nullable',
+        
+
         ]);
-
-        // Update
+            // Update
         Student::where('id', $id)->update([
-            // Info
-            'info_lrn' => $validatedFields['info_lrn'],
-            'info_name_last' => $validatedFields['info_name_last'],
-            'info_name_first' => $validatedFields['info_name_first'],
-            'info_name_middle' => $validatedFields['info_name_middle'],
-            'info_sex' => $validatedFields['info_sex'],
-            'info_birthdate_year' => $validatedFields['info_birthdate_year'],
-            'info_birthdate_month' => $validatedFields['info_birthdate_month'],
-            'info_birthdate_day' => $validatedFields['info_birthdate_day'],
-
-            // Enrolment
-            'enrolment_elementary_boolean' => $validatedFields['enrolment_elementary_boolean'],
-            'enrolment_elementary_average' => $validatedFields['enrolment_elementary_average'],
-            'enrolment_elementary_citation' => $validatedFields['enrolment_elementary_citation'],
-            'enrolment_elementary_name' => $validatedFields['enrolment_elementary_name'],
-            'enrolment_elementary_id' => $validatedFields['enrolment_elementary_id'],
-            'enrolment_elementary_address' => $validatedFields['enrolment_elementary_address'],
-
-            'enrolment_other_pept_boolean' => $validatedFields['enrolment_other_pept_boolean'],
-            'enrolment_other_pept_rating' => $validatedFields['enrolment_other_pept_rating'],
-            'enrolment_other_alsae_boolean' => $validatedFields['enrolment_other_alsae_boolean'],
-            'enrolment_other_alsae_rating' => $validatedFields['enrolment_other_alsae_rating'],
-            'enrolment_other_specify_boolean' => $validatedFields['enrolment_other_specify_boolean'],
-            'enrolment_other_specify_rating' => $validatedFields['enrolment_other_specify_rating'],
-            'enrolment_other_specify_label' => $validatedFields['enrolment_other_specify_label'],
-            'enrolment_other_date' => $validatedFields['enrolment_other_date'],
-            'enrolment_other_location' => $validatedFields['enrolment_other_location'],
-
-            // Record
-            'record_g7_school_grade' => $validatedFields['record_g7_school_grade'],
-            'record_g7_school_name' => $validatedFields['record_g7_school_name'],
-            'record_g7_school_id' => $validatedFields['record_g7_school_id'],
-            'record_g7_school_section' => $validatedFields['record_g7_school_section'],
-            'record_g7_school_year' => $validatedFields['record_g7_school_year'],
-            'record_g7_school_district' => $validatedFields['record_g7_school_district'],
-            'record_g7_school_division' => $validatedFields['record_g7_school_division'],
-            'record_g7_school_region' => $validatedFields['record_g7_school_region'],
-            'record_g7_school_teacher' => $validatedFields['record_g7_school_teacher'],
-            'record_g7_remedial_date_start' => $validatedFields['record_g7_remedial_date_start'],
-            'record_g7_remedial_date_end' => $validatedFields['record_g7_remedial_date_end'],
-
-            'record_g8_school_grade' => $validatedFields['record_g8_school_grade'],
-            'record_g8_school_name' => $validatedFields['record_g8_school_name'],
-            'record_g8_school_id' => $validatedFields['record_g8_school_id'],
-            'record_g8_school_section' => $validatedFields['record_g8_school_section'],
-            'record_g8_school_year' => $validatedFields['record_g8_school_year'],
-            'record_g8_school_district' => $validatedFields['record_g8_school_district'],
-            'record_g8_school_division' => $validatedFields['record_g8_school_division'],
-            'record_g8_school_region' => $validatedFields['record_g8_school_region'],
-            'record_g8_school_teacher' => $validatedFields['record_g8_school_teacher'],
-            'record_g8_remedial_date_start' => $validatedFields['record_g8_remedial_date_start'],
-            'record_g8_remedial_date_end' => $validatedFields['record_g8_remedial_date_end'],
-
-            'record_g9_school_grade' => $validatedFields['record_g9_school_grade'],
-            'record_g9_school_name' => $validatedFields['record_g9_school_name'],
-            'record_g9_school_id' => $validatedFields['record_g9_school_id'],
-            'record_g9_school_section' => $validatedFields['record_g9_school_section'],
-            'record_g9_school_year' => $validatedFields['record_g9_school_year'],
-            'record_g9_school_district' => $validatedFields['record_g9_school_district'],
-            'record_g9_school_division' => $validatedFields['record_g9_school_division'],
-            'record_g9_school_region' => $validatedFields['record_g9_school_region'],
-            'record_g9_school_teacher' => $validatedFields['record_g9_school_teacher'],
-            'record_g9_remedial_date_start' => $validatedFields['record_g9_remedial_date_start'],
-            'record_g9_remedial_date_end' => $validatedFields['record_g9_remedial_date_end'],
-            
-            'record_g10_school_grade' => $validatedFields['record_g10_school_grade'],
-            'record_g10_school_name' => $validatedFields['record_g10_school_name'],
-            'record_g10_school_id' => $validatedFields['record_g10_school_id'],
-            'record_g10_school_section' => $validatedFields['record_g10_school_section'],
-            'record_g10_school_year' => $validatedFields['record_g10_school_year'],
-            'record_g10_school_district' => $validatedFields['record_g10_school_district'],
-            'record_g10_school_division' => $validatedFields['record_g10_school_division'],
-            'record_g10_school_region' => $validatedFields['record_g10_school_region'],
-            'record_g10_school_teacher' => $validatedFields['record_g10_school_teacher'],
-            'record_g10_remedial_date_start' => $validatedFields['record_g10_remedial_date_start'],
-            'record_g10_remedial_date_end' => $validatedFields['record_g10_remedial_date_end'],
-
-            // Report
-            'report_g7_age' => $validatedFields['report_g7_age'],
-
-            'report_g8_age' => $validatedFields['report_g8_age'],
-
-            'report_g9_age' => $validatedFields['report_g9_age'],
-
-            'report_g10_age' => $validatedFields['report_g10_age'],
-
             // Subject -> filipino
             'subject_g7_fil_qr1' => $validatedFields['subject_g7_fil_qr1'],
             'subject_g7_fil_qr2' => $validatedFields['subject_g7_fil_qr2'],

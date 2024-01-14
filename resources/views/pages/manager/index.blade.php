@@ -33,21 +33,20 @@
 								<span class = "capitalize">{{ $student->info_name_middle }}</span>
 							</td>
 							<td class = "align-middle left">
-								Grade
 								{{
-									isset($student->record_g10_school_grade) ? $student->record_g10_school_grade : (
-										isset($student->record_g9_school_grade) ? $student->record_g9_school_grade : (
-											isset($student->record_g8_school_grade) ? $student->record_g8_school_grade : (
-												isset($student->record_g7_school_grade) ? $student->record_g7_school_grade : "No Grade"
+									isset($student->record_g10_school_grade) ? "Grade $student->record_g10_school_grade" : (
+										isset($student->record_g9_school_grade) ? "Grade $student->record_g9_school_grade" : (
+											isset($student->record_g8_school_grade) ? "Grade $student->record_g8_school_grade" : (
+												isset($student->record_g7_school_grade) ? "Grade $student->record_g7_school_grade" : ""
 											)
 										)
 									)
 								}}
 								{{
-									isset($student->record_g10_school_grade) ? $student->record_g10_school_grade : (
-										isset($student->record_g9_school_grade) ? $student->record_g9_school_grade : (
-											isset($student->record_g8_school_grade) ? $student->record_g8_school_grade : (
-												isset($student->record_g7_school_grade) ? $student->record_g7_school_grade : "No Grade"
+									isset($student->record_g10_school_section) ? $student->record_g10_school_section : (
+										isset($student->record_g9_school_section) ? $student->record_g9_school_section : (
+											isset($student->record_g8_school_section) ? $student->record_g8_school_section : (
+												isset($student->record_g7_school_section) ? $student->record_g7_school_section : ""
 											)
 										)
 									)

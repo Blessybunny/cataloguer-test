@@ -1,3 +1,51 @@
+
+
+TO-DO:
+    - Recheck report card -> age to pop-up window
+
+
+
+
+Views:
+    Layouts:
+        Manager:
+            - sf10-back.blade.php           DO-NOT-TOUCH
+            - sf10-front.blade.php          DO-NOT-TOUCH
+            - sf10-table.blade.php          DO-NOT-TOUCH
+    Pages:
+        Manager:
+            - edit.blade.php                DO-NOT-TOUCH
+
+
+
+
+
+
+
+
+
+
+
+                <!-- Header -->
+                <h6>{{ $student->info_lrn }}</h6>
+                <h3>
+                    <span>{{ $student->info_name_last }},</span>
+                    <span class = "capitalize">{{ $student->info_name_first }},</span>
+                    <span class = "capitalize">{{ $student->info_name_middle }}</span>
+                </h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
 NOTES FOR THE FUTURE:
     - If changes happen in migrations, delete and recreate a new PostgreSQL database.
 

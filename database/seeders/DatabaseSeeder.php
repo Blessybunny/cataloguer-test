@@ -11,35 +11,41 @@ class DatabaseSeeder extends Seeder {
     }
 
     public function student_1 () : void {
-        // Info
+        // DO-NOT-TOUCH: Info
         Student::create([
-            'info_lrn' => '01-0001-001',
             'info_name_last' => 'Flynn',
             'info_name_first' => 'Phineas',
             'info_name_middle' => 'Middle',
+            'info_lrn' => '01-0001-001',
             'info_sex' => 'Male',
-            'info_birthdate_year' => '2007',
-            'info_birthdate_month' => '9',
-            'info_birthdate_day' => '17',
+            'info_birthdate' => '2007-09-17',
         ]);
+        
+        // DO-NOT-TOUCH: Enrollment
+        //
 
-        // Record
+        // DO-NOT-TOUCH: Record
         Student::where('id', 1)->update([
             'record_g7_school_grade' => '7',
             'record_g7_school_name' => 'Tri-state High School',
             'record_g7_school_id' => '01-0001-001',
             'record_g7_school_section' => 'Polymer',
-            'record_g7_school_year' => '2007',
+            'record_g7_school_year' => '2007-2008',
             'record_g7_school_district' => 'Summer Street',
             'record_g7_school_division' => 'Tri-state Area',
             'record_g7_school_region' => 'Danville',
             'record_g7_school_teacher' => 'Heinz Doofenshmirtz',
         ]);
 
-        // Report
+        // DO-NOT-TOUCH: Report
         Student::where('id', 1)->update([
             'report_g7_age' => 13,
         ]);
+
+
+
+
+        
         
         // Subject -> filipino
         Student::where('id', 1)->update([

@@ -1,34 +1,32 @@
 <div class = "row">
 	<div class = "col-2">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_name" data-label = "School: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_name" data-label = "School"></span>
 	</div>
 	<div class = "col-2">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_id" data-label = "School ID: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_id" data-label = "School ID"></span>
 	</div>
 	<div class = "col-2">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_district" data-label = "District: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_district" data-label = "District"></span>
 	</div>
 	<div class = "col-3">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_division" data-label = "Division: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_division" data-label = "Division"></span>
 	</div>
 	<div class = "col-3">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_region" data-label = "Region: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_region" data-label = "Region"></span>
 	</div>
 	<div class = "col-2">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_grade" data-label = "Classified as Grade: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_grade" data-label = "Classified as Grade"></span>
 	</div>
 	<div class = "col-2">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_section" data-label = "Section: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_section" data-label = "Section"></span>
 	</div>
 	<div class = "col-2">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_year" data-label = "School Year: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_year" data-label = "School Year"></span>
 	</div>
 	<div class = "col-6">
-		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_teacher" data-label = "Name of Adviser / Teacher: "></span>
+		<span data-type = "text" data-parameters = "record_g{{ $grade }}_school_teacher" data-label = "Name of Adviser / Teacher"></span>
 	</div>
 </div>
-
-<br>
 
 <table class = "table">
 	<tr>
