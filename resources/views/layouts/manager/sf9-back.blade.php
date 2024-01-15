@@ -7,9 +7,9 @@
 			<h6 class = "align-middle custom-header">Report on Learning Progress and Achievement</h6>
 			
 			<span class = "bold uppercase" >Name: </span>
-			<span class = "bold uppercase" data-type = "text" data-parameters = "info_name_last" data-label = "" data-placeholder = "*Last Name Required*"></span>
-			<span class = "bold uppercase" data-type = "text" data-parameters = "info_name_first" data-label = ", " data-placeholder = "*First Name Required*"></span>
-			<span class = "bold uppercase" data-type = "text" data-parameters = "info_name_middle" data-label = ", " data-placeholder = "*Middle Name Required*"></span>
+			<span class = "bold uppercase" data-type = "text" data-target = "info_name_last" data-label = "" data-placeholder = "*Last Name Required*"></span>
+			<span class = "bold uppercase" data-type = "text" data-target = "info_name_first" data-label = ", " data-placeholder = "*First Name Required*"></span>
+			<span class = "bold uppercase" data-type = "text" data-target = "info_name_middle" data-label = ", " data-placeholder = "*Middle Name Required*"></span>
 			<br>
 			<br>
 
@@ -370,55 +370,55 @@
 				<tr>
 					<td class = "align-middle left" rowspan = "2">Maka - Diyos</td>
 					<td>Expresses one's spiritual beliefs while respecting the spiritual beliefs of others.</td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_md_s1_qr1"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_md_s1_qr2"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_md_s1_qr3"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_md_s1_qr4"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_md_s1_qr1"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_md_s1_qr2"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_md_s1_qr3"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_md_s1_qr4"></td>
 				</tr>
 				<tr>
 					<td>Shows adherence to ethical principles by upholding truth.</td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_md_s2_qr1"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_md_s2_qr2"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_md_s2_qr3"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_md_s2_qr4"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_md_s2_qr1"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_md_s2_qr2"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_md_s2_qr3"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_md_s2_qr4"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle left" rowspan = "2">Maka - Tao</td>
 					<td>Is sensitive to individual, social and cultural differences.</td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mt_s1_qr1"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mt_s1_qr2"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mt_s1_qr3"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mt_s1_qr4"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mt_s1_qr1"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mt_s1_qr2"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mt_s1_qr3"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mt_s1_qr4"></td>
 				</tr>
 				<tr>
 					<td>Demonstrates contributions toward solidarity.</td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mt_s2_qr1"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mt_s2_qr2"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mt_s2_qr3"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mt_s2_qr4"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mt_s2_qr1"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mt_s2_qr2"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mt_s2_qr3"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mt_s2_qr4"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle left">Maka - Kalikasan</td>
 					<td>Cares for the environment and utilizes resources  wisely, judiciously and economically.</td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mk_qr1"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mk_qr2"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mk_qr3"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mk_qr4"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mk_qr1"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mk_qr2"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mk_qr3"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mk_qr4"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle left" rowspan = "2">Maka - Bansa</td>
 					<td>Demonstrates pride in being a Filipino; exercises the rights and responsibilities of a Filipino Citizen.</td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mb_s1_qr1"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mb_s1_qr2"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mb_s1_qr3"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mb_s1_qr4"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mb_s1_qr1"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mb_s1_qr2"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mb_s1_qr3"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mb_s1_qr4"></td>
 				</tr>
 				<tr>
 					<td>Demonstrates appropriate behavior in carrying out activities in the school, community and country.</td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mb_s2_qr1"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mb_s2_qr2"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mb_s2_qr3"></td>
-					<td class = "align-middle" data-type = "text" data-parameters = "values_g{{ $grade }}_mb_s2_qr4"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mb_s2_qr1"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mb_s2_qr2"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mb_s2_qr3"></td>
+					<td class = "align-middle" data-type = "text" data-target = "values_g{{ $grade }}_mb_s2_qr4"></td>
 				</tr>
 			</table>
 

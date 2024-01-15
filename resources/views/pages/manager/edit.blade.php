@@ -66,7 +66,7 @@
                 <div id = "print" class = "tab-content">
 
                     <!-- Report cards  -->
-                    <div id = "tab-report-card-7-front" class = "tab-pane fade">@include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 7])</div>
+                    <div id = "tab-report-card-7-front" class = "tab-pane fade show active">@include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 7])</div>
                     <div id = "tab-report-card-7-back" class = "tab-pane fade">@include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 7])</div>
                     <div id = "tab-report-card-8-front" class = "tab-pane fade">@include('layouts.manager.sf9-front', ['student' => $student, 'grade' => 8])</div>
                     <div id = "tab-report-card-8-back" class = "tab-pane fade">@include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 8])</div>
@@ -76,7 +76,7 @@
                     <div id = "tab-report-card-10-back" class = "tab-pane fade">@include('layouts.manager.sf9-back', ['student' => $student, 'grade' => 10])</div>
 
                     <!-- Permanent form -->
-                    <div id = "tab-permanent-form-front" class = "tab-pane fade show active">@include('layouts.manager.sf10-front', ['student' => $student])</div>
+                    <div id = "tab-permanent-form-front" class = "tab-pane fade">@include('layouts.manager.sf10-front', ['student' => $student])</div>
                     <div id = "tab-permanent-form-back" class = "tab-pane fade">@include('layouts.manager.sf10-back', ['student' => $student])</div>
 
                 </div>

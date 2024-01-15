@@ -6,11 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up () : void {
-        // DO-NOT-TOUCH: Info
+        // DO-NOT-TOUCH: Info 1.0
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('info_name_last', 100);
             $table->string('info_name_first', 100);
+            $table->string('info_name_suffix', 100)->nullable();
             $table->string('info_name_middle', 100);
             $table->string('info_lrn', 100)->unique();
             $table->string('info_sex', 100);
@@ -34,6 +35,17 @@ return new class extends Migration {
             $table->string('enrollment_other_specify_label', 100)->nullable();
             $table->date('enrollment_other_date')->nullable();
             $table->string('enrollment_other_location', 100)->nullable();
+        });
+
+        // DO-NOT-TOUCH: Info 2.0
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('report_g7_age')->nullable();
+
+            $table->tinyInteger('report_g8_age')->nullable();
+
+            $table->tinyInteger('report_g9_age')->nullable();
+
+            $table->tinyInteger('report_g10_age')->nullable();
         });
 
         // DO-NOT-TOUCH: Record
@@ -87,23 +99,7 @@ return new class extends Migration {
             $table->date('record_g10_remedial_date_end')->nullable();
         });
 
-        // DO-NOT-TOUCH: Report
-        Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('report_g7_age')->nullable();
-
-            $table->tinyInteger('report_g8_age')->nullable();
-
-            $table->tinyInteger('report_g9_age')->nullable();
-
-            $table->tinyInteger('report_g10_age')->nullable();
-        });
-
-
-
-
-        
-
-        // Subject -> filipino
+        // DO-NOT-TOUCH: Subject -> filipino
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_fil_qr1')->nullable();
             $table->tinyInteger('subject_g7_fil_qr2')->nullable();
@@ -130,7 +126,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_fil_rem')->nullable();
         });
 
-        // Subject -> english
+        // DO-NOT-TOUCH: Subject -> english
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_eng_qr1')->nullable();
             $table->tinyInteger('subject_g7_eng_qr2')->nullable();
@@ -157,7 +153,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_eng_rem')->nullable();
         });
 
-        // Subject -> mathematics
+        // DO-NOT-TOUCH: Subject -> mathematics
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_mat_qr1')->nullable();
             $table->tinyInteger('subject_g7_mat_qr2')->nullable();
@@ -184,7 +180,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_mat_rem')->nullable();
         });
 
-        // Subject -> science
+        // DO-NOT-TOUCH: Subject -> science
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_sci_qr1')->nullable();
             $table->tinyInteger('subject_g7_sci_qr2')->nullable();
@@ -211,7 +207,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_sci_rem')->nullable();
         });
 
-        // Subject -> araling panlipunan (ap)
+        // DO-NOT-TOUCH: Subject -> araling panlipunan (ap)
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_ap_qr1')->nullable();
             $table->tinyInteger('subject_g7_ap_qr2')->nullable();
@@ -238,7 +234,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_ap_rem')->nullable();
         });
 
-        // Subject -> edukasyon sa pagpapakatao (ep)
+        // DO-NOT-TOUCH: Subject -> edukasyon sa pagpapakatao (ep)
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_ep_qr1')->nullable();
             $table->tinyInteger('subject_g7_ep_qr2')->nullable();
@@ -265,7 +261,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_ep_rem')->nullable();
         });
 
-        // Subject -> technology and livelihood education (tle)
+        // DO-NOT-TOUCH: Subject -> technology and livelihood education (tle)
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_tle_qr1')->nullable();
             $table->tinyInteger('subject_g7_tle_qr2')->nullable();
@@ -292,7 +288,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_tle_rem')->nullable();
         });
 
-        // Subject -> music
+        // DO-NOT-TOUCH: Subject -> music
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_mus_qr1')->nullable();
             $table->tinyInteger('subject_g7_mus_qr2')->nullable();
@@ -319,7 +315,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_mus_rem')->nullable();
         });
 
-        // Subject -> arts
+        // DO-NOT-TOUCH: Subject -> arts
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_art_qr1')->nullable();
             $table->tinyInteger('subject_g7_art_qr2')->nullable();
@@ -346,7 +342,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_art_rem')->nullable();
         });
 
-        // Subject -> physical education
+        // DO-NOT-TOUCH: Subject -> physical education
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_pe_qr1')->nullable();
             $table->tinyInteger('subject_g7_pe_qr2')->nullable();
@@ -373,7 +369,7 @@ return new class extends Migration {
             $table->tinyInteger('subject_g10_pe_rem')->nullable();
         });
 
-        // Subject -> health
+        // DO-NOT-TOUCH: Subject -> health
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('subject_g7_hp_qr1')->nullable();
             $table->tinyInteger('subject_g7_hp_qr2')->nullable();
@@ -402,7 +398,7 @@ return new class extends Migration {
 
         // NOTE: Place special subjects here
 
-        // Attendance -> present
+        // DO-NOT-TOUCH: Attendance -> present
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('attendance_g7_p_jan')->nullable();
             $table->tinyInteger('attendance_g7_p_feb')->nullable();
@@ -457,7 +453,7 @@ return new class extends Migration {
             $table->tinyInteger('attendance_g10_p_dec')->nullable();
         });
 
-        // Attendance -> absent
+        // DO-NOT-TOUCH: Attendance -> absent
         Schema::table('students', function (Blueprint $table) {
             $table->tinyInteger('attendance_g7_a_jan')->nullable();
             $table->tinyInteger('attendance_g7_a_feb')->nullable();
@@ -511,6 +507,15 @@ return new class extends Migration {
             $table->tinyInteger('attendance_g10_a_nov')->nullable();
             $table->tinyInteger('attendance_g10_a_dec')->nullable();
         });
+
+
+
+
+
+
+
+
+
 
         // Values -> maka - diyos
         Schema::table('students', function (Blueprint $table) {

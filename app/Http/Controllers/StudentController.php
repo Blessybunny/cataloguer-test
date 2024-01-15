@@ -22,10 +22,11 @@ class StudentController extends Controller {
 
     // Save
     public function save ($id) {
-        // DO-NOT-TOUCH: Info
+        // DO-NOT-TOUCH: Info 1.0
         $validate_info = request()->validate([
             'info_name_last' => 'required',
             'info_name_first' => 'required',
+            'info_name_suffix' => 'nullable',
             'info_name_middle' => 'required',
             'info_lrn' => 'required',
             'info_sex' => 'required',
@@ -35,6 +36,7 @@ class StudentController extends Controller {
         Student::where('id', $id)->update([
             'info_name_last' => $validate_info['info_name_last'],
             'info_name_first' => $validate_info['info_name_first'],
+            'info_name_suffix' => $validate_info['info_name_suffix'],
             'info_name_middle' => $validate_info['info_name_middle'],
             'info_lrn' => $validate_info['info_lrn'],
             'info_sex' => $validate_info['info_sex'],
@@ -76,6 +78,27 @@ class StudentController extends Controller {
             'enrollment_other_specify_label' => $validate_enrolment['enrollment_other_specify_label'],
             'enrollment_other_date' => $validate_enrolment['enrollment_other_date'],
             'enrollment_other_location' => $validate_enrolment['enrollment_other_location'],
+        ]);
+
+        // DO-NOT-TOUCH: Info 2.0
+        $validate_report = request()->validate([
+            'report_g7_age' => 'nullable',
+
+            'report_g8_age' => 'nullable',
+            
+            'report_g9_age' => 'nullable',
+
+            'report_g10_age' => 'nullable',
+        ]);
+
+        Student::where('id', $id)->update([
+            'report_g7_age' => $validate_report['report_g7_age'],
+
+            'report_g8_age' => $validate_report['report_g8_age'],
+
+            'report_g9_age' => $validate_report['report_g9_age'],
+
+            'report_g10_age' => $validate_report['report_g10_age'],
         ]);
         
         // DO-NOT-TOUCH: Record
@@ -179,35 +202,8 @@ class StudentController extends Controller {
             'record_g10_remedial_date_end' => $validate_record['record_g10_remedial_date_end'],
         ]);
 
-        // DO-NOT-TOUCH: Report
-        $validate_report = request()->validate([
-            'report_g7_age' => 'nullable',
-
-            'report_g8_age' => 'nullable',
-            
-            'report_g9_age' => 'nullable',
-
-            'report_g10_age' => 'nullable',
-        ]);
-
-        Student::where('id', $id)->update([
-            'report_g7_age' => $validate_report['report_g7_age'],
-
-            'report_g8_age' => $validate_report['report_g8_age'],
-
-            'report_g9_age' => $validate_report['report_g9_age'],
-
-            'report_g10_age' => $validate_report['report_g10_age'],
-        ]);
-
-
-
-
-        $validatedFields = request()->validate([
-
-            // Report
-
-            // Subject -> filipino
+        // DO-NOT-TOUCH: Subject -> filipino
+        $validate_subject_fil = request()->validate([
             'subject_g7_fil_qr1' => 'nullable',
             'subject_g7_fil_qr2' => 'nullable',
             'subject_g7_fil_qr3' => 'nullable',
@@ -231,8 +227,36 @@ class StudentController extends Controller {
             'subject_g10_fil_qr3' => 'nullable',
             'subject_g10_fil_qr4' => 'nullable',
             'subject_g10_fil_rem' => 'nullable',
+        ]);
 
-            // Subject -> english
+        Student::where('id', $id)->update([
+            'subject_g7_fil_qr1' => $validate_subject_fil['subject_g7_fil_qr1'],
+            'subject_g7_fil_qr2' => $validate_subject_fil['subject_g7_fil_qr2'],
+            'subject_g7_fil_qr3' => $validate_subject_fil['subject_g7_fil_qr3'],
+            'subject_g7_fil_qr4' => $validate_subject_fil['subject_g7_fil_qr4'],
+            'subject_g7_fil_rem' => $validate_subject_fil['subject_g7_fil_rem'],
+
+            'subject_g8_fil_qr1' => $validate_subject_fil['subject_g8_fil_qr1'],
+            'subject_g8_fil_qr2' => $validate_subject_fil['subject_g8_fil_qr2'],
+            'subject_g8_fil_qr3' => $validate_subject_fil['subject_g8_fil_qr3'],
+            'subject_g8_fil_qr4' => $validate_subject_fil['subject_g8_fil_qr4'],
+            'subject_g8_fil_rem' => $validate_subject_fil['subject_g8_fil_rem'],
+
+            'subject_g9_fil_qr1' => $validate_subject_fil['subject_g9_fil_qr1'],
+            'subject_g9_fil_qr2' => $validate_subject_fil['subject_g9_fil_qr2'],
+            'subject_g9_fil_qr3' => $validate_subject_fil['subject_g9_fil_qr3'],
+            'subject_g9_fil_qr4' => $validate_subject_fil['subject_g9_fil_qr4'],
+            'subject_g9_fil_rem' => $validate_subject_fil['subject_g9_fil_rem'],
+
+            'subject_g10_fil_qr1' => $validate_subject_fil['subject_g10_fil_qr1'],
+            'subject_g10_fil_qr2' => $validate_subject_fil['subject_g10_fil_qr2'],
+            'subject_g10_fil_qr3' => $validate_subject_fil['subject_g10_fil_qr3'],
+            'subject_g10_fil_qr4' => $validate_subject_fil['subject_g10_fil_qr4'],
+            'subject_g10_fil_rem' => $validate_subject_fil['subject_g10_fil_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> english
+        $validate_subject_eng = request()->validate([
             'subject_g7_eng_qr1' => 'nullable',
             'subject_g7_eng_qr2' => 'nullable',
             'subject_g7_eng_qr3' => 'nullable',
@@ -256,8 +280,36 @@ class StudentController extends Controller {
             'subject_g10_eng_qr3' => 'nullable',
             'subject_g10_eng_qr4' => 'nullable',
             'subject_g10_eng_rem' => 'nullable',
+        ]);
 
-            // Subject -> mathematics
+        Student::where('id', $id)->update([
+            'subject_g7_eng_qr1' => $validate_subject_eng['subject_g7_eng_qr1'],
+            'subject_g7_eng_qr2' => $validate_subject_eng['subject_g7_eng_qr2'],
+            'subject_g7_eng_qr3' => $validate_subject_eng['subject_g7_eng_qr3'],
+            'subject_g7_eng_qr4' => $validate_subject_eng['subject_g7_eng_qr4'],
+            'subject_g7_eng_rem' => $validate_subject_eng['subject_g7_eng_rem'],
+
+            'subject_g8_eng_qr1' => $validate_subject_eng['subject_g8_eng_qr1'],
+            'subject_g8_eng_qr2' => $validate_subject_eng['subject_g8_eng_qr2'],
+            'subject_g8_eng_qr3' => $validate_subject_eng['subject_g8_eng_qr3'],
+            'subject_g8_eng_qr4' => $validate_subject_eng['subject_g8_eng_qr4'],
+            'subject_g8_eng_rem' => $validate_subject_eng['subject_g8_eng_rem'],
+
+            'subject_g9_eng_qr1' => $validate_subject_eng['subject_g9_eng_qr1'],
+            'subject_g9_eng_qr2' => $validate_subject_eng['subject_g9_eng_qr2'],
+            'subject_g9_eng_qr3' => $validate_subject_eng['subject_g9_eng_qr3'],
+            'subject_g9_eng_qr4' => $validate_subject_eng['subject_g9_eng_qr4'],
+            'subject_g9_eng_rem' => $validate_subject_eng['subject_g9_eng_rem'],
+
+            'subject_g10_eng_qr1' => $validate_subject_eng['subject_g10_eng_qr1'],
+            'subject_g10_eng_qr2' => $validate_subject_eng['subject_g10_eng_qr2'],
+            'subject_g10_eng_qr3' => $validate_subject_eng['subject_g10_eng_qr3'],
+            'subject_g10_eng_qr4' => $validate_subject_eng['subject_g10_eng_qr4'],
+            'subject_g10_eng_rem' => $validate_subject_eng['subject_g10_eng_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> mathematics
+        $validate_subject_mat = request()->validate([
             'subject_g7_mat_qr1' => 'nullable',
             'subject_g7_mat_qr2' => 'nullable',
             'subject_g7_mat_qr3' => 'nullable',
@@ -281,8 +333,36 @@ class StudentController extends Controller {
             'subject_g10_mat_qr3' => 'nullable',
             'subject_g10_mat_qr4' => 'nullable',
             'subject_g10_mat_rem' => 'nullable',
+        ]);
 
-            // Subject -> science
+        Student::where('id', $id)->update([
+            'subject_g7_mat_qr1' => $validate_subject_mat['subject_g7_mat_qr1'],
+            'subject_g7_mat_qr2' => $validate_subject_mat['subject_g7_mat_qr2'],
+            'subject_g7_mat_qr3' => $validate_subject_mat['subject_g7_mat_qr3'],
+            'subject_g7_mat_qr4' => $validate_subject_mat['subject_g7_mat_qr4'],
+            'subject_g7_mat_rem' => $validate_subject_mat['subject_g7_mat_rem'],
+    
+            'subject_g8_mat_qr1' => $validate_subject_mat['subject_g8_mat_qr1'],
+            'subject_g8_mat_qr2' => $validate_subject_mat['subject_g8_mat_qr2'],
+            'subject_g8_mat_qr3' => $validate_subject_mat['subject_g8_mat_qr3'],
+            'subject_g8_mat_qr4' => $validate_subject_mat['subject_g8_mat_qr4'],
+            'subject_g8_mat_rem' => $validate_subject_mat['subject_g8_mat_rem'],
+            
+            'subject_g9_mat_qr1' => $validate_subject_mat['subject_g9_mat_qr1'],
+            'subject_g9_mat_qr2' => $validate_subject_mat['subject_g9_mat_qr2'],
+            'subject_g9_mat_qr3' => $validate_subject_mat['subject_g9_mat_qr3'],
+            'subject_g9_mat_qr4' => $validate_subject_mat['subject_g9_mat_qr4'],
+            'subject_g9_mat_rem' => $validate_subject_mat['subject_g9_mat_rem'],
+    
+            'subject_g10_mat_qr1' => $validate_subject_mat['subject_g10_mat_qr1'],
+            'subject_g10_mat_qr2' => $validate_subject_mat['subject_g10_mat_qr2'],
+            'subject_g10_mat_qr3' => $validate_subject_mat['subject_g10_mat_qr3'],
+            'subject_g10_mat_qr4' => $validate_subject_mat['subject_g10_mat_qr4'],
+            'subject_g10_mat_rem' => $validate_subject_mat['subject_g10_mat_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> science
+        $validate_subject_sci = request()->validate([
             'subject_g7_sci_qr1' => 'nullable',
             'subject_g7_sci_qr2' => 'nullable',
             'subject_g7_sci_qr3' => 'nullable',
@@ -306,8 +386,36 @@ class StudentController extends Controller {
             'subject_g10_sci_qr3' => 'nullable',
             'subject_g10_sci_qr4' => 'nullable',
             'subject_g10_sci_rem' => 'nullable',
+        ]);
 
-            // Subject -> araling panlipunan (ap)
+        Student::where('id', $id)->update([
+            'subject_g7_sci_qr1' => $validate_subject_sci['subject_g7_sci_qr1'],
+            'subject_g7_sci_qr2' => $validate_subject_sci['subject_g7_sci_qr2'],
+            'subject_g7_sci_qr3' => $validate_subject_sci['subject_g7_sci_qr3'],
+            'subject_g7_sci_qr4' => $validate_subject_sci['subject_g7_sci_qr4'],
+            'subject_g7_sci_rem' => $validate_subject_sci['subject_g7_sci_rem'],
+    
+            'subject_g8_sci_qr1' => $validate_subject_sci['subject_g8_sci_qr1'],
+            'subject_g8_sci_qr2' => $validate_subject_sci['subject_g8_sci_qr2'],
+            'subject_g8_sci_qr3' => $validate_subject_sci['subject_g8_sci_qr3'],
+            'subject_g8_sci_qr4' => $validate_subject_sci['subject_g8_sci_qr4'],
+            'subject_g8_sci_rem' => $validate_subject_sci['subject_g8_sci_rem'],
+    
+            'subject_g9_sci_qr1' => $validate_subject_sci['subject_g9_sci_qr1'],
+            'subject_g9_sci_qr2' => $validate_subject_sci['subject_g9_sci_qr2'],
+            'subject_g9_sci_qr3' => $validate_subject_sci['subject_g9_sci_qr3'],
+            'subject_g9_sci_qr4' => $validate_subject_sci['subject_g9_sci_qr4'],
+            'subject_g9_sci_rem' => $validate_subject_sci['subject_g9_sci_rem'],
+    
+            'subject_g10_sci_qr1' => $validate_subject_sci['subject_g10_sci_qr1'],
+            'subject_g10_sci_qr2' => $validate_subject_sci['subject_g10_sci_qr2'],
+            'subject_g10_sci_qr3' => $validate_subject_sci['subject_g10_sci_qr3'],
+            'subject_g10_sci_qr4' => $validate_subject_sci['subject_g10_sci_qr4'],
+            'subject_g10_sci_rem' => $validate_subject_sci['subject_g10_sci_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> araling panlipunan (ap)
+        $validate_subject_ap = request()->validate([
             'subject_g7_ap_qr1' => 'nullable',
             'subject_g7_ap_qr2' => 'nullable',
             'subject_g7_ap_qr3' => 'nullable',
@@ -331,8 +439,36 @@ class StudentController extends Controller {
             'subject_g10_ap_qr3' => 'nullable',
             'subject_g10_ap_qr4' => 'nullable',
             'subject_g10_ap_rem' => 'nullable',
+        ]);
 
-            // Subject -> edukasyon sa pagpapakatao (ep)
+        Student::where('id', $id)->update([
+            'subject_g7_ap_qr1' => $validate_subject_ap['subject_g7_ap_qr1'],
+            'subject_g7_ap_qr2' => $validate_subject_ap['subject_g7_ap_qr2'],
+            'subject_g7_ap_qr3' => $validate_subject_ap['subject_g7_ap_qr3'],
+            'subject_g7_ap_qr4' => $validate_subject_ap['subject_g7_ap_qr4'],
+            'subject_g7_ap_rem' => $validate_subject_ap['subject_g7_ap_rem'],
+
+            'subject_g8_ap_qr1' => $validate_subject_ap['subject_g8_ap_qr1'],
+            'subject_g8_ap_qr2' => $validate_subject_ap['subject_g8_ap_qr2'],
+            'subject_g8_ap_qr3' => $validate_subject_ap['subject_g8_ap_qr3'],
+            'subject_g8_ap_qr4' => $validate_subject_ap['subject_g8_ap_qr4'],
+            'subject_g8_ap_rem' => $validate_subject_ap['subject_g8_ap_rem'],
+
+            'subject_g9_ap_qr1' => $validate_subject_ap['subject_g9_ap_qr1'],
+            'subject_g9_ap_qr2' => $validate_subject_ap['subject_g9_ap_qr2'],
+            'subject_g9_ap_qr3' => $validate_subject_ap['subject_g9_ap_qr3'],
+            'subject_g9_ap_qr4' => $validate_subject_ap['subject_g9_ap_qr4'],
+            'subject_g9_ap_rem' => $validate_subject_ap['subject_g9_ap_rem'],
+
+            'subject_g10_ap_qr1' => $validate_subject_ap['subject_g10_ap_qr1'],
+            'subject_g10_ap_qr2' => $validate_subject_ap['subject_g10_ap_qr2'],
+            'subject_g10_ap_qr3' => $validate_subject_ap['subject_g10_ap_qr3'],
+            'subject_g10_ap_qr4' => $validate_subject_ap['subject_g10_ap_qr4'],
+            'subject_g10_ap_rem' => $validate_subject_ap['subject_g10_ap_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> edukasyon sa pagpapakatao (ep)
+        $validate_subject_ep = request()->validate([
             'subject_g7_ep_qr1' => 'nullable',
             'subject_g7_ep_qr2' => 'nullable',
             'subject_g7_ep_qr3' => 'nullable',
@@ -356,8 +492,36 @@ class StudentController extends Controller {
             'subject_g10_ep_qr3' => 'nullable',
             'subject_g10_ep_qr4' => 'nullable',
             'subject_g10_ep_rem' => 'nullable',
+        ]);
 
-            // Subject -> technology and livelihood education (tle)
+        Student::where('id', $id)->update([
+            'subject_g7_ep_qr1' => $validate_subject_ep['subject_g7_ep_qr1'],
+            'subject_g7_ep_qr2' => $validate_subject_ep['subject_g7_ep_qr2'],
+            'subject_g7_ep_qr3' => $validate_subject_ep['subject_g7_ep_qr3'],
+            'subject_g7_ep_qr4' => $validate_subject_ep['subject_g7_ep_qr4'],
+            'subject_g7_ep_rem' => $validate_subject_ep['subject_g7_ep_rem'],
+
+            'subject_g8_ep_qr1' => $validate_subject_ep['subject_g8_ep_qr1'],
+            'subject_g8_ep_qr2' => $validate_subject_ep['subject_g8_ep_qr2'],
+            'subject_g8_ep_qr3' => $validate_subject_ep['subject_g8_ep_qr3'],
+            'subject_g8_ep_qr4' => $validate_subject_ep['subject_g8_ep_qr4'],
+            'subject_g8_ep_rem' => $validate_subject_ep['subject_g8_ep_rem'],
+
+            'subject_g9_ep_qr1' => $validate_subject_ep['subject_g9_ep_qr1'],
+            'subject_g9_ep_qr2' => $validate_subject_ep['subject_g9_ep_qr2'],
+            'subject_g9_ep_qr3' => $validate_subject_ep['subject_g9_ep_qr3'],
+            'subject_g9_ep_qr4' => $validate_subject_ep['subject_g9_ep_qr4'],
+            'subject_g9_ep_rem' => $validate_subject_ep['subject_g9_ep_rem'],
+
+            'subject_g10_ep_qr1' => $validate_subject_ep['subject_g10_ep_qr1'],
+            'subject_g10_ep_qr2' => $validate_subject_ep['subject_g10_ep_qr2'],
+            'subject_g10_ep_qr3' => $validate_subject_ep['subject_g10_ep_qr3'],
+            'subject_g10_ep_qr4' => $validate_subject_ep['subject_g10_ep_qr4'],
+            'subject_g10_ep_rem' => $validate_subject_ep['subject_g10_ep_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> technology and livelihood education (tle)
+        $validate_subject_tle = request()->validate([
             'subject_g7_tle_qr1' => 'nullable',
             'subject_g7_tle_qr2' => 'nullable',
             'subject_g7_tle_qr3' => 'nullable',
@@ -381,8 +545,36 @@ class StudentController extends Controller {
             'subject_g10_tle_qr3' => 'nullable',
             'subject_g10_tle_qr4' => 'nullable',
             'subject_g10_tle_rem' => 'nullable',
+        ]);
 
-            // Subject -> music
+        Student::where('id', $id)->update([
+            'subject_g7_tle_qr1' => $validate_subject_tle['subject_g7_tle_qr1'],
+            'subject_g7_tle_qr2' => $validate_subject_tle['subject_g7_tle_qr2'],
+            'subject_g7_tle_qr3' => $validate_subject_tle['subject_g7_tle_qr3'],
+            'subject_g7_tle_qr4' => $validate_subject_tle['subject_g7_tle_qr4'],
+            'subject_g7_tle_rem' => $validate_subject_tle['subject_g7_tle_rem'],
+            
+            'subject_g8_tle_qr1' => $validate_subject_tle['subject_g8_tle_qr1'],
+            'subject_g8_tle_qr2' => $validate_subject_tle['subject_g8_tle_qr2'],
+            'subject_g8_tle_qr3' => $validate_subject_tle['subject_g8_tle_qr3'],
+            'subject_g8_tle_qr4' => $validate_subject_tle['subject_g8_tle_qr4'],
+            'subject_g8_tle_rem' => $validate_subject_tle['subject_g8_tle_rem'],
+
+            'subject_g9_tle_qr1' => $validate_subject_tle['subject_g9_tle_qr1'],
+            'subject_g9_tle_qr2' => $validate_subject_tle['subject_g9_tle_qr2'],
+            'subject_g9_tle_qr3' => $validate_subject_tle['subject_g9_tle_qr3'],
+            'subject_g9_tle_qr4' => $validate_subject_tle['subject_g9_tle_qr4'],
+            'subject_g9_tle_rem' => $validate_subject_tle['subject_g9_tle_rem'],
+
+            'subject_g10_tle_qr1' => $validate_subject_tle['subject_g10_tle_qr1'],
+            'subject_g10_tle_qr2' => $validate_subject_tle['subject_g10_tle_qr2'],
+            'subject_g10_tle_qr3' => $validate_subject_tle['subject_g10_tle_qr3'],
+            'subject_g10_tle_qr4' => $validate_subject_tle['subject_g10_tle_qr4'],
+            'subject_g10_tle_rem' => $validate_subject_tle['subject_g10_tle_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> music
+        $validate_subject_mus = request()->validate([
             'subject_g7_mus_qr1' => 'nullable',
             'subject_g7_mus_qr2' => 'nullable',
             'subject_g7_mus_qr3' => 'nullable',
@@ -406,8 +598,36 @@ class StudentController extends Controller {
             'subject_g10_mus_qr3' => 'nullable',
             'subject_g10_mus_qr4' => 'nullable',
             'subject_g10_mus_rem' => 'nullable',
+        ]);
 
-            // Subject -> arts
+        Student::where('id', $id)->update([
+            'subject_g7_mus_qr1' => $validate_subject_mus['subject_g7_mus_qr1'],
+            'subject_g7_mus_qr2' => $validate_subject_mus['subject_g7_mus_qr2'],
+            'subject_g7_mus_qr3' => $validate_subject_mus['subject_g7_mus_qr3'],
+            'subject_g7_mus_qr4' => $validate_subject_mus['subject_g7_mus_qr4'],
+            'subject_g7_mus_rem' => $validate_subject_mus['subject_g7_mus_rem'],
+    
+            'subject_g8_mus_qr1' => $validate_subject_mus['subject_g8_mus_qr1'],
+            'subject_g8_mus_qr2' => $validate_subject_mus['subject_g8_mus_qr2'],
+            'subject_g8_mus_qr3' => $validate_subject_mus['subject_g8_mus_qr3'],
+            'subject_g8_mus_qr4' => $validate_subject_mus['subject_g8_mus_qr4'],
+            'subject_g8_mus_rem' => $validate_subject_mus['subject_g8_mus_rem'],
+            
+            'subject_g9_mus_qr1' => $validate_subject_mus['subject_g9_mus_qr1'],
+            'subject_g9_mus_qr2' => $validate_subject_mus['subject_g9_mus_qr2'],
+            'subject_g9_mus_qr3' => $validate_subject_mus['subject_g9_mus_qr3'],
+            'subject_g9_mus_qr4' => $validate_subject_mus['subject_g9_mus_qr4'],
+            'subject_g9_mus_rem' => $validate_subject_mus['subject_g9_mus_rem'],
+    
+            'subject_g10_mus_qr1' => $validate_subject_mus['subject_g10_mus_qr1'],
+            'subject_g10_mus_qr2' => $validate_subject_mus['subject_g10_mus_qr2'],
+            'subject_g10_mus_qr3' => $validate_subject_mus['subject_g10_mus_qr3'],
+            'subject_g10_mus_qr4' => $validate_subject_mus['subject_g10_mus_qr4'],
+            'subject_g10_mus_rem' => $validate_subject_mus['subject_g10_mus_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> arts
+        $validate_subject_art = request()->validate([
             'subject_g7_art_qr1' => 'nullable',
             'subject_g7_art_qr2' => 'nullable',
             'subject_g7_art_qr3' => 'nullable',
@@ -431,8 +651,36 @@ class StudentController extends Controller {
             'subject_g10_art_qr3' => 'nullable',
             'subject_g10_art_qr4' => 'nullable',
             'subject_g10_art_rem' => 'nullable',
+        ]);
 
-            // Subject -> physical education
+        Student::where('id', $id)->update([
+            'subject_g7_art_qr1' => $validate_subject_art['subject_g7_art_qr1'],
+            'subject_g7_art_qr2' => $validate_subject_art['subject_g7_art_qr2'],
+            'subject_g7_art_qr3' => $validate_subject_art['subject_g7_art_qr3'],
+            'subject_g7_art_qr4' => $validate_subject_art['subject_g7_art_qr4'],
+            'subject_g7_art_rem' => $validate_subject_art['subject_g7_art_rem'],
+    
+            'subject_g8_art_qr1' => $validate_subject_art['subject_g8_art_qr1'],
+            'subject_g8_art_qr2' => $validate_subject_art['subject_g8_art_qr2'],
+            'subject_g8_art_qr3' => $validate_subject_art['subject_g8_art_qr3'],
+            'subject_g8_art_qr4' => $validate_subject_art['subject_g8_art_qr4'],
+            'subject_g8_art_rem' => $validate_subject_art['subject_g8_art_rem'],
+    
+            'subject_g9_art_qr1' => $validate_subject_art['subject_g9_art_qr1'],
+            'subject_g9_art_qr2' => $validate_subject_art['subject_g9_art_qr2'],
+            'subject_g9_art_qr3' => $validate_subject_art['subject_g9_art_qr3'],
+            'subject_g9_art_qr4' => $validate_subject_art['subject_g9_art_qr4'],
+            'subject_g9_art_rem' => $validate_subject_art['subject_g9_art_rem'],
+    
+            'subject_g10_art_qr1' => $validate_subject_art['subject_g10_art_qr1'],
+            'subject_g10_art_qr2' => $validate_subject_art['subject_g10_art_qr2'],
+            'subject_g10_art_qr3' => $validate_subject_art['subject_g10_art_qr3'],
+            'subject_g10_art_qr4' => $validate_subject_art['subject_g10_art_qr4'],
+            'subject_g10_art_rem' => $validate_subject_art['subject_g10_art_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> physical education
+        $validate_subject_pe = request()->validate([
             'subject_g7_pe_qr1' => 'nullable',
             'subject_g7_pe_qr2' => 'nullable',
             'subject_g7_pe_qr3' => 'nullable',
@@ -456,8 +704,36 @@ class StudentController extends Controller {
             'subject_g10_pe_qr3' => 'nullable',
             'subject_g10_pe_qr4' => 'nullable',
             'subject_g10_pe_rem' => 'nullable',
+        ]);
 
-            // Subject -> health
+        Student::where('id', $id)->update([
+            'subject_g7_pe_qr1' => $validate_subject_pe['subject_g7_pe_qr1'],
+            'subject_g7_pe_qr2' => $validate_subject_pe['subject_g7_pe_qr2'],
+            'subject_g7_pe_qr3' => $validate_subject_pe['subject_g7_pe_qr3'],
+            'subject_g7_pe_qr4' => $validate_subject_pe['subject_g7_pe_qr4'],
+            'subject_g7_pe_rem' => $validate_subject_pe['subject_g7_pe_rem'],
+
+            'subject_g8_pe_qr1' => $validate_subject_pe['subject_g8_pe_qr1'],
+            'subject_g8_pe_qr2' => $validate_subject_pe['subject_g8_pe_qr2'],
+            'subject_g8_pe_qr3' => $validate_subject_pe['subject_g8_pe_qr3'],
+            'subject_g8_pe_qr4' => $validate_subject_pe['subject_g8_pe_qr4'],
+            'subject_g8_pe_rem' => $validate_subject_pe['subject_g8_pe_rem'],
+
+            'subject_g9_pe_qr1' => $validate_subject_pe['subject_g9_pe_qr1'],
+            'subject_g9_pe_qr2' => $validate_subject_pe['subject_g9_pe_qr2'],
+            'subject_g9_pe_qr3' => $validate_subject_pe['subject_g9_pe_qr3'],
+            'subject_g9_pe_qr4' => $validate_subject_pe['subject_g9_pe_qr4'],
+            'subject_g9_pe_rem' => $validate_subject_pe['subject_g9_pe_rem'],
+
+            'subject_g10_pe_qr1' => $validate_subject_pe['subject_g10_pe_qr1'],
+            'subject_g10_pe_qr2' => $validate_subject_pe['subject_g10_pe_qr2'],
+            'subject_g10_pe_qr3' => $validate_subject_pe['subject_g10_pe_qr3'],
+            'subject_g10_pe_qr4' => $validate_subject_pe['subject_g10_pe_qr4'],
+            'subject_g10_pe_rem' => $validate_subject_pe['subject_g10_pe_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Subject -> health
+        $validate_subject_hp = request()->validate([
             'subject_g7_hp_qr1' => 'nullable',
             'subject_g7_hp_qr2' => 'nullable',
             'subject_g7_hp_qr3' => 'nullable',
@@ -481,8 +757,36 @@ class StudentController extends Controller {
             'subject_g10_hp_qr3' => 'nullable',
             'subject_g10_hp_qr4' => 'nullable',
             'subject_g10_hp_rem' => 'nullable',
+        ]);
 
-            // Attendance -> present
+        Student::where('id', $id)->update([
+            'subject_g7_hp_qr1' => $validate_subject_hp['subject_g7_hp_qr1'],
+            'subject_g7_hp_qr2' => $validate_subject_hp['subject_g7_hp_qr2'],
+            'subject_g7_hp_qr3' => $validate_subject_hp['subject_g7_hp_qr3'],
+            'subject_g7_hp_qr4' => $validate_subject_hp['subject_g7_hp_qr4'],
+            'subject_g7_hp_rem' => $validate_subject_hp['subject_g7_hp_rem'],
+
+            'subject_g8_hp_qr1' => $validate_subject_hp['subject_g8_hp_qr1'],
+            'subject_g8_hp_qr2' => $validate_subject_hp['subject_g8_hp_qr2'],
+            'subject_g8_hp_qr3' => $validate_subject_hp['subject_g8_hp_qr3'],
+            'subject_g8_hp_qr4' => $validate_subject_hp['subject_g8_hp_qr4'],
+            'subject_g8_hp_rem' => $validate_subject_hp['subject_g8_hp_rem'],
+
+            'subject_g9_hp_qr1' => $validate_subject_hp['subject_g9_hp_qr1'],
+            'subject_g9_hp_qr2' => $validate_subject_hp['subject_g9_hp_qr2'],
+            'subject_g9_hp_qr3' => $validate_subject_hp['subject_g9_hp_qr3'],
+            'subject_g9_hp_qr4' => $validate_subject_hp['subject_g9_hp_qr4'],
+            'subject_g9_hp_rem' => $validate_subject_hp['subject_g9_hp_rem'],
+
+            'subject_g10_hp_qr1' => $validate_subject_hp['subject_g10_hp_qr1'],
+            'subject_g10_hp_qr2' => $validate_subject_hp['subject_g10_hp_qr2'],
+            'subject_g10_hp_qr3' => $validate_subject_hp['subject_g10_hp_qr3'],
+            'subject_g10_hp_qr4' => $validate_subject_hp['subject_g10_hp_qr4'],
+            'subject_g10_hp_rem' => $validate_subject_hp['subject_g10_hp_rem'],
+        ]);
+
+        // DO-NOT-TOUCH: Attendance -> present
+        $validate_attendance_p = request()->validate([
             'attendance_g7_p_jan' => 'nullable',
             'attendance_g7_p_feb' => 'nullable',
             'attendance_g7_p_mar' => 'nullable',
@@ -534,8 +838,64 @@ class StudentController extends Controller {
             'attendance_g10_p_oct' => 'nullable',
             'attendance_g10_p_nov' => 'nullable',
             'attendance_g10_p_dec' => 'nullable',
+        ]);
 
-            // Attendance -> absent
+        Student::where('id', $id)->update([
+            'attendance_g7_p_jan' => $validate_attendance_p['attendance_g7_p_jan'],
+            'attendance_g7_p_feb' => $validate_attendance_p['attendance_g7_p_feb'],
+            'attendance_g7_p_mar' => $validate_attendance_p['attendance_g7_p_mar'],
+            'attendance_g7_p_apr' => $validate_attendance_p['attendance_g7_p_apr'],
+            'attendance_g7_p_may' => $validate_attendance_p['attendance_g7_p_may'],
+            'attendance_g7_p_jun' => $validate_attendance_p['attendance_g7_p_jun'],
+            'attendance_g7_p_jul' => $validate_attendance_p['attendance_g7_p_jul'],
+            'attendance_g7_p_aug' => $validate_attendance_p['attendance_g7_p_aug'],
+            'attendance_g7_p_sep' => $validate_attendance_p['attendance_g7_p_sep'],
+            'attendance_g7_p_oct' => $validate_attendance_p['attendance_g7_p_oct'],
+            'attendance_g7_p_nov' => $validate_attendance_p['attendance_g7_p_nov'],
+            'attendance_g7_p_dec' => $validate_attendance_p['attendance_g7_p_dec'],
+
+            'attendance_g8_p_jan' => $validate_attendance_p['attendance_g8_p_jan'],
+            'attendance_g8_p_feb' => $validate_attendance_p['attendance_g8_p_feb'],
+            'attendance_g8_p_mar' => $validate_attendance_p['attendance_g8_p_mar'],
+            'attendance_g8_p_apr' => $validate_attendance_p['attendance_g8_p_apr'],
+            'attendance_g8_p_may' => $validate_attendance_p['attendance_g8_p_may'],
+            'attendance_g8_p_jun' => $validate_attendance_p['attendance_g8_p_jun'],
+            'attendance_g8_p_jul' => $validate_attendance_p['attendance_g8_p_jul'],
+            'attendance_g8_p_aug' => $validate_attendance_p['attendance_g8_p_aug'],
+            'attendance_g8_p_sep' => $validate_attendance_p['attendance_g8_p_sep'],
+            'attendance_g8_p_oct' => $validate_attendance_p['attendance_g8_p_oct'],
+            'attendance_g8_p_nov' => $validate_attendance_p['attendance_g8_p_nov'],
+            'attendance_g8_p_dec' => $validate_attendance_p['attendance_g8_p_dec'],
+        
+            'attendance_g9_p_jan' => $validate_attendance_p['attendance_g9_p_jan'],
+            'attendance_g9_p_feb' => $validate_attendance_p['attendance_g9_p_feb'],
+            'attendance_g9_p_mar' => $validate_attendance_p['attendance_g9_p_mar'],
+            'attendance_g9_p_apr' => $validate_attendance_p['attendance_g9_p_apr'],
+            'attendance_g9_p_may' => $validate_attendance_p['attendance_g9_p_may'],
+            'attendance_g9_p_jun' => $validate_attendance_p['attendance_g9_p_jun'],
+            'attendance_g9_p_jul' => $validate_attendance_p['attendance_g9_p_jul'],
+            'attendance_g9_p_aug' => $validate_attendance_p['attendance_g9_p_aug'],
+            'attendance_g9_p_sep' => $validate_attendance_p['attendance_g9_p_sep'],
+            'attendance_g9_p_oct' => $validate_attendance_p['attendance_g9_p_oct'],
+            'attendance_g9_p_nov' => $validate_attendance_p['attendance_g9_p_nov'],
+            'attendance_g9_p_dec' => $validate_attendance_p['attendance_g9_p_dec'],
+        
+            'attendance_g10_p_jan' => $validate_attendance_p['attendance_g10_p_jan'],
+            'attendance_g10_p_feb' => $validate_attendance_p['attendance_g10_p_feb'],
+            'attendance_g10_p_mar' => $validate_attendance_p['attendance_g10_p_mar'],
+            'attendance_g10_p_apr' => $validate_attendance_p['attendance_g10_p_apr'],
+            'attendance_g10_p_may' => $validate_attendance_p['attendance_g10_p_may'],
+            'attendance_g10_p_jun' => $validate_attendance_p['attendance_g10_p_jun'],
+            'attendance_g10_p_jul' => $validate_attendance_p['attendance_g10_p_jul'],
+            'attendance_g10_p_aug' => $validate_attendance_p['attendance_g10_p_aug'],
+            'attendance_g10_p_sep' => $validate_attendance_p['attendance_g10_p_sep'],
+            'attendance_g10_p_oct' => $validate_attendance_p['attendance_g10_p_oct'],
+            'attendance_g10_p_nov' => $validate_attendance_p['attendance_g10_p_nov'],
+            'attendance_g10_p_dec' => $validate_attendance_p['attendance_g10_p_dec'],
+        ]);
+
+        // DO-NOT-TOUCH: Attendance -> absent
+        $validate_attendance_a = request()->validate([
             'attendance_g7_a_jan' => 'nullable',
             'attendance_g7_a_feb' => 'nullable',
             'attendance_g7_a_mar' => 'nullable',
@@ -587,6 +947,68 @@ class StudentController extends Controller {
             'attendance_g10_a_oct' => 'nullable',
             'attendance_g10_a_nov' => 'nullable',
             'attendance_g10_a_dec' => 'nullable',
+        ]);
+
+        Student::where('id', $id)->update([
+            'attendance_g7_a_jan' => $validate_attendance_a['attendance_g7_a_jan'],
+            'attendance_g7_a_feb' => $validate_attendance_a['attendance_g7_a_feb'],
+            'attendance_g7_a_mar' => $validate_attendance_a['attendance_g7_a_mar'],
+            'attendance_g7_a_apr' => $validate_attendance_a['attendance_g7_a_apr'],
+            'attendance_g7_a_may' => $validate_attendance_a['attendance_g7_a_may'],
+            'attendance_g7_a_jun' => $validate_attendance_a['attendance_g7_a_jun'],
+            'attendance_g7_a_jul' => $validate_attendance_a['attendance_g7_a_jul'],
+            'attendance_g7_a_aug' => $validate_attendance_a['attendance_g7_a_aug'],
+            'attendance_g7_a_sep' => $validate_attendance_a['attendance_g7_a_sep'],
+            'attendance_g7_a_oct' => $validate_attendance_a['attendance_g7_a_oct'],
+            'attendance_g7_a_nov' => $validate_attendance_a['attendance_g7_a_nov'],
+            'attendance_g7_a_dec' => $validate_attendance_a['attendance_g7_a_dec'],
+
+            'attendance_g8_a_jan' => $validate_attendance_a['attendance_g8_a_jan'],
+            'attendance_g8_a_feb' => $validate_attendance_a['attendance_g8_a_feb'],
+            'attendance_g8_a_mar' => $validate_attendance_a['attendance_g8_a_mar'],
+            'attendance_g8_a_apr' => $validate_attendance_a['attendance_g8_a_apr'],
+            'attendance_g8_a_may' => $validate_attendance_a['attendance_g8_a_may'],
+            'attendance_g8_a_jun' => $validate_attendance_a['attendance_g8_a_jun'],
+            'attendance_g8_a_jul' => $validate_attendance_a['attendance_g8_a_jul'],
+            'attendance_g8_a_aug' => $validate_attendance_a['attendance_g8_a_aug'],
+            'attendance_g8_a_sep' => $validate_attendance_a['attendance_g8_a_sep'],
+            'attendance_g8_a_oct' => $validate_attendance_a['attendance_g8_a_oct'],
+            'attendance_g8_a_nov' => $validate_attendance_a['attendance_g8_a_nov'],
+            'attendance_g8_a_dec' => $validate_attendance_a['attendance_g8_a_dec'],
+        
+            'attendance_g9_a_jan' => $validate_attendance_a['attendance_g9_a_jan'],
+            'attendance_g9_a_feb' => $validate_attendance_a['attendance_g9_a_feb'],
+            'attendance_g9_a_mar' => $validate_attendance_a['attendance_g9_a_mar'],
+            'attendance_g9_a_apr' => $validate_attendance_a['attendance_g9_a_apr'],
+            'attendance_g9_a_may' => $validate_attendance_a['attendance_g9_a_may'],
+            'attendance_g9_a_jun' => $validate_attendance_a['attendance_g9_a_jun'],
+            'attendance_g9_a_jul' => $validate_attendance_a['attendance_g9_a_jul'],
+            'attendance_g9_a_aug' => $validate_attendance_a['attendance_g9_a_aug'],
+            'attendance_g9_a_sep' => $validate_attendance_a['attendance_g9_a_sep'],
+            'attendance_g9_a_oct' => $validate_attendance_a['attendance_g9_a_oct'],
+            'attendance_g9_a_nov' => $validate_attendance_a['attendance_g9_a_nov'],
+            'attendance_g9_a_dec' => $validate_attendance_a['attendance_g9_a_dec'],
+        
+            'attendance_g10_a_jan' => $validate_attendance_a['attendance_g10_a_jan'],
+            'attendance_g10_a_feb' => $validate_attendance_a['attendance_g10_a_feb'],
+            'attendance_g10_a_mar' => $validate_attendance_a['attendance_g10_a_mar'],
+            'attendance_g10_a_apr' => $validate_attendance_a['attendance_g10_a_apr'],
+            'attendance_g10_a_may' => $validate_attendance_a['attendance_g10_a_may'],
+            'attendance_g10_a_jun' => $validate_attendance_a['attendance_g10_a_jun'],
+            'attendance_g10_a_jul' => $validate_attendance_a['attendance_g10_a_jul'],
+            'attendance_g10_a_aug' => $validate_attendance_a['attendance_g10_a_aug'],
+            'attendance_g10_a_sep' => $validate_attendance_a['attendance_g10_a_sep'],
+            'attendance_g10_a_oct' => $validate_attendance_a['attendance_g10_a_oct'],
+            'attendance_g10_a_nov' => $validate_attendance_a['attendance_g10_a_nov'],
+            'attendance_g10_a_dec' => $validate_attendance_a['attendance_g10_a_dec'],
+        ]);
+
+
+
+        //
+        $validatedFields = request()->validate([
+
+            
 
             // Values -> maka - diyos
             'values_g7_md_s1_qr1' => 'nullable',
@@ -722,388 +1144,9 @@ class StudentController extends Controller {
         
 
         ]);
-            // Update
+
+        // Update
         Student::where('id', $id)->update([
-            // Subject -> filipino
-            'subject_g7_fil_qr1' => $validatedFields['subject_g7_fil_qr1'],
-            'subject_g7_fil_qr2' => $validatedFields['subject_g7_fil_qr2'],
-            'subject_g7_fil_qr3' => $validatedFields['subject_g7_fil_qr3'],
-            'subject_g7_fil_qr4' => $validatedFields['subject_g7_fil_qr4'],
-            'subject_g7_fil_rem' => $validatedFields['subject_g7_fil_rem'],
-
-            'subject_g8_fil_qr1' => $validatedFields['subject_g8_fil_qr1'],
-            'subject_g8_fil_qr2' => $validatedFields['subject_g8_fil_qr2'],
-            'subject_g8_fil_qr3' => $validatedFields['subject_g8_fil_qr3'],
-            'subject_g8_fil_qr4' => $validatedFields['subject_g8_fil_qr4'],
-            'subject_g8_fil_rem' => $validatedFields['subject_g8_fil_rem'],
-
-            'subject_g9_fil_qr1' => $validatedFields['subject_g9_fil_qr1'],
-            'subject_g9_fil_qr2' => $validatedFields['subject_g9_fil_qr2'],
-            'subject_g9_fil_qr3' => $validatedFields['subject_g9_fil_qr3'],
-            'subject_g9_fil_qr4' => $validatedFields['subject_g9_fil_qr4'],
-            'subject_g9_fil_rem' => $validatedFields['subject_g9_fil_rem'],
-
-            'subject_g10_fil_qr1' => $validatedFields['subject_g10_fil_qr1'],
-            'subject_g10_fil_qr2' => $validatedFields['subject_g10_fil_qr2'],
-            'subject_g10_fil_qr3' => $validatedFields['subject_g10_fil_qr3'],
-            'subject_g10_fil_qr4' => $validatedFields['subject_g10_fil_qr4'],
-            'subject_g10_fil_rem' => $validatedFields['subject_g10_fil_rem'],
-
-            // Subject -> english
-            'subject_g7_eng_qr1' => $validatedFields['subject_g7_eng_qr1'],
-            'subject_g7_eng_qr2' => $validatedFields['subject_g7_eng_qr2'],
-            'subject_g7_eng_qr3' => $validatedFields['subject_g7_eng_qr3'],
-            'subject_g7_eng_qr4' => $validatedFields['subject_g7_eng_qr4'],
-            'subject_g7_eng_rem' => $validatedFields['subject_g7_eng_rem'],
-
-            'subject_g8_eng_qr1' => $validatedFields['subject_g8_eng_qr1'],
-            'subject_g8_eng_qr2' => $validatedFields['subject_g8_eng_qr2'],
-            'subject_g8_eng_qr3' => $validatedFields['subject_g8_eng_qr3'],
-            'subject_g8_eng_qr4' => $validatedFields['subject_g8_eng_qr4'],
-            'subject_g8_eng_rem' => $validatedFields['subject_g8_eng_rem'],
-
-            'subject_g9_eng_qr1' => $validatedFields['subject_g9_eng_qr1'],
-            'subject_g9_eng_qr2' => $validatedFields['subject_g9_eng_qr2'],
-            'subject_g9_eng_qr3' => $validatedFields['subject_g9_eng_qr3'],
-            'subject_g9_eng_qr4' => $validatedFields['subject_g9_eng_qr4'],
-            'subject_g9_eng_rem' => $validatedFields['subject_g9_eng_rem'],
-
-            'subject_g10_eng_qr1' => $validatedFields['subject_g10_eng_qr1'],
-            'subject_g10_eng_qr2' => $validatedFields['subject_g10_eng_qr2'],
-            'subject_g10_eng_qr3' => $validatedFields['subject_g10_eng_qr3'],
-            'subject_g10_eng_qr4' => $validatedFields['subject_g10_eng_qr4'],
-            'subject_g10_eng_rem' => $validatedFields['subject_g10_eng_rem'],
-            
-            // Subject -> mathematics
-            'subject_g7_mat_qr1' => $validatedFields['subject_g7_mat_qr1'],
-            'subject_g7_mat_qr2' => $validatedFields['subject_g7_mat_qr2'],
-            'subject_g7_mat_qr3' => $validatedFields['subject_g7_mat_qr3'],
-            'subject_g7_mat_qr4' => $validatedFields['subject_g7_mat_qr4'],
-            'subject_g7_mat_rem' => $validatedFields['subject_g7_mat_rem'],
-    
-            'subject_g8_mat_qr1' => $validatedFields['subject_g8_mat_qr1'],
-            'subject_g8_mat_qr2' => $validatedFields['subject_g8_mat_qr2'],
-            'subject_g8_mat_qr3' => $validatedFields['subject_g8_mat_qr3'],
-            'subject_g8_mat_qr4' => $validatedFields['subject_g8_mat_qr4'],
-            'subject_g8_mat_rem' => $validatedFields['subject_g8_mat_rem'],
-            
-            'subject_g9_mat_qr1' => $validatedFields['subject_g9_mat_qr1'],
-            'subject_g9_mat_qr2' => $validatedFields['subject_g9_mat_qr2'],
-            'subject_g9_mat_qr3' => $validatedFields['subject_g9_mat_qr3'],
-            'subject_g9_mat_qr4' => $validatedFields['subject_g9_mat_qr4'],
-            'subject_g9_mat_rem' => $validatedFields['subject_g9_mat_rem'],
-    
-            'subject_g10_mat_qr1' => $validatedFields['subject_g10_mat_qr1'],
-            'subject_g10_mat_qr2' => $validatedFields['subject_g10_mat_qr2'],
-            'subject_g10_mat_qr3' => $validatedFields['subject_g10_mat_qr3'],
-            'subject_g10_mat_qr4' => $validatedFields['subject_g10_mat_qr4'],
-            'subject_g10_mat_rem' => $validatedFields['subject_g10_mat_rem'],
-            
-            // Subject -> science
-            'subject_g7_sci_qr1' => $validatedFields['subject_g7_sci_qr1'],
-            'subject_g7_sci_qr2' => $validatedFields['subject_g7_sci_qr2'],
-            'subject_g7_sci_qr3' => $validatedFields['subject_g7_sci_qr3'],
-            'subject_g7_sci_qr4' => $validatedFields['subject_g7_sci_qr4'],
-            'subject_g7_sci_rem' => $validatedFields['subject_g7_sci_rem'],
-    
-            'subject_g8_sci_qr1' => $validatedFields['subject_g8_sci_qr1'],
-            'subject_g8_sci_qr2' => $validatedFields['subject_g8_sci_qr2'],
-            'subject_g8_sci_qr3' => $validatedFields['subject_g8_sci_qr3'],
-            'subject_g8_sci_qr4' => $validatedFields['subject_g8_sci_qr4'],
-            'subject_g8_sci_rem' => $validatedFields['subject_g8_sci_rem'],
-    
-            'subject_g9_sci_qr1' => $validatedFields['subject_g9_sci_qr1'],
-            'subject_g9_sci_qr2' => $validatedFields['subject_g9_sci_qr2'],
-            'subject_g9_sci_qr3' => $validatedFields['subject_g9_sci_qr3'],
-            'subject_g9_sci_qr4' => $validatedFields['subject_g9_sci_qr4'],
-            'subject_g9_sci_rem' => $validatedFields['subject_g9_sci_rem'],
-    
-            'subject_g10_sci_qr1' => $validatedFields['subject_g10_sci_qr1'],
-            'subject_g10_sci_qr2' => $validatedFields['subject_g10_sci_qr2'],
-            'subject_g10_sci_qr3' => $validatedFields['subject_g10_sci_qr3'],
-            'subject_g10_sci_qr4' => $validatedFields['subject_g10_sci_qr4'],
-            'subject_g10_sci_rem' => $validatedFields['subject_g10_sci_rem'],
-
-            // Subject -> araling panlipunan (ap)
-            'subject_g7_ap_qr1' => $validatedFields['subject_g7_ap_qr1'],
-            'subject_g7_ap_qr2' => $validatedFields['subject_g7_ap_qr2'],
-            'subject_g7_ap_qr3' => $validatedFields['subject_g7_ap_qr3'],
-            'subject_g7_ap_qr4' => $validatedFields['subject_g7_ap_qr4'],
-            'subject_g7_ap_rem' => $validatedFields['subject_g7_ap_rem'],
-
-            'subject_g8_ap_qr1' => $validatedFields['subject_g8_ap_qr1'],
-            'subject_g8_ap_qr2' => $validatedFields['subject_g8_ap_qr2'],
-            'subject_g8_ap_qr3' => $validatedFields['subject_g8_ap_qr3'],
-            'subject_g8_ap_qr4' => $validatedFields['subject_g8_ap_qr4'],
-            'subject_g8_ap_rem' => $validatedFields['subject_g8_ap_rem'],
-
-            'subject_g9_ap_qr1' => $validatedFields['subject_g9_ap_qr1'],
-            'subject_g9_ap_qr2' => $validatedFields['subject_g9_ap_qr2'],
-            'subject_g9_ap_qr3' => $validatedFields['subject_g9_ap_qr3'],
-            'subject_g9_ap_qr4' => $validatedFields['subject_g9_ap_qr4'],
-            'subject_g9_ap_rem' => $validatedFields['subject_g9_ap_rem'],
-
-            'subject_g10_ap_qr1' => $validatedFields['subject_g10_ap_qr1'],
-            'subject_g10_ap_qr2' => $validatedFields['subject_g10_ap_qr2'],
-            'subject_g10_ap_qr3' => $validatedFields['subject_g10_ap_qr3'],
-            'subject_g10_ap_qr4' => $validatedFields['subject_g10_ap_qr4'],
-            'subject_g10_ap_rem' => $validatedFields['subject_g10_ap_rem'],
-
-            // Subject -> edukasyon sa pagpapakatao (ep)
-            'subject_g7_ep_qr1' => $validatedFields['subject_g7_ep_qr1'],
-            'subject_g7_ep_qr2' => $validatedFields['subject_g7_ep_qr2'],
-            'subject_g7_ep_qr3' => $validatedFields['subject_g7_ep_qr3'],
-            'subject_g7_ep_qr4' => $validatedFields['subject_g7_ep_qr4'],
-            'subject_g7_ep_rem' => $validatedFields['subject_g7_ep_rem'],
-
-            'subject_g8_ep_qr1' => $validatedFields['subject_g8_ep_qr1'],
-            'subject_g8_ep_qr2' => $validatedFields['subject_g8_ep_qr2'],
-            'subject_g8_ep_qr3' => $validatedFields['subject_g8_ep_qr3'],
-            'subject_g8_ep_qr4' => $validatedFields['subject_g8_ep_qr4'],
-            'subject_g8_ep_rem' => $validatedFields['subject_g8_ep_rem'],
-
-            'subject_g9_ep_qr1' => $validatedFields['subject_g9_ep_qr1'],
-            'subject_g9_ep_qr2' => $validatedFields['subject_g9_ep_qr2'],
-            'subject_g9_ep_qr3' => $validatedFields['subject_g9_ep_qr3'],
-            'subject_g9_ep_qr4' => $validatedFields['subject_g9_ep_qr4'],
-            'subject_g9_ep_rem' => $validatedFields['subject_g9_ep_rem'],
-
-            'subject_g10_ep_qr1' => $validatedFields['subject_g10_ep_qr1'],
-            'subject_g10_ep_qr2' => $validatedFields['subject_g10_ep_qr2'],
-            'subject_g10_ep_qr3' => $validatedFields['subject_g10_ep_qr3'],
-            'subject_g10_ep_qr4' => $validatedFields['subject_g10_ep_qr4'],
-            'subject_g10_ep_rem' => $validatedFields['subject_g10_ep_rem'],
-            
-            // Subject -> technology and livelihood education (tle)
-            'subject_g7_tle_qr1' => $validatedFields['subject_g7_tle_qr1'],
-            'subject_g7_tle_qr2' => $validatedFields['subject_g7_tle_qr2'],
-            'subject_g7_tle_qr3' => $validatedFields['subject_g7_tle_qr3'],
-            'subject_g7_tle_qr4' => $validatedFields['subject_g7_tle_qr4'],
-            'subject_g7_tle_rem' => $validatedFields['subject_g7_tle_rem'],
-            
-            'subject_g8_tle_qr1' => $validatedFields['subject_g8_tle_qr1'],
-            'subject_g8_tle_qr2' => $validatedFields['subject_g8_tle_qr2'],
-            'subject_g8_tle_qr3' => $validatedFields['subject_g8_tle_qr3'],
-            'subject_g8_tle_qr4' => $validatedFields['subject_g8_tle_qr4'],
-            'subject_g8_tle_rem' => $validatedFields['subject_g8_tle_rem'],
-
-            'subject_g9_tle_qr1' => $validatedFields['subject_g9_tle_qr1'],
-            'subject_g9_tle_qr2' => $validatedFields['subject_g9_tle_qr2'],
-            'subject_g9_tle_qr3' => $validatedFields['subject_g9_tle_qr3'],
-            'subject_g9_tle_qr4' => $validatedFields['subject_g9_tle_qr4'],
-            'subject_g9_tle_rem' => $validatedFields['subject_g9_tle_rem'],
-
-            'subject_g10_tle_qr1' => $validatedFields['subject_g10_tle_qr1'],
-            'subject_g10_tle_qr2' => $validatedFields['subject_g10_tle_qr2'],
-            'subject_g10_tle_qr3' => $validatedFields['subject_g10_tle_qr3'],
-            'subject_g10_tle_qr4' => $validatedFields['subject_g10_tle_qr4'],
-            'subject_g10_tle_rem' => $validatedFields['subject_g10_tle_rem'],
-        
-            // Subject -> music
-            'subject_g7_mus_qr1' => $validatedFields['subject_g7_mus_qr1'],
-            'subject_g7_mus_qr2' => $validatedFields['subject_g7_mus_qr2'],
-            'subject_g7_mus_qr3' => $validatedFields['subject_g7_mus_qr3'],
-            'subject_g7_mus_qr4' => $validatedFields['subject_g7_mus_qr4'],
-            'subject_g7_mus_rem' => $validatedFields['subject_g7_mus_rem'],
-    
-            'subject_g8_mus_qr1' => $validatedFields['subject_g8_mus_qr1'],
-            'subject_g8_mus_qr2' => $validatedFields['subject_g8_mus_qr2'],
-            'subject_g8_mus_qr3' => $validatedFields['subject_g8_mus_qr3'],
-            'subject_g8_mus_qr4' => $validatedFields['subject_g8_mus_qr4'],
-            'subject_g8_mus_rem' => $validatedFields['subject_g8_mus_rem'],
-            
-            'subject_g9_mus_qr1' => $validatedFields['subject_g9_mus_qr1'],
-            'subject_g9_mus_qr2' => $validatedFields['subject_g9_mus_qr2'],
-            'subject_g9_mus_qr3' => $validatedFields['subject_g9_mus_qr3'],
-            'subject_g9_mus_qr4' => $validatedFields['subject_g9_mus_qr4'],
-            'subject_g9_mus_rem' => $validatedFields['subject_g9_mus_rem'],
-    
-            'subject_g10_mus_qr1' => $validatedFields['subject_g10_mus_qr1'],
-            'subject_g10_mus_qr2' => $validatedFields['subject_g10_mus_qr2'],
-            'subject_g10_mus_qr3' => $validatedFields['subject_g10_mus_qr3'],
-            'subject_g10_mus_qr4' => $validatedFields['subject_g10_mus_qr4'],
-            'subject_g10_mus_rem' => $validatedFields['subject_g10_mus_rem'],
-            
-            // Subject -> arts
-            'subject_g7_art_qr1' => $validatedFields['subject_g7_art_qr1'],
-            'subject_g7_art_qr2' => $validatedFields['subject_g7_art_qr2'],
-            'subject_g7_art_qr3' => $validatedFields['subject_g7_art_qr3'],
-            'subject_g7_art_qr4' => $validatedFields['subject_g7_art_qr4'],
-            'subject_g7_art_rem' => $validatedFields['subject_g7_art_rem'],
-    
-            'subject_g8_art_qr1' => $validatedFields['subject_g8_art_qr1'],
-            'subject_g8_art_qr2' => $validatedFields['subject_g8_art_qr2'],
-            'subject_g8_art_qr3' => $validatedFields['subject_g8_art_qr3'],
-            'subject_g8_art_qr4' => $validatedFields['subject_g8_art_qr4'],
-            'subject_g8_art_rem' => $validatedFields['subject_g8_art_rem'],
-    
-            'subject_g9_art_qr1' => $validatedFields['subject_g9_art_qr1'],
-            'subject_g9_art_qr2' => $validatedFields['subject_g9_art_qr2'],
-            'subject_g9_art_qr3' => $validatedFields['subject_g9_art_qr3'],
-            'subject_g9_art_qr4' => $validatedFields['subject_g9_art_qr4'],
-            'subject_g9_art_rem' => $validatedFields['subject_g9_art_rem'],
-    
-            'subject_g10_art_qr1' => $validatedFields['subject_g10_art_qr1'],
-            'subject_g10_art_qr2' => $validatedFields['subject_g10_art_qr2'],
-            'subject_g10_art_qr3' => $validatedFields['subject_g10_art_qr3'],
-            'subject_g10_art_qr4' => $validatedFields['subject_g10_art_qr4'],
-            'subject_g10_art_rem' => $validatedFields['subject_g10_art_rem'],
-
-            // Subject -> physical education
-            'subject_g7_pe_qr1' => $validatedFields['subject_g7_pe_qr1'],
-            'subject_g7_pe_qr2' => $validatedFields['subject_g7_pe_qr2'],
-            'subject_g7_pe_qr3' => $validatedFields['subject_g7_pe_qr3'],
-            'subject_g7_pe_qr4' => $validatedFields['subject_g7_pe_qr4'],
-            'subject_g7_pe_rem' => $validatedFields['subject_g7_pe_rem'],
-
-            'subject_g8_pe_qr1' => $validatedFields['subject_g8_pe_qr1'],
-            'subject_g8_pe_qr2' => $validatedFields['subject_g8_pe_qr2'],
-            'subject_g8_pe_qr3' => $validatedFields['subject_g8_pe_qr3'],
-            'subject_g8_pe_qr4' => $validatedFields['subject_g8_pe_qr4'],
-            'subject_g8_pe_rem' => $validatedFields['subject_g8_pe_rem'],
-
-            'subject_g9_pe_qr1' => $validatedFields['subject_g9_pe_qr1'],
-            'subject_g9_pe_qr2' => $validatedFields['subject_g9_pe_qr2'],
-            'subject_g9_pe_qr3' => $validatedFields['subject_g9_pe_qr3'],
-            'subject_g9_pe_qr4' => $validatedFields['subject_g9_pe_qr4'],
-            'subject_g9_pe_rem' => $validatedFields['subject_g9_pe_rem'],
-
-            'subject_g10_pe_qr1' => $validatedFields['subject_g10_pe_qr1'],
-            'subject_g10_pe_qr2' => $validatedFields['subject_g10_pe_qr2'],
-            'subject_g10_pe_qr3' => $validatedFields['subject_g10_pe_qr3'],
-            'subject_g10_pe_qr4' => $validatedFields['subject_g10_pe_qr4'],
-            'subject_g10_pe_rem' => $validatedFields['subject_g10_pe_rem'],
-
-            // Subject -> health
-            'subject_g7_hp_qr1' => $validatedFields['subject_g7_hp_qr1'],
-            'subject_g7_hp_qr2' => $validatedFields['subject_g7_hp_qr2'],
-            'subject_g7_hp_qr3' => $validatedFields['subject_g7_hp_qr3'],
-            'subject_g7_hp_qr4' => $validatedFields['subject_g7_hp_qr4'],
-            'subject_g7_hp_rem' => $validatedFields['subject_g7_hp_rem'],
-
-            'subject_g8_hp_qr1' => $validatedFields['subject_g8_hp_qr1'],
-            'subject_g8_hp_qr2' => $validatedFields['subject_g8_hp_qr2'],
-            'subject_g8_hp_qr3' => $validatedFields['subject_g8_hp_qr3'],
-            'subject_g8_hp_qr4' => $validatedFields['subject_g8_hp_qr4'],
-            'subject_g8_hp_rem' => $validatedFields['subject_g8_hp_rem'],
-
-            'subject_g9_hp_qr1' => $validatedFields['subject_g9_hp_qr1'],
-            'subject_g9_hp_qr2' => $validatedFields['subject_g9_hp_qr2'],
-            'subject_g9_hp_qr3' => $validatedFields['subject_g9_hp_qr3'],
-            'subject_g9_hp_qr4' => $validatedFields['subject_g9_hp_qr4'],
-            'subject_g9_hp_rem' => $validatedFields['subject_g9_hp_rem'],
-
-            'subject_g10_hp_qr1' => $validatedFields['subject_g10_hp_qr1'],
-            'subject_g10_hp_qr2' => $validatedFields['subject_g10_hp_qr2'],
-            'subject_g10_hp_qr3' => $validatedFields['subject_g10_hp_qr3'],
-            'subject_g10_hp_qr4' => $validatedFields['subject_g10_hp_qr4'],
-            'subject_g10_hp_rem' => $validatedFields['subject_g10_hp_rem'],
-
-            // Attendance -> present
-            'attendance_g7_p_jan' => $validatedFields['attendance_g7_p_jan'],
-            'attendance_g7_p_feb' => $validatedFields['attendance_g7_p_feb'],
-            'attendance_g7_p_mar' => $validatedFields['attendance_g7_p_mar'],
-            'attendance_g7_p_apr' => $validatedFields['attendance_g7_p_apr'],
-            'attendance_g7_p_may' => $validatedFields['attendance_g7_p_may'],
-            'attendance_g7_p_jun' => $validatedFields['attendance_g7_p_jun'],
-            'attendance_g7_p_jul' => $validatedFields['attendance_g7_p_jul'],
-            'attendance_g7_p_aug' => $validatedFields['attendance_g7_p_aug'],
-            'attendance_g7_p_sep' => $validatedFields['attendance_g7_p_sep'],
-            'attendance_g7_p_oct' => $validatedFields['attendance_g7_p_oct'],
-            'attendance_g7_p_nov' => $validatedFields['attendance_g7_p_nov'],
-            'attendance_g7_p_dec' => $validatedFields['attendance_g7_p_dec'],
-
-            'attendance_g8_p_jan' => $validatedFields['attendance_g8_p_jan'],
-            'attendance_g8_p_feb' => $validatedFields['attendance_g8_p_feb'],
-            'attendance_g8_p_mar' => $validatedFields['attendance_g8_p_mar'],
-            'attendance_g8_p_apr' => $validatedFields['attendance_g8_p_apr'],
-            'attendance_g8_p_may' => $validatedFields['attendance_g8_p_may'],
-            'attendance_g8_p_jun' => $validatedFields['attendance_g8_p_jun'],
-            'attendance_g8_p_jul' => $validatedFields['attendance_g8_p_jul'],
-            'attendance_g8_p_aug' => $validatedFields['attendance_g8_p_aug'],
-            'attendance_g8_p_sep' => $validatedFields['attendance_g8_p_sep'],
-            'attendance_g8_p_oct' => $validatedFields['attendance_g8_p_oct'],
-            'attendance_g8_p_nov' => $validatedFields['attendance_g8_p_nov'],
-            'attendance_g8_p_dec' => $validatedFields['attendance_g8_p_dec'],
-        
-            'attendance_g9_p_jan' => $validatedFields['attendance_g9_p_jan'],
-            'attendance_g9_p_feb' => $validatedFields['attendance_g9_p_feb'],
-            'attendance_g9_p_mar' => $validatedFields['attendance_g9_p_mar'],
-            'attendance_g9_p_apr' => $validatedFields['attendance_g9_p_apr'],
-            'attendance_g9_p_may' => $validatedFields['attendance_g9_p_may'],
-            'attendance_g9_p_jun' => $validatedFields['attendance_g9_p_jun'],
-            'attendance_g9_p_jul' => $validatedFields['attendance_g9_p_jul'],
-            'attendance_g9_p_aug' => $validatedFields['attendance_g9_p_aug'],
-            'attendance_g9_p_sep' => $validatedFields['attendance_g9_p_sep'],
-            'attendance_g9_p_oct' => $validatedFields['attendance_g9_p_oct'],
-            'attendance_g9_p_nov' => $validatedFields['attendance_g9_p_nov'],
-            'attendance_g9_p_dec' => $validatedFields['attendance_g9_p_dec'],
-        
-            'attendance_g10_p_jan' => $validatedFields['attendance_g10_p_jan'],
-            'attendance_g10_p_feb' => $validatedFields['attendance_g10_p_feb'],
-            'attendance_g10_p_mar' => $validatedFields['attendance_g10_p_mar'],
-            'attendance_g10_p_apr' => $validatedFields['attendance_g10_p_apr'],
-            'attendance_g10_p_may' => $validatedFields['attendance_g10_p_may'],
-            'attendance_g10_p_jun' => $validatedFields['attendance_g10_p_jun'],
-            'attendance_g10_p_jul' => $validatedFields['attendance_g10_p_jul'],
-            'attendance_g10_p_aug' => $validatedFields['attendance_g10_p_aug'],
-            'attendance_g10_p_sep' => $validatedFields['attendance_g10_p_sep'],
-            'attendance_g10_p_oct' => $validatedFields['attendance_g10_p_oct'],
-            'attendance_g10_p_nov' => $validatedFields['attendance_g10_p_nov'],
-            'attendance_g10_p_dec' => $validatedFields['attendance_g10_p_dec'],
-
-            // Attendance -> absent
-            'attendance_g7_a_jan' => $validatedFields['attendance_g7_a_jan'],
-            'attendance_g7_a_feb' => $validatedFields['attendance_g7_a_feb'],
-            'attendance_g7_a_mar' => $validatedFields['attendance_g7_a_mar'],
-            'attendance_g7_a_apr' => $validatedFields['attendance_g7_a_apr'],
-            'attendance_g7_a_may' => $validatedFields['attendance_g7_a_may'],
-            'attendance_g7_a_jun' => $validatedFields['attendance_g7_a_jun'],
-            'attendance_g7_a_jul' => $validatedFields['attendance_g7_a_jul'],
-            'attendance_g7_a_aug' => $validatedFields['attendance_g7_a_aug'],
-            'attendance_g7_a_sep' => $validatedFields['attendance_g7_a_sep'],
-            'attendance_g7_a_oct' => $validatedFields['attendance_g7_a_oct'],
-            'attendance_g7_a_nov' => $validatedFields['attendance_g7_a_nov'],
-            'attendance_g7_a_dec' => $validatedFields['attendance_g7_a_dec'],
-
-            'attendance_g8_a_jan' => $validatedFields['attendance_g8_a_jan'],
-            'attendance_g8_a_feb' => $validatedFields['attendance_g8_a_feb'],
-            'attendance_g8_a_mar' => $validatedFields['attendance_g8_a_mar'],
-            'attendance_g8_a_apr' => $validatedFields['attendance_g8_a_apr'],
-            'attendance_g8_a_may' => $validatedFields['attendance_g8_a_may'],
-            'attendance_g8_a_jun' => $validatedFields['attendance_g8_a_jun'],
-            'attendance_g8_a_jul' => $validatedFields['attendance_g8_a_jul'],
-            'attendance_g8_a_aug' => $validatedFields['attendance_g8_a_aug'],
-            'attendance_g8_a_sep' => $validatedFields['attendance_g8_a_sep'],
-            'attendance_g8_a_oct' => $validatedFields['attendance_g8_a_oct'],
-            'attendance_g8_a_nov' => $validatedFields['attendance_g8_a_nov'],
-            'attendance_g8_a_dec' => $validatedFields['attendance_g8_a_dec'],
-        
-            'attendance_g9_a_jan' => $validatedFields['attendance_g9_a_jan'],
-            'attendance_g9_a_feb' => $validatedFields['attendance_g9_a_feb'],
-            'attendance_g9_a_mar' => $validatedFields['attendance_g9_a_mar'],
-            'attendance_g9_a_apr' => $validatedFields['attendance_g9_a_apr'],
-            'attendance_g9_a_may' => $validatedFields['attendance_g9_a_may'],
-            'attendance_g9_a_jun' => $validatedFields['attendance_g9_a_jun'],
-            'attendance_g9_a_jul' => $validatedFields['attendance_g9_a_jul'],
-            'attendance_g9_a_aug' => $validatedFields['attendance_g9_a_aug'],
-            'attendance_g9_a_sep' => $validatedFields['attendance_g9_a_sep'],
-            'attendance_g9_a_oct' => $validatedFields['attendance_g9_a_oct'],
-            'attendance_g9_a_nov' => $validatedFields['attendance_g9_a_nov'],
-            'attendance_g9_a_dec' => $validatedFields['attendance_g9_a_dec'],
-        
-            'attendance_g10_a_jan' => $validatedFields['attendance_g10_a_jan'],
-            'attendance_g10_a_feb' => $validatedFields['attendance_g10_a_feb'],
-            'attendance_g10_a_mar' => $validatedFields['attendance_g10_a_mar'],
-            'attendance_g10_a_apr' => $validatedFields['attendance_g10_a_apr'],
-            'attendance_g10_a_may' => $validatedFields['attendance_g10_a_may'],
-            'attendance_g10_a_jun' => $validatedFields['attendance_g10_a_jun'],
-            'attendance_g10_a_jul' => $validatedFields['attendance_g10_a_jul'],
-            'attendance_g10_a_aug' => $validatedFields['attendance_g10_a_aug'],
-            'attendance_g10_a_sep' => $validatedFields['attendance_g10_a_sep'],
-            'attendance_g10_a_oct' => $validatedFields['attendance_g10_a_oct'],
-            'attendance_g10_a_nov' => $validatedFields['attendance_g10_a_nov'],
-            'attendance_g10_a_dec' => $validatedFields['attendance_g10_a_dec'],
             
             // Values -> maka - diyos
             'values_g7_md_s1_qr1' => $validatedFields['values_g7_md_s1_qr1'],

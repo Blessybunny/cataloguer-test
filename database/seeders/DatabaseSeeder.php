@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder {
     }
 
     public function student_1 () : void {
-        // DO-NOT-TOUCH: Info
+        // DO-NOT-TOUCH: Info 1.0
         Student::create([
             'info_name_last' => 'Flynn',
             'info_name_first' => 'Phineas',
@@ -20,9 +20,11 @@ class DatabaseSeeder extends Seeder {
             'info_sex' => 'Male',
             'info_birthdate' => '2007-09-17',
         ]);
-        
-        // DO-NOT-TOUCH: Enrollment
-        //
+
+        // DO-NOT-TOUCH: Info 2.0
+        Student::where('id', 1)->update([
+            'report_g7_age' => 13,
+        ]);
 
         // DO-NOT-TOUCH: Record
         Student::where('id', 1)->update([
@@ -37,17 +39,7 @@ class DatabaseSeeder extends Seeder {
             'record_g7_school_teacher' => 'Heinz Doofenshmirtz',
         ]);
 
-        // DO-NOT-TOUCH: Report
-        Student::where('id', 1)->update([
-            'report_g7_age' => 13,
-        ]);
-
-
-
-
-        
-        
-        // Subject -> filipino
+        // DO-NOT-TOUCH: Subject -> filipino
         Student::where('id', 1)->update([
             'subject_g7_fil_qr1' => 80,
             'subject_g7_fil_qr2' => 85,
@@ -55,15 +47,15 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_fil_qr4' => 100,
         ]);
 
-        // Subject -> english
+        // DO-NOT-TOUCH: Subject -> english
         Student::where('id', 1)->update([
             'subject_g7_eng_qr1' => 80,
             'subject_g7_eng_qr2' => 85,
             'subject_g7_eng_qr3' => 90,
             'subject_g7_eng_qr4' => 100,
         ]);
-
-        // Subject -> mathematics
+        
+        // DO-NOT-TOUCH: Subject -> mathematics
         Student::where('id', 1)->update([
             'subject_g7_mat_qr1' => 80,
             'subject_g7_mat_qr2' => 85,
@@ -71,7 +63,7 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_mat_qr4' => 100,
         ]);
 
-        // Subject -> science
+        // DO-NOT-TOUCH: Subject -> science
         Student::where('id', 1)->update([
             'subject_g7_sci_qr1' => 80,
             'subject_g7_sci_qr2' => 85,
@@ -79,7 +71,7 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_sci_qr4' => 100,
         ]);
 
-        // Subject -> araling panlipunan (ap)
+        // DO-NOT-TOUCH: Subject -> araling panlipunan (ap)
         Student::where('id', 1)->update([
             'subject_g7_ap_qr1' => 80,
             'subject_g7_ap_qr2' => 85,
@@ -87,7 +79,7 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_ap_qr4' => 100,
         ]);
 
-        // Subject -> edukasyon sa pagpapakatao (ep)
+        // DO-NOT-TOUCH: Subject -> edukasyon sa pagpapakatao (ep)
         Student::where('id', 1)->update([
             'subject_g7_ep_qr1' => 80,
             'subject_g7_ep_qr2' => 85,
@@ -95,7 +87,7 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_ep_qr4' => 100,
         ]);
 
-        // Subject -> technology and livelihood education (tle)
+        // DO-NOT-TOUCH: Subject -> technology and livelihood education (tle)
         Student::where('id', 1)->update([
             'subject_g7_tle_qr1' => 80,
             'subject_g7_tle_qr2' => 85,
@@ -103,7 +95,7 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_tle_qr4' => 100,
         ]);
 
-        // Subject -> music
+        // DO-NOT-TOUCH: Subject -> music
         Student::where('id', 1)->update([
             'subject_g7_mus_qr1' => 80,
             'subject_g7_mus_qr2' => 85,
@@ -111,7 +103,7 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_mus_qr4' => 100,
         ]);
 
-        // Subject -> arts
+        // DO-NOT-TOUCH: Subject -> arts
         Student::where('id', 1)->update([
             'subject_g7_art_qr1' => 80,
             'subject_g7_art_qr2' => 85,
@@ -119,7 +111,7 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_art_qr4' => 100,
         ]);
 
-        // Subject -> physical education
+        // DO-NOT-TOUCH: Subject -> physical education
         Student::where('id', 1)->update([
             'subject_g7_pe_qr1' => 80,
             'subject_g7_pe_qr2' => 85,
@@ -127,15 +119,15 @@ class DatabaseSeeder extends Seeder {
             'subject_g7_pe_qr4' => 100,
         ]);
 
-        // Subject -> health
+        // DO-NOT-TOUCH: Subject -> health
         Student::where('id', 1)->update([
             'subject_g7_hp_qr1' => 80,
             'subject_g7_hp_qr2' => 85,
             'subject_g7_hp_qr3' => 90,
             'subject_g7_hp_qr4' => 100,
         ]);
-        
-        // Attendance -> present
+
+        // DO-NOT-TOUCH: Attendance -> present
         Student::where('id', 1)->update([
             'attendance_g7_p_jan' => 10,
             'attendance_g7_p_feb' => 10,
@@ -151,7 +143,7 @@ class DatabaseSeeder extends Seeder {
             'attendance_g7_p_dec' => 10,
         ]);
 
-        // Attendance -> absent
+        // DO-NOT-TOUCH: Attendance -> absent
         Student::where('id', 1)->update([
             'attendance_g7_a_jan' => 2,
             'attendance_g7_a_feb' => 2,
@@ -166,6 +158,18 @@ class DatabaseSeeder extends Seeder {
             'attendance_g7_a_nov' => 2,
             'attendance_g7_a_dec' => 2,
         ]);
+
+
+
+
+
+
+
+
+
+
+
+
         
         // Values -> maka - diyos
         Student::where('id', 1)->update([

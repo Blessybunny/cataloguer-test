@@ -1,14 +1,14 @@
-<section class = "container custom-paper">
+<section class = "container paper">
 	<div class = "row">
 		
 		<!-- Front -->
 		<div class = "col-6">
 
-			<h6 class = "align-middle custom-header">Learner's Progress Report Card (SF9)</h6>
+			<h6 class = "align-middle heading">Learner's Progress Report Card (SF9)</h6>
 
 			<div class = "row">
 				<div class = "col-3 align-middle">
-					<img src = "{{ asset('assets/img/deped-2.png') }}" width = 100>
+					<img src = "{{ asset('assets/img/deped-2.png') }}" height = 100>
 				</div>
 				<div class = "col-6 align-middle">
 					<span>Republic of the Philippines</span>
@@ -19,46 +19,42 @@
 					<span>Purok 3, Irisan, Baguio City</span>
 				</div>
 				<div class = "col-3 align-middle">
-					<img src = "{{ asset('assets/img/irisan.png') }}" width = 100>
+					<img src = "{{ asset('assets/img/irisan.png') }}" height = 100>
 				</div>
 			</div>
 
-			<hr>
+			<br>
 
 			<div class = "row">
 				<div class = "col-12">
-					<span class = "debug-field">Learner's Reference Number: {{ $student->info_lrn }}</span>
-					<br>
-					<span class = "debug-field">
-						Name:
-						<span class = "uppercase">{{ $student->info_name_last }},</span>
-						<span class = "capitalize">{{ $student->info_name_first }}</span>
-						<span class = "capitalize">{{ $student->info_name_middle }}.</span>
-					</span>
+					<span data-property = "string" data-target = "info_lrn" data-label = "Leaner Reference Number"></span>
+					<div class = "display-flex">
+						Name:&nbsp;
+						<span class = "text-uppercase" data-property = "string" data-target = "info_name_last"></span>,&nbsp;
+						<span data-property = "string" data-target = "info_name_first"></span>&nbsp;
+						<span data-property = "string" data-target = "info_name_middle"></span>&nbsp;
+						<span data-property = "string" data-target = "info_name_suffix"></span>&nbsp;
+					</div>
 				</div>
 				<div class = "col-6">
-					<span class = "debug-field">Age: {{ $student->{'record_g'.$grade.'_age'} }}</span>
-					<br>
-					<span class = "debug-field">Grade: {{ $student->{'record_g'.$grade.'_school_grade'} }}</span>
+					<span data-property = "string" data-target = "report_g{{ $grade }}_age" data-label = "Age"></span>
+					<span>Grade: {{ $grade }}</span>
 				</div>
 				<div class = "col-6">
-					<span class = "debug-field">Sex: {{ $student->info_sex }}</span>
-					<br>
-					<span class = "debug-field">Section: {{ $student->{'record_g'.$grade.'_school_section'} }}</span>
+					<span data-property = "string" data-target = "info_sex" data-label = "Sex"></span>
+					<span data-property = "string" data-target = "record_g{{ $grade }}_school_section" data-label = "Section"></span>
 				</div>
 				<div class = "col-12">
-					<span class = "debug-field">School Year: {{ $student->{'record_g'.$grade.'_school_year'} }}</span>
+					<span data-property = "string" data-target = "record_g{{ $grade }}_school_year" data-label = "School Year"></span>
 				</div>
 			</div>
 
-			<hr>
+			<br>
 
 			<div class = "row">
 				<div class = "col-12">
 					<span>Dear parent:</span>
-					<br>
 					<span class = "align-justify paragraph-indent">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
-					<br>
 					<br>
 				</div>
 				<div class = "col-6 align-middle">
@@ -73,17 +69,14 @@
 				</div>
 			</div>
 
-			<hr>
+			<br>
 
 			<div class = "row">
 				<div class = "col-12">
 					<h6 class = "align-middle">Certificate Of Transfer</h6>
-					<span class = "debug-none">Admitted to Grade:</span>
-					<br>
-					<span class = "debug-none">Eligibility for Admission to Grade:</span>
-					<br>
-					<span class = "debug-none">Approved:</span>
-					<br>
+					<span>Admitted to:</span>
+					<span>Eligibility for Admission to:</span>
+					<span>Approved:</span>
 					<br>
 				</div>
 				<div class = "col-6 align-middle">
@@ -98,15 +91,13 @@
 				</div>
 			</div>
 
-			<hr>
+			<br>
 
 			<div class = "row">
 				<div class = "col-12">
 					<h6 class = "align-middle">Cancellation of Eligibility to Transfer</h6>
-					<span class = "debug-none">Admitted:</span>
-					<br>
-					<span class = "debug-none">Date:</span>
-					<br>
+					<span>Admitted to:</span>
+					<span>Date:</span>
 					<br>
 				</div>
 			</div>
@@ -116,91 +107,91 @@
 		<!-- Attendance -->
 		<div class = "col-6">
 			
-			<h6 class = "align-middle custom-header">Report On Attendance</h6>
+			<h6 class = "align-middle heading">Report On Attendance</h6>
 
 			<table class = "table">
 				<tr>
-					<th class = "align-middle uppercase">Month</th>
-					<th class = "align-middle uppercase">No. of school days</th>
-					<th class = "align-middle uppercase">No. of days present</th>
-					<th class = "align-middle uppercase">No. of days absent</th>
+					<th class = "align-middle">Month</th>
+					<th class = "align-middle">No. of school days</th>
+					<th class = "align-middle">No. of days present</th>
+					<th class = "align-middle">No. of days absent</th>
 				</tr>
 				<tr>
 					<td class = "align-middle">Oct</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_oct"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_oct"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_oct"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_oct"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Nov</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_nov"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_nov"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_nov"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_nov"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Dec</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_dec"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_dec"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_dec"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_dec"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jan</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_jan"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_jan"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_jan"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_jan"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Feb</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_feb"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_feb"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_feb"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_feb"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Mar</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_mar"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_mar"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_mar"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_mar"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Apr</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_apr"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_apr"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_apr"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_apr"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">May</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_may"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_may"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_may"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_may"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jun</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_jun"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_jun"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_jun"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_jun"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Jul</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_jul"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_jul"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_jul"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_jul"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Aug</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_aug"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_aug"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_aug"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_aug"></td>
 				</tr>
 				<tr>
 					<td class = "align-middle">Sep</td>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_p_sep"></td>
-					<td class = "align-middle" data-type = "number" data-parameters = "attendance_g{{ $grade }}_a_sep"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_sep"></td>
+					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_sep"></td>
 				</tr>
 				<tr>
-					<th class = "align-middle uppercase">Total</th>
+					<th class = "align-middle">Total</th>
 					<td class = "align-middle"></td>
-					<td class = "align-middle" data-type = "total" data-parameters = '[
+					<td class = "align-middle" data-property = "total" data-targets = '[
 						"attendance_g{{ $grade }}_p_jan",
 						"attendance_g{{ $grade }}_p_feb",
 						"attendance_g{{ $grade }}_p_mar",
@@ -214,7 +205,7 @@
 						"attendance_g{{ $grade }}_p_nov",
 						"attendance_g{{ $grade }}_p_dec"
 					]'></td>
-					<td class = "align-middle" data-type = "total" data-parameters = '[
+					<td class = "align-middle" data-property = "total" data-targets = '[
 						"attendance_g{{ $grade }}_a_jan",
 						"attendance_g{{ $grade }}_a_feb",
 						"attendance_g{{ $grade }}_a_mar",
@@ -231,16 +222,15 @@
 				</tr>
 			</table>
 
-			<span class = "bold uppercase">Parent / Guardian's Signature:</span>
+			<span class = "font-bold text-uppercase">Parent / Guardian's Signature:</span>
 			<br>
+			<span>1st Quarter:</span>
 			<br>
-			<span class = "debug-none">1st Quarter:</span>
+			<span>2nd Quarter:</span>
 			<br>
-			<span class = "debug-none">2nd Quarter:</span>
+			<span>3rd Quarter:</span>
 			<br>
-			<span class = "debug-none">3rd Quarter:</span>
-			<br>
-			<span class = "debug-none">4th Quarter:</span>
+			<span>4th Quarter:</span>
 
 		</div>
 		

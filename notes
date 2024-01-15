@@ -2,19 +2,35 @@
 
 TO-DO:
     - Recheck report card -> age to pop-up window
+    - Generic input type = number min/max onchange behavior
+    - Create print-specific classnames that hide on actual page printing
+    - Report card missing variables:
+        -> oic-office-of-the-principal
+        -> adviser
 
+CHECKPOINT:
+    - Organize sf9-front.blade.php
+    - Implement sf9 / info 2.0 category:
+        -> transfer_grade_1 variable
+        -> transfer_grade_2 variable
+        -> transfer_grade_3 variable
+        -> transfer_date variable
+        -> grade range: 7-11
 
 
 
 Views:
     Layouts:
         Manager:
+            - sf9-front.blade.php           css cleaned
+
             - sf10-back.blade.php           DO-NOT-TOUCH
+            - sf10-certification.blade.php  DO-NOT-TOUCH
             - sf10-front.blade.php          DO-NOT-TOUCH
             - sf10-table.blade.php          DO-NOT-TOUCH
     Pages:
         Manager:
-            - edit.blade.php                DO-NOT-TOUCH
+            - edit.blade.php                pending css classnames
 
 
 

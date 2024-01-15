@@ -1,21 +1,17 @@
 (() => {
-    // Finalized: Refresher
+    // DO-NOT-TOUCH: Refresher
     const refresher = {
         all: function () {
             this.boolean();
-
-            this.text();
+            this.string();
             this.date();
-            this.number();
-            this.total();
             this.average();
             this.remarks();
             this.grand();
+            this.total();
         },
-
-        // DO-NOT-TOUCH
         boolean: () => {
-            const field = document.querySelectorAll(`[data-type = "boolean"]`);
+            const field = document.querySelectorAll(`[data-property = "boolean"]`);
 
             for (let i = 0, ii = field.length; i < ii; i++) {
                 const target = document.getElementById(field[i].dataset.target);
@@ -24,170 +20,118 @@
                 field[i].onchange = () => target.checked = field[i].checked;
             }
         },
-
-
-
-
-        text: () => {
-            // Fields
-            const field = document.querySelectorAll(`[data-type = "text"]`);
+        string: () => {
+            const field = document.querySelectorAll(`[data-property = "string"]`);
 
             for (let i = 0, ii = field.length; i < ii; i++) {
-                // Value white-space clean-up
-                const parameter = document.getElementById(field[i].dataset.parameters);
-
-                parameter.value = parameter.value.trim();
-
-                const value = parameter.value;
-
-                // Print with placeholder
+                const target = document.getElementById(field[i].dataset.target);
+                const value = target.value.trim();
                 const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
-
-                if (value !== ``) {
-                    field[i].innerHTML = `${label}: ${value}`;
-                    field[i].classList.remove(`warning`);
-                }
-                else if (parameter.dataset.required === `true`) {
-                    field[i].innerHTML = `${label}: Value required`;
-                    field[i].classList.add(`warning`);
+                
+                if (label !== ``) {
+                    if (value !== ``) {
+                        field[i].innerHTML = `${label}: ${value}`;
+                        field[i].classList.remove(`warning`);
+                    }
+                    else if (target.dataset.required === `true`) {
+                        field[i].innerHTML = `${label}: Value required`;
+                        field[i].classList.add(`warning`);
+                    }
+                    else field[i].innerHTML = `${label}:`;
                 }
                 else {
-                    field[i].innerHTML = `${label}:`;
-                    field[i].classList.remove(`warning`);
+                    if (value !== ``) {
+                        field[i].innerHTML = `${value}`;
+                        field[i].classList.remove(`warning`);
+                    }
+                    else if (target.dataset.required === `true`) {
+                        field[i].innerHTML = `Value required`;
+                        field[i].classList.add(`warning`);
+                    }
+                    else field[i].innerHTML = ``;
                 }
-                
             }
         },
         date: () => {
-            const field = document.querySelectorAll(`[data-type = "date"]`);
+            const field = document.querySelectorAll(`[data-property = "date"]`);
 
             for (let i = 0, ii = field.length; i < ii; i++) {
-                // Value format split
-                const parameter = document.getElementById(field[i].dataset.parameters);
-
-                const value = parameter.value.split(`-`);
-
-                // Print
+                const target = document.getElementById(field[i].dataset.target);
+                const values = target.value.split(`-`);
                 const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
                 
-                if (value.length === 3) {
-                    field[i].innerHTML = `${label}: ${value[1]}/${value[2]}/${value[0]}`;
+                if (values.length === 3) {
+                    field[i].innerHTML = `${label}: ${values[1]}/${values[2]}/${values[0]}`;
                     field[i].classList.remove(`warning`);
                 }
-                else if (parameter.dataset.required === `true`) {
+                else if (target.dataset.required === `true`) {
                     field[i].innerHTML = `${label}: Value required`;
                     field[i].classList.add(`warning`);
                 }
-                else {
-                    field[i].innerHTML = `${label}:`;
-                }
-            }
-        },
-        number: () => {
-            // Fields
-            const field = document.querySelectorAll(`[data-type = "number"]`);
-
-            for (let i = 0, ii = field.length; i < ii; i++) {
-                // Value
-                const value = parseInt(document.getElementById(field[i].dataset.parameters).value);
-
-                // Print
-                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
-                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
-
-                field[i].innerHTML = `${label}${!isNaN(value) ? value : placeholder}`;
-            }
-        },
-        total: () => {
-            // Fields
-            const field = document.querySelectorAll(`[data-type = "total"]`);
-
-            for (let i = 0, ii = field.length; i < ii; i++) {
-                // Value
-                const parameters = JSON.parse(field[i].dataset.parameters);
-                
-                let total = 0;
-
-                for (j = 0, jj = parameters.length; j < jj; j++) {
-                    total += parseInt(document.getElementById(parameters[j]).value);
-                }
-
-                // Print
-                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
-                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
-                
-                field[i].innerHTML = `${label}${!isNaN(total) ? total : placeholder}`;
+                else field[i].innerHTML = `${label}:`;
             }
         },
         average: () => {
-            // Fields
-            const field = document.querySelectorAll(`[data-type = "average"]`);
-
+            const field = document.querySelectorAll(`[data-property = "average"]`);
+        
             for (let i = 0, ii = field.length; i < ii; i++) {
-                // Value
-                const parameters = JSON.parse(field[i].dataset.parameters);
+                const targets = JSON.parse(field[i].dataset.targets);
+                const length = targets.length;
                 
                 let total = 0;
-
-                for (j = 0, jj = parameters.length; j < jj; j++) {
-                    total += parseInt(document.getElementById(parameters[j]).value);
-                }
-
-                // Print
-                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
-                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
-
-                field[i].innerHTML = `${label}${!isNaN(total) ? Math.round(total / parameters.length) : placeholder}`;
+        
+                for (j = 0; j < length; j++) total += parseInt(document.getElementById(targets[j]).value);
+        
+                field[i].innerHTML = !isNaN(total) ? Math.round(total / length) : ``;
             }
         },
         remarks: () => {
-            // Fields
-            const field = document.querySelectorAll(`[data-type = "remarks"]`);
+            const field = document.querySelectorAll(`[data-property = "remarks"]`);
             const threshold = 75;
 
             for (let i = 0, ii = field.length; i < ii; i++) {
-                // Value
-                const parameters = JSON.parse(field[i].dataset.parameters);
+                const targets = JSON.parse(field[i].dataset.targets);
+                const length = targets.length;
                 
                 let total = 0;
 
-                for (j = 0, jj = parameters.length; j < jj; j++) {
-                    total += parseInt(document.getElementById(parameters[j]).value);
-                }
+                for (j = 0; j < length; j++) total += parseInt(document.getElementById(targets[j]).value);
 
-                // Print
-                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
-                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
-
-                field[i].innerHTML = `${label}${!isNaN(total) ? (Math.round(total / parameters.length) >= threshold ? `Passed` : `Failed`) : placeholder}`;
+                field[i].innerHTML = !isNaN(total) ? (Math.round(total / length) >= threshold ? `Passed` : `Failed`) : ``;
             }
         },
         grand: () => {
-            // Fields
-            const field = document.querySelectorAll(`[data-type = "grand"]`);
+            const field = document.querySelectorAll(`[data-property = "grand"]`);
             const threshold = 75;
 
             for (let i = 0, ii = field.length; i < ii; i++) {
-                // Value
-                const parameters = JSON.parse(field[i].dataset.parameters);
+                const targets = JSON.parse(field[i].dataset.targets);
+                const length = targets.length;
                 
                 let total = 0;
 
-                for (j = 0, jj = parameters.length; j < jj; j++) {
-                    total += parseInt(document.getElementById(parameters[j]).value);
-                }
+                for (j = 0; j < length; j++) total += parseInt(document.getElementById(targets[j]).value);
 
-                // Print
-                const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
-                const placeholder = field[i].dataset.placeholder !== undefined ? field[i].dataset.placeholder : ``;
+                field[i].innerHTML = !isNaN(total) ? (Math.round(total / length) >= threshold ? `Promoted` : `Failed`) : ``;
+            }
+        },
+        total: () => {
+            const field = document.querySelectorAll(`[data-property = "total"]`);
 
-                field[i].innerHTML = `${label}${!isNaN(total) ? (Math.round(total / parameters.length) >= threshold ? `Promoted` : `Failed`) : placeholder}`;
+            for (let i = 0, ii = field.length; i < ii; i++) {
+                const targets = JSON.parse(field[i].dataset.targets);
+                
+                let total = 0;
+
+                for (j = 0, jj = targets.length; j < jj; j++) total += parseInt(document.getElementById(targets[j]).value);
+
+                field[i].innerHTML = !isNaN(total) ? total : ``;
             }
         },
     };
 
     // Finalized: Interactibles - variables
-    const interactibles = [`text`, `date`, `number`, `toggle`];
+    const interactibles = [`string`, `date`, `toggle`];
     const formWindow = document.getElementById(`form-wrapper`);
     const formLabelA = document.getElementById(`form-label-title`);
     const formLabelB = document.getElementById(`form-label-subtitle`);
@@ -197,17 +141,17 @@
 
     // Finalized: Interactibles - open
     for (let i = 0, ii = interactibles.length; i < ii; i++) {
-        const interactible = document.querySelectorAll(`[data-type = "${interactibles[i]}"]`);
+        const interactible = document.querySelectorAll(`[data-property = "${interactibles[i]}"]`);
 
         for (let j = 0, jj = interactible.length; j < jj; j++) {
             interactible[j].addEventListener(`click`, function () {
-                formWindow.classList.add(`visible`);
-                formWindow.classList.remove(`hidden`);
+                formWindow.classList.add(`display-block`);
+                formWindow.classList.remove(`display-none`);
 
-                lastParameter = document.getElementById(interactible[j].dataset.parameters);
+                lastParameter = document.getElementById(interactible[j].dataset.target);
 
-                lastParameter.classList.add(`visible`);
-                lastParameter.classList.remove(`hidden`);
+                lastParameter.classList.add(`display-block`);
+                lastParameter.classList.remove(`display-none`);
     
                 formLabelA.innerHTML = lastParameter.dataset.labelTitle;
                 formLabelB.innerHTML = lastParameter.dataset.labelSubtitle;
@@ -217,11 +161,11 @@
 
     // Finalized: Interactibles - close
     formClose.addEventListener(`click`, function () {
-        formWindow.classList.add(`hidden`);
-        formWindow.classList.remove(`visible`);
+        formWindow.classList.add(`display-none`);
+        formWindow.classList.remove(`display-block`);
 
-        lastParameter.classList.add(`hidden`);
-        lastParameter.classList.remove(`visible`);
+        lastParameter.classList.add(`display-none`);
+        lastParameter.classList.remove(`display-block`);
 
         refresher.all();
     });
