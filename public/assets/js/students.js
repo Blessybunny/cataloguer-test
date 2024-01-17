@@ -25,19 +25,21 @@
 
             for (let i = 0, ii = field.length; i < ii; i++) {
                 const target = document.getElementById(field[i].dataset.target);
-                const value = target.value.trim();
+                const value = target.value.replace(/  +/g, ' ');
                 const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
                 
+                target.value = target.value.replace(/  +/g, ' ');
+
                 if (label !== ``) {
                     if (value !== ``) {
-                        field[i].innerHTML = `${label}: ${value}`;
+                        field[i].innerHTML = `${label}${value}`;
                         field[i].classList.remove(`warning`);
                     }
                     else if (target.dataset.required === `true`) {
-                        field[i].innerHTML = `${label}: Value required`;
+                        field[i].innerHTML = `${label}Value required`;
                         field[i].classList.add(`warning`);
                     }
-                    else field[i].innerHTML = `${label}:`;
+                    else field[i].innerHTML = `${label}`;
                 }
                 else {
                     if (value !== ``) {
@@ -61,14 +63,14 @@
                 const label = field[i].dataset.label !== undefined ? field[i].dataset.label : ``;
                 
                 if (values.length === 3) {
-                    field[i].innerHTML = `${label}: ${values[1]}/${values[2]}/${values[0]}`;
+                    field[i].innerHTML = `${label}${values[1]}/${values[2]}/${values[0]}`;
                     field[i].classList.remove(`warning`);
                 }
                 else if (target.dataset.required === `true`) {
-                    field[i].innerHTML = `${label}: Value required`;
+                    field[i].innerHTML = `${label}Value required`;
                     field[i].classList.add(`warning`);
                 }
-                else field[i].innerHTML = `${label}:`;
+                else field[i].innerHTML = `${label}`;
             }
         },
         average: () => {

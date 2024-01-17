@@ -1,36 +1,39 @@
 
 
 TO-DO:
-    - Recheck report card -> age to pop-up window
-    - Generic input type = number min/max onchange behavior
-    - Create print-specific classnames that hide on actual page printing
-    - Report card missing variables:
-        -> oic-office-of-the-principal
-        -> adviser
+    - Create print-specific classnames that hide on actual page printing (eg. remedial add button)
+    - Ask for a complete list of section names per grade level and convert input type from text to select
+
+PENDING:
+    - Issue 1:
+        -> Option 1: Convert school_year variables to id and associate it with an independent database (dropdown select)
+        -> Option 2: use split('-') to categorize school years
 
 CHECKPOINT:
-    - Organize sf9-front.blade.php
-    - Implement sf9 / info 2.0 category:
-        -> transfer_grade_1 variable
-        -> transfer_grade_2 variable
-        -> transfer_grade_3 variable
-        -> transfer_date variable
-        -> grade range: 7-11
+    - form.blade.php PASS 2:
+        -> COPY EXACT FORMAT FOR SF9 WORD BY WORD
+        -> Polish labels a-b
 
-
+    - Generic input type = number min/max onchange behavior
 
 Views:
     Layouts:
-        Manager:
-            - sf9-front.blade.php           css cleaned
+        Students:
+            - form.blade.php
+            - sf9-back.blade.php
+            - sf9-front.blade.php           SEE CHECKPOINT
 
-            - sf10-back.blade.php           DO-NOT-TOUCH
-            - sf10-certification.blade.php  DO-NOT-TOUCH
-            - sf10-front.blade.php          DO-NOT-TOUCH
-            - sf10-table.blade.php          DO-NOT-TOUCH
+            - sf10-back.blade.php           Accurate enough / HTML fixed
+            - sf10-certification.blade.php  Accurate enough / HTML fixed
+            - sf10-front.blade.php          Accurate enough / HTML fixed
+            - sf10-table.blade.php          Accurate enough / HTML fixed
+        Users:
     Pages:
-        Manager:
-            - edit.blade.php                pending css classnames
+        Students:
+            - edit.blade.php                pending css / html fixes
+            - index.blade.php               pending css / html fixes
+        Users:
+            - index.blade.php
 
 
 

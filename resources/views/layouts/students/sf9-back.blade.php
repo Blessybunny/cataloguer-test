@@ -6,7 +6,7 @@
 
 			<h6 class = "align-middle custom-header">Report on Learning Progress and Achievement</h6>
 			
-			<span class = "bold uppercase" >Name: </span>
+			<span class = "bold uppercase">Name: </span>
 			<span class = "bold uppercase" data-type = "text" data-target = "info_name_last" data-label = "" data-placeholder = "*Last Name Required*"></span>
 			<span class = "bold uppercase" data-type = "text" data-target = "info_name_first" data-label = ", " data-placeholder = "*First Name Required*"></span>
 			<span class = "bold uppercase" data-type = "text" data-target = "info_name_middle" data-label = ", " data-placeholder = "*Middle Name Required*"></span>

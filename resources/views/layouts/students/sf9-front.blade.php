@@ -4,7 +4,7 @@
 		<!-- Front -->
 		<div class = "col-6">
 
-			<h6 class = "align-middle heading">Learner's Progress Report Card (SF9)</h6>
+			<h6 class = "align-middle heading-1">Learner's Progress Report Card (SF9)</h6>
 
 			<div class = "row">
 				<div class = "col-3 align-middle">
@@ -107,7 +107,7 @@
 		<!-- Attendance -->
 		<div class = "col-6">
 			
-			<h6 class = "align-middle heading">Report On Attendance</h6>
+			<h6 class = "align-middle heading-1">Report On Attendance</h6>
 
 			<table class = "table">
 				<tr>

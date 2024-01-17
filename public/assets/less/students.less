@@ -1,4 +1,4 @@
-/* LESS */
+/* Fixed: LESS */
 @opacity-step: 0.25;
 
 @color-table: rgba(#000, (@opacity-step / 2));
@@ -17,7 +17,7 @@
 @size-spacing: 30px;
 @size-width-paper: 1200px;
 
-/* DO-NOT-TOUCH: Print */
+/* Fixed: Print */
 @media print {
     @page { margin: 0; }
     
@@ -33,7 +33,7 @@
     }
 }
 
-/* DO-NOT-TOUCH: Tabs */
+/* Fixed: Tabs */
 #tabs {
     border: @border-light;
     padding: 0;
@@ -73,7 +73,7 @@
     .dropdown-item.active { color: @color-theme; }
 }
 
-/* DO-NOT-TOUCH: Papers */
+/* Fixed: Papers */
 #print {
     * ::selection { background-color: transparent; }
     * { font-family: @font-paper; }
@@ -90,31 +90,39 @@
         max-width: @size-width-paper;
         min-width: @size-width-paper;
     }
-    .heading {
+    .heading-1 {
         background-color: rgba(@color-theme, @opacity-step);
-        margin-bottom: calc(@size-spacing / 2);
-        margin-top: calc(@size-spacing / 2);
+        margin: calc(@size-spacing / 2) 0;
         padding: calc(@size-spacing / 4);
     }
+    .heading-2 { padding: calc(@size-spacing / 2); }
     .warning {
         background-color: rgba(@color-warning, @opacity-step);
         color: @color-warning;
         font-weight: bold;
     }
 
-    [type = "checkbox"] { margin-right: 10px; }
+    [type = "checkbox"] {
+        transform: scale(1.25);
+        margin-right: 10px;
+    }
 
     [data-property = "string"]:hover,
     [data-property = "date"]:hover { background-color: rgba(@color-theme, @opacity-step); }
 
     .paragraph-indent { text-indent: 50px; }
+    .enrollment-spacing-1 { padding: calc(@size-spacing / 4) @size-spacing; }
+    .enrollment-spacing-2 { padding: 0 @size-spacing; }
+    .span-spacing-1 { margin: calc(@size-spacing / 4) 0; }
+    .span-spacing-2 { margin: calc(@size-spacing / 2) 0; }
     .table-cell-indent { text-indent: 25px; }
     .table-cell-thin { width: 50px; }
     .table-cell-wide { width: 100px; }
-    .table-cell-wider { width: 200px; } 
+    .table-cell-wider { width: 200px; }
 }
 
-/* Classes (move to general.less)*/
+/* Fixed: Classes (move to general.less)*/
+.border-all { border: @border-light; }
 .border-bottom-none { border-bottom: none; }
 .border-left-none { border-left: none; }
 .border-right-none { border-right: none; }
@@ -125,9 +133,11 @@
 .display-none { display: none; }
 
 .font-bold { font-weight: bold; }
+.font-italic { font-style: italic; }
 
 .margin-none { margin: 0; }
 
+.text-right { text-align: right; }
 .text-uppercase { text-transform: uppercase; }
 
 .width-100 { width: 100%; }
