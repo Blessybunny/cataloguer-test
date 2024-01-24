@@ -24,15 +24,16 @@ Students
             <h6>{{ $student->info_lrn }}</h6>
             <h4>
                 <span>{{ $student->info_name_last }},</span>
-                <span class = "capitalize">{{ $student->info_name_first }},</span>
-                <span class = "capitalize">{{ $student->info_name_middle }}</span>
+                <span>{{ $student->info_name_first }}</span>
+                <span>{{ $student->info_name_middle }}</span>
+                <span>{{ $student->info_name_suffix }}</span>
             </h4>
             <br>
 
         </div>
 
         <!-- Content -->
-        <div id = "tabs" class = "col-12" style = "min-height: 500px">
+        <div id = "tabs" class = "col-12" style = "min-height: 720px">
 
             <ul class = "nav nav-fill nav-pills">
                 <li class = "nav-item dropdown">
@@ -56,7 +57,7 @@ Students
                     </ul>
                 </li>
                 <li class = "nav-item">
-                    <a class = "nav-link" data-type = "toggle" data-parameters = "form-submit">SAVE</a>
+                    <a class = "nav-link" data-property = "save" data-target = "form-submit">SAVE</a>
                 </li>
                 <li class = "nav-item">
                     <a class = "nav-link" onclick = "window.print(); window.close();">PRINT</a>
@@ -64,7 +65,7 @@ Students
             </ul>
 
             <div id = "print" class = "tab-content">
-                <div id = "tab-report-card-7-front" class = "tab-pane fade show active">@include('layouts.students.sf9-front', ['student' => $student, 'grade' => 7])</div>
+                <div id = "tab-report-card-7-front" class = "tab-pane fade">@include('layouts.students.sf9-front', ['student' => $student, 'grade' => 7])</div>
                 <div id = "tab-report-card-7-back" class = "tab-pane fade">@include('layouts.students.sf9-back', ['student' => $student, 'grade' => 7])</div>
                 <div id = "tab-report-card-8-front" class = "tab-pane fade">@include('layouts.students.sf9-front', ['student' => $student, 'grade' => 8])</div>
                 <div id = "tab-report-card-8-back" class = "tab-pane fade">@include('layouts.students.sf9-back', ['student' => $student, 'grade' => 8])</div>

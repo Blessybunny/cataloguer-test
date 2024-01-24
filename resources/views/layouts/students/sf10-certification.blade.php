@@ -1,6 +1,8 @@
-<div class = "border-all span-spacing-2">
+<div class = "border-all-light border-space">
 
-    <h6 class = "align-middle heading-2">Certification</h6>
+    <span class = "break"></span>
+    <h6>Certification</h6>
+    <span class = "break"></span>
 
     <span class = "align-middle">I CERTIFY that this is a true record of ____________________ with LRN ____________________ and that he/she is eligible for admission to Grade __________.</span>
     <span class = "align-middle">Name of School: _____________________________________________ School ID: ____________________ Last School Year Attended: ____________________</span>
@@ -20,6 +22,6 @@
         </div>
     </div>
 
-    <br>
+    <span class = "break"></span>
 
 </div>

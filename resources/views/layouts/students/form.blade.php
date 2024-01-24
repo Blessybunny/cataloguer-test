@@ -1,27 +1,29 @@
-<form action = "{{ url('/students/save', ['id' => $student->id]) }}" method = "POST">
+<form id = "form-wrapper" action = "{{ url('/students/save', ['id' => $student->id]) }}" method = "POST">
     
     @include('layouts.general.errors')
     @csrf
 
-    <div id = "form-wrapper" class = "display-none">
+    <div id = "form-window" class = "display-none">
 
         <!-- Header -->
         <div id = "form-close">X</div>
-        <h5 id = "form-label-title" class = "align-middle">Label A</h5>
-        <h6 id = "form-label-subtitle" class = "align-middle">Label B</h6>
+        <h5 id = "form-label-title" class = "margin-none text-center">Label A</h5>
+        <h6 id = "form-label-subtitle" class = "text-center">Label B</h6>
         <hr>
 
         <!-- Save -->
         <input
             id = "form-submit"
             class = "display-none"
+
             type = "submit"
             value = "Save Changes"
+            
             data-label-title = "Confirm"
             data-label-subtitle = "Save all changes?"
         >
         
-        <!-- Fixed-pass-1: [01 - ALL] Info -->
+        <!-- [01 - ALL] Info -->
         <div>
             <input
                 name = "info_name_last"
@@ -63,7 +65,7 @@
                 value = "{{ $student->info_name_suffix }}"
 
                 data-label-title = "Learner's Information"
-                data-label-subtitle = "Suffix"
+                data-label-subtitle = "Name Extension"
             >
             <input
                 name = "info_name_middle"
@@ -122,7 +124,7 @@
             >
         </div>
 
-        <!-- Fixed-pass-1: [09 - SF10] Enrollment -->
+        <!-- [09 - SF10] Enrollment -->
         <div>
             <input
                 name = "enrollment_elementary_boolean"
@@ -141,7 +143,7 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_elementary_average }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
+                data-label-title = "Eligibility for JHS Enrollment"
                 data-label-subtitle = "General Average"
             >
             <input
@@ -153,7 +155,7 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_elementary_citation }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
+                data-label-title = "Eligibility for JHS Enrollment"
                 data-label-subtitle = "Citation"
             >
             <input
@@ -165,8 +167,8 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_elementary_name }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
-                data-label-subtitle = "Name Of Elementary School"
+                data-label-title = "Eligibility for JHS Enrollment"
+                data-label-subtitle = "Name of Elementary School"
             >
             <input
                 name = "enrollment_elementary_id"
@@ -177,7 +179,7 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_elementary_id }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
+                data-label-title = "Eligibility for JHS Enrollment"
                 data-label-subtitle = "School ID"
             >
             <input
@@ -189,8 +191,8 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_elementary_address }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
-                data-label-subtitle = "Address Of School"
+                data-label-title = "Eligibility for JHS Enrollment"
+                data-label-subtitle = "Address of School"
             >
             <input
                 name = "enrollment_other_pept_boolean"
@@ -209,7 +211,7 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_other_pept_rating }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
+                data-label-title = "Eligibility for JHS Enrollment"
                 data-label-subtitle = "PEPT Rating"
             >
             <input
@@ -229,7 +231,7 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_other_alsae_rating }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
+                data-label-title = "Eligibility for JHS Enrollment"
                 data-label-subtitle = "ALS A&E Rating"
             >
             <input
@@ -249,8 +251,8 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_other_specify_rating }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
-                data-label-subtitle = "Specific Passer And Rating"
+                data-label-title = "Eligibility for JHS Enrollment"
+                data-label-subtitle = "Specific Passer and Rating"
             >
             <input
                 name = "enrollment_other_date"
@@ -260,8 +262,8 @@
                 type = "date"
                 value = "{{ $student->enrollment_other_date }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
-                data-label-subtitle = "Date Of Examination / Assessment"
+                data-label-title = "Eligibility for JHS Enrollment"
+                data-label-subtitle = "Date of Examination/Assessment"
             >
             <input
                 name = "enrollment_other_location"
@@ -272,13 +274,13 @@
                 maxlength = "50"
                 value = "{{ $student->enrollment_other_location }}"
 
-                data-label-title = "Eligibility For JHS Enrollment"
-                data-label-subtitle = "Name And Address Of Testing Center"
+                data-label-title = "Eligibility for JHS Enrollment"
+                data-label-subtitle = "Name and Address of Testing Center"
             >
         </div>
 
         @for ($grade = 7; $grade <= 10; $grade++)
-            <!-- Fixed-pass-1: [02 - SF9] Report -->
+            <!-- [02 - SF9] Report -->
             <div>
                 <input
                     name = "report_g{{ $grade }}_age"
@@ -289,7 +291,7 @@
                     maxlength = "50"
                     value = "{{ $student->{'report_g'.$grade.'_age'} }}"
 
-                    data-label-title = "Learner's Information"
+                    data-label-title = "Learner's Progress Report"
                     data-label-subtitle = "Age"
                 >
                 <input
@@ -301,7 +303,7 @@
                     maxlength = "50"
                     value = "{{ $student->{'report_g'.$grade.'_section'} }}"
 
-                    data-label-title = "Learner's Information"
+                    data-label-title = "Learner's Progress Report"
                     data-label-subtitle = "Section"
                 >
                 <input
@@ -313,7 +315,7 @@
                     maxlength = "50"
                     value = "{{ $student->{'report_g'.$grade.'_year'} }}"
 
-                    data-label-title = "Learner's Information"
+                    data-label-title = "Learner's Progress Report"
                     data-label-subtitle = "School Year"
                 >
                 <input
@@ -325,8 +327,8 @@
                     maxlength = "50"
                     value = "{{ $student->{'report_g'.$grade.'_principal'} }}"
 
-                    data-label-title = "Report Card"
-                    data-label-subtitle = "OIC - Office Of The Principal"
+                    data-label-title = "Learner's Progress Report"
+                    data-label-subtitle = "OIC - Office of the Principal"
                 >
                 <input
                     name = "report_g{{ $grade }}_adviser"
@@ -337,7 +339,7 @@
                     maxlength = "50"
                     value = "{{ $student->{'report_g'.$grade.'_adviser'} }}"
 
-                    data-label-title = "Report Card"
+                    data-label-title = "Learner's Progress Report"
                     data-label-subtitle = "Adviser"
                 >
                 <input
@@ -349,8 +351,8 @@
                     maxlength = "50"
                     value = "{{ $student->{'report_g'.$grade.'_transfer_input_1'} }}"
 
-                    data-label-title = "Report Card"
-                    data-label-subtitle = "Certificate Of Transfer - Admitted To"
+                    data-label-title = "Learner's Progress Report"
+                    data-label-subtitle = "Certificate of Transfer | Admitted to"
                 >
                 <input
                     name = "report_g{{ $grade }}_transfer_input_2"
@@ -361,8 +363,8 @@
                     maxlength = "50"
                     value = "{{ $student->{'report_g'.$grade.'_transfer_input_2'} }}"
 
-                    data-label-title = "Report Card"
-                    data-label-subtitle = "Certificate Of Transfer - Eligibility For Admission To"
+                    data-label-title = "Learner's Progress Report"
+                    data-label-subtitle = "Certificate of Transfer | Eligibility for Admission to"
                 >
                 <input
                     name = "report_g{{ $grade }}_transfer_input_3"
@@ -373,8 +375,8 @@
                     maxlength = "50"
                     value = "{{ $student->{'report_g'.$grade.'_transfer_input_3'} }}"
 
-                    data-label-title = "Report Card"
-                    data-label-subtitle = "Cancellation Of Eligibility To Transfer - Admitted To"
+                    data-label-title = "Learner's Progress Report"
+                    data-label-subtitle = "Cancellation of Eligibility to Transfer | Admitted to"
                 >
                 <input
                     name = "report_g{{ $grade }}_transfer_input_date"
@@ -384,12 +386,12 @@
                     type = "date"
                     value = "{{ $student->{'report_g'.$grade.'_transfer_input_date'} }}"
 
-                    data-label-title = "Report Card"
-                    data-label-subtitle = "Cancellation Of Eligibility To Transfer - Date"
+                    data-label-title = "Learner's Progress Report"
+                    data-label-subtitle = "Cancellation of Eligibility to Transfer | Date"
                 >
             </div>
 
-            <!-- Fixed-pass-1: [03 - SF9] Attendance -> present -->
+            <!-- [03 - SF9] Attendance -> present -->
             <div>
                 <input
                     name = "attendance_g{{ $grade }}_p_jan"
@@ -401,8 +403,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_jan'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "January"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | January"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_feb"
@@ -414,8 +416,8 @@
                     max = "28"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_feb'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "February"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | February"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_mar"
@@ -427,8 +429,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_mar'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "March"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | March"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_apr"
@@ -440,8 +442,8 @@
                     max = "30"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_apr'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "April"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | April"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_may"
@@ -453,8 +455,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_may'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "May"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | May"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_jun"
@@ -466,8 +468,8 @@
                     max = "30"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_jun'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "June"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | June"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_jul"
@@ -479,8 +481,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_jul'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "July"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | July"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_aug"
@@ -492,8 +494,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_aug'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "August"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | August"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_sep"
@@ -505,8 +507,8 @@
                     max = "30"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_sep'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "September"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | September"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_oct"
@@ -518,8 +520,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_oct'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "October"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | October"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_nov"
@@ -531,8 +533,8 @@
                     max = "30"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_nov'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "November"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | November"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_p_dec"
@@ -544,12 +546,12 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_p_dec'} }}"
 
-                    data-label-title = "Attendance: No. of Days Present"
-                    data-label-subtitle = "December"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Present | December"
                 >
             </div>
             
-            <!-- Fixed-pass-1: [04 - SF9] Attendance -> absent -->
+            <!-- [04 - SF9] Attendance -> absent -->
             <div>
                 <input
                     name = "attendance_g{{ $grade }}_a_jan"
@@ -561,8 +563,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_jan'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "January"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | January"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_feb"
@@ -574,8 +576,8 @@
                     max = "28"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_feb'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "February"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | February"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_mar"
@@ -587,8 +589,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_mar'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "March"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | March"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_apr"
@@ -600,8 +602,8 @@
                     max = "30"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_apr'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "April"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | April"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_may"
@@ -613,8 +615,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_may'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "May"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | May"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_jun"
@@ -626,8 +628,8 @@
                     max = "30"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_jun'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "June"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | June"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_jul"
@@ -639,8 +641,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_jul'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "July"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | July"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_aug"
@@ -652,8 +654,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_aug'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "August"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | August"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_sep"
@@ -665,8 +667,8 @@
                     max = "30"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_sep'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "September"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | September"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_oct"
@@ -678,8 +680,8 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_oct'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "October"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | October"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_nov"
@@ -691,8 +693,8 @@
                     max = "30"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_nov'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "November"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | November"
                 >
                 <input
                     name = "attendance_g{{ $grade }}_a_dec"
@@ -704,20 +706,20 @@
                     max = "31"
                     value = "{{ $student->{'attendance_g'.$grade.'_a_dec'} }}"
 
-                    data-label-title = "Attendance: No. of Days Absent"
-                    data-label-subtitle = "December"
+                    data-label-title = "Attendance"
+                    data-label-subtitle = "No. of Days Absent | December"
                 >
             </div>
 
-            <!-- Fixed-pass-1: [05 - SF9] Values -> maka - diyos -->
+            <!-- [05 - SF9] Values -> maka - diyos -->
             <div>
                 <select
                     name = "values_g{{ $grade }}_md_s1_qr1"
                     id = "values_g{{ $grade }}_md_s1_qr1"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Diyos"
-                    data-label-subtitle = "Behavior Statement 1 | 1st Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Diyos | Statement 1 | 1st Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_md_s1_qr1'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_md_s1_qr1'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -730,8 +732,8 @@
                     id = "values_g{{ $grade }}_md_s1_qr2"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Diyos"
-                    data-label-subtitle = "Behavior Statement 1 | 2nd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Diyos | Statement 1 | 2nd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_md_s1_qr2'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_md_s1_qr2'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -744,8 +746,8 @@
                     id = "values_g{{ $grade }}_md_s1_qr3"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Diyos"
-                    data-label-subtitle = "Behavior Statement 1 | 3rd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Diyos | Statement 1 | 3rd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_md_s1_qr3'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_md_s1_qr3'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -758,8 +760,8 @@
                     id = "values_g{{ $grade }}_md_s1_qr4"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Diyos"
-                    data-label-subtitle = "Behavior Statement 1 | 4th Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Diyos | Statement 1 | 4th Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_md_s1_qr4'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_md_s1_qr4'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -772,8 +774,8 @@
                     id = "values_g{{ $grade }}_md_s2_qr1"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Diyos"
-                    data-label-subtitle = "Behavior Statement 2 | 1st Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Diyos | Statement 2 | 1st Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_md_s2_qr1'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_md_s2_qr1'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -786,8 +788,8 @@
                     id = "values_g{{ $grade }}_md_s2_qr2"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Diyos"
-                    data-label-subtitle = "Behavior Statement 2 | 2nd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Diyos | Statement 2 | 2nd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_md_s2_qr2'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_md_s2_qr2'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -800,8 +802,8 @@
                     id = "values_g{{ $grade }}_md_s2_qr3"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Diyos"
-                    data-label-subtitle = "Behavior Statement 2 | 3rd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Diyos | Statement 2 | 3rd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_md_s2_qr3'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_md_s2_qr3'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -814,8 +816,8 @@
                     id = "values_g{{ $grade }}_md_s2_qr4"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Diyos"
-                    data-label-subtitle = "Behavior Statement 2 | 4th Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Diyos | Statement 2 | 4th Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_md_s2_qr4'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_md_s2_qr4'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -825,15 +827,15 @@
                 </select>
             </div>
 
-            <!-- Fixed-pass-1: [06 - SF9] Values -> maka - tao -->
+            <!-- [06 - SF9] Values -> maka - tao -->
             <div>
                 <select
                     name = "values_g{{ $grade }}_mt_s1_qr1"
                     id = "values_g{{ $grade }}_mt_s1_qr1"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Tao"
-                    data-label-subtitle = "Behavior Statement 1 | 1st Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Tao | Statement 1 | 1st Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mt_s1_qr1'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mt_s1_qr1'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -846,8 +848,8 @@
                     id = "values_g{{ $grade }}_mt_s1_qr2"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Tao"
-                    data-label-subtitle = "Behavior Statement 1 | 2nd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Tao | Statement 1 | 2nd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mt_s1_qr2'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mt_s1_qr2'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -860,8 +862,8 @@
                     id = "values_g{{ $grade }}_mt_s1_qr3"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Tao"
-                    data-label-subtitle = "Behavior Statement 1 | 3rd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Tao | Statement 1 | 3rd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mt_s1_qr3'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mt_s1_qr3'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -874,8 +876,8 @@
                     id = "values_g{{ $grade }}_mt_s1_qr4"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Tao"
-                    data-label-subtitle = "Behavior Statement 1 | 4th Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Tao | Statement 1 | 4th Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mt_s1_qr4'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mt_s1_qr4'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -888,8 +890,8 @@
                     id = "values_g{{ $grade }}_mt_s2_qr1"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Tao"
-                    data-label-subtitle = "Behavior Statement 2 | 1st Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Tao | Statement 2 | 1st Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mt_s2_qr1'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mt_s2_qr1'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -902,8 +904,8 @@
                     id = "values_g{{ $grade }}_mt_s2_qr2"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Tao"
-                    data-label-subtitle = "Behavior Statement 2 | 2nd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Tao | Statement 2 | 2nd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mt_s2_qr2'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mt_s2_qr2'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -916,8 +918,8 @@
                     id = "values_g{{ $grade }}_mt_s2_qr3"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Tao"
-                    data-label-subtitle = "Behavior Statement 2 | 3rd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Tao | Statement 2 | 3rd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mt_s2_qr3'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mt_s2_qr3'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -930,8 +932,8 @@
                     id = "values_g{{ $grade }}_mt_s2_qr4"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Tao"
-                    data-label-subtitle = "Behavior Statement 2 | 4th Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Tao | Statement 2 | 4th Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mt_s2_qr4'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mt_s2_qr4'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -941,15 +943,15 @@
                 </select>
             </div>
             
-            <!-- Fixed-pass-1: [07 - SF9] Values -> maka - kalikasan -->
+            <!-- [07 - SF9] Values -> maka - kalikasan -->
             <div>
                 <select
                     name = "values_g{{ $grade }}_mk_qr1"
                     id = "values_g{{ $grade }}_mk_qr1"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Kalikasan"
-                    data-label-subtitle = "1st Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Kalikasan | 1st Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mk_qr1'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mk_qr1'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -962,8 +964,8 @@
                     id = "values_g{{ $grade }}_mk_qr2"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Kalikasan"
-                    data-label-subtitle = "2nd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Kalikasan | 2nd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mk_qr2'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mk_qr2'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -976,8 +978,8 @@
                     id = "values_g{{ $grade }}_mk_qr3"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Kalikasan"
-                    data-label-subtitle = "3rd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Kalikasan | 3rd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mk_qr3'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mk_qr3'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -990,8 +992,8 @@
                     id = "values_g{{ $grade }}_mk_qr4"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Kalikasan"
-                    data-label-subtitle = "4th Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Kalikasan | 4th Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mk_qr4'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mk_qr4'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1001,15 +1003,15 @@
                 </select>
             </div>
             
-            <!-- Fixed-pass-1: [08 - SF9] Values -> maka - bansa -->
+            <!-- [08 - SF9] Values -> maka - bansa -->
             <div>
                 <select
                     name = "values_g{{ $grade }}_mb_s1_qr1"
                     id = "values_g{{ $grade }}_mb_s1_qr1"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Bansa"
-                    data-label-subtitle = "Behavior Statement 1 | 1st Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Bansa | Statement 1 | 1st Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mb_s1_qr1'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mb_s1_qr1'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1022,8 +1024,8 @@
                     id = "values_g{{ $grade }}_mb_s1_qr2"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Bansa"
-                    data-label-subtitle = "Behavior Statement 1 | 2nd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Bansa | Statement 1 | 2nd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mb_s1_qr2'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mb_s1_qr2'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1036,8 +1038,8 @@
                     id = "values_g{{ $grade }}_mb_s1_qr3"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Bansa"
-                    data-label-subtitle = "Behavior Statement 1 | 3rd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Bansa | Statement 1 | 3rd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mb_s1_qr3'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mb_s1_qr3'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1050,8 +1052,8 @@
                     id = "values_g{{ $grade }}_mb_s1_qr4"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Bansa"
-                    data-label-subtitle = "Behavior Statement 1 | 4th Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Bansa | Statement 1 | 4th Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mb_s1_qr4'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mb_s1_qr4'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1064,8 +1066,8 @@
                     id = "values_g{{ $grade }}_mb_s2_qr1"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Bansa"
-                    data-label-subtitle = "Behavior Statement 2 | 1st Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Bansa | Statement 2 | 1st Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mb_s2_qr1'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mb_s2_qr1'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1078,8 +1080,8 @@
                     id = "values_g{{ $grade }}_mb_s2_qr2"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Bansa"
-                    data-label-subtitle = "Behavior Statement 2 | 2nd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Bansa | Statement 2 | 2nd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mb_s2_qr2'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mb_s2_qr2'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1092,8 +1094,8 @@
                     id = "values_g{{ $grade }}_mb_s2_qr3"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Bansa"
-                    data-label-subtitle = "Behavior Statement 2 | 3rd Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Bansa | Statement 2 | 3rd Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mb_s2_qr3'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mb_s2_qr3'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1106,8 +1108,8 @@
                     id = "values_g{{ $grade }}_mb_s2_qr4"
                     class = "display-none"
 
-                    data-label-title = "Core Value: Maka - Bansa"
-                    data-label-subtitle = "Behavior Statement 2 | 4th Quarter Marking"
+                    data-label-title = "Observed Values"
+                    data-label-subtitle = "Maka - Bansa | Statement 2 | 4th Quarter Marking"
                 >
                     <option value = "" {{ $student->{'values_g'.$grade.'_mb_s2_qr4'} === "" ? "selected" : "" }}></option>
                     <option value = "AO" {{ $student->{'values_g'.$grade.'_mb_s2_qr4'} === "AO" ? "selected" : "" }}>Always Observed</option>
@@ -1117,7 +1119,7 @@
                 </select>
             </div>
 
-            <!-- Fixed-pass-1: [09 - SF10] Record -->
+            <!-- [09 - SF10] Record -->
             <div>
                 <input
                     name = "record_g{{ $grade }}_school_name"
@@ -1190,7 +1192,7 @@
                     value = "{{ $student->{'record_g'.$grade.'_school_grade'} }}"
 
                     data-label-title = "Scholastic Record"
-                    data-label-subtitle = "Classified As Grade"
+                    data-label-subtitle = "Classified as Grade"
                 >
                 <input
                     name = "record_g{{ $grade }}_school_section"
@@ -1226,7 +1228,7 @@
                     value = "{{ $student->{'record_g'.$grade.'_school_teacher'} }}"
 
                     data-label-title = "Scholastic Record"
-                    data-label-subtitle = "Name Of Adviser / Teacher"
+                    data-label-subtitle = "Name of Adviser/Teacher"
                 >
                 <input
                     name = "record_g{{ $grade }}_remedial_date_start"
@@ -1252,7 +1254,7 @@
                 >
             </div>
 
-            <!-- Fixed-pass-1: [11 - ALL] Subject -> filipino -->
+            <!-- [11 - ALL] Subject -> filipino -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_fil_qr1"
@@ -1264,8 +1266,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_fil_qr1'} }}"
                     
-                    data-label-title = "Learning Area: Filipino {{ $grade }}"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Filipino {{ $grade }} | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_fil_qr2"
@@ -1277,8 +1279,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_fil_qr2'} }}"
                     
-                    data-label-title = "Learning Area: Filipino {{ $grade }}"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Filipino {{ $grade }} | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_fil_qr3"
@@ -1290,8 +1292,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_fil_qr3'} }}"
                     
-                    data-label-title = "Learning Area: Filipino {{ $grade }}"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Filipino {{ $grade }} | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_fil_qr4"
@@ -1303,8 +1305,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_fil_qr4'} }}"
                     
-                    data-label-title = "Learning Area: Filipino {{ $grade }}"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Filipino {{ $grade }} | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_fil_rem"
@@ -1316,12 +1318,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_fil_rem'} }}"
                     
-                    data-label-title = "Learning Area: Filipino {{ $grade }}"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Filipino {{ $grade }} | Remedial Class Mark"
                 >
             </div>
             
-            <!-- Fixed-pass-1: [12 - ALL] Subject -> english -->
+            <!-- [12 - ALL] Subject -> english -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_eng_qr1"
@@ -1333,8 +1335,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_eng_qr1'} }}"
                     
-                    data-label-title = "Learning Area: English {{ $grade }}"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "English {{ $grade }} | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_eng_qr2"
@@ -1346,8 +1348,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_eng_qr2'} }}"
                     
-                    data-label-title = "Learning Area: English {{ $grade }}"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "English {{ $grade }} | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_eng_qr3"
@@ -1359,8 +1361,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_eng_qr3'} }}"
                     
-                    data-label-title = "Learning Area: English {{ $grade }}"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "English {{ $grade }} | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_eng_qr4"
@@ -1372,8 +1374,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_eng_qr4'} }}"
                     
-                    data-label-title = "Learning Area: English {{ $grade }}"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "English {{ $grade }} | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_eng_rem"
@@ -1385,12 +1387,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_eng_rem'} }}"
                     
-                    data-label-title = "Learning Area: English {{ $grade }}"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "English {{ $grade }} | Remedial Class Mark"
                 >
             </div>
 
-            <!-- Fixed-pass-1: [13 - ALL] Subject -> mathematics -->
+            <!-- [13 - ALL] Subject -> mathematics -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_mat_qr1"
@@ -1401,9 +1403,9 @@
                     min = "0"
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mat_qr1'} }}"
-                    
-                    data-label-title = "Learning Area: Mathematics {{ $grade }}"
-                    data-label-subtitle = "1st Quarter Rating"
+
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Mathematics {{ $grade }} | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_mat_qr2"
@@ -1414,9 +1416,9 @@
                     min = "0"
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mat_qr2'} }}"
-                    
-                    data-label-title = "Learning Area: Mathematics {{ $grade }}"
-                    data-label-subtitle = "2nd Quarter Rating"
+
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Mathematics {{ $grade }} | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_mat_qr3"
@@ -1427,9 +1429,9 @@
                     min = "0"
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mat_qr3'} }}"
-                    
-                    data-label-title = "Learning Area: Mathematics {{ $grade }}"
-                    data-label-subtitle = "3rd Quarter Rating"
+
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Mathematics {{ $grade }} | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_mat_qr4"
@@ -1440,9 +1442,9 @@
                     min = "0"
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mat_qr4'} }}"
-                    
-                    data-label-title = "Learning Area: Mathematics {{ $grade }}"
-                    data-label-subtitle = "4th Quarter Rating"
+
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Mathematics {{ $grade }} | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_mat_rem"
@@ -1453,13 +1455,13 @@
                     min = "0"
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mat_rem'} }}"
-                    
-                    data-label-title = "Learning Area: Mathematics {{ $grade }}"
-                    data-label-subtitle = "Remedial Class Mark"
+
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Mathematics {{ $grade }} | Remedial Class Mark"
                 >
             </div>
 
-            <!-- Fixed-pass-1: [14 - ALL] Subject -> science -->
+            <!-- [14 - ALL] Subject -> science -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_sci_qr1"
@@ -1470,9 +1472,9 @@
                     min = "0"
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_sci_qr1'} }}"
-                    
-                    data-label-title = "Learning Area: Science {{ $grade }}"
-                    data-label-subtitle = "1st Quarter Rating"
+
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Science {{ $grade }} | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_sci_qr2"
@@ -1483,9 +1485,9 @@
                     min = "0"
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_sci_qr2'} }}"
-                    
-                    data-label-title = "Learning Area: Science {{ $grade }}"
-                    data-label-subtitle = "2nd Quarter Rating"
+
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Science {{ $grade }} | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_sci_qr3"
@@ -1496,9 +1498,9 @@
                     min = "0"
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_sci_qr3'} }}"
-                    
-                    data-label-title = "Learning Area: Science {{ $grade }}"
-                    data-label-subtitle = "3rd Quarter Rating"
+
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Science {{ $grade }} | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_sci_qr4"
@@ -1510,8 +1512,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_sci_qr4'} }}"
                     
-                    data-label-title = "Learning Area: Science {{ $grade }}"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Science {{ $grade }} | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_sci_rem"
@@ -1523,12 +1525,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_sci_rem'} }}"
                     
-                    data-label-title = "Learning Area: Science {{ $grade }}"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Science {{ $grade }} | Remedial Class Mark"
                 >
             </div>
 
-            <!-- Fixed-pass-1: [15 - ALL] Subject -> araling panlipunan (ap) -->
+            <!-- [15 - ALL] Subject -> araling panlipunan (ap) -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_ap_qr1"
@@ -1540,8 +1542,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ap_qr1'} }}"
                     
-                    data-label-title = "Learning Area: Araling Panlipunan (AP) {{ $grade }}"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Araling Panlipunan (AP) {{ $grade }} | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_ap_qr2"
@@ -1553,8 +1555,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ap_qr2'} }}"
                     
-                    data-label-title = "Learning Area: Araling Panlipunan (AP) {{ $grade }}"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Araling Panlipunan (AP) {{ $grade }} | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_ap_qr3"
@@ -1566,8 +1568,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ap_qr3'} }}"
                     
-                    data-label-title = "Learning Area: Araling Panlipunan (AP) {{ $grade }}"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Araling Panlipunan (AP) {{ $grade }} | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_ap_qr4"
@@ -1579,8 +1581,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ap_qr4'} }}"
                     
-                    data-label-title = "Learning Area: Araling Panlipunan (AP) {{ $grade }}"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Araling Panlipunan (AP) {{ $grade }} | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_ap_rem"
@@ -1592,12 +1594,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ap_rem'} }}"
                     
-                    data-label-title = "Learning Area: Araling Panlipunan (AP) {{ $grade }}"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Araling Panlipunan (AP) {{ $grade }} | Remedial Class Mark"
                 >
             </div>
             
-            <!-- Fixed-pass-1: [16 - ALL] Subject -> edukasyon sa pagpapakatao (ep) -->
+            <!-- [16 - ALL] Subject -> edukasyon sa pagpapakatao (ep) -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_ep_qr1"
@@ -1609,8 +1611,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ep_qr1'} }}"
                     
-                    data-label-title = "Learning Area: Edukasyon sa Pagpapakatao (EP) {{ $grade }}"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Edukasyon sa Pagpapakatao (EP) {{ $grade }} | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_ep_qr2"
@@ -1622,8 +1624,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ep_qr2'} }}"
                     
-                    data-label-title = "Learning Area: Edukasyon sa Pagpapakatao (EP) {{ $grade }}"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Edukasyon sa Pagpapakatao (EP) {{ $grade }} | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_ep_qr3"
@@ -1635,8 +1637,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ep_qr3'} }}"
                     
-                    data-label-title = "Learning Area: Edukasyon sa Pagpapakatao (EP) {{ $grade }}"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Edukasyon sa Pagpapakatao (EP) {{ $grade }} | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_ep_qr4"
@@ -1648,8 +1650,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ep_qr4'} }}"
                     
-                    data-label-title = "Learning Area: Edukasyon sa Pagpapakatao (EP) {{ $grade }}"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Edukasyon sa Pagpapakatao (EP) {{ $grade }} | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_ep_rem"
@@ -1661,12 +1663,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_ep_rem'} }}"
                     
-                    data-label-title = "Learning Area: Edukasyon sa Pagpapakatao (EP) {{ $grade }}"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Edukasyon sa Pagpapakatao (EP) {{ $grade }} | Remedial Class Mark"
                 >
             </div>
             
-            <!-- Fixed-pass-1: [17 - ALL] Subject -> technology and livelihood education (tle) -->
+            <!-- [17 - ALL] Subject -> technology and livelihood education (tle) -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_tle_qr1"
@@ -1678,8 +1680,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_tle_qr1'} }}"
                     
-                    data-label-title = "Learning Area: Technology and Livelihood Education (TLE) {{ $grade }}"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Technology and Livelihood Education (TLE) {{ $grade }} | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_tle_qr2" 
@@ -1691,8 +1693,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_tle_qr2'} }}"
                     
-                    data-label-title = "Learning Area: Technology and Livelihood Education (TLE) {{ $grade }}"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Technology and Livelihood Education (TLE) {{ $grade }} | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_tle_qr3"
@@ -1704,8 +1706,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_tle_qr3'} }}"
                     
-                    data-label-title = "Learning Area: Technology and Livelihood Education (TLE) {{ $grade }}"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Technology and Livelihood Education (TLE) {{ $grade }} | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_tle_qr4"
@@ -1717,8 +1719,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_tle_qr4'} }}"
                     
-                    data-label-title = "Learning Area: Technology and Livelihood Education (TLE) {{ $grade }}"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Technology and Livelihood Education (TLE) {{ $grade }} | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_tle_rem"
@@ -1730,12 +1732,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_tle_rem'} }}"
                     
-                    data-label-title = "Learning Area: Technology and Livelihood Education (TLE) {{ $grade }}"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "Technology and Livelihood Education (TLE) {{ $grade }} | Remedial Class Mark"
                 >
             </div>
 
-            <!-- Fixed-pass-1: [18 - ALL] Subject -> music -->
+            <!-- [18 - ALL] Subject -> music -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_mus_qr1"
@@ -1747,8 +1749,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mus_qr1'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Music"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Music | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_mus_qr2"
@@ -1760,8 +1762,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mus_qr2'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Music"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Music | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_mus_qr3"
@@ -1773,8 +1775,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mus_qr3'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Music"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Music | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_mus_qr4"
@@ -1786,8 +1788,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mus_qr4'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Music"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Music | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_mus_rem"
@@ -1799,12 +1801,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_mus_rem'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Music"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Music | Remedial Class Mark"
                 >
             </div>
             
-            <!-- Fixed-pass-1: [19 - ALL] Subject -> arts -->
+            <!-- [19 - ALL] Subject -> arts -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_art_qr1"
@@ -1816,8 +1818,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_art_qr1'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Arts"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Arts | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_art_qr2"
@@ -1829,8 +1831,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_art_qr2'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Arts"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Arts | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_art_qr3"
@@ -1842,8 +1844,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_art_qr3'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Arts"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Arts | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_art_qr4"
@@ -1855,8 +1857,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_art_qr4'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Arts"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Arts | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_art_rem"
@@ -1868,12 +1870,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_art_rem'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Arts"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Arts | Remedial Class Mark"
                 >
             </div>
 
-            <!-- Fixed-pass-1: [20 - ALL] Subject -> physical education -->
+            <!-- [20 - ALL] Subject -> physical education -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_pe_qr1"
@@ -1885,8 +1887,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_pe_qr1'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Physical Education"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Physical Education | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_pe_qr2"
@@ -1898,8 +1900,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_pe_qr2'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Physical Education"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Physical Education | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_pe_qr3"
@@ -1911,8 +1913,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_pe_qr3'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Physical Education"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Physical Education | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_pe_qr4"
@@ -1924,8 +1926,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_pe_qr4'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Physical Education"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Physical Education | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_pe_rem"
@@ -1937,12 +1939,12 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_pe_rem'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Physical Education"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Physical Education | Remedial Class Mark"
                 >
             </div>
 
-            <!-- Fixed-pass-1: [21 - ALL] Subject -> health -->
+            <!-- [21 - ALL] Subject -> health -->
             <div>
                 <input
                     name = "subject_g{{ $grade }}_hp_qr1"
@@ -1954,8 +1956,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_hp_qr1'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Health"
-                    data-label-subtitle = "1st Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Health | 1st Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_hp_qr2"
@@ -1967,8 +1969,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_hp_qr2'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Health"
-                    data-label-subtitle = "2nd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Health | 2nd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_hp_qr3"
@@ -1980,8 +1982,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_hp_qr3'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Health"
-                    data-label-subtitle = "3rd Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Health | 3rd Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_hp_qr4"
@@ -1993,8 +1995,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_hp_qr4'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Health"
-                    data-label-subtitle = "4th Quarter Rating"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Health | 4th Quarter Rating"
                 >
                 <input
                     name = "subject_g{{ $grade }}_hp_rem"
@@ -2006,8 +2008,8 @@
                     max = "100"
                     value = "{{ $student->{'subject_g'.$grade.'_hp_rem'} }}"
                     
-                    data-label-title = "Learning Area: MAPEH {{ $grade }} - Health"
-                    data-label-subtitle = "Remedial Class Mark"
+                    data-label-title = "Learning Areas"
+                    data-label-subtitle = "MAPEH {{ $grade }} | Health | Remedial Class Mark"
                 >
             </div>
         @endfor

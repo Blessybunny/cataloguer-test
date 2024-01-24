@@ -13,11 +13,11 @@
 				<div class = "col-8 align-middle">
 					<span>Republic of the Philippines</span>
 					<span>Department of Education</span>
-					<h6 class = "margin-none">Learner Permanent Record for Junior High School (SF10-JHS)</h6>
+					<h6>Learner Permanent Record for Junior High School (SF10-JHS)</h6>
 					<span>(Formerly Form 137)</span>
 				</div>
 				<div class = "col-2">
-					<img src = "{{ asset('assets/img/deped-1.png') }}" height = 75 draggable = "false" style = "float: right">
+					<img class = "float-right" src = "{{ asset('assets/img/deped-1.png') }}" height = 75 draggable = "false">
 				</div>
 			</div>
 
@@ -26,7 +26,7 @@
 		<!-- Learner's information -->
 		<div class = "col-12">
 
-			<h6 class = "align-middle heading-1">Learner's Information</h6>
+			<h6 class = "heading">Learner's Information</h6>
 
 			<div class = "row">
 				<div class = "col-3">
@@ -60,9 +60,9 @@
 		<!-- Eligibility for JHS enrollment -->
 		<div class = "col-12">
 
-			<h6 class = "align-middle heading-1">Eligibility for JHS Enrollment</h6>
+			<h6 class = "heading">Eligibility for JHS Enrollment</h6>
 
-			<div class = "border-all enrollment-spacing-1">
+			<div class = "border-all-light border-space">
 				<div class = "row">
 					<div class = "col-4">
 						<label>
@@ -90,9 +90,11 @@
 				</div>
 			</div>
 
-			<span class = "span-spacing-1">Other Credential Presented</span>
+			<span class = "break"></span>
+			<span>Other Credential Presented</span>
+			<span class = "break"></span>
 
-			<div class = "enrollment-spacing-2">
+			<div class = "border-all-light border-space">
 				<div class = "row">
 					<div class = "col-4">
 						<label>
@@ -118,7 +120,7 @@
 				</div>
 				<div class = "row">
 					<div class = "col-6">
-						<span data-property = "date" data-target = "enrollment_other_date" data-label = "Date of Examination / Assessment (MM/DD/YYYY): "></span>
+						<span data-property = "date" data-target = "enrollment_other_date" data-label = "Date of Examination/Assessment (MM/DD/YYYY): "></span>
 					</div>
 					<div class = "col-6">
 						<span data-property = "string" data-target = "enrollment_other_location" data-label = "Name and Address of Testing Center: "></span>
@@ -130,7 +132,7 @@
 		<!-- Scholastic record 7-8 -->
 		<div class = "col-12">
 			
-			<h6 class = "align-middle heading-1">Scholastic Record</h6>
+			<h6 class = "heading">Scholastic Record</h6>
 
 			@include('layouts.students.sf10-table', ['grade' => 7])
 			@include('layouts.students.sf10-table', ['grade' => 8])

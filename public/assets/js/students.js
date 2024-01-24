@@ -1,5 +1,5 @@
 (() => {
-    // DO-NOT-TOUCH: Refresher
+    // Refresher
     const refresher = {
         all: function () {
             this.boolean();
@@ -132,16 +132,17 @@
         },
     };
 
-    // Finalized: Interactibles - variables
-    const interactibles = [`string`, `date`, `toggle`];
-    const formWindow = document.getElementById(`form-wrapper`);
+    // Interactibles - variables
+    const interactibles = [`string`, `date`, `save`];
+    const formWrapper = document.getElementById(`form-wrapper`);
+    const formWindow = document.getElementById(`form-window`);
     const formLabelA = document.getElementById(`form-label-title`);
     const formLabelB = document.getElementById(`form-label-subtitle`);
     const formClose = document.getElementById(`form-close`);
 
-    let lastParameter = undefined;
+    let lastTarget = undefined;
 
-    // Finalized: Interactibles - open
+    // Interactibles - open
     for (let i = 0, ii = interactibles.length; i < ii; i++) {
         const interactible = document.querySelectorAll(`[data-property = "${interactibles[i]}"]`);
 
@@ -150,74 +151,49 @@
                 formWindow.classList.add(`display-block`);
                 formWindow.classList.remove(`display-none`);
 
-                lastParameter = document.getElementById(interactible[j].dataset.target);
+                lastTarget = document.getElementById(interactible[j].dataset.target);
 
-                lastParameter.classList.add(`display-block`);
-                lastParameter.classList.remove(`display-none`);
+                lastTarget.classList.add(`display-block`);
+                lastTarget.classList.remove(`display-none`);
     
-                formLabelA.innerHTML = lastParameter.dataset.labelTitle;
-                formLabelB.innerHTML = lastParameter.dataset.labelSubtitle;
+                formLabelA.innerHTML = lastTarget.dataset.labelTitle;
+                formLabelB.innerHTML = lastTarget.dataset.labelSubtitle;
             });
         }
     }
 
-    // Finalized: Interactibles - close
+    // Interactibles - close
     formClose.addEventListener(`click`, function () {
         formWindow.classList.add(`display-none`);
         formWindow.classList.remove(`display-block`);
 
-        lastParameter.classList.add(`display-none`);
-        lastParameter.classList.remove(`display-block`);
+        lastTarget.classList.add(`display-none`);
+        lastTarget.classList.remove(`display-block`);
 
         refresher.all();
     });
 
-    // Finalized: Onload
+    // Onload
     window.onload = () => refresher.all();
-})();
-(() => {
-    // Finalized: Input bahavior - numbers
-    const numbers = document.querySelectorAll(`[data-input-type = "number"]`);
+    
+    // Input bahavior - numbers
+    const numbers = document.querySelectorAll(`input[type = "number"]`);
 
     for (let i = 0, ii = numbers.length; i < ii; i++) {
-        numbers[i].addEventListener(`input`, function () {
-            const min = parseInt(this.dataset.inputMin);
-            const max = parseInt(this.dataset.inputMax);
-
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1'); // Include decimals: replace(/(\..*)\./g, '$1')
+        numbers[i].oninput = function () {
+            const min = parseInt(this.min);
+            const max = parseInt(this.max);
             
             if (this.value < min) this.value = min;
             if (this.value > max) this.value = max;
-        });
+        };
+        numbers[i].onkeydown = function (event) {
+            return event.keyCode !== 69;
+        };
     }
 
-    // birthdate
-    const birthdate = document.querySelectorAll(`[data-input-type = "birthdate"]`);
-    
-    for (let i = 0, ii = birthdate.length; i < ii; i++) {
-        birthdate[i].addEventListener(`input`, function () {
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\.*)\./g, '$1');
-
-            if (this.value.length !== 3) {
-                if (this.value.length === 2) this.value += `-`;
-            }
-
-            /*
-            
-            String.prototype.replaceAt = function (index, char) {
-                let a = this.split("");
-                a[index] = char;
-                return a.join("");
-            }
-            let str = "Welcome W3Docs";
-            str = str.replaceAt(7, "_");
-            console.log(str);
-            
-            */
-            //this.value = this.value.replace(/[^0-9.-]/g, '').replace(/(\.*)\./g, '$1');
-        });
+    // Input behavior - enter (ignore deprecated warnings)
+    formWrapper.onkeypress = function (key) {
+        if (key.keyCode == 13) key.preventDefault();
     }
-
-    // data-input-type = "uncategorized"
-    // This input type is not necessary and is FFA.
 })();

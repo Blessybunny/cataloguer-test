@@ -8,8 +8,9 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
     public function run () : void {
-        self::user_1();
         self::student_1();
+        self::user_1();
+        self::user_2();
     }
 
     // STUDENT: Phineas Flynn
@@ -25,9 +26,6 @@ class DatabaseSeeder extends Seeder {
         ]);
 
         // [02 - SF9] Report
-        Student::where('id', 1)->update([
-            'report_g7_age' => 13,
-        ]);
 
         // [03 - SF9] Attendance -> present
         Student::where('id', 1)->update([
@@ -214,12 +212,26 @@ class DatabaseSeeder extends Seeder {
         User::create([
             'info_deped_id' => '0123456789',
             'info_password' => bcrypt('password'),
-            'info_role' => 'Registrar',
+            'info_role' => 'Administrator',
             'info_name_last' => 'Doofenshmirtz',
             'info_name_first' => 'Heinz',
             'info_name_middle' => 'Doof',
             'info_sex' => 'Male',
             'info_birthdate' => '1960-09-17',
+        ]);
+    }
+
+    // USER: Lindana Flynn-Fletcher
+    public function user_2 () : void {
+        User::create([
+            'info_deped_id' => '0223456789',
+            'info_password' => bcrypt('password'),
+            'info_role' => 'Adviser',
+            'info_name_last' => 'Flynn-Fletcher',
+            'info_name_first' => 'Lindana',
+            'info_name_middle' => 'Fletcher',
+            'info_sex' => 'Female',
+            'info_birthdate' => '1967-09-17',
         ]);
     }
 }

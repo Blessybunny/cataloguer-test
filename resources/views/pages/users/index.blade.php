@@ -19,50 +19,31 @@ Users
 		<div class = "col-12">
 
 			<!-- Table -->
-			<h6 class = "align-middle custom-header">Users Roster</h6>
+			<br>
+			<h4 class = "align-middle">User Roster</h4>
+			<br>
 			
 			<table class = "table">
 				<tr>
-					<th class = "align-middle" style = "width: 150px">LRN</th>
+					<th class = "align-middle" style = "width: 150px">DepEd ID</th>
 					<th class = "align-middle">Name</th>
-					<th class = "align-middle">Role</th>
-					<th class = "align-middle">Option</th>
+					<th class = "align-middle" style = "width: 150px">Role</th>
 				</tr>
 				@foreach ($users as $user)
 					<tr>
-						<td class = "align-middle left">{{ $user->info_id }}</td>
-						<td class = "align-middle left">
-							<span class = "uppercase">{{ $user->info_name_last }},</span>
-							<span class = "capitalize">{{ $user->info_name_first }},</span>
-							<span class = "capitalize">{{ $user->info_name_middle }}</span>
-						</td>
-						<td class = "align-middle left">
-						</td>
+						<td>{{ $user->info_deped_id }}</td>
 						<td>
+							<span class = "text-uppercase">{{ $user->info_name_last }},</span>
+							<span class = "text-capitalize">{{ $user->info_name_first }}</span>
+							<span class = "text-capitalize">{{ $user->info_name_middle }}</span>
+							<span class = "text-capitalize">{{ $user->info_name_suffix }}</span>
+						</td>
+						<td class = "align-middle">
+							{{ $user->info_role }}
 						</td>
 					</tr>
 				@endforeach
 			</table>
-			
-			<!-- Temp -->
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
 
 		</div>
 	</div>

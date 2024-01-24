@@ -4,10 +4,10 @@
 		<!-- Front -->
 		<div class = "col-6">
 
-			<h6 class = "align-middle heading-1">Learner's Progress Report Card (SF9)</h6>
+			<h6 class = "heading">Learner's Progress Report Card (SF9)</h6>
 
 			<div class = "row">
-				<div class = "col-3 align-middle">
+				<div class = "col-3">
 					<img src = "{{ asset('assets/img/deped-2.png') }}" height = 100>
 				</div>
 				<div class = "col-6 align-middle">
@@ -15,11 +15,11 @@
 					<span>Department of Education</span>
 					<span>Cordillera Administrative Region</span>
 					<span>Division of Baguio City</span>
-					<h6 class = "margin-none">Irisan National High School</h6>
+					<h6>Irisan National High School</h6>
 					<span>Purok 3, Irisan, Baguio City</span>
 				</div>
-				<div class = "col-3 align-middle">
-					<img src = "{{ asset('assets/img/irisan.png') }}" height = 100>
+				<div class = "col-3">
+					<img class = "float-right"  src = "{{ asset('assets/img/irisan.png') }}" height = 100>
 				</div>
 			</div>
 
@@ -27,7 +27,7 @@
 
 			<div class = "row">
 				<div class = "col-12">
-					<span data-property = "string" data-target = "info_lrn" data-label = "Leaner Reference Number"></span>
+					<span data-property = "string" data-target = "info_lrn" data-label = "Leaner Reference Number: "></span>
 					<div class = "display-flex">
 						Name:&nbsp;
 						<span class = "text-uppercase" data-property = "string" data-target = "info_name_last"></span>,&nbsp;
@@ -37,15 +37,15 @@
 					</div>
 				</div>
 				<div class = "col-6">
-					<span data-property = "string" data-target = "report_g{{ $grade }}_age" data-label = "Age"></span>
+					<span data-property = "string" data-target = "report_g{{ $grade }}_age" data-label = "Age: "></span>
 					<span>Grade: {{ $grade }}</span>
 				</div>
 				<div class = "col-6">
-					<span data-property = "string" data-target = "info_sex" data-label = "Sex"></span>
-					<span data-property = "string" data-target = "record_g{{ $grade }}_school_section" data-label = "Section"></span>
+					<span data-property = "string" data-target = "info_sex" data-label = "Sex: "></span>
+					<span data-property = "string" data-target = "report_g{{ $grade }}_section" data-label = "Section: "></span>
 				</div>
 				<div class = "col-12">
-					<span data-property = "string" data-target = "record_g{{ $grade }}_school_year" data-label = "School Year"></span>
+					<span data-property = "string" data-target = "report_g{{ $grade }}_year" data-label = "School Year: "></span>
 				</div>
 			</div>
 
@@ -54,60 +54,59 @@
 			<div class = "row">
 				<div class = "col-12">
 					<span>Dear parent:</span>
-					<span class = "align-justify paragraph-indent">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
+					<span class = "paragraph-indent">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
 					<br>
 				</div>
 				<div class = "col-6 align-middle">
-					______________________________
-					<br>
+					<span class = "border-bottom-dark span-space" data-property = "string" data-target = "report_g{{ $grade }}_principal"></span>
 					OIC - Office of the Principal
 				</div>
 				<div class = "col-6 align-middle">
-					______________________________
-					<br>
+					<span class = "border-bottom-dark span-space" data-property = "string" data-target = "report_g{{ $grade }}_adviser"></span>
 					Adviser
 				</div>
 			</div>
 
 			<br>
+			<br>
 
 			<div class = "row">
 				<div class = "col-12">
-					<h6 class = "align-middle">Certificate Of Transfer</h6>
-					<span>Admitted to:</span>
-					<span>Eligibility for Admission to:</span>
+					<h6>Certificate Of Transfer</h6>
+					<span data-property = "string" data-target = "report_g{{ $grade }}_transfer_input_1" data-label = "Admitted to: "></span>
+					<span data-property = "string" data-target = "report_g{{ $grade }}_transfer_input_2" data-label = "Eligibility for Admission to: "></span>
 					<span>Approved:</span>
 					<br>
 				</div>
 				<div class = "col-6 align-middle">
-					______________________________
-					<br>
+					<span class = "border-bottom-dark span-space" data-property = "string" data-target = "report_g{{ $grade }}_principal"></span>
 					OIC - Office of the Principal
 				</div>
 				<div class = "col-6 align-middle">
-					______________________________
-					<br>
+					<span class = "border-bottom-dark span-space" data-property = "string" data-target = "report_g{{ $grade }}_adviser"></span>
 					Adviser
 				</div>
 			</div>
 
 			<br>
+			<br>
 
 			<div class = "row">
 				<div class = "col-12">
-					<h6 class = "align-middle">Cancellation of Eligibility to Transfer</h6>
-					<span>Admitted to:</span>
-					<span>Date:</span>
-					<br>
+					<h6>Cancellation of Eligibility to Transfer</h6>
+					<span data-property = "string" data-target = "report_g{{ $grade }}_transfer_input_3" data-label = "Admitted to: "></span>
+					<span data-property = "string" data-target = "report_g{{ $grade }}_transfer_input_date" data-label = "Date: "></span>
 				</div>
 			</div>
+			
+			<br>
 
 		</div>
 		
 		<!-- Attendance -->
 		<div class = "col-6">
 			
-			<h6 class = "align-middle heading-1">Report On Attendance</h6>
+			<h6 class = "heading">Report On Attendance</h6>
 
 			<table class = "table">
 				<tr>

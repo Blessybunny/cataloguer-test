@@ -19,24 +19,27 @@ Students
 		<div class = "col-12">
 
 			<!-- Table -->
-			<h6 class = "align-middle custom-header">Student Roster</h6>
+			<br>
+			<h4 class = "align-middle">Student Roster</h4>
+			<br>
 			
 			<table class = "table">
 				<tr>
 					<th class = "align-middle" style = "width: 150px">LRN</th>
 					<th class = "align-middle">Name</th>
-					<th class = "align-middle">Latest Grade &amp; Section</th>
+					<th class = "align-middle" style = "width: 200px">Latest Grade &amp; Section</th>
 					<th class = "align-middle">Option</th>
 				</tr>
 				@foreach ($students as $student)
 					<tr>
-						<td class = "align-middle left">{{ $student->info_lrn }}</td>
-						<td class = "align-middle left">
-							<span class = "uppercase">{{ $student->info_name_last }},</span>
-							<span class = "capitalize">{{ $student->info_name_first }},</span>
-							<span class = "capitalize">{{ $student->info_name_middle }}</span>
+						<td class = "align-middle text-left">{{ $student->info_lrn }}</td>
+						<td class = "align-middle text-left">
+							<span class = "text-uppercase">{{ $student->info_name_last }},</span>
+							<span class = "text-capitalize">{{ $student->info_name_first }}</span>
+							<span class = "text-capitalize">{{ $student->info_name_middle }}</span>
+							<span class = "text-capitalize">{{ $student->info_name_suffix }}</span>
 						</td>
-						<td class = "align-middle left">
+						<td class = "align-middle">
 							{{
 								isset($student->record_g10_school_grade) ? "Grade $student->record_g10_school_grade" : (
 									isset($student->record_g9_school_grade) ? "Grade $student->record_g9_school_grade" : (
@@ -62,26 +65,6 @@ Students
 					</tr>
 				@endforeach
 			</table>
-			
-			<!-- Temp -->
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
 
 		</div>
 	</div>

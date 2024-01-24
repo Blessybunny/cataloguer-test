@@ -11,7 +11,7 @@
 		<!-- Scholastic record 9-10 -->
 		<div class = "col-12">
 			
-			<h6 class = "align-middle heading-1">Scholastic Record</h6>
+			<h6 class = "heading">Scholastic Record</h6>
 		
 			@include('layouts.students.sf10-table', ['grade' => 9])
 			@include('layouts.students.sf10-table', ['grade' => 10])
@@ -22,6 +22,7 @@
 		<div class = "col-12">
 
 			<span class = "font-bold">For Transfer Out/JHS Completer Only</span>
+    		<span class = "break"></span>
 
 			@include('layouts.students.sf10-certification')
 
