@@ -35,7 +35,7 @@
 		<header id = "header" class = "header fixed-top d-flex align-items-center">
 			<div class = "container d-flex align-items-center justify-content-between">
 				
-				<a href = "{{ url('/manager') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
+				<a href = "{{ url('/login') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
 					<h1 class = "capitalize">Cataloger<span>.</span></h1>
 				</a>
 

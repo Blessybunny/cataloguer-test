@@ -6,6 +6,12 @@ Login
 
 @endsection
 
+@section('head')
+
+<link href = "{{ asset('assets/less/login.less') }}" rel = "stylesheet" type = "text/less">
+
+@endsection
+
 @section('content')
 
     <main id = "main">

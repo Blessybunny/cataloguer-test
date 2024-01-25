@@ -1,7 +1,7 @@
 /* IMPORT */
 @import "general.less";
 
-/* PRINT */
+/* MEDIA */
 @media print {
     @page { margin: 0; }
     
@@ -57,7 +57,7 @@
     .dropdown-item.active { color: @color-theme; }
 }
 
-/* PAPERS */
+/* PRINT */
 #print {
     * { font-family: @font-paper; }
 
@@ -107,6 +107,12 @@
     .table-cell-thin { width: 50px; }
     .table-cell-wide { width: 100px; }
     .table-cell-wider { width: 200px; }
+
+
+    .chart {
+        margin: calc(@size-spacing / 4);
+        padding: calc(@size-spacing / 2);
+    }
 }
 
 /* FORM */

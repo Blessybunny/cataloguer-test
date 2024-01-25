@@ -7,7 +7,7 @@
 
         <!-- Header -->
         <div id = "form-close">X</div>
-        <h5 id = "form-label-title" class = "margin-none text-center">Label A</h5>
+        <h5 id = "form-label-title" class = "margin-0 text-center">Label A</h5>
         <h6 id = "form-label-subtitle" class = "text-center">Label B</h6>
         <hr>
 

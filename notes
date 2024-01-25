@@ -1,5 +1,3 @@
-
-
 PENDING:
     - Create print-specific classnames that hide on actual page printing (eg. remedial add button)
     - Ask for a complete list of section names per grade level and convert input type from text to select
@@ -18,6 +16,8 @@ VIEWS:                                      STATUS:
         Users:
 
     Pages:
+        Login:
+            - index.blade.php               WIP
         Students:
             - edit.blade.php                HTML-CSS fixed
             - index.blade.php               HTML-CSS fixed
