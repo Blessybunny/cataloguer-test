@@ -1,11 +1,17 @@
 TOP-PRIO:
     - Remove onclick events inside HTML files in layouts.students
 CHECKPOINT:
+    SEARCH UPDATE
+    CHANGE search placeholder for each manager based on available search fields e.g. User: placeholder = "Search DepEd ID, name"
     User POV and redirection to dashboard.
     User POV and availability of links on the navigation.
 
 Low Prio:
+    - save code space with search results
     - SF9 Layouts
+    - student sy/section form edit
+    - student delete
+    - user delete
 
 NEW FIXES:
     - Ask/confirm first:
@@ -20,57 +26,57 @@ TO ASK OR NOT TO ASK, THAT IS THE QUESTION (questions that must be answered afte
             - Confirm what is contained in the "certificate" section in SF10, whether or not variables have to be defined or is handwritten.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MIGRATIONS:
-    Name:                   Relatives:                          Status:         Comments:
-    1. Grade                .                                   Clean           Seeder finalized
-    2. Role                 .                                   Clean           Seeder finalized
-    3. Section              Grade                               Clean           Seeder finalized, values are replaceable
-    4. Student              Grade, Section, Year, User          WIP             Seeder optional
-    5. User                 Grade, Section, Role                Clean           Seeder finalized, values are replaceable, one principal user minimum
-    6. Year                 .                                   Clean           Seeder optional
+    Name:                   Relatives:                          Status:                             Comments:
+    1. Grade                .                                   Complete                            Seeder finalized
+    2. Role                 .                                   Complete                            Seeder finalized
+    3. Section              Grade                               Complete                            Seeder finalized / Values are replaceable
+    4. Student              Grade / Section / User / Year       WIP                                 Seeder optional
+    5. User                 Grade / Role / Section              Complete                            Seeder finalized / Values are replaceable / One principal user minimum
+    6. Year                 .                                   Complete                            Seeder optional
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MANAGER:
-    Name:                                                       Status:         Comments:
-    1. Grade                                                    Clean           .
-    2. Role                                                     Clean           .
+    Name:                                                       Status:         Hard/Role Coded:    Comments:
+    1. Grade                                                    Complete        .                   .
+    2. Role                                                     Complete        .                   .
     3. Section
-        - controller                                            Completed       Fixed values
-        - create                                                .               .
-        - delete                                                .               .
-        - edit                                                  Completed       .
-        - index                                                 Completed       Order ascending
-        - model                                                 Completed       .
-        - route                                                 Completed       .
-        - search                                                .               .
+        - controller                                            Complete        Yes                 .
+        - create                                                .               .                   ,
+        - delete                                                .               .                   .
+        - edit                                                  Complete        .                   .
+        - index                                                 Complete        .                   Order ascending
+        - model                                                 Complete        .                   .
+        - route                                                 Complete        .                   .
+        - search                                                .               .                   .
     4. Student
-        - controller                                            WIP             .
-        - create                                                Completed       .
-        - delete                                                TBA             .
-        - edit-form                                             Completed       Debugging
-        - edit-info                                             Completed       .
-        - edit-s-sy                                             TBA             .
-        - index                                                 Completed       Order ascending
-        - model                                                 Completed       .
-        - route                                                 Completed       .
-        - search                                                Completed       Order custom
-        - stats                                                 TBA             .
+        - controller                                            WIP             .                   .
+        - create                                                Complete        .                   .
+        - delete                                                TBA             .                   .
+        - edit-form                                             Complete        .                   Debugging
+        - edit-info                                             Complete        .                   .
+        - edit-s-sy                                             TBA             .                   .
+        - index                                                 Complete        .                   Order ascending
+        - model                                                 Complete        .                   .
+        - route                                                 Complete        .                   .
+        - search                                                Complete        .                   Order default
+        - stats                                                 TBA             .                   .
     5. User
-        - controller                                            Completed       Fixed operators
-        - create                                                Completed       .
-        - delete                                                TBA             .
-        - edit                                                  Completed       .
-        - index                                                 Completed       Order ascending, fixed operators
-        - model                                                 Completed       .
-        - route                                                 Completed       .
-        - search                                                Completed       Order custom
+        - controller                                            Complete        Yes                 .
+        - create                                                Complete        .                   .
+        - delete                                                TBA             .                   .
+        - edit                                                  Complete        .                   .
+        - index                                                 Complete        Yes                 Order ascending
+        - model                                                 Complete        .                   .
+        - route                                                 Complete        .                   .
+        - search                                                Complete        .                   Order default
     6. Year
-        - controller                                            Completed       .
-        - create                                                Completed       .
-        - delete                                                .               .
-        - edit                                                  Completed       .
-        - index                                                 Completed       Order ascending
-        - model                                                 Completed       .
-        - route                                                 Completed       .
-        - search                                                Completed       Order custom
+        - controller                                            Complete        .                   .
+        - create                                                Complete        .                   .
+        - delete                                                .               .                   .
+        - edit                                                  Complete        .                   .
+        - index                                                 Complete        .                   Order ascending
+        - model                                                 Complete        .                   .
+        - route                                                 Complete        .                   .
+        - search                                                Complete        .                   Order default
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 SEARCH:
     Name:
@@ -82,19 +88,23 @@ SEARCH:
         - info_lrn
         - info_sex
     5. User:
+        - email
         - name_last
         - name_first
     6. Year:
         - year
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-LAYOUTS:
-    4. Student                                                   Status:
-        - sf9-back                                              WIP
-        - sf9-front                                             WIP
-        - sf10-back                                             Clean
-        - sf10-certification                                    Clean
-        - sf10-front                                            Clean
-        - sf10-scholastic-record                                Clean
+LAYOUTS AND PAGES:
+    Name:                                                       Status:         Hard/Role Coded:    Comments:
+    - Home                                                      Complete        Yes                 .
+    - Login                                                     WIP             .                   .
+    - Student
+        - sf9-back                                              WIP             .                   .
+        - sf9-front                                             WIP             .                   .
+        - sf10-back                                             Requires last check           .                   .
+        - sf10-certification                                    Requires last check           .                   .
+        - sf10-front                                            Requires last check           .                   .
+        - sf10-scholastic-record                                Requires last check           .                   .
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 RESOURCES:
     Name:                                                       Status:

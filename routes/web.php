@@ -20,8 +20,13 @@ Route::post('/students/create', 'App\Http\Controllers\StudentController@create_2
 Route::get('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_1');
 Route::post('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_2');
 
+// s_sy
+
 Route::get('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_1');
 Route::post('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_2');
+
+Route::get('/students/delete/{id}', 'App\Http\Controllers\StudentController@delete_1');
+Route::post('/students/delete/{id}', 'App\Http\Controllers\StudentController@delete_2');
 
 // USER
 Route::get('/users', 'App\Http\Controllers\UserController@index_1');
@@ -32,6 +37,9 @@ Route::post('/users/create', 'App\Http\Controllers\UserController@create_2');
 
 Route::get('/users/edit/{id}', 'App\Http\Controllers\UserController@edit_1');
 Route::post('/users/edit/{id}', 'App\Http\Controllers\UserController@edit_2');
+
+Route::get('/users/delete/{id}', 'App\Http\Controllers\UserController@delete_1');
+Route::post('/users/delete/{id}', 'App\Http\Controllers\UserController@delete_2');
 
 // YEAR
 Route::get('/years', 'App\Http\Controllers\YearController@index_1');
@@ -45,12 +53,18 @@ Route::post('/years/edit/{id}', 'App\Http\Controllers\YearController@edit_2');
 
 // LOGIN
 Route::get('/', 'App\Http\Controllers\LoginController@redirect');
-Route::get('/login', 'App\Http\Controllers\LoginController@index');//Test this again//->name('login');
-Route::post('/login', 'App\Http\Controllers\LoginController@login');
+Route::get('/login', 'App\Http\Controllers\LoginController@index_1');
+Route::post('/login', 'App\Http\Controllers\LoginController@index_2');
 
+// Home
+Route::get('/home', function () {
+    $user = Auth::user();
+
+    return view('pages.home')->with('user', $user);
+});
 
 // MIDDLEWARE
-//Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/logout','App\Http\Controllers\LoginController@logout');
 
     /*$user = Auth::user();
@@ -62,4 +76,4 @@ Route::post('/login', 'App\Http\Controllers\LoginController@login');
         return (new StudentController)->redirect();
     }*/
 
-//});
+});

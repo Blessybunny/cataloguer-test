@@ -153,7 +153,7 @@
 
 			<!-- Danger -->
 			<div class = "col text-center">
-				<a href = "#">
+				<a href = "{{ url('/users/delete', $user->id) }}">
 					<button class = "button" type = "button">Delete</button>
 				</a>
 			</div>

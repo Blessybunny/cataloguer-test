@@ -27,7 +27,7 @@
             <!-- Header -->
             <div class = "col">
                 <h4 class = "text-center">Student Manager</h4>
-                <p class = "text-center">Manage student grades and forms</p>
+                <p class = "text-center">Manage student info, grades, and forms</p>
             </div>
 
             <!-- Action -->
@@ -50,10 +50,8 @@
 		</div>
         <div class = "row">
 
-            <!-- Content -->
+            <!-- Edit -->
             <div class = "col">
-
-                <!-- SF9-10 -->
                 <div class = "container-pill">
                     <ul class = "nav nav-fill nav-pills">
                         <li class = "dropdown nav-item">
@@ -90,7 +88,6 @@
                         <div id = "tab-sf10-back" class = "fade tab-pane">@include('layouts.students.sf10-back', ['student' => $student])</div>
                     </div>
                 </div>
-
             </div>
         
         </div>

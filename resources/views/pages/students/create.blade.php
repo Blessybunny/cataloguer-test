@@ -21,7 +21,7 @@
 			<!-- Header -->
             <div class = "col">
                 <h4 class = "text-center">Student Manager</h4>
-                <p class = "text-center">Manage student grades and forms</p>
+                <p class = "text-center">Manage student info, grades, and forms</p>
             </div>
 			
 			<!-- Action -->

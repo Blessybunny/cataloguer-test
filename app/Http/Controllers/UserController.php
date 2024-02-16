@@ -19,34 +19,42 @@ class UserController extends Controller {
         $sections = Section::all();
         $users = User::orderBy('name_last', 'ASC')->get();
 
-        return view('pages.users.index')->
-            with('grades', $grades)->
-            with('roles', $roles)->
-            with('sections', $sections)->
-            with('users', $users);
+        return view('pages.users.index')
+            ->with('grades', $grades)
+            ->with('roles', $roles)
+            ->with('sections', $sections)
+            ->with('users', $users);
     }
 
     // Index (POST)
     public function index_2 () {
-        $cake = Request::get('cake');
+        $terms = Request::get('terms');
 
-        if (isset($cake)) {
-            $results = User::
-                where('name_last','LIKE','%'.$cake.'%')->
-                orWhere('name_first','LIKE','%'.$cake.'%')->
-                get();
+        if (isset($terms)) {
+            $temp_terms = explode(' ', $terms);
+            $query = User::query();
+
+            foreach($temp_terms as $term){
+                $query->where(function ($q) use ($term) {
+                    $q->where('email', 'like', '%'.$term.'%')
+                    ->orWhere('name_last', 'like', '%'.$term.'%')
+                    ->orWhere('name_first', 'like', '%'.$term.'%');
+                });
+            }
+
+            $results = $query->get();
             $results = (count($results) > 0) ? $results : [];
             $grades = Grade::all();
             $roles = Role::all();
             $sections = Section::all();
 
-            return view('pages.users.index')->
-                with('isSearched', true)->
-                with('cake', $cake)->
-                with('results', $results)->
-                with('grades', $grades)->
-                with('roles', $roles)->
-                with('sections', $sections);
+            return view('pages.users.index')
+                ->with('isSearched', true)
+                ->with('terms', $terms)
+                ->with('results', $results)
+                ->with('grades', $grades)
+                ->with('roles', $roles)
+                ->with('sections', $sections);
         }
         else return redirect()->to('/users');
     }
@@ -57,10 +65,10 @@ class UserController extends Controller {
         $roles = Role::all();
         $sections = Section::all();
 
-        return view('pages.users.create')->
-            with('grades', $grades)->
-            with('roles', $roles)->
-            with('sections', $sections);
+        return view('pages.users.create')
+            ->with('grades', $grades)
+            ->with('roles', $roles)
+            ->with('sections', $sections);
     }
 
     // Create (POST)
@@ -113,17 +121,17 @@ class UserController extends Controller {
     }
 
     // Edit (GET)
-    public function edit_1 ($id) { 
+    public function edit_1 ($id) {
         $grades = Grade::all();
         $roles = Role::all();
         $sections = Section::all();
         $user = User::findOrFail($id);
 
-        return view('pages.users.edit')->
-            with('grades', $grades)->
-            with('roles', $roles)->
-            with('sections', $sections)->
-            with('user', $user);
+        return view('pages.users.edit')
+            ->with('grades', $grades)
+            ->with('roles', $roles)
+            ->with('sections', $sections)
+            ->with('user', $user);
     }
 
     // Edit (POST)
@@ -161,5 +169,19 @@ class UserController extends Controller {
         ]);
 
         return redirect()->to('/users/edit/'.$id);
+    }
+
+    // Delete (GET)
+    public function delete_1 ($id) {
+        $user = User::findOrFail($id);
+
+        return view('pages.users.delete')->with('user', $user);
+    }
+
+    // Delete (POST)
+    public function delete_2 ($id) {
+        User::where('$id', $id)->delete();
+
+        return redirect()->to('/users');
     }
 }

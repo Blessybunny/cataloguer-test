@@ -18,23 +18,30 @@ class StudentController extends Controller {
 
     // [Locked] Index (POST)
     public function index_2 () {
-        $cake = Request::get('cake');
+        $terms = Request::get('terms');
 
-        if (isset($cake)) {
-            $results = Student::
-                where('info_name_last','LIKE','%'.$cake.'%')->
-                orWhere('info_name_first','LIKE','%'.$cake.'%')->
-                orWhere('info_name_suffix','LIKE','%'.$cake.'%')->
-                orWhere('info_name_middle','LIKE','%'.$cake.'%')->
-                orWhere('info_lrn','LIKE','%'.$cake.'%')->
-                orWhere('info_sex','LIKE','%'.$cake.'%')->
-                get();
+        if (isset($terms)) {
+            $temp_terms = explode(' ', $terms);
+            $query = Student::query();
+
+            foreach($temp_terms as $term){
+                $query->where(function ($q) use ($term) {
+                    $q->where('info_name_last', 'like', '%'.$term.'%')
+                    ->orWhere('info_name_first', 'like', '%'.$term.'%')
+                    ->orWhere('info_name_suffix', 'like', '%'.$term.'%')
+                    ->orWhere('info_name_middle', 'like', '%'.$term.'%')
+                    ->orWhere('info_lrn', 'like', '%'.$term.'%')
+                    ->orWhere('info_sex', 'like', '%'.$term.'%');
+                });
+            }
+
+            $results = $query->get();
             $results = (count($results) > 0) ? $results : [];
 
-            return view('pages.students.index')->
-                with('isSearched', true)->
-                with('cake', $cake)->
-                with('results', $results);
+            return view('pages.students.index')
+                ->with('isSearched', true)
+                ->with('terms', $terms)
+                ->with('results', $results);
         }
         else return redirect()->to('/students');
     }
@@ -1864,5 +1871,19 @@ class StudentController extends Controller {
 
         // Redirect
         return redirect()->to('/students/edit/form/'.$id);
+    }
+
+    // Delete (GET)
+    public function delete_1 ($id) {
+        $student = Student::findOrFail($id);
+
+        return view('pages.students.delete')->with('student', $student);
+    }
+
+    // Delete (POST)
+    public function delete_2 ($id) {
+        Student::where('$id', $id)->delete();
+
+        return redirect()->to('/students');
     }
 }

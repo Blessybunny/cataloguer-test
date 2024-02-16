@@ -22,9 +22,9 @@ class SectionController extends Controller {
         $grades = Grade::where('id', $id)->first();
         $sections = Section::where('db_grade_id', $id)->get();
 
-        return view('pages.sections.edit')->
-            with('grades', $grades)->
-            with('sections', $sections);
+        return view('pages.sections.edit')
+            ->with('grades', $grades)
+            ->with('sections', $sections);
     }
 
     // Edit (POST)

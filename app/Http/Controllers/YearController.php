@@ -18,16 +18,25 @@ class YearController extends Controller {
 
     // Index (POST)
     public function index_2 () {
-        $cake = Request::get('cake');
+        $terms = Request::get('terms');
 
-        if (isset($cake)) {
-            $results = Year::where('year','LIKE','%'.$cake.'%')->get();
+        if (isset($terms)) {
+            $temp_terms = explode(' ', $terms);
+            $query = Year::query();
+
+            foreach($temp_terms as $term){
+                $query->where(function ($q) use ($term) {
+                    $q->where('year', 'like', '%'.$term.'%');
+                });
+            }
+
+            $results = $query->get();
             $results = (count($results) > 0) ? $results : [];
 
-            return view('pages.years.index')->
-                with('isSearched', true)->
-                with('cake', $cake)->
-                with('results', $results);
+            return view('pages.years.index')
+                ->with('isSearched', true)
+                ->with('terms', $terms)
+                ->with('results', $results);
         }
         else return redirect()->to('/years');
     }

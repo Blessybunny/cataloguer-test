@@ -13,7 +13,7 @@
 
 			<!-- Action -->
 			<div class = "col">
-				<a href = "{{ url('/dashboard') }}">
+				<a href = "{{ url('/home') }}">
 					<button class = "button" type = "button">Back</button>
 				</a>
 			</div>
@@ -49,10 +49,10 @@
 			<div class = "col">
 				<label>
 					<input
-						name = "cake"
+						name = "terms"
 						type = "text"
 						placeholder = "Search query"
-						value = "{{ isset($cake) ? $cake : '' }}"
+						value = "{{ isset($terms) ? $terms : '' }}"
 						style = "margin-right: 5px;"
 					>
 					<button class = "button-small" type = "submit" style = "margin-right: 5px;">Search</button>
@@ -66,12 +66,12 @@
 					@if(count($results) > 0)
 
 						<br>
-						<p class = "text-center">Found results for <b>{{ $cake }}</b></p>
+						<p class = "text-center">Found results for <b>{{ $terms }}</b></p>
 
 					@else
 
 						<br>
-						<p class = "text-center">No results for <b>{{ $cake }}</b></p>
+						<p class = "text-center">No results for <b>{{ $terms }}</b></p>
 
 					@endif
 
@@ -117,21 +117,21 @@
 									<td class = "text-center">{{ $role->role }}</td>
 									<td class = "text-center">
 
-										<!-- Role names (see seeders) -->
+										<!-- Role IDs (see seeders) -->
 
-										@if ($role->role == "Principal")
-
-											N/A
-
-										@endif
-
-										@if ($role->role == "Administrator")
+										@if ($user->db_role_id == "1")
 
 											N/A
 
 										@endif
 
-										@if ($role->role == "Grade Level Coordinator")
+										@if ($user->db_role_id == "2")
+
+											N/A
+
+										@endif
+
+										@if ($user->db_role_id == "3")
 
 											@foreach ($grades as $grade)
 
@@ -147,7 +147,7 @@
 
 										@endif
 
-										@if ($role->role == "Adviser" || $role->role == "Teacher")
+										@if ($user->db_role_id == "4" || $user->db_role_id == "5")
 
 											@foreach ($sections as $section)
 

@@ -21,7 +21,7 @@
 			<!-- Header -->
 			<div class = "col">
 				<h4 class = "text-center">School Year Manager</h4>
-				<p class = "text-center">Manage school years and monthly total attendance counts</p>
+				<p class = "text-center">Manage school year monthly attendance counts and more</p>
 			</div>
 			
 			<!-- Action -->

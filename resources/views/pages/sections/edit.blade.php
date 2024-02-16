@@ -21,7 +21,7 @@
 			<!-- Header -->
 			<div class = "col">
 				<h4 class = "text-center">Section Manager</h4>
-				<p class = "text-center">Manage up to 10 section names for each grade level</p>
+				<p class = "text-center">Manage section names for each grade level</p>
 			</div>
 			
 			<!-- Action -->

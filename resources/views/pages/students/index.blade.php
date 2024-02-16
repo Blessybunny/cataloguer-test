@@ -13,7 +13,7 @@
 
 			<!-- Action -->
 			<div class = "col">
-				<a href = "{{ url('/dashboard') }}">
+				<a href = "{{ url('/home') }}">
 					<button class = "button" type = "button">Back</button>
 				</a>
 			</div>
@@ -21,7 +21,7 @@
 			<!-- Header -->
 			<div class = "col">
 				<h4 class = "text-center">Student Manager</h4>
-				<p class = "text-center">Manage student grades and forms</p>
+				<p class = "text-center">Manage student info, grades, and forms</p>
 			</div>
 
 			<!-- Action -->
@@ -49,10 +49,10 @@
 			<div class = "col">
 				<label>
 					<input
-						name = "cake"
+						name = "terms"
 						type = "text"
 						placeholder = "Search query"
-						value = "{{ isset($cake) ? $cake : '' }}"
+						value = "{{ isset($terms) ? $terms : '' }}"
 						style = "margin-right: 5px;"
 					>
 					<button class = "button-small" type = "submit" style = "margin-right: 5px;">Search</button>
@@ -66,12 +66,12 @@
 					@if(count($results) > 0)
 
 						<br>
-						<p class = "text-center">Found results for <b>{{ $cake }}</b></p>
+						<p class = "text-center">Found results for <b>{{ $terms }}</b></p>
 
 					@else
 
 						<br>
-						<p class = "text-center">No results for <b>{{ $cake }}</b></p>
+						<p class = "text-center">No results for <b>{{ $terms }}</b></p>
 
 					@endif
 

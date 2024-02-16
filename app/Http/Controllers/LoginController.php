@@ -7,36 +7,33 @@ use App\Models\User;
 use Request;
 
 class LoginController extends Controller {
-    // GET: Redirect
+    // Redirect
     public function redirect () { return redirect()->to('/login'); }
 
-    // GET: Index
-    public function index () {
+    // Index (GET)
+    public function index_1 () {
         if (Auth::check()) {
-            return redirect()->to('/users');
+            return redirect()->to('/home');
         }
 
         return view('pages.login.index');
     }
 
-    // POST: Login
-    public function login () {
-        // Validate
+    // Index (POST)
+    public function index_2 () {
         $credentials = request()->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
 
-        // Success
         if (Auth::attempt($credentials)) {
-            return redirect('/users');
+            return redirect()->to('/home');
         }
 
-        // Fail
         return back()->withErrors(['credentials' => 'Incorrect email or password.']);
     }
 
-    // ACTION: Logout
+    // Logout
     public function logout () {
         Auth::logout();
 

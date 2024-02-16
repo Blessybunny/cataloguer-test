@@ -36,12 +36,13 @@
 		<header id = "header" class = "header fixed-top d-flex align-items-center">
 			<div class = "container d-flex align-items-center justify-content-between">
 				
-				<a href = "{{ url('/dashboard') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
+				<a href = "{{ url('/login') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
 					<h1 class = "capitalize">Cataloger<span>.</span></h1>
 				</a>
 
 				<nav id = "navbar" class = "navbar">
 					<ul>
+						<li><a href = "{{ url('/home') }}">Home</a></li>
 						<li><a href = "{{ url('/sections') }}">Sections</a></li>
 						<li><a href = "{{ url('/students') }}">Students</a></li>
 						<li><a href = "{{ url('/users') }}">Users</a></li>
@@ -61,14 +62,14 @@
 			@yield('content')
 		</main>
 
-		<!-- Footer -->
+		<!-- LOCKED: Footer -->
 		<footer id = "footer" class = "align-middle container-fluid footer">
 			This project is a proof-of-concept demo and does not use legitimate data and information.
 			<br>
 			All names are fictitious personas and do not reflect real subjects.
 		</footer>
 		
-		<!-- Template -->
+		<!-- LOCKED: Template -->
 		<script src = "{{ asset('yummy/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 		<script src = "{{ asset('yummy/vendor/aos/aos.js') }}"></script>
 		<script src = "{{ asset('yummy/vendor/glightbox/js/glightbox.min.js') }}"></script>
@@ -77,7 +78,7 @@
 		<script src = "{{ asset('yummy/vendor/php-email-form/validate.js') }}"></script>
 		<script src = "{{ asset('yummy/js/main.js') }}"></script>
 		
-		<!-- Custom -->
+		<!-- LOCKED: Custom -->
 		<script src = "{{ asset('assets/js/less.min.js') }}"></script>
 		<script src = "{{ asset('assets/js/general.js') }}"></script>
         
