@@ -1,349 +1,774 @@
-<section class = "container paper">
+<div class = "container paper">
 	<div class = "row">
 
 		<!-- Grades -->
 		<div class = "col-6">
 
 			<h6 class = "heading">Report on Learning Progress and Achievement</h6>
-			
-			<div class = "font-bold display-flex text-uppercase">
-				Name:&nbsp;
-				<span data-property = "string" data-target = "info_name_last"></span>,&nbsp;
-				<span data-property = "string" data-target = "info_name_first"></span>&nbsp;
-				<span data-property = "string" data-target = "info_name_middle"></span>&nbsp;
-				<span data-property = "string" data-target = "info_name_suffix"></span>&nbsp;
-			</div>
+
+			<label class = "font-bold text-uppercase">
+				<span>Name:&nbsp;</span>
+			</label>
 
 			<table class = "table">
+
+				<!-- Headers -->
 				<tr>
-					<th class = "align-middle" rowspan = "2">Learning Areas</th>
-					<th class = "align-middle" colspan = "4">Quarter</th>
-					<th class = "align-middle sf9-width-wide" rowspan = "2">Final Rating</th>
-					<th class = "align-middle sf9-width-wide" rowspan = "2">Remarks</th>
+					<th rowspan = "2">Learning Areas</th>
+					<th colspan = "4">Quarter</th>
+					<th rowspan = "2">Final Rating</th>
+					<th rowspan = "2">Remarks</th>
 				</tr>
 				<tr>
-					<th class = "align-middle table-cell-thin">1st</th>
-					<th class = "align-middle table-cell-thin">2nd</th>
-					<th class = "align-middle table-cell-thin">3rd</th>
-					<th class = "align-middle table-cell-thin">4th</th>
+					<th class = "table-cell-thin">1st</th>
+					<th class = "table-cell-thin">2nd</th>
+					<th class = "table-cell-thin">3rd</th>
+					<th class = "table-cell-thin">4th</th>
 				</tr>
+
+				<!-- Subject -> filipino -->
 				<tr>
 					<td>Filipino {{ $grade }}</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_fil_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_fil_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_fil_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_fil_qr4"></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_fil_qr1",
-						"subject_g{{ $grade }}_fil_qr2",
-						"subject_g{{ $grade }}_fil_qr3",
-						"subject_g{{ $grade }}_fil_qr4"
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_fil"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_fil'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_fil"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_fil'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_fil"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_fil'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_fil"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_fil'} }}"
+						>
+					</td>
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_fil",
+						"sf9_g{{ $grade }}_subject_qr2_fil",
+						"sf9_g{{ $grade }}_subject_qr3_fil",
+						"sf9_g{{ $grade }}_subject_qr4_fil"
 					]'></td>
-					<td class = "align-middle" data-property= "remarks" data-targets = '[
-						"subject_g{{ $grade }}_fil_qr1",
-						"subject_g{{ $grade }}_fil_qr2",
-						"subject_g{{ $grade }}_fil_qr3",
-						"subject_g{{ $grade }}_fil_qr4"
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_fil",
+						"sf9_g{{ $grade }}_subject_qr2_fil",
+						"sf9_g{{ $grade }}_subject_qr3_fil",
+						"sf9_g{{ $grade }}_subject_qr4_fil"
 					]'></td>
 				</tr>
+
+				<!-- Subject -> english -->
 				<tr>
 					<td>English {{ $grade }}</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_eng_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_eng_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_eng_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_eng_qr4"></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_eng_qr1",
-						"subject_g{{ $grade }}_eng_qr2",
-						"subject_g{{ $grade }}_eng_qr3",
-						"subject_g{{ $grade }}_eng_qr4"
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_eng"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_eng'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_eng"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_eng'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_eng"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_eng'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_eng"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_eng'} }}"
+						>
+					</td>
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_eng",
+						"sf9_g{{ $grade }}_subject_qr2_eng",
+						"sf9_g{{ $grade }}_subject_qr3_eng",
+						"sf9_g{{ $grade }}_subject_qr4_eng"
 					]'></td>
-					<td class = "align-middle" data-property= "remarks" data-targets = '[
-						"subject_g{{ $grade }}_eng_qr1",
-						"subject_g{{ $grade }}_eng_qr2",
-						"subject_g{{ $grade }}_eng_qr3",
-						"subject_g{{ $grade }}_eng_qr4"
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_eng",
+						"sf9_g{{ $grade }}_subject_qr2_eng",
+						"sf9_g{{ $grade }}_subject_qr3_eng",
+						"sf9_g{{ $grade }}_subject_qr4_eng"
 					]'></td>
 				</tr>
+
+				<!-- Subject -> mathematics -->
 				<tr>
-					<td>Mathematics {{ $grade }}</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_mat_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_mat_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_mat_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_mat_qr4"></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_mat_qr1",
-						"subject_g{{ $grade }}_mat_qr2",
-						"subject_g{{ $grade }}_mat_qr3",
-						"subject_g{{ $grade }}_mat_qr4"
+					<td>Mathemathics {{ $grade }}</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_mat"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_mat'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_mat"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_mat'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_mat"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_mat'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_mat"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_mat'} }}"
+						>
+					</td>
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_mat",
+						"sf9_g{{ $grade }}_subject_qr2_mat",
+						"sf9_g{{ $grade }}_subject_qr3_mat",
+						"sf9_g{{ $grade }}_subject_qr4_mat"
 					]'></td>
-					<td class = "align-middle" data-property= "remarks" data-targets = '[
-						"subject_g{{ $grade }}_mat_qr1",
-						"subject_g{{ $grade }}_mat_qr2",
-						"subject_g{{ $grade }}_mat_qr3",
-						"subject_g{{ $grade }}_mat_qr4"
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_mat",
+						"sf9_g{{ $grade }}_subject_qr2_mat",
+						"sf9_g{{ $grade }}_subject_qr3_mat",
+						"sf9_g{{ $grade }}_subject_qr4_mat"
 					]'></td>
 				</tr>
+
+				<!-- Subject -> science -->
 				<tr>
 					<td>Science {{ $grade }}</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_sci_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_sci_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_sci_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_sci_qr4"></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_sci_qr1",
-						"subject_g{{ $grade }}_sci_qr2",
-						"subject_g{{ $grade }}_sci_qr3",
-						"subject_g{{ $grade }}_sci_qr4"
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_sci"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_sci'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_sci"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_sci'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_sci"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_sci'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_sci"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_sci'} }}"
+						>
+					</td>
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_sci",
+						"sf9_g{{ $grade }}_subject_qr2_sci",
+						"sf9_g{{ $grade }}_subject_qr3_sci",
+						"sf9_g{{ $grade }}_subject_qr4_sci"
 					]'></td>
-					<td class = "align-middle" data-property= "remarks" data-targets = '[
-						"subject_g{{ $grade }}_sci_qr1",
-						"subject_g{{ $grade }}_sci_qr2",
-						"subject_g{{ $grade }}_sci_qr3",
-						"subject_g{{ $grade }}_sci_qr4"
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_sci",
+						"sf9_g{{ $grade }}_subject_qr2_sci",
+						"sf9_g{{ $grade }}_subject_qr3_sci",
+						"sf9_g{{ $grade }}_subject_qr4_sci"
 					]'></td>
 				</tr>
+
+				<!-- Subject -> araling panlipunan (ap) -->
 				<tr>
 					<td>Araling Panlipunan (AP) {{ $grade }}</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_ap_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_ap_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_ap_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_ap_qr4"></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_ap_qr1",
-						"subject_g{{ $grade }}_ap_qr2",
-						"subject_g{{ $grade }}_ap_qr3",
-						"subject_g{{ $grade }}_ap_qr4"
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_ap"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_ap'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_ap"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_ap'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_ap"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_ap'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_ap"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_ap'} }}"
+						>
+					</td>
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_ap",
+						"sf9_g{{ $grade }}_subject_qr2_ap",
+						"sf9_g{{ $grade }}_subject_qr3_ap",
+						"sf9_g{{ $grade }}_subject_qr4_ap"
 					]'></td>
-					<td class = "align-middle" data-property= "remarks" data-targets = '[
-						"subject_g{{ $grade }}_ap_qr1",
-						"subject_g{{ $grade }}_ap_qr2",
-						"subject_g{{ $grade }}_ap_qr3",
-						"subject_g{{ $grade }}_ap_qr4"
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_ap",
+						"sf9_g{{ $grade }}_subject_qr2_ap",
+						"sf9_g{{ $grade }}_subject_qr3_ap",
+						"sf9_g{{ $grade }}_subject_qr4_ap"
 					]'></td>
 				</tr>
+
+				<!-- Subject -> edukasyon sa pagpapakatao (ep) -->
 				<tr>
 					<td>Edukasyon sa Pagpapakatao (EP) {{ $grade }}</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_ep_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_ep_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_ep_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_ep_qr4"></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_ep_qr1",
-						"subject_g{{ $grade }}_ep_qr2",
-						"subject_g{{ $grade }}_ep_qr3",
-						"subject_g{{ $grade }}_ep_qr4"
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_ep"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_ep'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_ep"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_ep'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_ep"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_ep'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_ep"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_ep'} }}"
+						>
+					</td>
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_ep",
+						"sf9_g{{ $grade }}_subject_qr2_ep",
+						"sf9_g{{ $grade }}_subject_qr3_ep",
+						"sf9_g{{ $grade }}_subject_qr4_ep"
 					]'></td>
-					<td class = "align-middle" data-property= "remarks" data-targets = '[
-						"subject_g{{ $grade }}_ep_qr1",
-						"subject_g{{ $grade }}_ep_qr2",
-						"subject_g{{ $grade }}_ep_qr3",
-						"subject_g{{ $grade }}_ep_qr4"
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_ep",
+						"sf9_g{{ $grade }}_subject_qr2_ep",
+						"sf9_g{{ $grade }}_subject_qr3_ep",
+						"sf9_g{{ $grade }}_subject_qr4_ep"
 					]'></td>
 				</tr>
+
+				<!-- Subject -> technology and livelihood education (tle) -->
 				<tr>
 					<td>Technology and Livelihood Education (TLE) {{ $grade }}</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_tle_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_tle_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_tle_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_tle_qr4"></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_tle_qr1",
-						"subject_g{{ $grade }}_tle_qr2",
-						"subject_g{{ $grade }}_tle_qr3",
-						"subject_g{{ $grade }}_tle_qr4"
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_tle"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_tle'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_tle"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_tle'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_tle"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_tle'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_tle"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_tle'} }}"
+						>
+					</td>
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_tle",
+						"sf9_g{{ $grade }}_subject_qr2_tle",
+						"sf9_g{{ $grade }}_subject_qr3_tle",
+						"sf9_g{{ $grade }}_subject_qr4_tle"
 					]'></td>
-					<td class = "align-middle" data-property= "remarks" data-targets = '[
-						"subject_g{{ $grade }}_tle_qr1",
-						"subject_g{{ $grade }}_tle_qr2",
-						"subject_g{{ $grade }}_tle_qr3",
-						"subject_g{{ $grade }}_tle_qr4"
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_tle",
+						"sf9_g{{ $grade }}_subject_qr2_tle",
+						"sf9_g{{ $grade }}_subject_qr3_tle",
+						"sf9_g{{ $grade }}_subject_qr4_tle"
 					]'></td>
 				</tr>
+
+				<!-- Average -> MAPEH -->
 				<tr>
 					<td>MAPEH {{ $grade }}</td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_mus_qr1",
-						"subject_g{{ $grade }}_art_qr1",
-						"subject_g{{ $grade }}_pe_qr1",
-						"subject_g{{ $grade }}_hp_qr1"
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_mus",
+						"sf9_g{{ $grade }}_subject_qr1_art",
+						"sf9_g{{ $grade }}_subject_qr1_pe",
+						"sf9_g{{ $grade }}_subject_qr1_hp"
 					]'></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_mus_qr2",
-						"subject_g{{ $grade }}_art_qr2",
-						"subject_g{{ $grade }}_pe_qr2",
-						"subject_g{{ $grade }}_hp_qr2"
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr2_mus",
+						"sf9_g{{ $grade }}_subject_qr2_art",
+						"sf9_g{{ $grade }}_subject_qr2_pe",
+						"sf9_g{{ $grade }}_subject_qr2_hp"
 					]'></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_mus_qr3",
-						"subject_g{{ $grade }}_art_qr3",
-						"subject_g{{ $grade }}_pe_qr3",
-						"subject_g{{ $grade }}_hp_qr3"
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr3_mus",
+						"sf9_g{{ $grade }}_subject_qr3_art",
+						"sf9_g{{ $grade }}_subject_qr3_pe",
+						"sf9_g{{ $grade }}_subject_qr3_hp"
 					]'></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_mus_qr4",
-						"subject_g{{ $grade }}_art_qr4",
-						"subject_g{{ $grade }}_pe_qr4",
-						"subject_g{{ $grade }}_hp_qr4"
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr4_mus",
+						"sf9_g{{ $grade }}_subject_qr4_art",
+						"sf9_g{{ $grade }}_subject_qr4_pe",
+						"sf9_g{{ $grade }}_subject_qr4_hp"
 					]'></td>
-					<td class = "align-middle" data-property = "average" data-targets = '[
-						"subject_g{{ $grade }}_mus_qr1",
-						"subject_g{{ $grade }}_mus_qr2",
-						"subject_g{{ $grade }}_mus_qr3",
-						"subject_g{{ $grade }}_mus_qr4",
-						"subject_g{{ $grade }}_art_qr1",
-						"subject_g{{ $grade }}_art_qr2",
-						"subject_g{{ $grade }}_art_qr3",
-						"subject_g{{ $grade }}_art_qr4",
-						"subject_g{{ $grade }}_pe_qr1",
-						"subject_g{{ $grade }}_pe_qr2",
-						"subject_g{{ $grade }}_pe_qr3",
-						"subject_g{{ $grade }}_pe_qr4",
-						"subject_g{{ $grade }}_hp_qr1",
-						"subject_g{{ $grade }}_hp_qr2",
-						"subject_g{{ $grade }}_hp_qr3",
-						"subject_g{{ $grade }}_hp_qr4"
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_mus",
+						"sf9_g{{ $grade }}_subject_qr1_art",
+						"sf9_g{{ $grade }}_subject_qr1_pe",
+						"sf9_g{{ $grade }}_subject_qr1_hp",
+
+						"sf9_g{{ $grade }}_subject_qr2_mus",
+						"sf9_g{{ $grade }}_subject_qr2_art",
+						"sf9_g{{ $grade }}_subject_qr2_pe",
+						"sf9_g{{ $grade }}_subject_qr2_hp",
+
+						"sf9_g{{ $grade }}_subject_qr3_mus",
+						"sf9_g{{ $grade }}_subject_qr3_art",
+						"sf9_g{{ $grade }}_subject_qr3_pe",
+						"sf9_g{{ $grade }}_subject_qr3_hp",
+
+						"sf9_g{{ $grade }}_subject_qr4_mus",
+						"sf9_g{{ $grade }}_subject_qr4_art",
+						"sf9_g{{ $grade }}_subject_qr4_pe",
+						"sf9_g{{ $grade }}_subject_qr4_hp"
 					]'></td>
-					<td class = "align-middle" data-property= "remarks" data-targets = '[
-						"subject_g{{ $grade }}_mus_qr1",
-						"subject_g{{ $grade }}_mus_qr2",
-						"subject_g{{ $grade }}_mus_qr3",
-						"subject_g{{ $grade }}_mus_qr4",
-						"subject_g{{ $grade }}_art_qr1",
-						"subject_g{{ $grade }}_art_qr2",
-						"subject_g{{ $grade }}_art_qr3",
-						"subject_g{{ $grade }}_art_qr4",
-						"subject_g{{ $grade }}_pe_qr1",
-						"subject_g{{ $grade }}_pe_qr2",
-						"subject_g{{ $grade }}_pe_qr3",
-						"subject_g{{ $grade }}_pe_qr4",
-						"subject_g{{ $grade }}_hp_qr1",
-						"subject_g{{ $grade }}_hp_qr2",
-						"subject_g{{ $grade }}_hp_qr3",
-						"subject_g{{ $grade }}_hp_qr4"
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf9_g{{ $grade }}_subject_qr1_mus",
+						"sf9_g{{ $grade }}_subject_qr1_art",
+						"sf9_g{{ $grade }}_subject_qr1_pe",
+						"sf9_g{{ $grade }}_subject_qr1_hp",
+
+						"sf9_g{{ $grade }}_subject_qr2_mus",
+						"sf9_g{{ $grade }}_subject_qr2_art",
+						"sf9_g{{ $grade }}_subject_qr2_pe",
+						"sf9_g{{ $grade }}_subject_qr2_hp",
+
+						"sf9_g{{ $grade }}_subject_qr3_mus",
+						"sf9_g{{ $grade }}_subject_qr3_art",
+						"sf9_g{{ $grade }}_subject_qr3_pe",
+						"sf9_g{{ $grade }}_subject_qr3_hp",
+						
+						"sf9_g{{ $grade }}_subject_qr4_mus",
+						"sf9_g{{ $grade }}_subject_qr4_art",
+						"sf9_g{{ $grade }}_subject_qr4_pe",
+						"sf9_g{{ $grade }}_subject_qr4_hp"
 					]'></td>
 				</tr>
+
+				<!-- Subject -> music -->
 				<tr>
 					<td class = "table-cell-indent">Music</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_mus_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_mus_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_mus_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_mus_qr4"></td>
-					<td class = "align-middle" colspan = "2" rowspan = "4"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_mus"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_mus'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_mus"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_mus'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_mus"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_mus'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_mus"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_mus'} }}"
+						>
+					</td>
+					<td colspan = "2" rowspan = "4"></td>
 				</tr>
+
+				<!-- Subject -> arts -->
 				<tr>
 					<td class = "table-cell-indent">Arts</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_art_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_art_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_art_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_art_qr4"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_art"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_art'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_art"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_art'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_art"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_art'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_art"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_art'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- Subject -> physical education -->
 				<tr>
 					<td class = "table-cell-indent">Physical Education</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_pe_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_pe_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_pe_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_pe_qr4"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_pe"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_pe'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_pe"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_pe'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_pe"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_pe'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_pe"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_pe'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- Subject -> health -->
 				<tr>
 					<td class = "table-cell-indent">Health</td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_hp_qr1"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_hp_qr2"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_hp_qr3"></td>
-					<td class = "align-middle" data-property = "string" data-target = "subject_g{{ $grade }}_hp_qr4"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr1_hp"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr1_hp'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr2_hp"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr2_hp'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr3_hp"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr3_hp'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_subject_qr4_hp"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf9_g'.$grade.'_subject_qr4_hp'} }}"
+						>
+					</td>
 				</tr>
+
 			</table>
 
-			<div class = "display-flex font-bold text-uppercase">
+			<label class = "font-bold text-uppercase">
 				<span>General Average:&nbsp;</span>
 				<span data-property = "average" data-targets = '[
-					"subject_g{{ $grade }}_fil_qr1",
-					"subject_g{{ $grade }}_fil_qr2",
-					"subject_g{{ $grade }}_fil_qr3",
-					"subject_g{{ $grade }}_fil_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_fil",
+					"sf9_g{{ $grade }}_subject_qr2_fil",
+					"sf9_g{{ $grade }}_subject_qr3_fil",
+					"sf9_g{{ $grade }}_subject_qr4_fil",
 
-					"subject_g{{ $grade }}_eng_qr1",
-					"subject_g{{ $grade }}_eng_qr2",
-					"subject_g{{ $grade }}_eng_qr3",
-					"subject_g{{ $grade }}_eng_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_eng",
+					"sf9_g{{ $grade }}_subject_qr2_eng",
+					"sf9_g{{ $grade }}_subject_qr3_eng",
+					"sf9_g{{ $grade }}_subject_qr4_eng",
 
-					"subject_g{{ $grade }}_mat_qr1",
-					"subject_g{{ $grade }}_mat_qr2",
-					"subject_g{{ $grade }}_mat_qr3",
-					"subject_g{{ $grade }}_mat_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_mat",
+					"sf9_g{{ $grade }}_subject_qr2_mat",
+					"sf9_g{{ $grade }}_subject_qr3_mat",
+					"sf9_g{{ $grade }}_subject_qr4_mat",
 
-					"subject_g{{ $grade }}_sci_qr1",
-					"subject_g{{ $grade }}_sci_qr2",
-					"subject_g{{ $grade }}_sci_qr3",
-					"subject_g{{ $grade }}_sci_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_sci",
+					"sf9_g{{ $grade }}_subject_qr2_sci",
+					"sf9_g{{ $grade }}_subject_qr3_sci",
+					"sf9_g{{ $grade }}_subject_qr4_sci",
 
-					"subject_g{{ $grade }}_ap_qr1",
-					"subject_g{{ $grade }}_ap_qr2",
-					"subject_g{{ $grade }}_ap_qr3",
-					"subject_g{{ $grade }}_ap_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_ap",
+					"sf9_g{{ $grade }}_subject_qr2_ap",
+					"sf9_g{{ $grade }}_subject_qr3_ap",
+					"sf9_g{{ $grade }}_subject_qr4_ap",
 
-					"subject_g{{ $grade }}_ep_qr1",
-					"subject_g{{ $grade }}_ep_qr2",
-					"subject_g{{ $grade }}_ep_qr3",
-					"subject_g{{ $grade }}_ep_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_ep",
+					"sf9_g{{ $grade }}_subject_qr2_ep",
+					"sf9_g{{ $grade }}_subject_qr3_ep",
+					"sf9_g{{ $grade }}_subject_qr4_ep",
 
-					"subject_g{{ $grade }}_tle_qr1",
-					"subject_g{{ $grade }}_tle_qr2",
-					"subject_g{{ $grade }}_tle_qr3",
-					"subject_g{{ $grade }}_tle_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_tle",
+					"sf9_g{{ $grade }}_subject_qr2_tle",
+					"sf9_g{{ $grade }}_subject_qr3_tle",
+					"sf9_g{{ $grade }}_subject_qr4_tle",
 
-					"subject_g{{ $grade }}_mus_qr1",
-					"subject_g{{ $grade }}_mus_qr2",
-					"subject_g{{ $grade }}_mus_qr3",
-					"subject_g{{ $grade }}_mus_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_mus",
+					"sf9_g{{ $grade }}_subject_qr2_mus",
+					"sf9_g{{ $grade }}_subject_qr3_mus",
+					"sf9_g{{ $grade }}_subject_qr4_mus",
 
-					"subject_g{{ $grade }}_art_qr1",
-					"subject_g{{ $grade }}_art_qr2",
-					"subject_g{{ $grade }}_art_qr3",
-					"subject_g{{ $grade }}_art_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_art",
+					"sf9_g{{ $grade }}_subject_qr2_art",
+					"sf9_g{{ $grade }}_subject_qr3_art",
+					"sf9_g{{ $grade }}_subject_qr4_art",
 
-					"subject_g{{ $grade }}_pe_qr1",
-					"subject_g{{ $grade }}_pe_qr2",
-					"subject_g{{ $grade }}_pe_qr3",
-					"subject_g{{ $grade }}_pe_qr4",
+					"sf9_g{{ $grade }}_subject_qr1_pe",
+					"sf9_g{{ $grade }}_subject_qr2_pe",
+					"sf9_g{{ $grade }}_subject_qr3_pe",
+					"sf9_g{{ $grade }}_subject_qr4_pe",
 
-					"subject_g{{ $grade }}_hp_qr1",
-					"subject_g{{ $grade }}_hp_qr2",
-					"subject_g{{ $grade }}_hp_qr3",
-					"subject_g{{ $grade }}_hp_qr4"
+					"sf9_g{{ $grade }}_subject_qr1_hp",
+					"sf9_g{{ $grade }}_subject_qr2_hp",
+					"sf9_g{{ $grade }}_subject_qr3_hp",
+					"sf9_g{{ $grade }}_subject_qr4_hp"
 				]'></span>
-			</div>
+			</label>
 
 			<table class = "table">
 				<tr>
-					<th class = "align-middle">Descriptors</th>
-					<th class = "align-middle">Grading Scale</th>
-					<th class = "align-middle">Remarks</th>
+					<th>Descriptors</th>
+					<th>Grading Scale</th>
+					<th>Remarks</th>
 				</tr>
 				<tr>
 					<td>Outstanding</td>
-					<td class = "align-middle">90-100</td>
-					<td class = "align-middle">Passed</td>
+					<td class = "text-center">90-100</td>
+					<td class = "text-center">Passed</td>
 				</tr>
 				<tr>
 					<td>Very Satisfactory</td>
-					<td class = "align-middle">85-89</td>
-					<td class = "align-middle">Passed</td>
+					<td class = "text-center">85-89</td>
+					<td class = "text-center">Passed</td>
 				</tr>
 				<tr>
 					<td>Satisfactory</td>
-					<td class = "align-middle">80-84</td>
-					<td class = "align-middle">Passed</td>
+					<td class = "text-center">80-84</td>
+					<td class = "text-center">Passed</td>
 				</tr>
 				<tr>
 					<td>Fairly Satisfactory</td>
-					<td class = "align-middle">75-79</td>
-					<td class = "align-middle">Passed</td>
+					<td class = "text-center">75-79</td>
+					<td class = "text-center">Passed</td>
 				</tr>
 				<tr>
 					<td>Did Not Meet Expectations</td>
-					<td class = "align-middle">Below 75</td>
-					<td class = "align-middle">Failed</td>
+					<td class = "text-center">Below 75</td>
+					<td class = "text-center">Failed</td>
 				</tr>
 			</table>
 
@@ -355,98 +780,333 @@
 			<h6 class = "heading">Report on Learner's Observed Values</h6>
 
 			<br>
-			
+
 			<table class = "table">
+
+				<!-- Headers -->
 				<tr>
-					<th class = "align-middle" rowspan = "2">Core Values</th>
-					<th class = "align-middle" rowspan = "2">Behavior Statement</th>
-					<th class = "align-middle" colspan = "4">Quarter</th>
+					<th rowspan = "2">Core Values</th>
+					<th rowspan = "2">Behavior Statement</th>
+					<th colspan = "4">Quarter</th>
 				</tr>
 				<tr>
-					<th class = "align-middle table-cell-thin">1st</th>
-					<th class = "align-middle table-cell-thin">2nd</th>
-					<th class = "align-middle table-cell-thin">3rd</th>
-					<th class = "align-middle table-cell-thin">4th</th>
+					<th class = "table-cell-thin">1st</th>
+					<th class = "table-cell-thin">2nd</th>
+					<th class = "table-cell-thin">3rd</th>
+					<th class = "table-cell-thin">4th</th>
 				</tr>
+
+				<!-- Values -> maka - diyos -->
 				<tr>
-					<td class = "align-middle left" rowspan = "2">Maka - Diyos</td>
+					<td rowspan = "2">Maka - Diyos</td>
 					<td>Expresses one's spiritual beliefs while respecting the spiritual beliefs of others.</td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_md_s1_qr1"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_md_s1_qr2"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_md_s1_qr3"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_md_s1_qr4"></td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr1_md_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr2_md_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr3_md_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr4_md_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>Shows adherence to ethical principles by upholding truth.</td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_md_s2_qr1"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_md_s2_qr2"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_md_s2_qr3"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_md_s2_qr4"></td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr1_md_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr1_md_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr2_md_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr2_md_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr3_md_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr3_md_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr4_md_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr4_md_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
 				</tr>
+
+				<!-- Values -> maka - tao -->
 				<tr>
-					<td class = "align-middle left" rowspan = "2">Maka - Tao</td>
+					<td rowspan = "2">Maka - Tao</td>
 					<td>Is sensitive to individual, social and cultural differences.</td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mt_s1_qr1"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mt_s1_qr2"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mt_s1_qr3"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mt_s1_qr4"></td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr1_mt_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr2_mt_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr3_mt_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr4_mt_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>Demonstrates contributions toward solidarity.</td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mt_s2_qr1"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mt_s2_qr2"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mt_s2_qr3"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mt_s2_qr4"></td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr1_mt_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mt_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr2_mt_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mt_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr3_mt_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mt_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr4_mt_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mt_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
 				</tr>
+
+				<!-- Values -> maka - kalikasan -->
 				<tr>
-					<td class = "align-middle left">Maka - Kalikasan</td>
+					<td>Maka - Kalikasan</td>
 					<td>Cares for the environment and utilizes resources  wisely, judiciously and economically.</td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mk_qr1"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mk_qr2"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mk_qr3"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mk_qr4"></td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr1_mk">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr1_mk'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mk'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mk'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mk'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mk'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr2_mk">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr2_mk'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mk'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mk'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mk'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mk'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr3_mk">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr3_mk'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mk'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mk'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mk'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mk'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr4_mk">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr4_mk'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mk'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mk'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mk'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mk'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
 				</tr>
+
+				<!-- Values -> maka - bansa -->
 				<tr>
-					<td class = "align-middle left" rowspan = "2">Maka - Bansa</td>
+					<td rowspan = "2">Maka - Bansa</td>
 					<td>Demonstrates pride in being a Filipino; exercises the rights and responsibilities of a Filipino Citizen.</td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mb_s1_qr1"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mb_s1_qr2"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mb_s1_qr3"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mb_s1_qr4"></td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr1_mb_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr2_mb_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr3_mb_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr4_mb_s1">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s1'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s1'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s1'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s1'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
 				</tr>
 				<tr>
 					<td>Demonstrates appropriate behavior in carrying out activities in the school, community and country.</td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mb_s2_qr1"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mb_s2_qr2"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mb_s2_qr3"></td>
-					<td class = "align-middle" data-property= "string"data-target = "values_g{{ $grade }}_mb_s2_qr4"></td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr1_mb_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr1_mb_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr2_mb_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr2_mb_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr3_mb_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr3_mb_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
+					<td>
+						<select class = "text-center" name = "sf9_g{{ $grade }}_values_qr4_mb_s2">
+							<option value = "" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s2'} == "" ? "selected" : "" }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s2'} == "AO" ? "selected" : "" }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s2'} == "SO" ? "selected" : "" }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s2'} == "RO" ? "selected" : "" }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade.'_values_qr4_mb_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						</select>
+					</td>
 				</tr>
+
 			</table>
 
 			<table class = "table">
 				<tr>
-					<th class = "align-middle">Markings</th>
-					<th class = "align-middle">Non-numerical Rating</th>
+					<th>Markings</th>
+					<th>Non-numerical Rating</th>
 				</tr>
 				<tr>
-					<td class = "align-middle">AO</td>
-					<td class = "align-middle">Always Observed</td>
+					<td class = "text-center">AO</td>
+					<td class = "text-center">Always Observed</td>
 				</tr>
 				<tr>
-					<td class = "align-middle">SO</td>
-					<td class = "align-middle">Sometimes Observed</td>
+					<td class = "text-center">SO</td>
+					<td class = "text-center">Sometimes Observed</td>
 				</tr>
 				<tr>
-					<td class = "align-middle">RO</td>
-					<td class = "align-middle">Rarely Observed</td>
+					<td class = "text-center">RO</td>
+					<td class = "text-center">Rarely Observed</td>
 				</tr>
 				<tr>
-					<td class = "align-middle">NO</td>
-					<td class = "align-middle">Not Observed</td>
+					<td class = "text-center">NO</td>
+					<td class = "text-center">Not Observed</td>
 				</tr>
 			</table>
 
 		</div>
 
 	</div>
-</section>
+</div>

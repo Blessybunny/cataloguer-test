@@ -26,37 +26,62 @@
 
 @size-spacing: 30px;
 @size-width-paper: 1200px;
+@size-width-website: 1000px;
 
 /* HTML */
-main { margin: calc(@size-spacing * 2) auto; }
+html, body, main, section {
+    min-width: @size-width-website !important;
+    width: auto !important;
+}
 h1, h2, h3, h4, h5, h6 {
     font-family: @font-common;
     text-transform: uppercase;
     font-weight: bold;
 }
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=text],
+select {
+    appearance: none;
+    background: none;
+    border: @border-light;
+    display: block;
+    padding: calc(@size-spacing / 4);
+    width: 100%;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+label {
+    align-items: center;
+    display: flex;
+    white-space: nowrap;
+}
+main { margin: calc(@size-spacing * 4.25) 0 !important; }
+td, th {
+    border: @border-light;
+    vertical-align: middle;
+}
 th {
+    align-items: center;
     background-color: @color-table !important;
     font-family: @font-header;
-}
-th, td { border: @border-light; }
-
-/* BOOTSTRAP */
-.container, .container-fluid { padding: @size-spacing; }
-.row {
-    font-family: @font-common;
-    font-size: 14px;
+    text-align: center;
+    vertical-align: middle;
 }
 
-/* CLASSES */
-.align-middle { text-align: center; } /* Best used on tables */
-
+/* CLASSES: Common */
 .border-all-dark { border: @border-dark; }
 .border-all-light { border: @border-light; }
 
-.border-bottom-dark { border-bottom: @border-dark; }
-.border-left-dark { border-left: @border-dark; }
-.border-right-dark { border-right: @border-dark; }
-.border-top-dark { border-top: @border-dark; }
+.border-bottom-dark { border-bottom: @border-dark !important; }
+.border-left-dark { border-left: @border-dark !important; }
+.border-right-dark { border-right: @border-dark !important; }
+.border-top-dark { border-top: @border-dark !important; }
 
 .border-bottom-none { border-bottom: none; }
 .border-left-none { border-left: none; }
@@ -69,6 +94,9 @@ th, td { border: @border-light; }
 
 .float-left { float: left; }
 .float-right { float: right; }
+
+.flex-direction-column { flex-direction: column; }
+.flex-direction-row { flex-direction: row; }
 
 .font-bold { font-weight: bold; }
 .font-italic { font-style: italic; }
@@ -85,7 +113,32 @@ th, td { border: @border-light; }
 .height-100 { height: 100%; }
 .width-100 { width: 100%; }
 
-/* NAVIGATION / FOOTER */
+/* CLASSES: Custom */
+.button {
+    background-color: @color-theme;
+    border: none;
+    color: #FFF;
+    font-family: @font-navigation;
+    padding: calc(@size-spacing / 2) @size-spacing;
+}
+.button-small {
+    background-color: @color-theme;
+    border: none;
+    color: #FFF;
+    font-family: @font-navigation;
+    padding: calc(@size-spacing / 2 - 6.5px) @size-spacing;
+}
+.error { color: #F00; }
+
+/* BOOTSTRAP */
+.container,
+.container-fluid { padding: 0; }
+.row {
+    font-family: @font-common;
+    font-size: 14px;
+}
+
+/* NAVIGATION & FOOTER */
 #header {
     border-bottom: @border-light;
 
@@ -94,4 +147,51 @@ th, td { border: @border-light; }
 #footer {
     font-family: @font-footer;
     padding: @size-spacing * 2;
+    text-align: center;
+}
+
+/* TAB & PILLS */
+.container-pill {
+    border: @border-light;
+
+    .dropdown-item {
+        color: #000;
+        cursor: default;
+        font-family: @font-header;
+        font-size: 12px;
+        font-weight: bold;
+        padding: calc(@size-spacing / 4) calc(@size-spacing / 2);
+    }
+    .dropdown-menu {
+        border-radius: 0;
+        padding: 0;
+    }
+
+    .nav { border-bottom: @border-light; }
+    .nav-link {
+        border-radius: 0;
+        color: #000;
+        cursor: default;
+        font-family: @font-header;
+        font-size: 14px;
+        font-weight: bold;
+        padding: calc(@size-spacing / 2) calc(@size-spacing / 1);
+    }
+
+    .nav-link:hover,
+    .nav-link:active,
+    .nav-link.active,
+    .dropdown-item:hover,
+    .dropdown-item:active,
+    .dropdown-item.active { background-color: rgba(@color-theme, @opacity-step); }
+
+    .nav-link:active,
+    .nav-link.active,
+    .dropdown-item:active,
+    .dropdown-item.active { color: @color-theme; }
+
+    .tab-content {
+        overflow: auto;
+        padding: 0 !important;
+    }
 }

@@ -10,19 +10,16 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
 
-            $table->string('info_deped_id', 50)->unique();
-            $table->text('info_password');
-            $table->string('info_role', 50);
-            $table->string('info_name_last', 50);
-            $table->string('info_name_first', 50);
-            $table->string('info_name_suffix', 50)->nullable();
-            $table->string('info_name_middle', 50);
-            $table->string('info_sex', 50);
-            $table->date('info_birthdate');
+            $table->tinyInteger('db_role_id');
+            $table->tinyInteger('db_grade_id')->nullable();
+            $table->tinyInteger('db_section_id')->nullable();
+
+            $table->string('email', 50)->unique();
+            $table->string('password');
+
+            $table->string('name_last', 50);
+            $table->string('name_first', 50);
         });
     }
-    
-    public function down () : void {
-        Schema::dropIfExists('users');
-    }
+    public function down () : void { Schema::dropIfExists('users'); }
 };

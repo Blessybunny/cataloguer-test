@@ -1,150 +1,251 @@
-<section class = "container paper">
+<div class = "container paper">
+
+	<!-- Header -->
 	<div class = "row">
-
-		<!-- Header -->
-		<div class = "col-12">
-
+		<div class = "col">
 			<span>SF10-JHS</span>
-
-			<div class = "row">
-				<div class = "col-2">
-					<img src = "{{ asset('assets/img/deped-2.png') }}" height = 75 draggable = "false">
-				</div>
-				<div class = "col-8 align-middle">
-					<span>Republic of the Philippines</span>
-					<span>Department of Education</span>
-					<h6>Learner Permanent Record for Junior High School (SF10-JHS)</h6>
-					<span>(Formerly Form 137)</span>
-				</div>
-				<div class = "col-2">
-					<img class = "float-right" src = "{{ asset('assets/img/deped-1.png') }}" height = 75 draggable = "false">
-				</div>
-			</div>
-
 		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-2">
+			<img src = "{{ asset('assets/img/deped-2.png') }}" height = 75 draggable = "false">
+		</div>
+		<div class = "col-8 text-center">
+			<span>Republic of the Philippines</span>
+			<span>Department of Education</span>
+			<h6>Learner Permanent Record for Junior High School (SF10-JHS)</h6>
+			<span>(Formerly Form 137)</span>
+		</div>
+		<div class = "col-2">
+			<img class = "float-right" src = "{{ asset('assets/img/deped-1.png') }}" height = 75 draggable = "false">
+		</div>
+	</div>
 
-		<!-- Learner's information -->
-		<div class = "col-12">
-
+	<!-- Learner's information -->
+	<div class = "row">
+		<div class = "col">
 			<h6 class = "heading">Learner's Information</h6>
-
-			<div class = "row">
-				<div class = "col-3">
-					<span data-property = "string" data-target = "info_name_last" data-label = "LAST NAME: "></span>
-				</div>
-				<div class = "col-3">
-					<span data-property = "string" data-target = "info_name_first" data-label = "FIRST NAME: "></span>
-				</div>
-				<div class = "col-3">
-					<span data-property = "string" data-target = "info_name_suffix" data-label = "EXTN. (Jr, I, II): "></span>
-				</div>
-				<div class = "col-3">
-					<span data-property = "string" data-target = "info_name_middle" data-label = "MIDDLE NAME: "></span>
-				</div>
-			</div>
-
-			<div class = "row">
-				<div class = "col-6">
-					<span data-property = "string" data-target = "info_lrn" data-label = "Leaner Reference Number (LRN): "></span>
-				</div>
-				<div class = "col-3">
-					<span data-property = "date" data-target = "info_birthdate" data-label = "Birthdate (MM/DD/YYYY): "></span>
-				</div>
-				<div class = "col-3">
-					<span data-property = "string" data-target = "info_sex" data-label = "Sex: "></span>
-				</div>
-			</div>
-
 		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-3">
+			<label onclick = "window.scrollTo(0, 0)">
+				<span>LAST NAME:&nbsp;</span>
+				<span>{{ $student->info_name_last }}</span>
+			</label>
+		</div>
+		<div class = "col-3">
+			<label onclick = "window.scrollTo(0, 0)">
+				<span>FIRST NAME:&nbsp;</span>
+				<span>{{ $student->info_name_first }}</span>
+			</label>
+		</div>
+		<div class = "col-3">
+			<label onclick = "window.scrollTo(0, 0)">
+				<span>EXTN. (Jr, I, II):&nbsp;</span>
+				<span>{{ $student->info_name_suffix }}</span>
+			</label>
+		</div>
+		<div class = "col-3">
+			<label onclick = "window.scrollTo(0, 0)">
+				<span>MIDDLE NAME:&nbsp;</span>
+				<span>{{ $student->info_name_middle }}</span>
+			</label>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col-6">
+			<label onclick = "window.scrollTo(0, 0)">
+				<span>Leaner Reference Number (LRN):&nbsp;</span>
+				<span>{{ $student->info_lrn }}</span>
+			</label>
+		</div>
+		<div class = "col-3">
+			<label onclick = "window.scrollTo(0, 0)">
+				<span>Birthdate (MM/DD/YYYY):&nbsp;</span>
+				<span>{{ $student->info_birthdate }}</span>
+			</label>
+		</div>
+		<div class = "col-3">
+			<label onclick = "window.scrollTo(0, 0)">
+				<span>Sex:&nbsp;</span>
+				<span>{{ $student->info_sex }}</span>
+			</label>
+		</div>
+	</div>
 
-		<!-- Eligibility for JHS enrollment -->
-		<div class = "col-12">
-
+	<!-- Eligibility for JHS enrollment -->
+	<div class = "row">
+		<div class = "col">
 			<h6 class = "heading">Eligibility for JHS Enrollment</h6>
-
-			<div class = "border-all-light border-space">
-				<div class = "row">
-					<div class = "col-4">
-						<label>
-							<input type = "checkbox" data-property = "boolean" data-target = "enrollment_elementary_boolean">
-							<span>Elementary School Completer</span>
-						</label>
-					</div>
-					<div class = "col-4">
-						<span data-property = "string" data-target = "enrollment_elementary_average" data-label = "General Average: "></span>
-					</div>
-					<div class = "col-4">
-						<span data-property = "string" data-target = "enrollment_elementary_citation" data-label = "Citation (If Any): "></span>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "col-4">
-						<span data-property = "string" data-target = "enrollment_elementary_name" data-label = "Name of Elementary School: "></span>
-					</div>
-					<div class = "col-4">
-						<span data-property = "string" data-target = "enrollment_elementary_id" data-label = "School ID: "></span>
-					</div>
-					<div class = "col-4">
-						<span data-property = "string" data-target = "enrollment_elementary_address" data-label = "Address of School: "></span>
-					</div>
-				</div>
+		</div>
+	</div>
+	<div class = "border-all-light border-space container-fluid">
+		<div class = "row">
+			<div class = "col-4">
+				<label>
+					<input
+						name = "sf10_enrollment_elementary_boolean"
+						type = "checkbox"
+						{{  $student->sf10_enrollment_elementary_boolean == true ? "checked" : "" }}
+					>
+					<span>Elementary School Completer</span>
+				</label>
 			</div>
-
+			<div class = "col-4">
+				<label>
+					<span>General Average:&nbsp;</span>
+					<input
+						name = "sf10_enrollment_elementary_average"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_elementary_average }}"
+					>
+				</label>
+			</div>
+			<div class = "col-4">
+				<label>
+					<span>Citation (If Any):&nbsp;</span>
+					<input
+						name = "sf10_enrollment_elementary_citation"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_elementary_citation }}"
+					>
+				</label>
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col-4">
+				<label>
+					<span>Name of Elementary School:&nbsp;</span>
+					<input
+						name = "sf10_enrollment_elementary_name"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_elementary_name }}"
+					>
+				</label>
+			</div>
+			<div class = "col-4">
+				<label>
+					<span>School ID:&nbsp;</span>
+					<input
+						name = "sf10_enrollment_elementary_id"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_elementary_id }}"
+					>
+				</label>
+			</div>
+			<div class = "col-4">
+				<label>
+					<span>Address of School:&nbsp;</span>
+					<input
+						name = "sf10_enrollment_elementary_address"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_elementary_address }}"
+					>
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class = "row">
+		<div class = "col">
 			<span class = "break"></span>
 			<span>Other Credential Presented</span>
 			<span class = "break"></span>
-
-			<div class = "border-all-light border-space">
-				<div class = "row">
-					<div class = "col-4">
-						<label>
-							<input type = "checkbox" data-property = "boolean" data-target = "enrollment_other_pept_boolean">
-							<span>PEPT Passer |&nbsp;</span>
-							<span class = "width-100" data-property = "string" data-target = "enrollment_other_pept_rating" data-label = "Rating: "></span>
-						</label>
-					</div>
-					<div class = "col-4">
-						<label>
-							<input type = "checkbox" data-property = "boolean" data-target = "enrollment_other_alsae_boolean">
-							<span>ALS A&E Passer |&nbsp;</span>
-							<span class = "width-100" data-property = "string" data-target = "enrollment_other_alsae_rating" data-label = "Rating: "></span>
-						</label>
-					</div>
-					<div class = "col-4">
-						<label>
-							<input type = "checkbox" data-property = "boolean" data-target = "enrollment_other_specify_boolean">
-							<span>Others |&nbsp;</span>
-							<span class = "width-100"  data-property = "string" data-target = "enrollment_other_specify_rating" data-label = "Please specify: "></span>
-						</label>
-					</div>
-				</div>
-				<div class = "row">
-					<div class = "col-6">
-						<span data-property = "date" data-target = "enrollment_other_date" data-label = "Date of Examination/Assessment (MM/DD/YYYY): "></span>
-					</div>
-					<div class = "col-6">
-						<span data-property = "string" data-target = "enrollment_other_location" data-label = "Name and Address of Testing Center: "></span>
-					</div>
-				</div>
+		</div>
+	</div>
+	<div class = "border-all-light border-space container-fluid">
+		<div class = "row">
+			<div class = "col-4">
+				<label>
+					<input
+						name = "sf10_enrollment_other_pept_boolean"
+						type = "checkbox"
+						{{  $student->sf10_enrollment_other_pept_boolean == true ? "checked" : "" }}
+					>
+					<span>PEPT Passer | Rating:&nbsp;</span>
+					<input
+						name = "sf10_enrollment_other_pept_rating"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_other_pept_rating }}"
+					>
+				</label>
+			</div>
+			<div class = "col-4">
+				<label>
+					<input
+						name = "sf10_enrollment_other_alsae_boolean"
+						type = "checkbox"
+						{{  $student->sf10_enrollment_other_alsae_boolean == true ? "checked" : "" }}
+					>
+					<span>ALS A&E Passer | Rating:&nbsp;</span>
+					<input
+						name = "sf10_enrollment_other_alsae_rating"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_other_alsae_rating }}"
+					>
+				</label>
+			</div>
+			<div class = "col-4">
+				<label>
+					<input
+						name = "sf10_enrollment_other_specify_boolean"
+						type = "checkbox"
+						{{  $student->sf10_enrollment_other_specify_boolean == true ? "checked" : "" }}
+					>
+					<span>Others | Please specify:&nbsp;</span>
+					<input
+						name = "sf10_enrollment_other_specify_rating"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_other_specify_rating }}"
+					>
+				</label>
 			</div>
 		</div>
-
-		<!-- Scholastic record 7-8 -->
-		<div class = "col-12">
-			
-			<h6 class = "heading">Scholastic Record</h6>
-
-			@include('layouts.students.sf10-table', ['grade' => 7])
-			@include('layouts.students.sf10-table', ['grade' => 8])
-
+		<div class = "row">
+			<div class = "col-6">
+				<label>
+					<span>Date of Examination/Assessment (MM/DD/YYYY):&nbsp;</span>
+					<input
+						name = "sf10_enrollment_other_date"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_other_date }}"
+					>
+				</label>
+			</div>
+			<div class = "col-6">
+				<label>
+					<span>Name and Address of Testing Center:&nbsp;</span>
+					<input
+						name = "sf10_enrollment_other_location"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->sf10_enrollment_other_location }}"
+					>
+				</label>
+			</div>
 		</div>
-
-		<!-- Certification -->
-		<div class = "col-12">
-			
-			@include('layouts.students.sf10-certification')
-				
-		</div>
-
 	</div>
-</section>
+
+	<!-- Scholastic record 7-8 -->
+	<div class = "row">
+		<div class = "col">
+			<h6 class = "heading">Scholastic Record</h6>
+		</div>
+	</div>
+
+	@include('layouts.students.sf10-scholastic-record', ['grade' => 7])
+	@include('layouts.students.sf10-scholastic-record', ['grade' => 8])
+
+	<!-- Certification -->
+	@include('layouts.students.sf10-certification')
+
+</div>

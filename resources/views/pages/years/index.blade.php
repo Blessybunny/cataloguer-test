@@ -1,10 +1,10 @@
 @extends('layouts.general.page')
 
-@section('title') Cataloger - Student Manager @endsection
+@section('title') Cataloger - School Year Manager @endsection
 
 @section('content')
 
-<form action = "{{ url('/students') }}" method = "POST">
+<form action = "{{ url('/years') }}" method = "POST">
 
 	@csrf
 
@@ -20,13 +20,13 @@
 
 			<!-- Header -->
 			<div class = "col">
-				<h4 class = "text-center">Student Manager</h4>
-				<p class = "text-center">Manage student grades and forms</p>
+				<h4 class = "text-center">School Year Manager</h4>
+				<p class = "text-center">Manage school years and monthly attendance counts</p>
 			</div>
 
 			<!-- Action -->
 			<div class = "col">
-				<a href = "{{ url('/students/create') }}">
+				<a href = "{{ url('/years/create') }}">
 					<button class = "button float-right" type = "button">Add</button>
 				</a>
 			</div>
@@ -38,7 +38,7 @@
 			<div class = "col">
 				<hr>
 				<h6 class = "text-center">Index</h6>
-				<p class = "text-center">Students</p>
+				<p class = "text-center">School Years</p>
 				<hr>
 			</div>
 
@@ -56,7 +56,7 @@
 						style = "margin-right: 5px;"
 					>
 					<button class = "button-small" type = "submit" style = "margin-right: 5px;">Search</button>
-					<a href = "{{ url('/students') }}">
+					<a href = "{{ url('/years') }}">
 						<button class = "button-small" type = "button">Clear</button>
 					</a>
 				</label>
@@ -77,7 +77,7 @@
 
 					@php
 
-						$students = $results;
+						$years = $results;
 
 					@endphp
 
@@ -93,32 +93,16 @@
 			<div class = "col">
 				<table class = "table">
 					<tr>
-						<th>LRN</th>
-						<th>Name</th>
-						<th colspan = "4">Actions</th>
+						<th>School Year</th>
+						<th>Action</th>
 					</tr>
 
-					@foreach ($students as $student)
+					@foreach ($years as $year)
 
 						<tr>
-							<td>{{ $student->info_lrn }}</td>
-							<td>
-								<span class = "text-uppercase">{{ $student->info_name_last }},</span>
-								<span class = "text-capitalize">{{ $student->info_name_first }}</span>
-								<span class = "text-capitalize">{{ $student->info_name_middle }}</span>
-								<span class = "text-capitalize">{{ $student->info_name_suffix }}</span>
-							</td>
+							<td>{{ $year->year }}-{{ $year->year + 1 }}</td>
 							<td class = "text-center">
-								<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
-							</td>
-							<td class = "text-center">
-								<a href = "#">Edit Sections / School Years</a>
-							</td>
-							<td class = "text-center">
-								<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
-							</td>
-							<td class = "text-center">
-								<a href = "#">View Progress Report</a>
+								<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
 							</td>
 						</tr>
 

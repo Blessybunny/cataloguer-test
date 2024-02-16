@@ -1,224 +1,534 @@
-<section class = "container paper">
+<div class = "container paper">
 	<div class = "row">
-		
-		<!-- Front -->
+
+		<!-- Left -->
 		<div class = "col-6">
+			<div class = "container-fluid">
 
-			<h6 class = "heading">Learner's Progress Report Card (SF9)</h6>
-
-			<div class = "row">
-				<div class = "col-3">
-					<img src = "{{ asset('assets/img/deped-2.png') }}" height = 100>
-				</div>
-				<div class = "col-6 align-middle">
-					<span>Republic of the Philippines</span>
-					<span>Department of Education</span>
-					<span>Cordillera Administrative Region</span>
-					<span>Division of Baguio City</span>
-					<h6>Irisan National High School</h6>
-					<span>Purok 3, Irisan, Baguio City</span>
-				</div>
-				<div class = "col-3">
-					<img class = "float-right"  src = "{{ asset('assets/img/irisan.png') }}" height = 100>
-				</div>
-			</div>
-
-			<br>
-
-			<div class = "row">
-				<div class = "col-12">
-					<span data-property = "string" data-target = "info_lrn" data-label = "Leaner Reference Number: "></span>
-					<div class = "display-flex">
-						Name:&nbsp;
-						<span class = "text-uppercase" data-property = "string" data-target = "info_name_last"></span>,&nbsp;
-						<span data-property = "string" data-target = "info_name_first"></span>&nbsp;
-						<span data-property = "string" data-target = "info_name_middle"></span>&nbsp;
-						<span data-property = "string" data-target = "info_name_suffix"></span>&nbsp;
+				<!-- LOCKED: Header -->
+				<div class = "row">
+					<div class = "col">
+						<h6 class = "heading">Learner's Progress Report Card (SF9)</h6>
 					</div>
 				</div>
-				<div class = "col-6">
-					<span data-property = "string" data-target = "report_g{{ $grade }}_age" data-label = "Age: "></span>
-					<span>Grade: {{ $grade }}</span>
+				<div class = "row">
+					<div class = "col-3">
+						<img src = "{{ asset('assets/img/deped-2.png') }}" height = 100>
+					</div>
+					<div class = "col-6 text-center">
+						<span>Republic of the Philippines</span>
+						<span>Department of Education</span>
+						<span>Cordillera Administrative Region</span>
+						<span>Division of Baguio City</span>
+						<h6>Irisan National High School</h6>
+						<span>Purok 3, Irisan, Baguio City</span>
+					</div>
+					<div class = "col-3">
+						<img class = "float-right"  src = "{{ asset('assets/img/irisan.png') }}" height = 100>
+					</div>
 				</div>
-				<div class = "col-6">
-					<span data-property = "string" data-target = "info_sex" data-label = "Sex: "></span>
-					<span data-property = "string" data-target = "report_g{{ $grade }}_section" data-label = "Section: "></span>
+
+				<br>
+				
+				<!-- Info -->
+				<div class = "row">
+					<div class = "col">
+						<span onclick = "window.scrollTo(0, 0)">Leaner Reference Number: {{ $student->info_lrn }}</span>
+						<span onclick = "window.scrollTo(0, 0)">Name: {{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</span>
+					</div>
 				</div>
-				<div class = "col-12">
-					<span data-property = "string" data-target = "report_g{{ $grade }}_year" data-label = "School Year: "></span>
+				<div class = "row">
+					<div class = "col">
+						<label>
+							<span>Age:&nbsp;</span>
+							<input
+								name = "sf9_g{{ $grade }}_report_age"
+								type = "text"
+								maxlength = "50"
+								value = "{{ $student->{'sf9_g'.$grade.'_report_age'} }}"
+							>
+						</label>
+						<span>Grade: {{ $grade }}</span>
+					</div>
+					<div class = "col">
+						<span onclick = "window.scrollTo(0, 0)">Sex: {{ $student->info_sex }}</span>
+						<label>
+							<span>Section:&nbsp;</span>
+							<select>
+								<option></option>
+							</select>
+						</label>
+					</div>
 				</div>
+				<div class = "row">
+					<div class = "col">
+						<label>
+							<span>School Year:&nbsp;</span>
+							<select>
+								<option></option>
+							</select>
+						</label>
+					</div>
+				</div>
+
+				<br>
+
+				<!-- Letter -->
+				<div class = "row">
+					<div class = "col">
+						<span>Dear parent:</span>
+						<span style = "text-indent: 60px;">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
+					</div>
+				</div>
+
+				<br>
+
+				<div class = "row">
+					<div class = "col">
+						<label class = "flex-direction-column">
+							<select class = "border-bottom-dark text-center">
+								<option>Sample</option>
+							</select>
+							<span>OIC - Office of the Principal</span>
+						</label>
+					</div>
+					<div class = "col">
+						<label class = "flex-direction-column">
+							<select class = "border-bottom-dark text-center">
+								<option>Sample</option>
+							</select>
+							<span>Adviser</span>
+						</label>
+					</div>
+				</div>
+
+				<br>
+
+				<!-- Transfer -->
+				<div class = "row">
+					<div class = "col">
+						<h6>Certificate Of Transfer</h6>
+						<label>
+							<span>Admitted to:</span>
+							<input
+								name = "sf9_g{{ $grade }}_report_transfer_input_1"
+								type = "text"
+								maxlength = "50"
+								value = "{{ $student->{'sf9_g'.$grade.'_report_transfer_input_1'} }}"
+							>
+						</label>
+						<label>
+							<span>Approved:</span>
+							<input
+								name = "sf9_g{{ $grade }}_report_transfer_input_2"
+								type = "text"
+								maxlength = "50"
+								value = "{{ $student->{'sf9_g'.$grade.'_report_transfer_input_2'} }}"
+							>
+						</label>
+						<br>
+					</div>
+				</div>
+				<div class = "row">
+					<div class = "col-6 text-center">
+						<span>OIC - Office of the Principal</span>
+					</div>
+					<div class = "col-6 text-center">
+						<span>Adviser</span>
+					</div>
+				</div>
+
+				<br>
+
+				<div class = "row">
+					<div class = "col">
+						<h6>Cancellation of Eligibility to Transfer</h6>
+						<label>
+							<span>Admitted to:</span>
+							<input
+								name = "sf9_g{{ $grade }}_report_transfer_input_3"
+								type = "text"
+								maxlength = "50"
+								value = "{{ $student->{'sf9_g'.$grade.'_report_transfer_input_3'} }}"
+							>
+						</label>
+						<label>
+							<span>Date:</span>
+							<input
+								name = "sf9_g{{ $grade }}_report_transfer_input_date"
+								type = "text"
+								maxlength = "50"
+								value = "{{ $student->{'sf9_g'.$grade.'_report_transfer_input_date'} }}"
+							>
+						</label>
+					</div>
+				</div>
+				<br>
+
 			</div>
-
-			<br>
-
-			<div class = "row">
-				<div class = "col-12">
-					<span>Dear parent:</span>
-					<span class = "paragraph-indent">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
-					<br>
-				</div>
-				<div class = "col-6 align-middle">
-					<span class = "border-bottom-dark span-space" data-property = "string" data-target = "report_g{{ $grade }}_principal"></span>
-					OIC - Office of the Principal
-				</div>
-				<div class = "col-6 align-middle">
-					<span class = "border-bottom-dark span-space" data-property = "string" data-target = "report_g{{ $grade }}_adviser"></span>
-					Adviser
-				</div>
-			</div>
-
-			<br>
-			<br>
-
-			<div class = "row">
-				<div class = "col-12">
-					<h6>Certificate Of Transfer</h6>
-					<span data-property = "string" data-target = "report_g{{ $grade }}_transfer_input_1" data-label = "Admitted to: "></span>
-					<span data-property = "string" data-target = "report_g{{ $grade }}_transfer_input_2" data-label = "Eligibility for Admission to: "></span>
-					<span>Approved:</span>
-					<br>
-				</div>
-				<div class = "col-6 align-middle">
-					<span class = "border-bottom-dark span-space" data-property = "string" data-target = "report_g{{ $grade }}_principal"></span>
-					OIC - Office of the Principal
-				</div>
-				<div class = "col-6 align-middle">
-					<span class = "border-bottom-dark span-space" data-property = "string" data-target = "report_g{{ $grade }}_adviser"></span>
-					Adviser
-				</div>
-			</div>
-
-			<br>
-			<br>
-
-			<div class = "row">
-				<div class = "col-12">
-					<h6>Cancellation of Eligibility to Transfer</h6>
-					<span data-property = "string" data-target = "report_g{{ $grade }}_transfer_input_3" data-label = "Admitted to: "></span>
-					<span data-property = "string" data-target = "report_g{{ $grade }}_transfer_input_date" data-label = "Date: "></span>
-				</div>
-			</div>
-			
-			<br>
-
 		</div>
-		
+
 		<!-- Attendance -->
 		<div class = "col-6">
-			
+
 			<h6 class = "heading">Report On Attendance</h6>
 
 			<table class = "table">
+
+				<!-- Headers -->
 				<tr>
-					<th class = "align-middle">Month</th>
-					<th class = "align-middle">No. of school days</th>
-					<th class = "align-middle">No. of days present</th>
-					<th class = "align-middle">No. of days absent</th>
+					<th>Month</th>
+					<th>No. of school days</th>
+					<th>No. of days present</th>
+					<th>No. of days absent</th>
 				</tr>
+
+				<!-- October -->
 				<tr>
-					<td class = "align-middle">Oct</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_oct"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_oct"></td>
+					<td class = "text-center">Oct</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_oct_p"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_oct_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_oct_a"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_oct_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- November -->
 				<tr>
-					<td class = "align-middle">Nov</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_nov"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_nov"></td>
+					<td class = "text-center">Nov</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_nov_p"
+							type = "number"
+							min = "0"
+							max = "30"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_nov_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_nov_a"
+							type = "number"
+							min = "0"
+							max = "30"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_nov_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- December -->
 				<tr>
-					<td class = "align-middle">Dec</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_dec"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_dec"></td>
+					<td class = "text-center">Dec</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_dec_p"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_dec_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_dec_a"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_dec_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- January -->
 				<tr>
-					<td class = "align-middle">Jan</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_jan"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_jan"></td>
+					<td class = "text-center">Jan</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_jan_p"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_jan_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_jan_a"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_jan_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- February -->
 				<tr>
-					<td class = "align-middle">Feb</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_feb"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_feb"></td>
+					<td class = "text-center">Feb</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_feb_p"
+							type = "number"
+							min = "0"
+							max = "28"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_feb_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_feb_a"
+							type = "number"
+							min = "0"
+							max = "28"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_feb_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- March -->
 				<tr>
-					<td class = "align-middle">Mar</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_mar"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_mar"></td>
+					<td class = "text-center">Mar</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_mar_p"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_mar_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_mar_a"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_mar_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- April -->
 				<tr>
-					<td class = "align-middle">Apr</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_apr"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_apr"></td>
+					<td class = "text-center">Apr</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_apr_p"
+							type = "number"
+							min = "0"
+							max = "30"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_apr_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_apr_a"
+							type = "number"
+							min = "0"
+							max = "30"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_apr_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- May -->
 				<tr>
-					<td class = "align-middle">May</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_may"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_may"></td>
+					<td class = "text-center">May</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_may_p"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_may_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_may_a"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_may_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- June -->
 				<tr>
-					<td class = "align-middle">Jun</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_jun"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_jun"></td>
+					<td class = "text-center">Jun</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_jun_p"
+							type = "number"
+							min = "0"
+							max = "30"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_jun_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_jun_a"
+							type = "number"
+							min = "0"
+							max = "30"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_jun_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- July -->
 				<tr>
-					<td class = "align-middle">Jul</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_jul"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_jul"></td>
+					<td class = "text-center">Jul</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_jul_p"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_jul_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_jul_a"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_jul_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- August -->
 				<tr>
-					<td class = "align-middle">Aug</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_aug"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_aug"></td>
+					<td class = "text-center">Aug</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_aug_p"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_aug_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_aug_a"
+							type = "number"
+							min = "0"
+							max = "31"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_aug_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- September -->
 				<tr>
-					<td class = "align-middle">Sep</td>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_p_sep"></td>
-					<td class = "align-middle" data-property = "string" data-target = "attendance_g{{ $grade }}_a_sep"></td>
+					<td class = "text-center">Sep</td>
+					<td class = "text-center"></td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_sep_p"
+							type = "number"
+							min = "0"
+							max = "30"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_sep_p'} }}"
+						>
+					</td>
+					<td>
+						<input
+							class = "text-center"
+							name = "sf9_g{{ $grade }}_attendance_sep_a"
+							type = "number"
+							min = "0"
+							max = "30"
+							value = "{{ $student->{'sf9_g'.$grade.'_attendance_sep_a'} }}"
+						>
+					</td>
 				</tr>
+
+				<!-- Total -->
 				<tr>
-					<th class = "align-middle">Total</th>
-					<td class = "align-middle"></td>
-					<td class = "align-middle" data-property = "total" data-targets = '[
-						"attendance_g{{ $grade }}_p_jan",
-						"attendance_g{{ $grade }}_p_feb",
-						"attendance_g{{ $grade }}_p_mar",
-						"attendance_g{{ $grade }}_p_apr",
-						"attendance_g{{ $grade }}_p_may",
-						"attendance_g{{ $grade }}_p_jun",
-						"attendance_g{{ $grade }}_p_jul",
-						"attendance_g{{ $grade }}_p_aug",
-						"attendance_g{{ $grade }}_p_sep",
-						"attendance_g{{ $grade }}_p_oct",
-						"attendance_g{{ $grade }}_p_nov",
-						"attendance_g{{ $grade }}_p_dec"
+					<th class = "text-center">Total</th>
+					<td class = "text-center"></td>
+					<td class = "text-center" data-property = "total" data-targets = '[
+						"sf9_g{{ $grade }}_attendance_jan_p",
+						"sf9_g{{ $grade }}_attendance_feb_p",
+						"sf9_g{{ $grade }}_attendance_mar_p",
+						"sf9_g{{ $grade }}_attendance_apr_p",
+						"sf9_g{{ $grade }}_attendance_may_p",
+						"sf9_g{{ $grade }}_attendance_jun_p",
+						"sf9_g{{ $grade }}_attendance_jul_p",
+						"sf9_g{{ $grade }}_attendance_aug_p",
+						"sf9_g{{ $grade }}_attendance_sep_p",
+						"sf9_g{{ $grade }}_attendance_oct_p",
+						"sf9_g{{ $grade }}_attendance_nov_p",
+						"sf9_g{{ $grade }}_attendance_dec_p"
 					]'></td>
-					<td class = "align-middle" data-property = "total" data-targets = '[
-						"attendance_g{{ $grade }}_a_jan",
-						"attendance_g{{ $grade }}_a_feb",
-						"attendance_g{{ $grade }}_a_mar",
-						"attendance_g{{ $grade }}_a_apr",
-						"attendance_g{{ $grade }}_a_may",
-						"attendance_g{{ $grade }}_a_jun",
-						"attendance_g{{ $grade }}_a_jul",
-						"attendance_g{{ $grade }}_a_aug",
-						"attendance_g{{ $grade }}_a_sep",
-						"attendance_g{{ $grade }}_a_oct",
-						"attendance_g{{ $grade }}_a_nov",
-						"attendance_g{{ $grade }}_a_dec"
+					<td class = "text-center" data-property = "total" data-targets = '[
+						"sf9_g{{ $grade }}_attendance_jan_a",
+						"sf9_g{{ $grade }}_attendance_feb_a",
+						"sf9_g{{ $grade }}_attendance_mar_a",
+						"sf9_g{{ $grade }}_attendance_apr_a",
+						"sf9_g{{ $grade }}_attendance_may_a",
+						"sf9_g{{ $grade }}_attendance_jun_a",
+						"sf9_g{{ $grade }}_attendance_jul_a",
+						"sf9_g{{ $grade }}_attendance_aug_a",
+						"sf9_g{{ $grade }}_attendance_sep_a",
+						"sf9_g{{ $grade }}_attendance_oct_a",
+						"sf9_g{{ $grade }}_attendance_nov_a",
+						"sf9_g{{ $grade }}_attendance_dec_a"
 					]'></td>
 				</tr>
+
 			</table>
 
 			<span class = "font-bold text-uppercase">Parent / Guardian's Signature:</span>
@@ -232,6 +542,6 @@
 			<span>4th Quarter:</span>
 
 		</div>
-		
+
 	</div>
-</section>
+</div>

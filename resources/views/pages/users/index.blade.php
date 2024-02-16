@@ -1,52 +1,196 @@
 @extends('layouts.general.page')
 
-@section('title')
-
-Users
-
-@endsection
-
-@section('head')
-
-<link href = "{{ asset('assets/less/students.less') }}" rel = "stylesheet" type = "text/less">
-
-@endsection
+@section('title') Cataloger - User Manager @endsection
 
 @section('content')
-	
-<section id = "students" class = "container">
-	<div class = "row">
-		<div class = "col-12">
 
-			<!-- Table -->
-			<br>
-			<h4 class = "align-middle">User Roster</h4>
-			<br>
-			
-			<table class = "table">
-				<tr>
-					<th class = "align-middle" style = "width: 150px">DepEd ID</th>
-					<th class = "align-middle">Name</th>
-					<th class = "align-middle" style = "width: 150px">Role</th>
-				</tr>
-				@foreach ($users as $user)
-					<tr>
-						<td>{{ $user->info_deped_id }}</td>
-						<td>
-							<span class = "text-uppercase">{{ $user->info_name_last }},</span>
-							<span class = "text-capitalize">{{ $user->info_name_first }}</span>
-							<span class = "text-capitalize">{{ $user->info_name_middle }}</span>
-							<span class = "text-capitalize">{{ $user->info_name_suffix }}</span>
-						</td>
-						<td class = "align-middle">
-							{{ $user->info_role }}
-						</td>
-					</tr>
-				@endforeach
-			</table>
+<form action = "{{ url('/users') }}" method = "POST">
+
+	@csrf
+
+	<section class = "container">
+		<div class = "row">
+
+			<!-- Action -->
+			<div class = "col">
+				<a href = "{{ url('/dashboard') }}">
+					<button class = "button" type = "button">Back</button>
+				</a>
+			</div>
+
+			<!-- Header -->
+			<div class = "col">
+				<h4 class = "text-center">User Manager</h4>
+				<p class = "text-center">Manage user permission and access</p>
+			</div>
+
+			<!-- Action -->
+			<div class = "col">
+				<a href = "{{ url('/users/create') }}">
+					<button class = "button float-right" type = "button">Add</button>
+				</a>
+			</div>
 
 		</div>
-	</div>
-</section>
+		<div class = "row">
+
+			<!-- Subtitle -->
+			<div class = "col">
+				<hr>
+				<h6 class = "text-center">Index</h6>
+				<p class = "text-center">Users</p>
+				<hr>
+			</div>
+
+		</div>
+		<div class = "row">
+
+			<!-- Search -->
+			<div class = "col">
+				<label>
+					<input
+						name = "cake"
+						type = "text"
+						placeholder = "Search query"
+						value = "{{ isset($cake) ? $cake : '' }}"
+						style = "margin-right: 5px;"
+					>
+					<button class = "button-small" type = "submit" style = "margin-right: 5px;">Search</button>
+					<a href = "{{ url('/users') }}">
+						<button class = "button-small" type = "button">Clear</button>
+					</a>
+				</label>
+
+				@if (isset($isSearched))
+
+					@if(count($results) > 0)
+
+						<br>
+						<p class = "text-center">Found results for <b>{{ $cake }}</b></p>
+
+					@else
+
+						<br>
+						<p class = "text-center">No results for <b>{{ $cake }}</b></p>
+
+					@endif
+
+					@php
+
+						$users = $results;
+
+					@endphp
+
+				@endif
+
+				<hr>
+			</div>
+
+		</div>
+		<div class = "row">
+
+			<!-- Index -->
+			<div class = "col">
+				<table class = "table">
+					<tr>
+						<th>DepEd ID</th>
+						<th>Name</th>
+						<th>Role</th>
+						<th>Advisory Grade / Section</th>
+						<th>Action</th>
+					</tr>
+
+					@foreach ($users as $user)
+
+						@foreach ($roles as $role)
+
+							@if ($role->id == $user->db_role_id)
+
+								<tr>
+									<td>{{ $user->email }}</td>
+									<td>
+										<span class = "text-uppercase">{{ $user->name_last }},</span>
+										<span class = "text-capitalize">{{ $user->name_first }}</span>
+										<span class = "text-capitalize">{{ $user->name_middle }}</span>
+										<span class = "text-capitalize">{{ $user->name_suffix }}</span>
+									</td>
+									<td class = "text-center">{{ $role->role }}</td>
+									<td class = "text-center">
+
+										<!-- Role names (see seeders) -->
+
+										@if ($role->role == "Principal")
+
+											N/A
+
+										@endif
+
+										@if ($role->role == "Administrator")
+
+											N/A
+
+										@endif
+
+										@if ($role->role == "Grade Level Coordinator")
+
+											@foreach ($grades as $grade)
+
+												@if ($user->db_grade_id == $grade->id)
+
+													Grade {{ $grade->grade }}
+
+													@break
+
+												@endif
+
+											@endforeach
+
+										@endif
+
+										@if ($role->role == "Adviser" || $role->role == "Teacher")
+
+											@foreach ($sections as $section)
+
+													@if ($section->id == $user->db_section_id)
+
+															@foreach ($grades as $grade)
+
+																@if ($grade->id == $section->db_grade_id)
+
+																	Grade {{ $grade->grade }} / {{ $section->section }}
+
+																	@break
+
+																@endif
+
+															@endforeach
+
+													@endif
+
+											@endforeach
+
+										@endif
+
+									</td>
+									<td class = "text-center">
+										<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
+									</td>
+								</tr>
+
+								@break
+
+							@endif
+
+						@endforeach
+
+					@endforeach
+
+				</table>
+			</div>
+
+		</div>
+	</section>
+
+</form>
 
 @endsection

@@ -1,4 +1,4 @@
-<section class = "container">
+<div class = "container">
 	<div class = "row">
 
         <!-- Header -->
@@ -13,7 +13,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Presence</h6>
                 <div>
-                    <canvas id = "chart-attendance-p" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-attendance-p" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-attendance-p'), {
@@ -107,7 +107,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Absence</h6>
                 <div>
-                    <canvas id = "chart-attendance-a" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-attendance-a" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-attendance-a'), {
@@ -209,7 +209,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Filipino</h6>
                 <div>
-                    <canvas id = "chart-subject-fil" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-fil" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-fil'), {
@@ -271,7 +271,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">English</h6>
                 <div>
-                    <canvas id = "chart-subject-eng" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-eng" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-eng'), {
@@ -333,7 +333,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Mathematics</h6>
                 <div>
-                    <canvas id = "chart-subject-mat" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-mat" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-mat'), {
@@ -395,7 +395,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Science</h6>
                 <div>
-                    <canvas id = "chart-subject-sci" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-sci" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-sci'), {
@@ -457,7 +457,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Araling Panlipunan (AP)</h6>
                 <div>
-                    <canvas id = "chart-subject-ap" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-ap" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-ap'), {
@@ -519,7 +519,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Edukasyon sa Pagpapakatao (EP)</h6>
                 <div>
-                    <canvas id = "chart-subject-ep" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-ep" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-ep'), {
@@ -581,7 +581,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Technology and Livelihood Education (TLE)</h6>
                 <div>
-                    <canvas id = "chart-subject-tle" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-tle" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-tle'), {
@@ -643,7 +643,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">MAPEH | Music</h6>
                 <div>
-                    <canvas id = "chart-subject-mus" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-mus" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-mus'), {
@@ -705,7 +705,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">MAPEH | Arts</h6>
                 <div>
-                    <canvas id = "chart-subject-art" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-art" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-art'), {
@@ -767,7 +767,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">MAPEH | Physical Education</h6>
                 <div>
-                    <canvas id = "chart-subject-pe" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-pe" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-pe'), {
@@ -829,7 +829,7 @@
             <div class = "border-all-light chart">
                 <h6 class = "text-center">MAPEH | Health</h6>
                 <div>
-                    <canvas id = "chart-subject-hp" style = "height: 200px;"></canvas>
+                    <canvas id = "chart-subject-hp" style = "max-height: 200px;"></canvas>
                 </div>
                 <script>
                     new Chart(document.getElementById('chart-subject-hp'), {
@@ -887,4 +887,4 @@
         </div>
 
 	</div>
-</section>
+</div>

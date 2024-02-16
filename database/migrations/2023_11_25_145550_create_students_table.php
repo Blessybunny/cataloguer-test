@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up () : void {
-        // [01 - ALL] Info
+        // LOCKED: All: Info
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -17,673 +17,898 @@ return new class extends Migration {
             $table->string('info_name_middle', 50);
             $table->string('info_lrn', 50)->unique();
             $table->string('info_sex', 50);
-            $table->date('info_birthdate');
+            $table->string('info_birthdate', 50);
         });
 
-        // [02 - SF9] Report
+        // SF9: Report
         Schema::table('students', function (Blueprint $table) {
-            $table->string('report_g7_age', 50)->nullable();
-            $table->string('report_g7_section', 50)->nullable();
-            $table->string('report_g7_year', 50)->nullable();
-            $table->string('report_g7_principal', 50)->nullable();
-            $table->string('report_g7_adviser', 50)->nullable();
-            $table->string('report_g7_transfer_input_1', 50)->nullable();
-            $table->string('report_g7_transfer_input_2', 50)->nullable();
-            $table->string('report_g7_transfer_input_3', 50)->nullable();
-            $table->date('report_g7_transfer_input_date')->nullable();
+            /*'db_section_id_sf9_g7_report_section' => 'nullable',
+            'db_section_id_sf9_g8_report_section' => 'nullable',
+            'db_section_id_sf9_g9_report_section' => 'nullable',
+            'db_section_id_sf9_g10_report_section' => 'nullable',
 
-            $table->string('report_g8_age', 50)->nullable();
-            $table->string('report_g8_section', 50)->nullable();
-            $table->string('report_g8_year', 50)->nullable();
-            $table->string('report_g8_principal', 50)->nullable();
-            $table->string('report_g8_adviser', 50)->nullable();
-            $table->string('report_g8_transfer_input_1', 50)->nullable();
-            $table->string('report_g8_transfer_input_2', 50)->nullable();
-            $table->string('report_g8_transfer_input_3', 50)->nullable();
-            $table->date('report_g8_transfer_input_date')->nullable();
-
-            $table->string('report_g9_age', 50)->nullable();
-            $table->string('report_g9_section', 50)->nullable();
-            $table->string('report_g9_year', 50)->nullable();
-            $table->string('report_g9_principal', 50)->nullable();
-            $table->string('report_g9_adviser', 50)->nullable();
-            $table->string('report_g9_transfer_input_1', 50)->nullable();
-            $table->string('report_g9_transfer_input_2', 50)->nullable();
-            $table->string('report_g9_transfer_input_3', 50)->nullable();
-            $table->date('report_g9_transfer_input_date')->nullable();
-
-            $table->string('report_g10_age', 50)->nullable();
-            $table->string('report_g10_section', 50)->nullable();
-            $table->string('report_g10_year', 50)->nullable();
-            $table->string('report_g10_principal', 50)->nullable();
-            $table->string('report_g10_adviser', 50)->nullable();
-            $table->string('report_g10_transfer_input_1', 50)->nullable();
-            $table->string('report_g10_transfer_input_2', 50)->nullable();
-            $table->string('report_g10_transfer_input_3', 50)->nullable();
-            $table->date('report_g10_transfer_input_date')->nullable();
-        });  
-
-        // [03 - SF9] Attendance -> present
-        Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('attendance_g7_p_jan')->nullable();
-            $table->tinyInteger('attendance_g7_p_feb')->nullable();
-            $table->tinyInteger('attendance_g7_p_mar')->nullable();
-            $table->tinyInteger('attendance_g7_p_apr')->nullable();
-            $table->tinyInteger('attendance_g7_p_may')->nullable();
-            $table->tinyInteger('attendance_g7_p_jun')->nullable();
-            $table->tinyInteger('attendance_g7_p_jul')->nullable();
-            $table->tinyInteger('attendance_g7_p_aug')->nullable();
-            $table->tinyInteger('attendance_g7_p_sep')->nullable();
-            $table->tinyInteger('attendance_g7_p_oct')->nullable();
-            $table->tinyInteger('attendance_g7_p_nov')->nullable();
-            $table->tinyInteger('attendance_g7_p_dec')->nullable();
             
-            $table->tinyInteger('attendance_g8_p_jan')->nullable();
-            $table->tinyInteger('attendance_g8_p_feb')->nullable();
-            $table->tinyInteger('attendance_g8_p_mar')->nullable();
-            $table->tinyInteger('attendance_g8_p_apr')->nullable();
-            $table->tinyInteger('attendance_g8_p_may')->nullable();
-            $table->tinyInteger('attendance_g8_p_jun')->nullable();
-            $table->tinyInteger('attendance_g8_p_jul')->nullable();
-            $table->tinyInteger('attendance_g8_p_aug')->nullable();
-            $table->tinyInteger('attendance_g8_p_sep')->nullable();
-            $table->tinyInteger('attendance_g8_p_oct')->nullable();
-            $table->tinyInteger('attendance_g8_p_nov')->nullable();
-            $table->tinyInteger('attendance_g8_p_dec')->nullable();
+                Create a "last remembered value" field in case a principal or adviser's role is changed
+                Split variables into two for sf9 principal (letter/transfer)
+
+                No db_adviser_id, use db_section_id to grab said advisory user (this will become visible after a save refresh)
+            */
+            // db_year_id (standard integer)
+            $table->string('sf9_g7_report_age', 50)->nullable();
+            $table->string('sf9_g7_report_year', 50)->nullable();
+            $table->string('sf9_g7_report_principal', 50)->nullable();
+            $table->string('sf9_g7_report_adviser', 50)->nullable();
+            $table->string('sf9_g7_report_transfer_input_1', 50)->nullable();
+            $table->string('sf9_g7_report_transfer_input_2', 50)->nullable();
+            $table->string('sf9_g7_report_transfer_input_3', 50)->nullable();
+            $table->string('sf9_g7_report_transfer_input_date', 50)->nullable();
+
+            $table->string('sf9_g8_report_age', 50)->nullable();
+            $table->string('sf9_g8_report_year', 50)->nullable();
+            $table->string('sf9_g8_report_principal', 50)->nullable();
+            $table->string('sf9_g8_report_adviser', 50)->nullable();
+            $table->string('sf9_g8_report_transfer_input_1', 50)->nullable();
+            $table->string('sf9_g8_report_transfer_input_2', 50)->nullable();
+            $table->string('sf9_g8_report_transfer_input_3', 50)->nullable();
+            $table->string('sf9_g8_report_transfer_input_date', 50)->nullable();
+
+            $table->string('sf9_g9_report_age', 50)->nullable();
+            $table->string('sf9_g9_report_year', 50)->nullable();
+            $table->string('sf9_g9_report_principal', 50)->nullable();
+            $table->string('sf9_g9_report_adviser', 50)->nullable();
+            $table->string('sf9_g9_report_transfer_input_1', 50)->nullable();
+            $table->string('sf9_g9_report_transfer_input_2', 50)->nullable();
+            $table->string('sf9_g9_report_transfer_input_3', 50)->nullable();
+            $table->string('sf9_g9_report_transfer_input_date', 50)->nullable();
+
+            $table->string('sf9_g10_report_age', 50)->nullable();
+            $table->string('sf9_g10_report_year', 50)->nullable();
+            $table->string('sf9_g10_report_principal', 50)->nullable();
+            $table->string('sf9_g10_report_adviser', 50)->nullable();
+            $table->string('sf9_g10_report_transfer_input_1', 50)->nullable();
+            $table->string('sf9_g10_report_transfer_input_2', 50)->nullable();
+            $table->string('sf9_g10_report_transfer_input_3', 50)->nullable();
+            $table->string('sf9_g10_report_transfer_input_date', 50)->nullable();
+        });
+
+        // SF9: Attendance -> present
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_attendance_jan_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_feb_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_mar_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_apr_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_may_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_jun_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_jul_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_aug_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_sep_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_oct_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_nov_p')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_dec_p')->nullable();
             
-            $table->tinyInteger('attendance_g9_p_jan')->nullable();
-            $table->tinyInteger('attendance_g9_p_feb')->nullable();
-            $table->tinyInteger('attendance_g9_p_mar')->nullable();
-            $table->tinyInteger('attendance_g9_p_apr')->nullable();
-            $table->tinyInteger('attendance_g9_p_may')->nullable();
-            $table->tinyInteger('attendance_g9_p_jun')->nullable();
-            $table->tinyInteger('attendance_g9_p_jul')->nullable();
-            $table->tinyInteger('attendance_g9_p_aug')->nullable();
-            $table->tinyInteger('attendance_g9_p_sep')->nullable();
-            $table->tinyInteger('attendance_g9_p_oct')->nullable();
-            $table->tinyInteger('attendance_g9_p_nov')->nullable();
-            $table->tinyInteger('attendance_g9_p_dec')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_jan_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_feb_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_mar_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_apr_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_may_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_jun_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_jul_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_aug_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_sep_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_oct_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_nov_p')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_dec_p')->nullable();
             
-            $table->tinyInteger('attendance_g10_p_jan')->nullable();
-            $table->tinyInteger('attendance_g10_p_feb')->nullable();
-            $table->tinyInteger('attendance_g10_p_mar')->nullable();
-            $table->tinyInteger('attendance_g10_p_apr')->nullable();
-            $table->tinyInteger('attendance_g10_p_may')->nullable();
-            $table->tinyInteger('attendance_g10_p_jun')->nullable();
-            $table->tinyInteger('attendance_g10_p_jul')->nullable();
-            $table->tinyInteger('attendance_g10_p_aug')->nullable();
-            $table->tinyInteger('attendance_g10_p_sep')->nullable();
-            $table->tinyInteger('attendance_g10_p_oct')->nullable();
-            $table->tinyInteger('attendance_g10_p_nov')->nullable();
-            $table->tinyInteger('attendance_g10_p_dec')->nullable();
-        });
-
-        // [04 - SF9] Attendance -> absent
-        Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('attendance_g7_a_jan')->nullable();
-            $table->tinyInteger('attendance_g7_a_feb')->nullable();
-            $table->tinyInteger('attendance_g7_a_mar')->nullable();
-            $table->tinyInteger('attendance_g7_a_apr')->nullable();
-            $table->tinyInteger('attendance_g7_a_may')->nullable();
-            $table->tinyInteger('attendance_g7_a_jun')->nullable();
-            $table->tinyInteger('attendance_g7_a_jul')->nullable();
-            $table->tinyInteger('attendance_g7_a_aug')->nullable();
-            $table->tinyInteger('attendance_g7_a_sep')->nullable();
-            $table->tinyInteger('attendance_g7_a_oct')->nullable();
-            $table->tinyInteger('attendance_g7_a_nov')->nullable();
-            $table->tinyInteger('attendance_g7_a_dec')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_jan_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_feb_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_mar_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_apr_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_may_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_jun_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_jul_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_aug_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_sep_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_oct_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_nov_p')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_dec_p')->nullable();
             
-            $table->tinyInteger('attendance_g8_a_jan')->nullable();
-            $table->tinyInteger('attendance_g8_a_feb')->nullable();
-            $table->tinyInteger('attendance_g8_a_mar')->nullable();
-            $table->tinyInteger('attendance_g8_a_apr')->nullable();
-            $table->tinyInteger('attendance_g8_a_may')->nullable();
-            $table->tinyInteger('attendance_g8_a_jun')->nullable();
-            $table->tinyInteger('attendance_g8_a_jul')->nullable();
-            $table->tinyInteger('attendance_g8_a_aug')->nullable();
-            $table->tinyInteger('attendance_g8_a_sep')->nullable();
-            $table->tinyInteger('attendance_g8_a_oct')->nullable();
-            $table->tinyInteger('attendance_g8_a_nov')->nullable();
-            $table->tinyInteger('attendance_g8_a_dec')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_jan_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_feb_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_mar_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_apr_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_may_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_jun_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_jul_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_aug_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_sep_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_oct_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_nov_p')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_dec_p')->nullable();
+        });
+
+        // SF9: Attendance -> absent
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_attendance_jan_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_feb_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_mar_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_apr_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_may_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_jun_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_jul_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_aug_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_sep_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_oct_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_nov_a')->nullable();
+            $table->tinyInteger('sf9_g7_attendance_dec_a')->nullable();
             
-            $table->tinyInteger('attendance_g9_a_jan')->nullable();
-            $table->tinyInteger('attendance_g9_a_feb')->nullable();
-            $table->tinyInteger('attendance_g9_a_mar')->nullable();
-            $table->tinyInteger('attendance_g9_a_apr')->nullable();
-            $table->tinyInteger('attendance_g9_a_may')->nullable();
-            $table->tinyInteger('attendance_g9_a_jun')->nullable();
-            $table->tinyInteger('attendance_g9_a_jul')->nullable();
-            $table->tinyInteger('attendance_g9_a_aug')->nullable();
-            $table->tinyInteger('attendance_g9_a_sep')->nullable();
-            $table->tinyInteger('attendance_g9_a_oct')->nullable();
-            $table->tinyInteger('attendance_g9_a_nov')->nullable();
-            $table->tinyInteger('attendance_g9_a_dec')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_jan_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_feb_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_mar_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_apr_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_may_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_jun_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_jul_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_aug_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_sep_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_oct_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_nov_a')->nullable();
+            $table->tinyInteger('sf9_g8_attendance_dec_a')->nullable();
             
-            $table->tinyInteger('attendance_g10_a_jan')->nullable();
-            $table->tinyInteger('attendance_g10_a_feb')->nullable();
-            $table->tinyInteger('attendance_g10_a_mar')->nullable();
-            $table->tinyInteger('attendance_g10_a_apr')->nullable();
-            $table->tinyInteger('attendance_g10_a_may')->nullable();
-            $table->tinyInteger('attendance_g10_a_jun')->nullable();
-            $table->tinyInteger('attendance_g10_a_jul')->nullable();
-            $table->tinyInteger('attendance_g10_a_aug')->nullable();
-            $table->tinyInteger('attendance_g10_a_sep')->nullable();
-            $table->tinyInteger('attendance_g10_a_oct')->nullable();
-            $table->tinyInteger('attendance_g10_a_nov')->nullable();
-            $table->tinyInteger('attendance_g10_a_dec')->nullable();
-        });
-
-        // [05 - SF9] Values -> maka - diyos
-        Schema::table('students', function (Blueprint $table) {
-            $table->string('values_g7_md_s1_qr1', 2)->nullable();
-            $table->string('values_g7_md_s1_qr2', 2)->nullable();
-            $table->string('values_g7_md_s1_qr3', 2)->nullable();
-            $table->string('values_g7_md_s1_qr4', 2)->nullable();
-            $table->string('values_g7_md_s2_qr1', 2)->nullable();
-            $table->string('values_g7_md_s2_qr2', 2)->nullable();
-            $table->string('values_g7_md_s2_qr3', 2)->nullable();
-            $table->string('values_g7_md_s2_qr4', 2)->nullable();
-
-            $table->string('values_g8_md_s1_qr1', 2)->nullable();
-            $table->string('values_g8_md_s1_qr2', 2)->nullable();
-            $table->string('values_g8_md_s1_qr3', 2)->nullable();
-            $table->string('values_g8_md_s1_qr4', 2)->nullable();
-            $table->string('values_g8_md_s2_qr1', 2)->nullable();
-            $table->string('values_g8_md_s2_qr2', 2)->nullable();
-            $table->string('values_g8_md_s2_qr3', 2)->nullable();
-            $table->string('values_g8_md_s2_qr4', 2)->nullable();
-
-            $table->string('values_g9_md_s1_qr1', 2)->nullable();
-            $table->string('values_g9_md_s1_qr2', 2)->nullable();
-            $table->string('values_g9_md_s1_qr3', 2)->nullable();
-            $table->string('values_g9_md_s1_qr4', 2)->nullable();
-            $table->string('values_g9_md_s2_qr1', 2)->nullable();
-            $table->string('values_g9_md_s2_qr2', 2)->nullable();
-            $table->string('values_g9_md_s2_qr3', 2)->nullable();
-            $table->string('values_g9_md_s2_qr4', 2)->nullable();
-
-            $table->string('values_g10_md_s1_qr1', 2)->nullable();
-            $table->string('values_g10_md_s1_qr2', 2)->nullable();
-            $table->string('values_g10_md_s1_qr3', 2)->nullable();
-            $table->string('values_g10_md_s1_qr4', 2)->nullable();
-            $table->string('values_g10_md_s2_qr1', 2)->nullable();
-            $table->string('values_g10_md_s2_qr2', 2)->nullable();
-            $table->string('values_g10_md_s2_qr3', 2)->nullable();
-            $table->string('values_g10_md_s2_qr4', 2)->nullable();
-        });
-
-        // [06 - SF9] Values -> maka - tao
-        Schema::table('students', function (Blueprint $table) {
-            $table->string('values_g7_mt_s1_qr1', 2)->nullable();
-            $table->string('values_g7_mt_s1_qr2', 2)->nullable();
-            $table->string('values_g7_mt_s1_qr3', 2)->nullable();
-            $table->string('values_g7_mt_s1_qr4', 2)->nullable();
-            $table->string('values_g7_mt_s2_qr1', 2)->nullable();
-            $table->string('values_g7_mt_s2_qr2', 2)->nullable();
-            $table->string('values_g7_mt_s2_qr3', 2)->nullable();
-            $table->string('values_g7_mt_s2_qr4', 2)->nullable();
-
-            $table->string('values_g8_mt_s1_qr1', 2)->nullable();
-            $table->string('values_g8_mt_s1_qr2', 2)->nullable();
-            $table->string('values_g8_mt_s1_qr3', 2)->nullable();
-            $table->string('values_g8_mt_s1_qr4', 2)->nullable();
-            $table->string('values_g8_mt_s2_qr1', 2)->nullable();
-            $table->string('values_g8_mt_s2_qr2', 2)->nullable();
-            $table->string('values_g8_mt_s2_qr3', 2)->nullable();
-            $table->string('values_g8_mt_s2_qr4', 2)->nullable();
-
-            $table->string('values_g9_mt_s1_qr1', 2)->nullable();
-            $table->string('values_g9_mt_s1_qr2', 2)->nullable();
-            $table->string('values_g9_mt_s1_qr3', 2)->nullable();
-            $table->string('values_g9_mt_s1_qr4', 2)->nullable();
-            $table->string('values_g9_mt_s2_qr1', 2)->nullable();
-            $table->string('values_g9_mt_s2_qr2', 2)->nullable();
-            $table->string('values_g9_mt_s2_qr3', 2)->nullable();
-            $table->string('values_g9_mt_s2_qr4', 2)->nullable();
-
-            $table->string('values_g10_mt_s1_qr1', 2)->nullable();
-            $table->string('values_g10_mt_s1_qr2', 2)->nullable();
-            $table->string('values_g10_mt_s1_qr3', 2)->nullable();
-            $table->string('values_g10_mt_s1_qr4', 2)->nullable();
-            $table->string('values_g10_mt_s2_qr1', 2)->nullable();
-            $table->string('values_g10_mt_s2_qr2', 2)->nullable();
-            $table->string('values_g10_mt_s2_qr3', 2)->nullable();
-            $table->string('values_g10_mt_s2_qr4', 2)->nullable();
-        });
-
-        // [07 - SF9] Values -> maka - kalikasan
-        Schema::table('students', function (Blueprint $table) {
-            $table->string('values_g7_mk_qr1', 2)->nullable();
-            $table->string('values_g7_mk_qr2', 2)->nullable();
-            $table->string('values_g7_mk_qr3', 2)->nullable();
-            $table->string('values_g7_mk_qr4', 2)->nullable();
-
-            $table->string('values_g8_mk_qr1', 2)->nullable();
-            $table->string('values_g8_mk_qr2', 2)->nullable();
-            $table->string('values_g8_mk_qr3', 2)->nullable();
-            $table->string('values_g8_mk_qr4', 2)->nullable();
-
-            $table->string('values_g9_mk_qr1', 2)->nullable();
-            $table->string('values_g9_mk_qr2', 2)->nullable();
-            $table->string('values_g9_mk_qr3', 2)->nullable();
-            $table->string('values_g9_mk_qr4', 2)->nullable();
-
-            $table->string('values_g10_mk_qr1', 2)->nullable();
-            $table->string('values_g10_mk_qr2', 2)->nullable();
-            $table->string('values_g10_mk_qr3', 2)->nullable();
-            $table->string('values_g10_mk_qr4', 2)->nullable();
-        });
-
-        // [08 - SF9] Values -> maka - bansa
-        Schema::table('students', function (Blueprint $table) {
-            $table->string('values_g7_mb_s1_qr1', 2)->nullable();
-            $table->string('values_g7_mb_s1_qr2', 2)->nullable();
-            $table->string('values_g7_mb_s1_qr3', 2)->nullable();
-            $table->string('values_g7_mb_s1_qr4', 2)->nullable();
-            $table->string('values_g7_mb_s2_qr1', 2)->nullable();
-            $table->string('values_g7_mb_s2_qr2', 2)->nullable();
-            $table->string('values_g7_mb_s2_qr3', 2)->nullable();
-            $table->string('values_g7_mb_s2_qr4', 2)->nullable();
-
-            $table->string('values_g8_mb_s1_qr1', 2)->nullable();
-            $table->string('values_g8_mb_s1_qr2', 2)->nullable();
-            $table->string('values_g8_mb_s1_qr3', 2)->nullable();
-            $table->string('values_g8_mb_s1_qr4', 2)->nullable();
-            $table->string('values_g8_mb_s2_qr1', 2)->nullable();
-            $table->string('values_g8_mb_s2_qr2', 2)->nullable();
-            $table->string('values_g8_mb_s2_qr3', 2)->nullable();
-            $table->string('values_g8_mb_s2_qr4', 2)->nullable();
-
-            $table->string('values_g9_mb_s1_qr1', 2)->nullable();
-            $table->string('values_g9_mb_s1_qr2', 2)->nullable();
-            $table->string('values_g9_mb_s1_qr3', 2)->nullable();
-            $table->string('values_g9_mb_s1_qr4', 2)->nullable();
-            $table->string('values_g9_mb_s2_qr1', 2)->nullable();
-            $table->string('values_g9_mb_s2_qr2', 2)->nullable();
-            $table->string('values_g9_mb_s2_qr3', 2)->nullable();
-            $table->string('values_g9_mb_s2_qr4', 2)->nullable();
-
-            $table->string('values_g10_mb_s1_qr1', 2)->nullable();
-            $table->string('values_g10_mb_s1_qr2', 2)->nullable();
-            $table->string('values_g10_mb_s1_qr3', 2)->nullable();
-            $table->string('values_g10_mb_s1_qr4', 2)->nullable();
-            $table->string('values_g10_mb_s2_qr1', 2)->nullable();
-            $table->string('values_g10_mb_s2_qr2', 2)->nullable();
-            $table->string('values_g10_mb_s2_qr3', 2)->nullable();
-            $table->string('values_g10_mb_s2_qr4', 2)->nullable();
-        });
-
-        // [09 - SF10] Enrollment
-        Schema::table('students', function (Blueprint $table) {
-            $table->boolean('enrollment_elementary_boolean')->default(0);
-            $table->string('enrollment_elementary_average', 50)->nullable();
-            $table->string('enrollment_elementary_citation', 50)->nullable();
-            $table->string('enrollment_elementary_name', 50)->nullable();
-            $table->string('enrollment_elementary_id', 50)->nullable();
-            $table->string('enrollment_elementary_address', 50)->nullable();
-
-            $table->boolean('enrollment_other_pept_boolean')->default(0);
-            $table->string('enrollment_other_pept_rating', 50)->nullable();
-            $table->boolean('enrollment_other_alsae_boolean')->default(0);
-            $table->string('enrollment_other_alsae_rating', 50)->nullable();
-            $table->boolean('enrollment_other_specify_boolean')->default(0);
-            $table->string('enrollment_other_specify_rating', 50)->nullable();
-            $table->date('enrollment_other_date')->nullable();
-            $table->string('enrollment_other_location', 50)->nullable();
-        });
-
-        // [10 - SF10] Record
-        Schema::table('students', function (Blueprint $table) {
-            $table->string('record_g7_school_name', 50)->nullable();
-            $table->string('record_g7_school_id', 50)->nullable();
-            $table->string('record_g7_school_district', 50)->nullable();
-            $table->string('record_g7_school_division', 50)->nullable();
-            $table->string('record_g7_school_region', 50)->nullable();
-            $table->string('record_g7_school_grade', 50)->nullable();
-            $table->string('record_g7_school_section', 50)->nullable();
-            $table->string('record_g7_school_year', 50)->nullable();
-            $table->string('record_g7_school_teacher', 50)->nullable();
-            $table->date('record_g7_remedial_date_start')->nullable();
-            $table->date('record_g7_remedial_date_end')->nullable();
-
-            $table->string('record_g8_school_name', 50)->nullable();
-            $table->string('record_g8_school_id', 50)->nullable();
-            $table->string('record_g8_school_district', 50)->nullable();
-            $table->string('record_g8_school_division', 50)->nullable();
-            $table->string('record_g8_school_region', 50)->nullable();
-            $table->string('record_g8_school_grade', 50)->nullable();
-            $table->string('record_g8_school_section', 50)->nullable();
-            $table->string('record_g8_school_year', 50)->nullable();
-            $table->string('record_g8_school_teacher', 50)->nullable();
-            $table->date('record_g8_remedial_date_start')->nullable();
-            $table->date('record_g8_remedial_date_end')->nullable();
-
-            $table->string('record_g9_school_name', 50)->nullable();
-            $table->string('record_g9_school_id', 50)->nullable();
-            $table->string('record_g9_school_district', 50)->nullable();
-            $table->string('record_g9_school_division', 50)->nullable();
-            $table->string('record_g9_school_region', 50)->nullable();
-            $table->string('record_g9_school_grade', 50)->nullable();
-            $table->string('record_g9_school_section', 50)->nullable();
-            $table->string('record_g9_school_year', 50)->nullable();
-            $table->string('record_g9_school_teacher', 50)->nullable();
-            $table->date('record_g9_remedial_date_start')->nullable();
-            $table->date('record_g9_remedial_date_end')->nullable();
-
-            $table->string('record_g10_school_name', 50)->nullable();
-            $table->string('record_g10_school_id', 50)->nullable();
-            $table->string('record_g10_school_district', 50)->nullable();
-            $table->string('record_g10_school_division', 50)->nullable();
-            $table->string('record_g10_school_region', 50)->nullable();
-            $table->string('record_g10_school_grade', 50)->nullable();
-            $table->string('record_g10_school_section', 50)->nullable();
-            $table->string('record_g10_school_year', 50)->nullable();
-            $table->string('record_g10_school_teacher', 50)->nullable();
-            $table->date('record_g10_remedial_date_start')->nullable();
-            $table->date('record_g10_remedial_date_end')->nullable();
-        });
-
-        // [11 - ALL] Subject -> filipino
-        Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_fil_qr1')->nullable();
-            $table->tinyInteger('subject_g7_fil_qr2')->nullable();
-            $table->tinyInteger('subject_g7_fil_qr3')->nullable();
-            $table->tinyInteger('subject_g7_fil_qr4')->nullable();
-            $table->tinyInteger('subject_g7_fil_rem')->nullable();
-
-            $table->tinyInteger('subject_g8_fil_qr1')->nullable();
-            $table->tinyInteger('subject_g8_fil_qr2')->nullable();
-            $table->tinyInteger('subject_g8_fil_qr3')->nullable();
-            $table->tinyInteger('subject_g8_fil_qr4')->nullable();
-            $table->tinyInteger('subject_g8_fil_rem')->nullable();
-
-            $table->tinyInteger('subject_g9_fil_qr1')->nullable();
-            $table->tinyInteger('subject_g9_fil_qr2')->nullable();
-            $table->tinyInteger('subject_g9_fil_qr3')->nullable();
-            $table->tinyInteger('subject_g9_fil_qr4')->nullable();
-            $table->tinyInteger('subject_g9_fil_rem')->nullable();
-
-            $table->tinyInteger('subject_g10_fil_qr1')->nullable();
-            $table->tinyInteger('subject_g10_fil_qr2')->nullable();
-            $table->tinyInteger('subject_g10_fil_qr3')->nullable();
-            $table->tinyInteger('subject_g10_fil_qr4')->nullable();
-            $table->tinyInteger('subject_g10_fil_rem')->nullable();
-        });
-
-        // [12 - ALL] Subject -> english
-        Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_eng_qr1')->nullable();
-            $table->tinyInteger('subject_g7_eng_qr2')->nullable();
-            $table->tinyInteger('subject_g7_eng_qr3')->nullable();
-            $table->tinyInteger('subject_g7_eng_qr4')->nullable();
-            $table->tinyInteger('subject_g7_eng_rem')->nullable();
-
-            $table->tinyInteger('subject_g8_eng_qr1')->nullable();
-            $table->tinyInteger('subject_g8_eng_qr2')->nullable();
-            $table->tinyInteger('subject_g8_eng_qr3')->nullable();
-            $table->tinyInteger('subject_g8_eng_qr4')->nullable();
-            $table->tinyInteger('subject_g8_eng_rem')->nullable();
-
-            $table->tinyInteger('subject_g9_eng_qr1')->nullable();
-            $table->tinyInteger('subject_g9_eng_qr2')->nullable();
-            $table->tinyInteger('subject_g9_eng_qr3')->nullable();
-            $table->tinyInteger('subject_g9_eng_qr4')->nullable();
-            $table->tinyInteger('subject_g9_eng_rem')->nullable();
-
-            $table->tinyInteger('subject_g10_eng_qr1')->nullable();
-            $table->tinyInteger('subject_g10_eng_qr2')->nullable();
-            $table->tinyInteger('subject_g10_eng_qr3')->nullable();
-            $table->tinyInteger('subject_g10_eng_qr4')->nullable();
-            $table->tinyInteger('subject_g10_eng_rem')->nullable();
-        });
-
-        // [13 - ALL] Subject -> mathematics
-        Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_mat_qr1')->nullable();
-            $table->tinyInteger('subject_g7_mat_qr2')->nullable();
-            $table->tinyInteger('subject_g7_mat_qr3')->nullable();
-            $table->tinyInteger('subject_g7_mat_qr4')->nullable();
-            $table->tinyInteger('subject_g7_mat_rem')->nullable();
-
-            $table->tinyInteger('subject_g8_mat_qr1')->nullable();
-            $table->tinyInteger('subject_g8_mat_qr2')->nullable();
-            $table->tinyInteger('subject_g8_mat_qr3')->nullable();
-            $table->tinyInteger('subject_g8_mat_qr4')->nullable();
-            $table->tinyInteger('subject_g8_mat_rem')->nullable();
-
-            $table->tinyInteger('subject_g9_mat_qr1')->nullable();
-            $table->tinyInteger('subject_g9_mat_qr2')->nullable();
-            $table->tinyInteger('subject_g9_mat_qr3')->nullable();
-            $table->tinyInteger('subject_g9_mat_qr4')->nullable();
-            $table->tinyInteger('subject_g9_mat_rem')->nullable();
-
-            $table->tinyInteger('subject_g10_mat_qr1')->nullable();
-            $table->tinyInteger('subject_g10_mat_qr2')->nullable();
-            $table->tinyInteger('subject_g10_mat_qr3')->nullable();
-            $table->tinyInteger('subject_g10_mat_qr4')->nullable();
-            $table->tinyInteger('subject_g10_mat_rem')->nullable();
-        });
-
-        // [14 - ALL] Subject -> science
-        Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_sci_qr1')->nullable();
-            $table->tinyInteger('subject_g7_sci_qr2')->nullable();
-            $table->tinyInteger('subject_g7_sci_qr3')->nullable();
-            $table->tinyInteger('subject_g7_sci_qr4')->nullable();
-            $table->tinyInteger('subject_g7_sci_rem')->nullable();
-
-            $table->tinyInteger('subject_g8_sci_qr1')->nullable();
-            $table->tinyInteger('subject_g8_sci_qr2')->nullable();
-            $table->tinyInteger('subject_g8_sci_qr3')->nullable();
-            $table->tinyInteger('subject_g8_sci_qr4')->nullable();
-            $table->tinyInteger('subject_g8_sci_rem')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_jan_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_feb_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_mar_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_apr_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_may_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_jun_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_jul_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_aug_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_sep_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_oct_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_nov_a')->nullable();
+            $table->tinyInteger('sf9_g9_attendance_dec_a')->nullable();
             
-            $table->tinyInteger('subject_g9_sci_qr1')->nullable();
-            $table->tinyInteger('subject_g9_sci_qr2')->nullable();
-            $table->tinyInteger('subject_g9_sci_qr3')->nullable();
-            $table->tinyInteger('subject_g9_sci_qr4')->nullable();
-            $table->tinyInteger('subject_g9_sci_rem')->nullable();
-            
-            $table->tinyInteger('subject_g10_sci_qr1')->nullable();
-            $table->tinyInteger('subject_g10_sci_qr2')->nullable();
-            $table->tinyInteger('subject_g10_sci_qr3')->nullable();
-            $table->tinyInteger('subject_g10_sci_qr4')->nullable();
-            $table->tinyInteger('subject_g10_sci_rem')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_jan_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_feb_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_mar_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_apr_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_may_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_jun_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_jul_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_aug_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_sep_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_oct_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_nov_a')->nullable();
+            $table->tinyInteger('sf9_g10_attendance_dec_a')->nullable();
         });
 
-        // [15 - ALL] Subject -> araling panlipunan (ap)
+        // SF9: Values -> maka - diyos
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_ap_qr1')->nullable();
-            $table->tinyInteger('subject_g7_ap_qr2')->nullable();
-            $table->tinyInteger('subject_g7_ap_qr3')->nullable();
-            $table->tinyInteger('subject_g7_ap_qr4')->nullable();
-            $table->tinyInteger('subject_g7_ap_rem')->nullable();
-            
-            $table->tinyInteger('subject_g8_ap_qr1')->nullable();
-            $table->tinyInteger('subject_g8_ap_qr2')->nullable();
-            $table->tinyInteger('subject_g8_ap_qr3')->nullable();
-            $table->tinyInteger('subject_g8_ap_qr4')->nullable();
-            $table->tinyInteger('subject_g8_ap_rem')->nullable();
-            
-            $table->tinyInteger('subject_g9_ap_qr1')->nullable();
-            $table->tinyInteger('subject_g9_ap_qr2')->nullable();
-            $table->tinyInteger('subject_g9_ap_qr3')->nullable();
-            $table->tinyInteger('subject_g9_ap_qr4')->nullable();
-            $table->tinyInteger('subject_g9_ap_rem')->nullable();
-            
-            $table->tinyInteger('subject_g10_ap_qr1')->nullable();
-            $table->tinyInteger('subject_g10_ap_qr2')->nullable();
-            $table->tinyInteger('subject_g10_ap_qr3')->nullable();
-            $table->tinyInteger('subject_g10_ap_qr4')->nullable();
-            $table->tinyInteger('subject_g10_ap_rem')->nullable();
+            $table->string('sf9_g7_values_qr1_md_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr2_md_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr3_md_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr4_md_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr1_md_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr2_md_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr3_md_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr4_md_s2', 2)->nullable();
+
+            $table->string('sf9_g8_values_qr1_md_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr2_md_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr3_md_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr4_md_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr1_md_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr2_md_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr3_md_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr4_md_s2', 2)->nullable();
+
+            $table->string('sf9_g9_values_qr1_md_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr2_md_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr3_md_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr4_md_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr1_md_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr2_md_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr3_md_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr4_md_s2', 2)->nullable();
+
+            $table->string('sf9_g10_values_qr1_md_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr2_md_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr3_md_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr4_md_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr1_md_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr2_md_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr3_md_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr4_md_s2', 2)->nullable();
         });
 
-        // [16 - ALL] Subject -> edukasyon sa pagpapakatao (ep)
+        // SF9: Values -> maka - tao
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_ep_qr1')->nullable();
-            $table->tinyInteger('subject_g7_ep_qr2')->nullable();
-            $table->tinyInteger('subject_g7_ep_qr3')->nullable();
-            $table->tinyInteger('subject_g7_ep_qr4')->nullable();
-            $table->tinyInteger('subject_g7_ep_rem')->nullable();
+            $table->string('sf9_g7_values_qr1_mt_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr2_mt_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr3_mt_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr4_mt_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr1_mt_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr2_mt_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr3_mt_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr4_mt_s2', 2)->nullable();
 
-            $table->tinyInteger('subject_g8_ep_qr1')->nullable();
-            $table->tinyInteger('subject_g8_ep_qr2')->nullable();
-            $table->tinyInteger('subject_g8_ep_qr3')->nullable();
-            $table->tinyInteger('subject_g8_ep_qr4')->nullable();
-            $table->tinyInteger('subject_g8_ep_rem')->nullable();
+            $table->string('sf9_g8_values_qr1_mt_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr2_mt_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr3_mt_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr4_mt_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr1_mt_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr2_mt_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr3_mt_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr4_mt_s2', 2)->nullable();
 
-            $table->tinyInteger('subject_g9_ep_qr1')->nullable();
-            $table->tinyInteger('subject_g9_ep_qr2')->nullable();
-            $table->tinyInteger('subject_g9_ep_qr3')->nullable();
-            $table->tinyInteger('subject_g9_ep_qr4')->nullable();
-            $table->tinyInteger('subject_g9_ep_rem')->nullable();
+            $table->string('sf9_g9_values_qr1_mt_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr2_mt_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr3_mt_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr4_mt_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr1_mt_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr2_mt_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr3_mt_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr4_mt_s2', 2)->nullable();
 
-            $table->tinyInteger('subject_g10_ep_qr1')->nullable();
-            $table->tinyInteger('subject_g10_ep_qr2')->nullable();
-            $table->tinyInteger('subject_g10_ep_qr3')->nullable();
-            $table->tinyInteger('subject_g10_ep_qr4')->nullable();
-            $table->tinyInteger('subject_g10_ep_rem')->nullable();
+            $table->string('sf9_g10_values_qr1_mt_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr2_mt_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr3_mt_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr4_mt_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr1_mt_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr2_mt_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr3_mt_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr4_mt_s2', 2)->nullable();
         });
 
-        // [17 - ALL] Subject -> technology and livelihood education (tle)
+        // SF9: Values -> maka - kalikasan
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_tle_qr1')->nullable();
-            $table->tinyInteger('subject_g7_tle_qr2')->nullable();
-            $table->tinyInteger('subject_g7_tle_qr3')->nullable();
-            $table->tinyInteger('subject_g7_tle_qr4')->nullable();
-            $table->tinyInteger('subject_g7_tle_rem')->nullable();
+            $table->string('sf9_g7_values_qr1_mk', 2)->nullable();
+            $table->string('sf9_g7_values_qr2_mk', 2)->nullable();
+            $table->string('sf9_g7_values_qr3_mk', 2)->nullable();
+            $table->string('sf9_g7_values_qr4_mk', 2)->nullable();
 
-            $table->tinyInteger('subject_g8_tle_qr1')->nullable();
-            $table->tinyInteger('subject_g8_tle_qr2')->nullable();
-            $table->tinyInteger('subject_g8_tle_qr3')->nullable();
-            $table->tinyInteger('subject_g8_tle_qr4')->nullable();
-            $table->tinyInteger('subject_g8_tle_rem')->nullable();
+            $table->string('sf9_g8_values_qr1_mk', 2)->nullable();
+            $table->string('sf9_g8_values_qr2_mk', 2)->nullable();
+            $table->string('sf9_g8_values_qr3_mk', 2)->nullable();
+            $table->string('sf9_g8_values_qr4_mk', 2)->nullable();
 
-            $table->tinyInteger('subject_g9_tle_qr1')->nullable();
-            $table->tinyInteger('subject_g9_tle_qr2')->nullable();
-            $table->tinyInteger('subject_g9_tle_qr3')->nullable();
-            $table->tinyInteger('subject_g9_tle_qr4')->nullable();
-            $table->tinyInteger('subject_g9_tle_rem')->nullable();
+            $table->string('sf9_g9_values_qr1_mk', 2)->nullable();
+            $table->string('sf9_g9_values_qr2_mk', 2)->nullable();
+            $table->string('sf9_g9_values_qr3_mk', 2)->nullable();
+            $table->string('sf9_g9_values_qr4_mk', 2)->nullable();
 
-            $table->tinyInteger('subject_g10_tle_qr1')->nullable();
-            $table->tinyInteger('subject_g10_tle_qr2')->nullable();
-            $table->tinyInteger('subject_g10_tle_qr3')->nullable();
-            $table->tinyInteger('subject_g10_tle_qr4')->nullable();
-            $table->tinyInteger('subject_g10_tle_rem')->nullable();
+            $table->string('sf9_g10_values_qr1_mk', 2)->nullable();
+            $table->string('sf9_g10_values_qr2_mk', 2)->nullable();
+            $table->string('sf9_g10_values_qr3_mk', 2)->nullable();
+            $table->string('sf9_g10_values_qr4_mk', 2)->nullable();
         });
 
-        // [18 - ALL] Subject -> music
+        // SF9: Values -> maka - bansa
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_mus_qr1')->nullable();
-            $table->tinyInteger('subject_g7_mus_qr2')->nullable();
-            $table->tinyInteger('subject_g7_mus_qr3')->nullable();
-            $table->tinyInteger('subject_g7_mus_qr4')->nullable();
-            $table->tinyInteger('subject_g7_mus_rem')->nullable();
+            $table->string('sf9_g7_values_qr1_mb_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr2_mb_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr3_mb_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr4_mb_s1', 2)->nullable();
+            $table->string('sf9_g7_values_qr1_mb_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr2_mb_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr3_mb_s2', 2)->nullable();
+            $table->string('sf9_g7_values_qr4_mb_s2', 2)->nullable();
 
-            $table->tinyInteger('subject_g8_mus_qr1')->nullable();
-            $table->tinyInteger('subject_g8_mus_qr2')->nullable();
-            $table->tinyInteger('subject_g8_mus_qr3')->nullable();
-            $table->tinyInteger('subject_g8_mus_qr4')->nullable();
-            $table->tinyInteger('subject_g8_mus_rem')->nullable();
+            $table->string('sf9_g8_values_qr1_mb_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr2_mb_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr3_mb_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr4_mb_s1', 2)->nullable();
+            $table->string('sf9_g8_values_qr1_mb_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr2_mb_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr3_mb_s2', 2)->nullable();
+            $table->string('sf9_g8_values_qr4_mb_s2', 2)->nullable();
 
-            $table->tinyInteger('subject_g9_mus_qr1')->nullable();
-            $table->tinyInteger('subject_g9_mus_qr2')->nullable();
-            $table->tinyInteger('subject_g9_mus_qr3')->nullable();
-            $table->tinyInteger('subject_g9_mus_qr4')->nullable();
-            $table->tinyInteger('subject_g9_mus_rem')->nullable();
+            $table->string('sf9_g9_values_qr1_mb_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr2_mb_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr3_mb_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr4_mb_s1', 2)->nullable();
+            $table->string('sf9_g9_values_qr1_mb_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr2_mb_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr3_mb_s2', 2)->nullable();
+            $table->string('sf9_g9_values_qr4_mb_s2', 2)->nullable();
 
-            $table->tinyInteger('subject_g10_mus_qr1')->nullable();
-            $table->tinyInteger('subject_g10_mus_qr2')->nullable();
-            $table->tinyInteger('subject_g10_mus_qr3')->nullable();
-            $table->tinyInteger('subject_g10_mus_qr4')->nullable();
-            $table->tinyInteger('subject_g10_mus_rem')->nullable();
+            $table->string('sf9_g10_values_qr1_mb_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr2_mb_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr3_mb_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr4_mb_s1', 2)->nullable();
+            $table->string('sf9_g10_values_qr1_mb_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr2_mb_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr3_mb_s2', 2)->nullable();
+            $table->string('sf9_g10_values_qr4_mb_s2', 2)->nullable();
         });
 
-        // [19 - ALL] Subject -> arts
+        // SF10: Enrollment
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_art_qr1')->nullable();
-            $table->tinyInteger('subject_g7_art_qr2')->nullable();
-            $table->tinyInteger('subject_g7_art_qr3')->nullable();
-            $table->tinyInteger('subject_g7_art_qr4')->nullable();
-            $table->tinyInteger('subject_g7_art_rem')->nullable();
+            $table->boolean('sf10_enrollment_elementary_boolean')->default(0);
+            $table->string('sf10_enrollment_elementary_average', 50)->nullable();
+            $table->string('sf10_enrollment_elementary_citation', 50)->nullable();
+            $table->string('sf10_enrollment_elementary_name', 50)->nullable();
+            $table->string('sf10_enrollment_elementary_id', 50)->nullable();
+            $table->string('sf10_enrollment_elementary_address', 50)->nullable();
 
-            $table->tinyInteger('subject_g8_art_qr1')->nullable();
-            $table->tinyInteger('subject_g8_art_qr2')->nullable();
-            $table->tinyInteger('subject_g8_art_qr3')->nullable();
-            $table->tinyInteger('subject_g8_art_qr4')->nullable();
-            $table->tinyInteger('subject_g8_art_rem')->nullable();
-
-            $table->tinyInteger('subject_g9_art_qr1')->nullable();
-            $table->tinyInteger('subject_g9_art_qr2')->nullable();
-            $table->tinyInteger('subject_g9_art_qr3')->nullable();
-            $table->tinyInteger('subject_g9_art_qr4')->nullable();
-            $table->tinyInteger('subject_g9_art_rem')->nullable();
-
-            $table->tinyInteger('subject_g10_art_qr1')->nullable();
-            $table->tinyInteger('subject_g10_art_qr2')->nullable();
-            $table->tinyInteger('subject_g10_art_qr3')->nullable();
-            $table->tinyInteger('subject_g10_art_qr4')->nullable();
-            $table->tinyInteger('subject_g10_art_rem')->nullable();
+            $table->boolean('sf10_enrollment_other_pept_boolean')->default(0);
+            $table->string('sf10_enrollment_other_pept_rating', 50)->nullable();
+            $table->boolean('sf10_enrollment_other_alsae_boolean')->default(0);
+            $table->string('sf10_enrollment_other_alsae_rating', 50)->nullable();
+            $table->boolean('sf10_enrollment_other_specify_boolean')->default(0);
+            $table->string('sf10_enrollment_other_specify_rating', 50)->nullable();
+            $table->string('sf10_enrollment_other_date', 50)->nullable();
+            $table->string('sf10_enrollment_other_location', 50)->nullable();
         });
 
-        // [20 - ALL] Subject -> physical education
+        // SF10: Scholastic record
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_pe_qr1')->nullable();
-            $table->tinyInteger('subject_g7_pe_qr2')->nullable();
-            $table->tinyInteger('subject_g7_pe_qr3')->nullable();
-            $table->tinyInteger('subject_g7_pe_qr4')->nullable();
-            $table->tinyInteger('subject_g7_pe_rem')->nullable();
+            $table->string('sf10_g7_record_school_name', 50)->nullable();
+            $table->string('sf10_g7_record_school_id', 50)->nullable();
+            $table->string('sf10_g7_record_school_district', 50)->nullable();
+            $table->string('sf10_g7_record_school_division', 50)->nullable();
+            $table->string('sf10_g7_record_school_region', 50)->nullable();
+            $table->string('sf10_g7_record_school_grade', 50)->nullable();
+            $table->string('sf10_g7_record_school_section', 50)->nullable();
+            $table->string('sf10_g7_record_school_year', 50)->nullable();
+            $table->string('sf10_g7_record_school_teacher', 50)->nullable();
+            $table->string('sf10_g7_record_remedial_date_start', 50)->nullable();
+            $table->string('sf10_g7_record_remedial_date_end', 50)->nullable();
 
-            $table->tinyInteger('subject_g8_pe_qr1')->nullable();
-            $table->tinyInteger('subject_g8_pe_qr2')->nullable();
-            $table->tinyInteger('subject_g8_pe_qr3')->nullable();
-            $table->tinyInteger('subject_g8_pe_qr4')->nullable();
-            $table->tinyInteger('subject_g8_pe_rem')->nullable();
+            $table->string('sf10_g8_record_school_name', 50)->nullable();
+            $table->string('sf10_g8_record_school_id', 50)->nullable();
+            $table->string('sf10_g8_record_school_district', 50)->nullable();
+            $table->string('sf10_g8_record_school_division', 50)->nullable();
+            $table->string('sf10_g8_record_school_region', 50)->nullable();
+            $table->string('sf10_g8_record_school_grade', 50)->nullable();
+            $table->string('sf10_g8_record_school_section', 50)->nullable();
+            $table->string('sf10_g8_record_school_year', 50)->nullable();
+            $table->string('sf10_g8_record_school_teacher', 50)->nullable();
+            $table->string('sf10_g8_record_remedial_date_start', 50)->nullable();
+            $table->string('sf10_g8_record_remedial_date_end', 50)->nullable();
 
-            $table->tinyInteger('subject_g9_pe_qr1')->nullable();
-            $table->tinyInteger('subject_g9_pe_qr2')->nullable();
-            $table->tinyInteger('subject_g9_pe_qr3')->nullable();
-            $table->tinyInteger('subject_g9_pe_qr4')->nullable();
-            $table->tinyInteger('subject_g9_pe_rem')->nullable();
+            $table->string('sf10_g9_record_school_name', 50)->nullable();
+            $table->string('sf10_g9_record_school_id', 50)->nullable();
+            $table->string('sf10_g9_record_school_district', 50)->nullable();
+            $table->string('sf10_g9_record_school_division', 50)->nullable();
+            $table->string('sf10_g9_record_school_region', 50)->nullable();
+            $table->string('sf10_g9_record_school_grade', 50)->nullable();
+            $table->string('sf10_g9_record_school_section', 50)->nullable();
+            $table->string('sf10_g9_record_school_year', 50)->nullable();
+            $table->string('sf10_g9_record_school_teacher', 50)->nullable();
+            $table->string('sf10_g9_record_remedial_date_start', 50)->nullable();
+            $table->string('sf10_g9_record_remedial_date_end', 50)->nullable();
 
-            $table->tinyInteger('subject_g10_pe_qr1')->nullable();
-            $table->tinyInteger('subject_g10_pe_qr2')->nullable();
-            $table->tinyInteger('subject_g10_pe_qr3')->nullable();
-            $table->tinyInteger('subject_g10_pe_qr4')->nullable();
-            $table->tinyInteger('subject_g10_pe_rem')->nullable();
+            $table->string('sf10_g10_record_school_name', 50)->nullable();
+            $table->string('sf10_g10_record_school_id', 50)->nullable();
+            $table->string('sf10_g10_record_school_district', 50)->nullable();
+            $table->string('sf10_g10_record_school_division', 50)->nullable();
+            $table->string('sf10_g10_record_school_region', 50)->nullable();
+            $table->string('sf10_g10_record_school_grade', 50)->nullable();
+            $table->string('sf10_g10_record_school_section', 50)->nullable();
+            $table->string('sf10_g10_record_school_year', 50)->nullable();
+            $table->string('sf10_g10_record_school_teacher', 50)->nullable();
+            $table->string('sf10_g10_record_remedial_date_start', 50)->nullable();
+            $table->string('sf10_g10_record_remedial_date_end', 50)->nullable();
         });
 
-        // [21 - ALL] Subject -> health
+        // All: Subject -> filipino
         Schema::table('students', function (Blueprint $table) {
-            $table->tinyInteger('subject_g7_hp_qr1')->nullable();
-            $table->tinyInteger('subject_g7_hp_qr2')->nullable();
-            $table->tinyInteger('subject_g7_hp_qr3')->nullable();
-            $table->tinyInteger('subject_g7_hp_qr4')->nullable();
-            $table->tinyInteger('subject_g7_hp_rem')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr1_fil')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_fil')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_fil')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_fil')->nullable();
 
-            $table->tinyInteger('subject_g8_hp_qr1')->nullable();
-            $table->tinyInteger('subject_g8_hp_qr2')->nullable();
-            $table->tinyInteger('subject_g8_hp_qr3')->nullable();
-            $table->tinyInteger('subject_g8_hp_qr4')->nullable();
-            $table->tinyInteger('subject_g8_hp_rem')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr1_fil')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_fil')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_fil')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_fil')->nullable();
 
-            $table->tinyInteger('subject_g9_hp_qr1')->nullable();
-            $table->tinyInteger('subject_g9_hp_qr2')->nullable();
-            $table->tinyInteger('subject_g9_hp_qr3')->nullable();
-            $table->tinyInteger('subject_g9_hp_qr4')->nullable();
-            $table->tinyInteger('subject_g9_hp_rem')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr1_fil')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_fil')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_fil')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_fil')->nullable();
 
-            $table->tinyInteger('subject_g10_hp_qr1')->nullable();
-            $table->tinyInteger('subject_g10_hp_qr2')->nullable();
-            $table->tinyInteger('subject_g10_hp_qr3')->nullable();
-            $table->tinyInteger('subject_g10_hp_qr4')->nullable();
-            $table->tinyInteger('subject_g10_hp_rem')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr1_fil')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_fil')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_fil')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_fil')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_fil')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_fil')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_fil')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_fil')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_fil')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_fil')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_fil')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_fil')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_fil')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_fil')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_fil')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_fil')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_fil')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_fil')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_fil')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_fil')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_fil')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_fil')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_fil')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_fil')->nullable();
         });
 
-        // NOTE: Place special subjects here
+        // All: Subject -> english
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_eng')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_eng')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_eng')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_eng')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_eng')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_eng')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_eng')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_eng')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_eng')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_eng')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_eng')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_eng')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_eng')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_eng')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_eng')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_eng')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_eng')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_eng')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_eng')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_eng')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_eng')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_eng')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_eng')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_eng')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_eng')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_eng')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_eng')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_eng')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_eng')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_eng')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_eng')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_eng')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_eng')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_eng')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_eng')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_eng')->nullable();
+        });
+
+        // All: Subject -> mathematics
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_mat')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_mat')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_mat')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_mat')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_mat')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_mat')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_mat')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_mat')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_mat')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_mat')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_mat')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_mat')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_mat')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_mat')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_mat')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_mat')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_mat')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_mat')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_mat')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_mat')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_mat')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_mat')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_mat')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_mat')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_mat')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_mat')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_mat')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_mat')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_mat')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_mat')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_mat')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_mat')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_mat')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_mat')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_mat')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_mat')->nullable();
+        });
+
+        // All: Subject -> science
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_sci')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_sci')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_sci')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_sci')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_sci')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_sci')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_sci')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_sci')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_sci')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_sci')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_sci')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_sci')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_sci')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_sci')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_sci')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_sci')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_sci')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_sci')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_sci')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_sci')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_sci')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_sci')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_sci')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_sci')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_sci')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_sci')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_sci')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_sci')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_sci')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_sci')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_sci')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_sci')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_sci')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_sci')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_sci')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_sci')->nullable();
+        });
+
+        // All: Subject -> araling panlipunan (ap)
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_ap')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_ap')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_ap')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_ap')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_ap')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_ap')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_ap')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_ap')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_ap')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_ap')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_ap')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_ap')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_ap')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_ap')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_ap')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_ap')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_ap')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_ap')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_ap')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_ap')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_ap')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_ap')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_ap')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_ap')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_ap')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_ap')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_ap')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_ap')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_ap')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_ap')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_ap')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_ap')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_ap')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_ap')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_ap')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_ap')->nullable();
+        });
+
+        // All: Subject -> edukasyon sa pagpapakatao (ep)
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_ep')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_ep')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_ep')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_ep')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_ep')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_ep')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_ep')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_ep')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_ep')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_ep')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_ep')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_ep')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_ep')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_ep')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_ep')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_ep')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_ep')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_ep')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_ep')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_ep')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_ep')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_ep')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_ep')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_ep')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_ep')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_ep')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_ep')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_ep')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_ep')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_ep')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_ep')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_ep')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_ep')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_ep')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_ep')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_ep')->nullable();
+        });
+
+        // All: Subject -> technology and livelihood education (tle)
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_tle')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_tle')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_tle')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_tle')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_tle')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_tle')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_tle')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_tle')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_tle')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_tle')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_tle')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_tle')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_tle')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_tle')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_tle')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_tle')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_tle')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_tle')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_tle')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_tle')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_tle')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_tle')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_tle')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_tle')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_tle')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_tle')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_tle')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_tle')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_tle')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_tle')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_tle')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_tle')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_tle')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_tle')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_tle')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_tle')->nullable();
+        });
+
+        // All: Subject -> music
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_mus')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_mus')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_mus')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_mus')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_mus')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_mus')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_mus')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_mus')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_mus')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_mus')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_mus')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_mus')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_mus')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_mus')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_mus')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_mus')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_mus')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_mus')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_mus')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_mus')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_mus')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_mus')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_mus')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_mus')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_mus')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_mus')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_mus')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_mus')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_mus')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_mus')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_mus')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_mus')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_mus')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_mus')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_mus')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_mus')->nullable();
+        });
+
+        // All: Subject -> arts
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_art')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_art')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_art')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_art')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_art')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_art')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_art')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_art')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_art')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_art')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_art')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_art')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_art')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_art')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_art')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_art')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_art')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_art')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_art')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_art')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_art')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_art')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_art')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_art')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_art')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_art')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_art')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_art')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_art')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_art')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_art')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_art')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_art')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_art')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_art')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_art')->nullable();
+        });
+
+        // All: Subject -> physical education
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_pe')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_pe')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_pe')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_pe')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_pe')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_pe')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_pe')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_pe')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_pe')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_pe')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_pe')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_pe')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_pe')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_pe')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_pe')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_pe')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_pe')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_pe')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_pe')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_pe')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_pe')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_pe')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_pe')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_pe')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_pe')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_pe')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_pe')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_pe')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_pe')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_pe')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_pe')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_pe')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_pe')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_pe')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_pe')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_pe')->nullable();
+        });
+
+        // All: Subject -> health
+        Schema::table('students', function (Blueprint $table) {
+            $table->tinyInteger('sf9_g7_subject_qr1_hp')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr2_hp')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr3_hp')->nullable();
+            $table->tinyInteger('sf9_g7_subject_qr4_hp')->nullable();
+
+            $table->tinyInteger('sf9_g8_subject_qr1_hp')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr2_hp')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr3_hp')->nullable();
+            $table->tinyInteger('sf9_g8_subject_qr4_hp')->nullable();
+
+            $table->tinyInteger('sf9_g9_subject_qr1_hp')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr2_hp')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr3_hp')->nullable();
+            $table->tinyInteger('sf9_g9_subject_qr4_hp')->nullable();
+
+            $table->tinyInteger('sf9_g10_subject_qr1_hp')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr2_hp')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr3_hp')->nullable();
+            $table->tinyInteger('sf9_g10_subject_qr4_hp')->nullable();
+
+            $table->tinyInteger('sf10_g7_subject_qr1_hp')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr2_hp')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr3_hp')->nullable();
+            $table->tinyInteger('sf10_g7_subject_qr4_hp')->nullable();
+            $table->tinyInteger('sf10_g7_subject_rem_hp')->nullable();
+
+            $table->tinyInteger('sf10_g8_subject_qr1_hp')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr2_hp')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr3_hp')->nullable();
+            $table->tinyInteger('sf10_g8_subject_qr4_hp')->nullable();
+            $table->tinyInteger('sf10_g8_subject_rem_hp')->nullable();
+
+            $table->tinyInteger('sf10_g9_subject_qr1_hp')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr2_hp')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr3_hp')->nullable();
+            $table->tinyInteger('sf10_g9_subject_qr4_hp')->nullable();
+            $table->tinyInteger('sf10_g9_subject_rem_hp')->nullable();
+
+            $table->tinyInteger('sf10_g10_subject_qr1_hp')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr2_hp')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr3_hp')->nullable();
+            $table->tinyInteger('sf10_g10_subject_qr4_hp')->nullable();
+            $table->tinyInteger('sf10_g10_subject_rem_hp')->nullable();
+        });
+
+        // NOTE: Place special subject here
     }
-    
-    public function down () : void {
-        Schema::dropIfExists('students');
-    }
+    public function down () : void { Schema::dropIfExists('students'); }
 };

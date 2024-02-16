@@ -1,29 +1,125 @@
+TOP-PRIO:
+    - Remove onclick events inside HTML files in layouts.students
+CHECKPOINT:
+    User POV and redirection to dashboard.
+    User POV and availability of links on the navigation.
+
+Low Prio:
+    - SF9 Layouts
+
+NEW FIXES:
+    - Ask/confirm first:
+        - For school years, create a drop-down and a "db_user_id" that corresponds to the school principal (which will automatically fill up SF9 principal names)
+        - Current Principal: [                  v]
+        - nullable
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TO ASK OR NOT TO ASK, THAT IS THE QUESTION (questions that must be answered after presented):
+    Area:
+        - Student
+            - What in the world is in SF10 certification?
+            - Confirm what is contained in the "certificate" section in SF10, whether or not variables have to be defined or is handwritten.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MIGRATIONS:
+    Name:                   Relatives:                          Status:         Comments:
+    1. Grade                .                                   Clean           Seeder finalized
+    2. Role                 .                                   Clean           Seeder finalized
+    3. Section              Grade                               Clean           Seeder finalized, values are replaceable
+    4. Student              Grade, Section, Year, User          WIP             Seeder optional
+    5. User                 Grade, Section, Role                Clean           Seeder finalized, values are replaceable, one principal user minimum
+    6. Year                 .                                   Clean           Seeder optional
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MANAGER:
+    Name:                                                       Status:         Comments:
+    1. Grade                                                    Clean           .
+    2. Role                                                     Clean           .
+    3. Section
+        - controller                                            Completed       Fixed values
+        - create                                                .               .
+        - delete                                                .               .
+        - edit                                                  Completed       .
+        - index                                                 Completed       Order ascending
+        - model                                                 Completed       .
+        - route                                                 Completed       .
+        - search                                                .               .
+    4. Student
+        - controller                                            WIP             .
+        - create                                                Completed       .
+        - delete                                                TBA             .
+        - edit-form                                             Completed       Debugging
+        - edit-info                                             Completed       .
+        - edit-s-sy                                             TBA             .
+        - index                                                 Completed       Order ascending
+        - model                                                 Completed       .
+        - route                                                 Completed       .
+        - search                                                Completed       Order custom
+        - stats                                                 TBA             .
+    5. User
+        - controller                                            Completed       Fixed operators
+        - create                                                Completed       .
+        - delete                                                TBA             .
+        - edit                                                  Completed       .
+        - index                                                 Completed       Order ascending, fixed operators
+        - model                                                 Completed       .
+        - route                                                 Completed       .
+        - search                                                Completed       Order custom
+    6. Year
+        - controller                                            Completed       .
+        - create                                                Completed       .
+        - delete                                                .               .
+        - edit                                                  Completed       .
+        - index                                                 Completed       Order ascending
+        - model                                                 Completed       .
+        - route                                                 Completed       .
+        - search                                                Completed       Order custom
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+SEARCH:
+    Name:
+    4. Student:
+        - info_name_last
+        - info_name_first
+        - info_name_suffix
+        - info_name_middle
+        - info_lrn
+        - info_sex
+    5. User:
+        - name_last
+        - name_first
+    6. Year:
+        - year
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LAYOUTS:
+    4. Student                                                   Status:
+        - sf9-back                                              WIP
+        - sf9-front                                             WIP
+        - sf10-back                                             Clean
+        - sf10-certification                                    Clean
+        - sf10-front                                            Clean
+        - sf10-scholastic-record                                Clean
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RESOURCES:
+    Name:                                                       Status:
+    - general.js                                                Clean
+    - general.less                                              Clean
+    - students.js                                               Clean
+    - students.less                                             Clean
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LOGIN:
+    - TBA
+    - Issues: Shares a similar HTML structure with "layouts.general.page"
+------------------------------------------------------------
+PROGRESS REPORTER:
+    ! Base off data from the SF9 FIELDS ONLY.
+    - coming soon!
+------------------------------------------------------------
 PENDING:
+    - Look up "Laravel 10 - Pagination"
     - Create print-specific classnames that hide on actual page printing (eg. remedial add button)
-    - Ask for a complete list of section names per grade level and convert input type from text to select
     - Re-split page.blade.php's content into dashboard.blade.php in order for login.blade.php to use meta, head, and body format.
+------------------------------------------------------------
+JUNKYARD:
 
-VIEWS:                                      STATUS:
-    Layouts:
-        Students:
-            - form.blade.php                HTML-CSS fixed
-            - sf9-back.blade.php            Accurate enough / HTML-CSS fixed
-            - sf9-front.blade.php           Accurate enough / HTML-CSS fixed
-            - sf10-back.blade.php           Accurate enough / HTML-CSS fixed
-            - sf10-certification.blade.php  Accurate enough / HTML-CSS fixed
-            - sf10-front.blade.php          Accurate enough / HTML-CSS fixed
-            - sf10-table.blade.php          Accurate enough / HTML-CSS fixed
-        Users:
-
-    Pages:
-        Login:
-            - index.blade.php               WIP
-        Students:
-            - edit.blade.php                HTML-CSS fixed
-            - index.blade.php               HTML-CSS fixed
-        Users:
-            - index.blade.php
-    Other:
-        - general.less                      Clean
-        - students.js                       Clean
-        - students.less                     Clean
+.chart {
+        margin: calc(@size-spacing / 4);
+        padding: calc(@size-spacing / 2);
+    }
+    

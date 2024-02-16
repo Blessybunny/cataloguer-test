@@ -3,14 +3,14 @@
 
 	<head>
 
-		<!-- Main -->
+		<!-- LOCKED: Main -->
 		<meta charset = "utf-8">
 		<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
-		<meta name = "viewport" content = "width=device-width, initial-scale=1">
+		<meta name = "viewport" content = "initial-scale=1, width=device-width">
 		
 		<title>@yield('title')</title>
 
-		<!-- Template -->
+		<!-- LOCKED: Template -->
 		<link href = "{{ asset('yummy/img/favicon.png') }}" rel = "icon">
 		<link href = "{{ asset('yummy/img/apple-touch-icon.png') }}" rel = "apple-touch-icon">
 		<link rel = "preconnect" href = "https://fonts.googleapis.com">
@@ -23,7 +23,7 @@
 		<link href = "{{ asset('yummy/vendor/swiper/swiper-bundle.min.css') }}" rel = "stylesheet">
 		<link href = "{{ asset('yummy/css/main.css') }}" rel = "stylesheet">
 		
-		<!-- Custom -->
+		<!-- LOCKED: Custom -->
 		<link href = "{{ asset('assets/less/general.less') }}" rel = "stylesheet" type = "text/less">
 
 		@yield('head')
@@ -31,16 +31,21 @@
 	</head>
 
     <body>
-		<!-- Main -->
+
+		<!-- Header -->
 		<header id = "header" class = "header fixed-top d-flex align-items-center">
 			<div class = "container d-flex align-items-center justify-content-between">
 				
-				<a href = "{{ url('/login') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
+				<a href = "{{ url('/dashboard') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
 					<h1 class = "capitalize">Cataloger<span>.</span></h1>
 				</a>
 
 				<nav id = "navbar" class = "navbar">
 					<ul>
+						<li><a href = "{{ url('/sections') }}">Sections</a></li>
+						<li><a href = "{{ url('/students') }}">Students</a></li>
+						<li><a href = "{{ url('/users') }}">Users</a></li>
+						<li><a href = "{{ url('/years') }}">Years</a></li>
 						<li><a href = "{{ url('/logout') }}">Log out</a></li>
 					</ul>
 				</nav>
@@ -74,6 +79,7 @@
 		
 		<!-- Custom -->
 		<script src = "{{ asset('assets/js/less.min.js') }}"></script>
+		<script src = "{{ asset('assets/js/general.js') }}"></script>
         
     </body>
 	
