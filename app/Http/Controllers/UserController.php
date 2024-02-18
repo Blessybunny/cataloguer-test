@@ -6,6 +6,7 @@ use App\Models\Grade;
 use App\Models\Role;
 use App\Models\Section;
 use App\Models\User;
+use App\Models\Year;
 use Request;
 
 class UserController extends Controller {
@@ -14,16 +15,30 @@ class UserController extends Controller {
 
     // Index (GET)
     public function index_1 () {
-        $grades = Grade::all();
-        $roles = Role::all();
-        $sections = Section::all();
-        $users = User::orderBy('name_last', 'ASC')->get();
+        $users = User::orderBy('DB_ROLE_id', 'ASC')
+            ->orderBy('name_last', 'ASC')
+            ->orderBy('name_first', 'ASC')
+            ->get();
 
-        return view('pages.users.index')
-            ->with('grades', $grades)
-            ->with('roles', $roles)
-            ->with('sections', $sections)
-            ->with('users', $users);
+        foreach ($users as $user) {
+            $user->role = Role::find($user->DB_ROLE_id)->role;
+
+            if ($user->DB_ROLE_id == '1' || $user->DB_ROLE_id == '2') {
+                $user->advisory = 'N/A';
+            }
+            else if ($user->DB_ROLE_id == '3') {
+                $grade = Grade::find($user->DB_GRADE_id)->grade;
+                $user->advisory = 'Grade '.$grade;
+            }
+            else if ($user->DB_ROLE_id == '4' || $user->DB_ROLE_id == '5') {
+                $section = Section::find($user->DB_SECTION_id);
+                $grade = Grade::find($section->DB_GRADE_id)->grade;
+                $section = $section->section;
+                $user->advisory = 'Grade '.$grade.' - '.$section;
+            }
+        }
+
+        return view('pages.users.index')->with('users', $users);
     }
 
     // Index (POST)
@@ -61,8 +76,8 @@ class UserController extends Controller {
 
     // Create (GET)
     public function create_1 () {
-        $grades = Grade::all();
-        $roles = Role::all();
+        $grades = Grade::all(); // safe
+        $roles = Role::all(); // safe
         $sections = Section::all();
 
         return view('pages.users.create')
@@ -74,9 +89,9 @@ class UserController extends Controller {
     // Create (POST)
     public function create_2 () {
         $validate = request()->validate([
-            'db_role_id' => 'required',
-            'db_grade_id' => 'nullable',
-            'db_section_id' => 'nullable',
+            'DB_ROLE_id' => 'required',
+            'DB_GRADE_id' => 'nullable',
+            'DB_SECTION_id' => 'nullable',
 
             'email' => 'required|unique:users,email',
             'password' => 'required',
@@ -85,10 +100,22 @@ class UserController extends Controller {
             'name_first' => 'required',
         ]);
 
-        $user = User::create([
-            'db_role_id' => $validate['db_role_id'],
-            'db_grade_id' => $validate['db_grade_id'],
-            'db_section_id' => $validate['db_section_id'],
+        // Role IDs (see seeders)
+        if ($validate['DB_ROLE_id'] == '1' || $validate['DB_ROLE_id'] == '2') {
+            $validate['DB_GRADE_id'] = null;
+            $validate['DB_SECTION_id'] = null;
+        }
+        else if ($validate['DB_ROLE_id'] == '3') {
+            $validate['DB_SECTION_id'] = null;
+        }
+        else if ($validate['DB_ROLE_id'] == '4' || $validate['DB_ROLE_id'] == '5') {
+            $validate['DB_GRADE_id'] = null;
+        }
+
+        User::create([
+            'DB_ROLE_id' => $validate['DB_ROLE_id'],
+            'DB_GRADE_id' => $validate['DB_GRADE_id'],
+            'DB_SECTION_id' => $validate['DB_SECTION_id'],
 
             'email' => $validate['email'],
             'password' => bcrypt($validate['password']),
@@ -97,35 +124,15 @@ class UserController extends Controller {
             'name_first' => $validate['name_first'],
         ]);
 
-        // For some reason, changing validated variables works only when the user is created.
-        // Role IDs (see seeders)
-        if ($validate['db_role_id'] == "1" || $validate['db_role_id'] == "2") {
-            $validate['db_grade_id'] = null;
-            $validate['db_section_id'] = null;
-        }
-
-        if ($validate['db_role_id'] == "3") {
-            $validate['db_section_id'] = null;
-        }
-
-        if ($validate['db_role_id'] == "4" || $validate['db_role_id'] == "5") {
-            $validate['db_grade_id'] = null;
-        }
-
-        User::where('id', $user->id)->update([
-            'db_grade_id' => $validate['db_grade_id'],
-            'db_section_id' => $validate['db_section_id'],
-        ]);
-
         return redirect()->to('/users');
     }
 
     // Edit (GET)
     public function edit_1 ($id) {
-        $grades = Grade::all();
-        $roles = Role::all();
+        $grades = Grade::all(); // safe
+        $roles = Role::all(); // safe
         $sections = Section::all();
-        $user = User::findOrFail($id);
+        $user = User::find($id); // safe
 
         return view('pages.users.edit')
             ->with('grades', $grades)
@@ -137,32 +144,45 @@ class UserController extends Controller {
     // Edit (POST)
     public function edit_2 ($id) {
         $validate = request()->validate([
-            'db_role_id' => 'required',
-            'db_grade_id' => 'nullable',
-            'db_section_id' => 'nullable',
+            'DB_ROLE_id' => 'required',
+            'DB_GRADE_id' => 'nullable',
+            'DB_SECTION_id' => 'nullable',
 
             'name_last' => 'required',
             'name_first' => 'required',
         ]);
 
+        $user = User::find($id);
+
         // Role IDs (see seeders)
-        if ($validate['db_role_id'] == "1" || $validate['db_role_id'] == "2") {
-            $validate['db_grade_id'] = null;
-            $validate['db_section_id'] = null;
+        if ($user->DB_ROLE_id != $validate['DB_ROLE_id']) {
+            $years = Year::where('DB_USER_ID', $id)->get();
+
+            foreach ($years as $year) {
+                $year->update([
+                    'DB_USER_id' => null,
+
+                    'REMEMBER_DB_USER_name_last' => $user->name_last,
+                    'REMEMBER_DB_USER_name_first' => $user->name_first,
+                ]);
+            }
         }
 
-        if ($validate['db_role_id'] == "3") {
-            $validate['db_section_id'] = null;
+        if ($validate['DB_ROLE_id'] == '1' || $validate['DB_ROLE_id'] == '2') {
+            $validate['DB_GRADE_id'] = null;
+            $validate['DB_SECTION_id'] = null;
+        }
+        else if ($validate['DB_ROLE_id'] == '3') {
+            $validate['DB_SECTION_id'] = null;
+        }
+        else if ($validate['DB_ROLE_id'] == '4' || $validate['DB_ROLE_id'] == '5') {
+            $validate['DB_GRADE_id'] = null;
         }
 
-        if ($validate['db_role_id'] == "4" || $validate['db_role_id'] == "5") {
-            $validate['db_grade_id'] = null;
-        }
-
-        User::where('id', $id)->update([
-            'db_role_id' => $validate['db_role_id'],
-            'db_grade_id' => $validate['db_grade_id'],
-            'db_section_id' => $validate['db_section_id'],
+        $user->update([
+            'DB_ROLE_id' => $validate['DB_ROLE_id'],
+            'DB_GRADE_id' => $validate['DB_GRADE_id'],
+            'DB_SECTION_id' => $validate['DB_SECTION_id'],
 
             'name_last' => $validate['name_last'],
             'name_first' => $validate['name_first'],
@@ -173,14 +193,26 @@ class UserController extends Controller {
 
     // Delete (GET)
     public function delete_1 ($id) {
-        $user = User::findOrFail($id);
+        $user = User::find($id);
 
         return view('pages.users.delete')->with('user', $user);
     }
 
     // Delete (POST)
     public function delete_2 ($id) {
-        User::where('$id', $id)->delete();
+        $user = User::find($id);
+        $years = Year::where('DB_USER_ID', $id)->get();
+
+        foreach ($years as $year) {
+            $year->update([
+                'DB_USER_id' => null,
+
+                'REMEMBER_DB_USER_name_last' => $user->name_last,
+                'REMEMBER_DB_USER_name_first' => $user->name_first,
+            ]);
+        }
+
+        $user->delete();
 
         return redirect()->to('/users');
     }

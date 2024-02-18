@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
 
-            $table->tinyInteger('db_grade_id');
+            $table->tinyInteger('DB_GRADE_id');
 
             $table->string('section', 50)->nullable();
         });

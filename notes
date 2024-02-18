@@ -1,17 +1,16 @@
 TOP-PRIO:
-    - Remove onclick events inside HTML files in layouts.students
+    - REMEMBER tokens for sections
+
+    - grammarly the comments inside students migration file
 CHECKPOINT:
-    SEARCH UPDATE
-    CHANGE search placeholder for each manager based on available search fields e.g. User: placeholder = "Search DepEd ID, name"
     User POV and redirection to dashboard.
     User POV and availability of links on the navigation.
 
 Low Prio:
-    - save code space with search results
-    - SF9 Layouts
+    - add a toggle-highlight button for sf9-10 editor to color the backgrounds of editable fields
     - student sy/section form edit
     - student delete
-    - user delete
+    - create a second field with year to contain the "xxxx-xxxx" string for search results
 
 NEW FIXES:
     - Ask/confirm first:
@@ -27,56 +26,69 @@ TO ASK OR NOT TO ASK, THAT IS THE QUESTION (questions that must be answered afte
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MIGRATIONS:
     Name:                   Relatives:                          Status:                             Comments:
-    1. Grade                .                                   Complete                            Seeder finalized
-    2. Role                 .                                   Complete                            Seeder finalized
+    1. Grade                                                    Complete                            Seeder finalized
+    2. Role                                                     Complete                            Seeder finalized
     3. Section              Grade                               Complete                            Seeder finalized / Values are replaceable
     4. Student              Grade / Section / User / Year       WIP                                 Seeder optional
     5. User                 Grade / Role / Section              Complete                            Seeder finalized / Values are replaceable / One principal user minimum
-    6. Year                 .                                   Complete                            Seeder optional
+    6. Year                                                     Complete                            Seeder optional
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MANAGER:
-    Name:                                                       Status:         Hard/Role Coded:    Comments:
-    1. Grade                                                    Complete        .                   .
-    2. Role                                                     Complete        .                   .
+    Name:                                                       Status:                             Comments:
+    1. Grade                                                    Complete
+    2. Role                                                     Complete
     3. Section
-        - controller                                            Complete        Yes                 .
-        - create                                                .               .                   ,
-        - delete                                                .               .                   .
-        - edit                                                  Complete        .                   .
-        - index                                                 Complete        .                   Order ascending
-        - model                                                 Complete        .                   .
-        - route                                                 Complete        .                   .
-        - search                                                .               .                   .
+        - controller                                            Complete (clean condition)
+        - create                                                TBA
+        - delete                                                TBA
+        - edit                                                  Complete (clean condition)
+        - index                                                 Complete (clean condition)                            Order-descend (grade)
+        - model                                                 Complete (clean condition)
+        - route                                                 Complete (clean condition)
+        - search
     4. Student
-        - controller                                            WIP             .                   .
-        - create                                                Complete        .                   .
-        - delete                                                TBA             .                   .
-        - edit-form                                             Complete        .                   Debugging
-        - edit-info                                             Complete        .                   .
-        - edit-s-sy                                             TBA             .                   .
-        - index                                                 Complete        .                   Order ascending
-        - model                                                 Complete        .                   .
-        - route                                                 Complete        .                   .
-        - search                                                Complete        .                   Order default
-        - stats                                                 TBA             .                   .
+        - controller                                            WIP                                 Rolecoded (1)
+        - create                                                Complete
+        - delete                                                TBA
+        - edit-form                                             Complete                            Debugging
+        - edit-info                                             Complete
+        - edit-s-sy                                             TBA
+        - index                                                 Complete                            Order-ascend (info_name_last) / Order-ascend (info_name_first) / Order-ascend (info_name_middle) / Order-ascend (info_name_suffix)
+        - model                                                 wip
+        - route                                                 Complete
+        - search                                                Complete
+        - stats                                                 TBA
     5. User
-        - controller                                            Complete        Yes                 .
-        - create                                                Complete        .                   .
-        - delete                                                TBA             .                   .
-        - edit                                                  Complete        .                   .
-        - index                                                 Complete        Yes                 Order ascending
-        - model                                                 Complete        .                   .
-        - route                                                 Complete        .                   .
-        - search                                                Complete        .                   Order default
+        - controller                                            Complete                            Rolecoded (1, 2, 3, 4, 5) / Remembers (year)
+        - create                                                Complete
+        - delete                                                Complete (clean condition)
+        - edit                                                  Complete
+        - index                                                 Complete (clean condition)                            Order-ascend (DB_ROLE_id) / Order-ascend (name_last) / Order-ascend (name_first)
+        - model                                                 Complete (clean condition) 
+        - route                                                 Complete (clean condition)
+        - search                                                Complete (clean condition)
     6. Year
-        - controller                                            Complete        .                   .
-        - create                                                Complete        .                   .
-        - delete                                                .               .                   .
-        - edit                                                  Complete        .                   .
-        - index                                                 Complete        .                   Order ascending
-        - model                                                 Complete        .                   .
-        - route                                                 Complete        .                   .
-        - search                                                Complete        .                   Order default
+        - controller                                            Complete (clean condition)                            Rolecoded (1) / Remembers (year)
+        - create                                                Complete (clean condition)
+        - delete
+        - edit                                                  Complete (clean condition)
+        - index                                                 Complete (clean condition)                            Order-descend (year)
+        - model                                                 Complete (clean condition)
+        - route                                                 Complete (clean condition)
+        - search                                                Complete (clean condition)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LAYOUTS AND PAGES:
+    Name:                                                       Status:                             Comments:
+    - Home                                                      WIP, add anti-admin condition to students                            Rolecoded
+    - Login                                                     WIP
+    - Page                                                      Pending split
+    - Student
+        - sf9-back                                              Complete 
+        - sf9-front                                             Complete (75%)                      Missing section, principal, adviser, attendance backend linkings
+        - sf10-back                                             Complete
+        - sf10-certification                                    Complete
+        - sf10-front                                            Complete
+        - sf10-scholastic-record                                Complete
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
 SEARCH:
     Name:
@@ -94,29 +106,36 @@ SEARCH:
     6. Year:
         - year
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-LAYOUTS AND PAGES:
-    Name:                                                       Status:         Hard/Role Coded:    Comments:
-    - Home                                                      Complete        Yes                 .
-    - Login                                                     WIP             .                   .
-    - Student
-        - sf9-back                                              WIP             .                   .
-        - sf9-front                                             WIP             .                   .
-        - sf10-back                                             Requires last check           .                   .
-        - sf10-certification                                    Requires last check           .                   .
-        - sf10-front                                            Requires last check           .                   .
-        - sf10-scholastic-record                                Requires last check           .                   .
+ROLES:
+    Name:                           Manager:                    Access:                             Satus:
+    - Principal                     Section                     View + Edit (full)
+                                    Student                     View + Edit (only locker)
+                                    User                        View + Edit (full)
+                                    Year                        View + Edit (full)
+    - Administrator                 Section                     View + Edit (full)
+                                    Student                     Edit (only locker)
+                                    User                        View + Edit (limited)
+                                    Year                        View + Edit
+    - Grade Level Coordinator       Section
+                                    Student                     View + Edit (no locker)
+                                    User
+                                    Year
+    - Adviser                       Section
+                                    Student                     View + Edit (no locker)
+                                    User
+                                    Year
+    - Teacher                       Section
+                                    Student                     View
+                                    User
+                                    Year
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 RESOURCES:
     Name:                                                       Status:
-    - general.js                                                Clean
-    - general.less                                              Clean
-    - students.js                                               Clean
-    - students.less                                             Clean
+    - general.js                                                Complete
+    - general.less                                              Complete
+    - students.js                                               Complete
+    - students.less                                             Complete
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-LOGIN:
-    - TBA
-    - Issues: Shares a similar HTML structure with "layouts.general.page"
-------------------------------------------------------------
 PROGRESS REPORTER:
     ! Base off data from the SF9 FIELDS ONLY.
     - coming soon!
@@ -132,4 +151,85 @@ JUNKYARD:
         margin: calc(@size-spacing / 4);
         padding: calc(@size-spacing / 2);
     }
-    
+
+
+
+    @foreach ($users as $user)
+
+							@foreach ($roles as $role)
+
+								@if ($role->id == $user->DB_ROLE_id)
+
+									<tr>
+										<td>{{ $user->email }}</td>
+										<td>{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</td>
+										<td class = "text-center">{{ $role->role }}</td>
+										<td class = "text-center">
+
+											<!-- Role IDs (see seeders) -->
+
+											@if ($user->DB_ROLE_id == "1")
+
+												N/A
+
+											@endif
+
+											@if ($user->DB_ROLE_id == "2")
+
+												N/A
+
+											@endif
+
+											@if ($user->DB_ROLE_id == "3")
+
+												@foreach ($grades as $grade)
+
+													@if ($user->DB_GRADE_id == $grade->id)
+
+														Grade {{ $grade->grade }}
+
+														@break
+
+													@endif
+
+												@endforeach
+
+											@endif
+
+											@if ($user->DB_ROLE_id == "4" || $user->DB_ROLE_id == "5")
+
+												@foreach ($sections as $section)
+
+														@if ($section->id == $user->DB_SECTION_id)
+
+																@foreach ($grades as $grade)
+
+																	@if ($grade->id == $section->DB_GRADE_id)
+
+																		Grade {{ $grade->grade }} - {{ $section->section }}
+
+																		@break
+
+																	@endif
+
+																@endforeach
+
+														@endif
+
+												@endforeach
+
+											@endif
+
+										</td>
+										<td class = "text-center">
+											<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
+										</td>
+									</tr>
+
+									@break
+
+								@endif
+
+							@endforeach
+
+						@endforeach

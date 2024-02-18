@@ -10,7 +10,9 @@ class User extends Authenticatable {
     use Notifiable;
 
     protected $fillable = [
-        'db_role_id',
+        'DB_ROLE_id',
+        'DB_GRADE_id',
+        'DB_SECTION_id',
 
         'email',
         'password',

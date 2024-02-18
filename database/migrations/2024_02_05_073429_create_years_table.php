@@ -10,6 +10,11 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
 
+            $table->integer('DB_USER_id')->nullable();
+
+            $table->string('REMEMBER_DB_USER_name_last', 50)->nullable();
+            $table->string('REMEMBER_DB_USER_name_first', 50)->nullable();
+
             $table->smallInteger('year')->unique();
 
             $table->tinyInteger('attendance_jan_t')->nullable();

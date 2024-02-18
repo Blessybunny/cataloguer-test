@@ -1,14 +1,12 @@
 <div class = "container paper">
 	<div class = "row">
 
-		<!-- Grades -->
+		<!-- Left -->
 		<div class = "col-6">
 
 			<h6 class = "heading">Report on Learning Progress and Achievement</h6>
 
-			<label class = "font-bold text-uppercase">
-				<span>Name:&nbsp;</span>
-			</label>
+			<span class = "font-bold text-uppercase">Name: {{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</span>
 
 			<table class = "table">
 
@@ -679,9 +677,9 @@
 
 			</table>
 
-			<label class = "font-bold text-uppercase">
-				<span>General Average:&nbsp;</span>
-				<span data-property = "average" data-targets = '[
+			<div class = "display-flex font-bold text-uppercase">
+				<div>General Average:&nbsp;</div>
+				<div data-property = "average" data-targets = '[
 					"sf9_g{{ $grade }}_subject_qr1_fil",
 					"sf9_g{{ $grade }}_subject_qr2_fil",
 					"sf9_g{{ $grade }}_subject_qr3_fil",
@@ -736,8 +734,8 @@
 					"sf9_g{{ $grade }}_subject_qr2_hp",
 					"sf9_g{{ $grade }}_subject_qr3_hp",
 					"sf9_g{{ $grade }}_subject_qr4_hp"
-				]'></span>
-			</label>
+				]'></div>
+			</div>
 
 			<table class = "table">
 				<tr>
@@ -774,11 +772,10 @@
 
 		</div>
 		
-		<!-- Observance -->
+		<!-- Right -->
 		<div class = "col-6">
 
 			<h6 class = "heading">Report on Learner's Observed Values</h6>
-
 			<br>
 
 			<table class = "table">

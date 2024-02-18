@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up () : void {
-        // LOCKED: All: Info
+        // All: Info
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -22,7 +22,17 @@ return new class extends Migration {
 
         // SF9: Report
         Schema::table('students', function (Blueprint $table) {
-            /*'db_section_id_sf9_g7_report_section' => 'nullable',
+            $table->integer('DB_YEAR_ID_g7')->nullable();
+            $table->integer('DB_YEAR_ID_g8')->nullable();
+            $table->integer('DB_YEAR_ID_g9')->nullable();
+            $table->integer('DB_YEAR_ID_g10')->nullable();
+
+
+            $table->integer('db_section_id_sf9_g7_report_section')->nullable();
+            $table->integer('db_section_id_BAK_sf9_g7_report_section')->nullable(); // Remembers the last section name prior to its update
+
+
+            /*'' => 'nullable',
             'db_section_id_sf9_g8_report_section' => 'nullable',
             'db_section_id_sf9_g9_report_section' => 'nullable',
             'db_section_id_sf9_g10_report_section' => 'nullable',
@@ -35,36 +45,24 @@ return new class extends Migration {
             */
             // db_year_id (standard integer)
             $table->string('sf9_g7_report_age', 50)->nullable();
-            $table->string('sf9_g7_report_year', 50)->nullable();
-            $table->string('sf9_g7_report_principal', 50)->nullable();
-            $table->string('sf9_g7_report_adviser', 50)->nullable();
             $table->string('sf9_g7_report_transfer_input_1', 50)->nullable();
             $table->string('sf9_g7_report_transfer_input_2', 50)->nullable();
             $table->string('sf9_g7_report_transfer_input_3', 50)->nullable();
             $table->string('sf9_g7_report_transfer_input_date', 50)->nullable();
 
             $table->string('sf9_g8_report_age', 50)->nullable();
-            $table->string('sf9_g8_report_year', 50)->nullable();
-            $table->string('sf9_g8_report_principal', 50)->nullable();
-            $table->string('sf9_g8_report_adviser', 50)->nullable();
             $table->string('sf9_g8_report_transfer_input_1', 50)->nullable();
             $table->string('sf9_g8_report_transfer_input_2', 50)->nullable();
             $table->string('sf9_g8_report_transfer_input_3', 50)->nullable();
             $table->string('sf9_g8_report_transfer_input_date', 50)->nullable();
 
             $table->string('sf9_g9_report_age', 50)->nullable();
-            $table->string('sf9_g9_report_year', 50)->nullable();
-            $table->string('sf9_g9_report_principal', 50)->nullable();
-            $table->string('sf9_g9_report_adviser', 50)->nullable();
             $table->string('sf9_g9_report_transfer_input_1', 50)->nullable();
             $table->string('sf9_g9_report_transfer_input_2', 50)->nullable();
             $table->string('sf9_g9_report_transfer_input_3', 50)->nullable();
             $table->string('sf9_g9_report_transfer_input_date', 50)->nullable();
 
             $table->string('sf9_g10_report_age', 50)->nullable();
-            $table->string('sf9_g10_report_year', 50)->nullable();
-            $table->string('sf9_g10_report_principal', 50)->nullable();
-            $table->string('sf9_g10_report_adviser', 50)->nullable();
             $table->string('sf9_g10_report_transfer_input_1', 50)->nullable();
             $table->string('sf9_g10_report_transfer_input_2', 50)->nullable();
             $table->string('sf9_g10_report_transfer_input_3', 50)->nullable();

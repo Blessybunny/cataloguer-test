@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\YearController;
 use Illuminate\Support\Facades\Route;
 
 // SECTION
@@ -20,7 +22,8 @@ Route::post('/students/create', 'App\Http\Controllers\StudentController@create_2
 Route::get('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_1');
 Route::post('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_2');
 
-// s_sy
+Route::get('/students/edit/s_sy/{id}', 'App\Http\Controllers\StudentController@edit_s_sy_1');
+Route::post('/students/edit/s_sy/{id}', 'App\Http\Controllers\StudentController@edit_s_sy_2');
 
 Route::get('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_1');
 Route::post('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_2');

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Year;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Request;
 
 class YearController extends Controller {
@@ -11,7 +13,7 @@ class YearController extends Controller {
 
     // Index (GET)
     public function index_1 () {
-        $years = Year::orderBy('year', 'ASC')->get();
+        $years = Year::orderBy('year', 'DESC')->get();
 
         return view('pages.years.index')->with('years', $years);
     }
@@ -21,10 +23,10 @@ class YearController extends Controller {
         $terms = Request::get('terms');
 
         if (isset($terms)) {
-            $temp_terms = explode(' ', $terms);
+            $terminology = explode(' ', $terms);
             $query = Year::query();
 
-            foreach($temp_terms as $term){
+            foreach($terminology as $term){
                 $query->where(function ($q) use ($term) {
                     $q->where('year', 'like', '%'.$term.'%');
                 });
@@ -43,12 +45,16 @@ class YearController extends Controller {
 
     // Create (GET)
     public function create_1 () {
-        return view('pages.years.create');
+        $users = User::where('db_role_id', '1')->get();
+
+        return view('pages.years.create')->with('users', $users);
     }
 
     // Create (POST)
     public function create_2 () {
         $validate = request()->validate([
+            'DB_USER_id' => 'nullable',
+
             'year' => 'required|unique:years,year',
 
             'attendance_jan_t' => 'nullable',
@@ -66,6 +72,8 @@ class YearController extends Controller {
         ]);
 
         Year::create([
+            'DB_USER_id' => $validate['DB_USER_id'],
+
             'year' => $validate['year'],
 
             'attendance_jan_t' => $validate['attendance_jan_t'],
@@ -87,14 +95,19 @@ class YearController extends Controller {
 
     // Edit (GET)
     public function edit_1 ($id) {
-        $year = Year::findOrFail($id);
+        $users = User::where('db_role_id', '1')->get();
+        $year = Year::find($id);
 
-        return view('pages.years.edit')->with('year', $year);
+        return view('pages.years.edit')
+            ->with('users', $users)
+            ->with('year', $year);
     }
 
     // Edit (POST)
     public function edit_2 ($id) {
         $validate = request()->validate([
+            'DB_USER_id' => 'nullable',
+
             'attendance_jan_t' => 'nullable',
             'attendance_feb_t' => 'nullable',
             'attendance_mar_t' => 'nullable',
@@ -109,7 +122,9 @@ class YearController extends Controller {
             'attendance_dec_t' => 'nullable',
         ]);
 
-        Year::where('id', $id)->update([
+        $year = Year::find($id);
+
+        $year->update([
             'attendance_jan_t' => $validate['attendance_jan_t'],
             'attendance_feb_t' => $validate['attendance_feb_t'],
             'attendance_mar_t' => $validate['attendance_mar_t'],
@@ -123,6 +138,25 @@ class YearController extends Controller {
             'attendance_nov_t' => $validate['attendance_nov_t'],
             'attendance_dec_t' => $validate['attendance_dec_t'],
         ]);
+
+        if ($validate['DB_USER_id'] != null) {
+            if ($validate['DB_USER_id'] != "remember") {
+                $year->update([
+                    'DB_USER_id' => $validate['DB_USER_id'],
+
+                    'REMEMBER_DB_USER_name_last' => null,
+                    'REMEMBER_DB_USER_name_first' => null,
+                ]);
+            }
+        }
+        else {
+            $year->update([
+                'DB_USER_id' => null,
+
+                'REMEMBER_DB_USER_name_last' => null,
+                'REMEMBER_DB_USER_name_first' => null,
+            ]);
+        }
 
         return redirect()->to('/years/edit/'.$id);
     }

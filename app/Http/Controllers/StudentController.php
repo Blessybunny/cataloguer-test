@@ -2,21 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grade;
 use App\Models\Student;
+use App\Models\User;
+use App\Models\Year;
 use Request;
 
 class StudentController extends Controller {
-    // [Locked] Redirect
+    // [100%] Redirect
     public function redirect () { return redirect()->to('/students'); }
 
-    // [Locked] Index (GET)
+    // [100%] Index (GET)
     public function index_1 () {
-        $students = Student::orderBy('info_name_last', 'ASC')->get();
+        $students = Student::orderBy('info_name_last', 'ASC')
+            ->orderBy('info_name_first', 'ASC')
+            ->orderBy('info_name_middle', 'ASC')
+            ->orderBy('info_name_suffix', 'ASC')
+            ->get();
 
         return view('pages.students.index')->with('students', $students);
     }
 
-    // [Locked] Index (POST)
+    // [100%] Index (POST)
     public function index_2 () {
         $terms = Request::get('terms');
 
@@ -46,12 +53,12 @@ class StudentController extends Controller {
         else return redirect()->to('/students');
     }
 
-    // [Locked] Create (GET)
+    // [100%] Create (GET)
     public function create_1 () {
         return view('pages.students.create');
     }
 
-    // [Locked] Create (POST)
+    // [100%] Create (POST)
     public function create_2 () {
         $validate = request()->validate([
             'info_name_last' => 'required',
@@ -63,30 +70,27 @@ class StudentController extends Controller {
             'info_birthdate' => 'required',
         ]);
 
-        $student = Student::create([
+        Student::create([
             'info_name_last' => $validate['info_name_last'],
             'info_name_first' => $validate['info_name_first'],
             'info_name_middle' => $validate['info_name_middle'],
+            'info_name_suffix' => $validate['info_name_suffix'],
             'info_lrn' => $validate['info_lrn'],
             'info_sex' => $validate['info_sex'],
             'info_birthdate' => $validate['info_birthdate'],
         ]);
 
-        Student::where('id', $student->id)->update([
-            'info_name_suffix' => $validate['info_name_suffix'],
-        ]);
-
         return redirect()->to('/students');
     }
 
-    // [Locked] Edit: Form (GET)
+    // [100%] Edit: Info (GET)
     public function edit_info_1 ($id) {
-        $student = Student::findOrFail($id);
+        $student = Student::find($id);
 
         return view('pages.students.edit-info')->with('student', $student);
     }
 
-    // [Locked] Edit: Form (POST)
+    // [100%] Edit: Info (POST)
     public function edit_info_2 ($id) {
         $validate = request()->validate([
             'info_name_last' => 'required',
@@ -98,7 +102,7 @@ class StudentController extends Controller {
             'info_birthdate' => 'required',
         ]);
 
-        Student::where('id', $id)->update([
+        Student::find($id)->update([
             'info_name_last' => $validate['info_name_last'],
             'info_name_first' => $validate['info_name_first'],
             'info_name_suffix' => $validate['info_name_suffix'],
@@ -111,110 +115,105 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/info/'.$id);
     }
 
-    // Edit: Sections / School Years (GET)
-    public function edit_s_sy_1 () {}
+    // [100%] Edit: Sections / School Years (GET)
+    public function edit_s_sy_1 ($id) {
+        $grades = Grade::all();
+        $student = Student::find($id);
+        $years = Year::all();
 
-    // Edit: Sections / School Years (POST)
-    public function edit_s_sy_2 () {}
-
-    // [Locked] Edit: Form (GET)
-    public function edit_form_1 ($id) {
-        $student = Student::findOrFail($id);
-
-        return view('pages.students.edit-form')->with('student', $student);
+        return view('pages.students.edit-s-sy')
+            ->with('grades', $grades)
+            ->with('student', $student)
+            ->with('years', $years);
     }
 
-    // Edit: Form (POST)
+    // Edit: Sections / School Years (POST)
+    public function edit_s_sy_2 ($id) {
+        $validate = request()->validate([
+            'DB_YEAR_ID_g7' => 'nullable',
+            'DB_YEAR_ID_g8' => 'nullable',
+            'DB_YEAR_ID_g9' => 'nullable',
+            'DB_YEAR_ID_g10' => 'nullable',
+        ]);
+
+        Student::find($id)->update([
+            'DB_YEAR_ID_g7' => $validate['DB_YEAR_ID_g7'],
+            'DB_YEAR_ID_g8' => $validate['DB_YEAR_ID_g8'],
+            'DB_YEAR_ID_g9' => $validate['DB_YEAR_ID_g9'],
+            'DB_YEAR_ID_g10' => $validate['DB_YEAR_ID_g10'],
+        ]);
+
+        return redirect()->to('/students/edit/s_sy/'.$id);
+    }
+
+    // [100%] Edit: Form (GET)
+    public function edit_form_1 ($id) {
+        $grades = Grade::all();
+        $student = Student::find($id);
+        $users = User::where('DB_ROLE_ID', '1')->get();
+        $years = Year::all();
+
+        return view('pages.students.edit-form')
+            ->with('grades', $grades)
+            ->with('student', $student)
+            ->with('users', $users)
+            ->with('years', $years);
+    }
+
+    // [Locked] Edit: Form (POST)
     public function edit_form_2 ($id) {
-        // SF9: Report
         $validate_sf9_report = request()->validate([
-            /*'db_section_id_sf9_g7_report_section' => 'nullable',
-            'db_section_id_sf9_g8_report_section' => 'nullable',
-            'db_section_id_sf9_g9_report_section' => 'nullable',
-            'db_section_id_sf9_g10_report_section' => 'nullable',
-            */
+            'sf9_g7_report_age' => 'nullable',  
+            'sf9_g7_report_transfer_input_1' => 'nullable', 
+            'sf9_g7_report_transfer_input_2' => 'nullable', 
+            'sf9_g7_report_transfer_input_3' => 'nullable', 
+            'sf9_g7_report_transfer_input_date' => 'nullable', 
 
-
-            'sf9_g7_report_age' => 'nullable',
-            'sf9_g7_report_year' => 'nullable',
-            'sf9_g7_report_principal' => 'nullable',
-            'sf9_g7_report_adviser' => 'nullable',
-            'sf9_g7_report_transfer_input_1' => 'nullable',
-            'sf9_g7_report_transfer_input_2' => 'nullable',
-            'sf9_g7_report_transfer_input_3' => 'nullable',
-            'sf9_g7_report_transfer_input_date' => 'nullable',
-
-            'sf9_g8_report_age' => 'nullable',
-            'sf9_g8_report_year' => 'nullable',
-            'sf9_g8_report_principal' => 'nullable',
-            'sf9_g8_report_adviser' => 'nullable',
-            'sf9_g8_report_transfer_input_1' => 'nullable',
-            'sf9_g8_report_transfer_input_2' => 'nullable',
-            'sf9_g8_report_transfer_input_3' => 'nullable',
-            'sf9_g8_report_transfer_input_date' => 'nullable',
+            'sf9_g8_report_age' => 'nullable', 
+            'sf9_g8_report_transfer_input_1' => 'nullable', 
+            'sf9_g8_report_transfer_input_2' => 'nullable', 
+            'sf9_g8_report_transfer_input_3' => 'nullable', 
+            'sf9_g8_report_transfer_input_date' => 'nullable', 
             
-            'sf9_g9_report_age' => 'nullable',
-            'sf9_g9_report_year' => 'nullable',
-            'sf9_g9_report_principal' => 'nullable',
-            'sf9_g9_report_adviser' => 'nullable',
-            'sf9_g9_report_transfer_input_1' => 'nullable',
-            'sf9_g9_report_transfer_input_2' => 'nullable',
-            'sf9_g9_report_transfer_input_3' => 'nullable',
-            'sf9_g9_report_transfer_input_date' => 'nullable',
+            'sf9_g9_report_age' => 'nullable', 
+            'sf9_g9_report_transfer_input_1' => 'nullable', 
+            'sf9_g9_report_transfer_input_2' => 'nullable', 
+            'sf9_g9_report_transfer_input_3' => 'nullable', 
+            'sf9_g9_report_transfer_input_date' => 'nullable', 
 
-            'sf9_g10_report_age' => 'nullable',
-            'sf9_g10_report_year' => 'nullable',
-            'sf9_g10_report_principal' => 'nullable',
-            'sf9_g10_report_adviser' => 'nullable',
-            'sf9_g10_report_transfer_input_1' => 'nullable',
-            'sf9_g10_report_transfer_input_2' => 'nullable',
-            'sf9_g10_report_transfer_input_3' => 'nullable',
-            'sf9_g10_report_transfer_input_date' => 'nullable',
+            'sf9_g10_report_age' => 'nullable', 
+            'sf9_g10_report_transfer_input_1' => 'nullable', 
+            'sf9_g10_report_transfer_input_2' => 'nullable', 
+            'sf9_g10_report_transfer_input_3' => 'nullable', 
+            'sf9_g10_report_transfer_input_date' => 'nullable', 
         ]);
 
         Student::where('id', $id)->update([
-            /*'sf9_g7_report_age' => $validate_sf9_report['sf9_g7_report_age'],
-            'sf9_g7_report_section' => $validate_sf9_report['sf9_g7_report_section'],
-            'sf9_g7_report_year' => $validate_sf9_report['sf9_g7_report_year'],
-            'sf9_g7_report_principal' => $validate_sf9_report['sf9_g7_report_principal'],
-            'sf9_g7_report_adviser' => $validate_sf9_report['sf9_g7_report_adviser'],*/
+            'sf9_g7_report_age' => $validate_sf9_report['sf9_g7_report_age'],
             'sf9_g7_report_transfer_input_1' => $validate_sf9_report['sf9_g7_report_transfer_input_1'],
             'sf9_g7_report_transfer_input_2' => $validate_sf9_report['sf9_g7_report_transfer_input_2'],
             'sf9_g7_report_transfer_input_3' => $validate_sf9_report['sf9_g7_report_transfer_input_3'],
             'sf9_g7_report_transfer_input_date' => $validate_sf9_report['sf9_g7_report_transfer_input_date'],
 
-            /*'sf9_g8_report_age' => $validate_sf9_report['sf9_g8_report_age'],
-            'sf9_g8_report_section' => $validate_sf9_report['sf9_g8_report_section'],
-            'sf9_g8_report_year' => $validate_sf9_report['sf9_g8_report_year'],
-            'sf9_g8_report_principal' => $validate_sf9_report['sf9_g8_report_principal'],
-            'sf9_g8_report_adviser' => $validate_sf9_report['sf9_g8_report_adviser'],*/
+            'sf9_g8_report_age' => $validate_sf9_report['sf9_g8_report_age'],
             'sf9_g8_report_transfer_input_1' => $validate_sf9_report['sf9_g8_report_transfer_input_1'],
             'sf9_g8_report_transfer_input_2' => $validate_sf9_report['sf9_g8_report_transfer_input_2'],
             'sf9_g8_report_transfer_input_3' => $validate_sf9_report['sf9_g8_report_transfer_input_3'],
             'sf9_g8_report_transfer_input_date' => $validate_sf9_report['sf9_g8_report_transfer_input_date'],
 
-            /*'sf9_g9_report_age' => $validate_sf9_report['sf9_g9_report_age'],
-            'sf9_g9_report_section' => $validate_sf9_report['sf9_g9_report_section'],
-            'sf9_g9_report_year' => $validate_sf9_report['sf9_g9_report_year'],
-            'sf9_g9_report_principal' => $validate_sf9_report['sf9_g9_report_principal'],
-            'sf9_g9_report_adviser' => $validate_sf9_report['sf9_g9_report_adviser'],*/
+            'sf9_g9_report_age' => $validate_sf9_report['sf9_g9_report_age'],
             'sf9_g9_report_transfer_input_1' => $validate_sf9_report['sf9_g9_report_transfer_input_1'],
             'sf9_g9_report_transfer_input_2' => $validate_sf9_report['sf9_g9_report_transfer_input_2'],
             'sf9_g9_report_transfer_input_3' => $validate_sf9_report['sf9_g9_report_transfer_input_3'],
             'sf9_g9_report_transfer_input_date' => $validate_sf9_report['sf9_g9_report_transfer_input_date'],
 
-            /*'sf9_g10_report_age' => $validate_sf9_report['sf9_g10_report_age'],
-            'sf9_g10_report_section' => $validate_sf9_report['sf9_g10_report_section'],
-            'sf9_g10_report_year' => $validate_sf9_report['sf9_g10_report_year'],
-            'sf9_g10_report_principal' => $validate_sf9_report['sf9_g10_report_principal'],
-            'sf9_g10_report_adviser' => $validate_sf9_report['sf9_g10_report_adviser'],*/
+            'sf9_g10_report_age' => $validate_sf9_report['sf9_g10_report_age'],
             'sf9_g10_report_transfer_input_1' => $validate_sf9_report['sf9_g10_report_transfer_input_1'],
             'sf9_g10_report_transfer_input_2' => $validate_sf9_report['sf9_g10_report_transfer_input_2'],
             'sf9_g10_report_transfer_input_3' => $validate_sf9_report['sf9_g10_report_transfer_input_3'],
             'sf9_g10_report_transfer_input_date' => $validate_sf9_report['sf9_g10_report_transfer_input_date'],
         ]);
 
-        // SF9: Attendance -> present
         $validate_sf9_attendance_p = request()->validate([
             'sf9_g7_attendance_jan_p' => 'nullable',
             'sf9_g7_attendance_feb_p' => 'nullable',
@@ -323,7 +322,6 @@ class StudentController extends Controller {
             'sf9_g10_attendance_dec_p' => $validate_sf9_attendance_p['sf9_g10_attendance_dec_p'],
         ]);
 
-        // SF9: Attendance -> absent
         $validate_sf9_attendance_a = request()->validate([
             'sf9_g7_attendance_jan_a' => 'nullable',
             'sf9_g7_attendance_feb_a' => 'nullable',
@@ -432,7 +430,6 @@ class StudentController extends Controller {
             'sf9_g10_attendance_dec_a' => $validate_sf9_attendance_a['sf9_g10_attendance_dec_a'],
         ]);
 
-        // SF9: Values -> maka - diyos
         $validate_sf9_values_md = request()->validate([
             'sf9_g7_values_qr1_md_s1' => 'nullable',
             'sf9_g7_values_qr2_md_s1' => 'nullable',
@@ -509,7 +506,6 @@ class StudentController extends Controller {
             'sf9_g10_values_qr4_md_s2' => $validate_sf9_values_md['sf9_g10_values_qr4_md_s2'],
         ]);
 
-        // SF9: Values -> maka - tao
         $validate_sf9_values_mt = request()->validate([
             'sf9_g7_values_qr1_mt_s1' => 'nullable',
             'sf9_g7_values_qr2_mt_s1' => 'nullable',
@@ -586,7 +582,6 @@ class StudentController extends Controller {
             'sf9_g10_values_qr4_mt_s2' => $validate_sf9_values_mt['sf9_g10_values_qr4_mt_s2'],
         ]);
 
-        // SF9: Values -> maka - kalikasan
         $validate_sf9_values_mk = request()->validate([
             'sf9_g7_values_qr1_mk' => 'nullable',
             'sf9_g7_values_qr2_mk' => 'nullable',
@@ -631,7 +626,6 @@ class StudentController extends Controller {
             'sf9_g10_values_qr4_mk' => $validate_sf9_values_mk['sf9_g10_values_qr4_mk'],
         ]);
 
-        // SF9: Values -> maka - bansa
         $validate_sf9_values_mb = request()->validate([
             'sf9_g7_values_qr1_mb_s1' => 'nullable',
             'sf9_g7_values_qr2_mb_s1' => 'nullable',
@@ -1873,16 +1867,16 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/form/'.$id);
     }
 
-    // Delete (GET)
+    // [Locked] Delete (GET)
     public function delete_1 ($id) {
         $student = Student::findOrFail($id);
 
         return view('pages.students.delete')->with('student', $student);
     }
 
-    // Delete (POST)
+    // [Locked] Delete (POST)
     public function delete_2 ($id) {
-        Student::where('$id', $id)->delete();
+        Student::where('id', $id)->delete();
 
         return redirect()->to('/students');
     }

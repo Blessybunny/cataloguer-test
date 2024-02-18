@@ -10,9 +10,9 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
 
-            $table->tinyInteger('db_role_id');
-            $table->tinyInteger('db_grade_id')->nullable();
-            $table->tinyInteger('db_section_id')->nullable();
+            $table->tinyInteger('DB_ROLE_id');
+            $table->tinyInteger('DB_GRADE_id')->nullable();
+            $table->tinyInteger('DB_SECTION_id')->nullable();
 
             $table->string('email', 50)->unique();
             $table->string('password');

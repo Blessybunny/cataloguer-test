@@ -10,7 +10,7 @@
 		<!-- Header -->
 		<div class = "col">
 			<h4 class = "text-center">Home</h4>
-			<p class = "text-center">Manager Selection</p>
+			<p class = "text-center">Manager selection</p>
 		</div>
 
 	</div>

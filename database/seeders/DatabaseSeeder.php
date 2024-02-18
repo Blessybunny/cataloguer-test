@@ -40,49 +40,55 @@ class DatabaseSeeder extends Seeder {
 
     // SECTION: All
     public function section () : void {
-        Section::create(['db_grade_id' => '1', 'section' => '7-A',]);
-        Section::create(['db_grade_id' => '1', 'section' => '7-B',]);
-        Section::create(['db_grade_id' => '1', 'section' => '7-C',]);
-        Section::create(['db_grade_id' => '1', 'section' => '7-D',]);
-        Section::create(['db_grade_id' => '1', 'section' => '7-E',]);
-        Section::create(['db_grade_id' => '1', 'section' => '7-F',]);
-        Section::create(['db_grade_id' => '1', 'section' => null,]);
-        Section::create(['db_grade_id' => '1', 'section' => null,]);
-        Section::create(['db_grade_id' => '1', 'section' => null,]);
-        Section::create(['db_grade_id' => '1', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-A',]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-B',]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-C',]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-D',]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-E',]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-F',]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => null,]);
 
-        Section::create(['db_grade_id' => '2', 'section' => '8-A',]);
-        Section::create(['db_grade_id' => '2', 'section' => '8-B',]);
-        Section::create(['db_grade_id' => '2', 'section' => '8-C',]);
-        Section::create(['db_grade_id' => '2', 'section' => '8-D',]);
-        Section::create(['db_grade_id' => '2', 'section' => '8-E',]);
-        Section::create(['db_grade_id' => '2', 'section' => '8-F',]);
-        Section::create(['db_grade_id' => '2', 'section' => '8-G',]);
-        Section::create(['db_grade_id' => '2', 'section' => '8-H',]);
-        Section::create(['db_grade_id' => '2', 'section' => null,]);
-        Section::create(['db_grade_id' => '2', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-A',]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-B',]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-C',]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-D',]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-E',]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-F',]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-G',]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-H',]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
 
-        Section::create(['db_grade_id' => '3', 'section' => '9-A',]);
-        Section::create(['db_grade_id' => '3', 'section' => '9-B',]);
-        Section::create(['db_grade_id' => '3', 'section' => '9-C',]);
-        Section::create(['db_grade_id' => '3', 'section' => '9-D',]);
-        Section::create(['db_grade_id' => '3', 'section' => '9-E',]);
-        Section::create(['db_grade_id' => '3', 'section' => '9-F',]);
-        Section::create(['db_grade_id' => '3', 'section' => '9-G',]);
-        Section::create(['db_grade_id' => '3', 'section' => '9-H',]);
-        Section::create(['db_grade_id' => '3', 'section' => null,]);
-        Section::create(['db_grade_id' => '3', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-A',]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-B',]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-C',]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-D',]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-E',]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-F',]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-G',]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-H',]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
 
-        Section::create(['db_grade_id' => '4', 'section' => '10-A',]);
-        Section::create(['db_grade_id' => '4', 'section' => '10-B',]);
-        Section::create(['db_grade_id' => '4', 'section' => '10-C',]);
-        Section::create(['db_grade_id' => '4', 'section' => '10-D',]);
-        Section::create(['db_grade_id' => '4', 'section' => '10-E',]);
-        Section::create(['db_grade_id' => '4', 'section' => '10-F',]);
-        Section::create(['db_grade_id' => '4', 'section' => '10-G',]);
-        Section::create(['db_grade_id' => '4', 'section' => '10-H',]);
-        Section::create(['db_grade_id' => '4', 'section' => null,]);
-        Section::create(['db_grade_id' => '4', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-A',]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-B',]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-C',]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-D',]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-E',]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-F',]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-G',]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-H',]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
     }
 
     // USER: Principal, Adviser
@@ -96,8 +102,7 @@ class DatabaseSeeder extends Seeder {
             'name_first' => 'Ipsum Dolor',
         ]);
         User::create([
-            'db_role_id' => 4,
-            'db_section_id' => 1,
+            'db_role_id' => 1,
 
             'email' => '0223456789',
             'password' => bcrypt('password'),
@@ -109,52 +114,10 @@ class DatabaseSeeder extends Seeder {
     // YEAR: 2020-2024
     public function year () : void {
         Year::create([
-            'year' => 2020,
-            'attendance_jan_t' => 20,
-            'attendance_feb_t' => 20,
-            'attendance_mar_t' => 20,
-            'attendance_apr_t' => 20,
-            'attendance_may_t' => 20,
-            'attendance_jun_t' => 20,
-            'attendance_jul_t' => 20,
-            'attendance_aug_t' => 20,
-            'attendance_sep_t' => 20,
-            'attendance_oct_t' => 20,
-            'attendance_nov_t' => 20,
-            'attendance_dec_t' => 20,
-        ]);
-        Year::create([
-            'year' => 2021,
-            'attendance_jan_t' => 20,
-            'attendance_feb_t' => 20,
-            'attendance_mar_t' => 20,
-            'attendance_apr_t' => 20,
-            'attendance_may_t' => 20,
-            'attendance_jun_t' => 20,
-            'attendance_jul_t' => 20,
-            'attendance_aug_t' => 20,
-            'attendance_sep_t' => 20,
-            'attendance_oct_t' => 20,
-            'attendance_nov_t' => 20,
-            'attendance_dec_t' => 20,
-        ]);
-        Year::create([
-            'year' => 2022,
-            'attendance_jan_t' => 20,
-            'attendance_feb_t' => 20,
-            'attendance_mar_t' => 20,
-            'attendance_apr_t' => 20,
-            'attendance_may_t' => 20,
-            'attendance_jun_t' => 20,
-            'attendance_jul_t' => 20,
-            'attendance_aug_t' => 20,
-            'attendance_sep_t' => 20,
-            'attendance_oct_t' => 20,
-            'attendance_nov_t' => 20,
-            'attendance_dec_t' => 20,
-        ]);
-        Year::create([
+            'DB_USER_id' => 1,
+
             'year' => 2023,
+
             'attendance_jan_t' => 20,
             'attendance_feb_t' => 20,
             'attendance_mar_t' => 20,
@@ -169,7 +132,10 @@ class DatabaseSeeder extends Seeder {
             'attendance_dec_t' => 20,
         ]);
         Year::create([
+            'DB_USER_id' => 1,
+
             'year' => 2024,
+
             'attendance_jan_t' => 20,
             'attendance_feb_t' => 20,
             'attendance_mar_t' => 20,

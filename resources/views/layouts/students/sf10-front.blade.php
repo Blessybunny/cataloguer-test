@@ -10,11 +10,11 @@
 		<div class = "col-2">
 			<img src = "{{ asset('assets/img/deped-2.png') }}" height = 75 draggable = "false">
 		</div>
-		<div class = "col-8 text-center">
-			<span>Republic of the Philippines</span>
-			<span>Department of Education</span>
+		<div class = "col-8">
+			<span class = "text-center">Republic of the Philippines</span>
+			<span class = "text-center">Department of Education</span>
 			<h6>Learner Permanent Record for Junior High School (SF10-JHS)</h6>
-			<span>(Formerly Form 137)</span>
+			<span class = "text-center">(Formerly Form 137)</span>
 		</div>
 		<div class = "col-2">
 			<img class = "float-right" src = "{{ asset('assets/img/deped-1.png') }}" height = 75 draggable = "false">
@@ -29,25 +29,25 @@
 	</div>
 	<div class = "row">
 		<div class = "col-3">
-			<label onclick = "window.scrollTo(0, 0)">
+			<label>
 				<span>LAST NAME:&nbsp;</span>
 				<span>{{ $student->info_name_last }}</span>
 			</label>
 		</div>
 		<div class = "col-3">
-			<label onclick = "window.scrollTo(0, 0)">
+			<label>
 				<span>FIRST NAME:&nbsp;</span>
 				<span>{{ $student->info_name_first }}</span>
 			</label>
 		</div>
 		<div class = "col-3">
-			<label onclick = "window.scrollTo(0, 0)">
+			<label>
 				<span>EXTN. (Jr, I, II):&nbsp;</span>
 				<span>{{ $student->info_name_suffix }}</span>
 			</label>
 		</div>
 		<div class = "col-3">
-			<label onclick = "window.scrollTo(0, 0)">
+			<label>
 				<span>MIDDLE NAME:&nbsp;</span>
 				<span>{{ $student->info_name_middle }}</span>
 			</label>
@@ -55,19 +55,19 @@
 	</div>
 	<div class = "row">
 		<div class = "col-6">
-			<label onclick = "window.scrollTo(0, 0)">
+			<label>
 				<span>Leaner Reference Number (LRN):&nbsp;</span>
 				<span>{{ $student->info_lrn }}</span>
 			</label>
 		</div>
 		<div class = "col-3">
-			<label onclick = "window.scrollTo(0, 0)">
+			<label>
 				<span>Birthdate (MM/DD/YYYY):&nbsp;</span>
 				<span>{{ $student->info_birthdate }}</span>
 			</label>
 		</div>
 		<div class = "col-3">
-			<label onclick = "window.scrollTo(0, 0)">
+			<label>
 				<span>Sex:&nbsp;</span>
 				<span>{{ $student->info_sex }}</span>
 			</label>
