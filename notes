@@ -1,22 +1,30 @@
-TOP-PRIO:
-    - REMEMBER tokens for sections
+UTMOST PRIO:
+    - UserController: Step 2 of preservation
+
+
+
+CHECKPOINT:
+    - Add brute force method to students (REMEMBER tokens for sections/advisers)
+    - REMEMBER_DB_SECTION_name_gx
+
+High-prio:
+    - Inside edit-s-sy.blade.php, include the name of principal next to the school year (and remember token warning)
+    - When deleting an adviser, make a remember token!
+
+
+
+    - SECTIONS with ADVISERS assigned to them should no longer appear during user create/edit under selection of advisory sections. (field already created in sections migration file)
+    - REMEMBER tokens for sections:
+        - This should go under User and Student model.
+        - SF9 should use this remember tokens.
 
     - grammarly the comments inside students migration file
-CHECKPOINT:
-    User POV and redirection to dashboard.
-    User POV and availability of links on the navigation.
+To-do:
+    - Add a danger zone for "edit-s-sy.blade.php" which includes the brute-forcing of section and adviser names.
+    - Add a new field for Year named "full" that contains the full searchable term "xxxx-xxxx".
+    - Add a toggle button for SF9-10 editor to highlight the backgrounds of editable fields.
+    - User POV: navigation links.
 
-Low Prio:
-    - add a toggle-highlight button for sf9-10 editor to color the backgrounds of editable fields
-    - student sy/section form edit
-    - student delete
-    - create a second field with year to contain the "xxxx-xxxx" string for search results
-
-NEW FIXES:
-    - Ask/confirm first:
-        - For school years, create a drop-down and a "db_user_id" that corresponds to the school principal (which will automatically fill up SF9 principal names)
-        - Current Principal: [                  v]
-        - nullable
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 TO ASK OR NOT TO ASK, THAT IS THE QUESTION (questions that must be answered after presented):
     Area:
@@ -24,58 +32,98 @@ TO ASK OR NOT TO ASK, THAT IS THE QUESTION (questions that must be answered afte
             - What in the world is in SF10 certification?
             - Confirm what is contained in the "certificate" section in SF10, whether or not variables have to be defined or is handwritten.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MIGRATIONS:
+Seeders and Relatives:
     Name:                   Relatives:                          Status:                             Comments:
     1. Grade                                                    Complete                            Seeder finalized
     2. Role                                                     Complete                            Seeder finalized
-    3. Section              Grade                               Complete                            Seeder finalized / Values are replaceable
+    3. Section              Grade / User                        Complete                            Seeder finalized - Values are replaceable
     4. Student              Grade / Section / User / Year       WIP                                 Seeder optional
-    5. User                 Grade / Role / Section              Complete                            Seeder finalized / Values are replaceable / One principal user minimum
-    6. Year                                                     Complete                            Seeder optional
+    5. User                 Grade / Role / Section / Year       Complete                            Seeder finalized - Values are replaceable - One principal user minimum
+    6. Year                 User                                Complete                            Seeder optional
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SECTION MANAGER:
+    Back-end:                   Status:                 Comments:
+    - controller                Complete                .
+    - migration                 Complete                .
+    - model                     Complete                .
+    - route                     Complete                .
+
+    Front-end:                  Status:                 Comments:
+    - index                     Complete                .
+    - create                    TBA                     .
+    - edit                      Complete                .
+    - delete                    TBA                     .
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+STUDENT MANAGER:
+    Back-end:                   Status:                 Comments:
+    - controller
+    - migration
+    - model
+    - route                     Complete                .
+    - search                    Complete                .
+
+    Front-end:
+    - index                     Complete                .
+    - create                    Complete                .
+    - edit-acad
+    - edit-form
+    - edit-info                 Complete                .
+    - delete                    Complete                .
+
+    Terms:
+    -
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+USER MANAGER:
+    Back-end:                   Status:                 Comments:
+    - controller                wip                Role -> 1, 2, 3, 4, 5 | Has preserves (year's principal, student's adviser)
+    - migration                 Complete                .
+    - model                     Complete                .
+    - route                     Complete                .
+    - search                    Complete                .
+
+    Front-end:
+    - index                     Complete                .
+    - create                    Complete                .
+    - edit                      Complete                .
+    - delete                    Complete                .
+
+    Terms:
+    - email
+    - name_last
+    - name_first
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+YEAR MANAGER:
+    Back-end:                   Status:                 Comments:
+    - controller                Complete                Role -> 1 | Has preserves (year's principal)
+    - migration                 Complete                .
+    - model                     Complete                .
+    - route                     Complete                .
+    - search                    Complete                .
+
+    Front-end:
+    - index                     Complete                .
+    - create                    Complete                .
+    - edit                      Complete                .
+
+    Terms:
+    - full
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MANAGER:
-    Name:                                                       Status:                             Comments:
+    Name:                       Status:                             Comments:
     1. Grade                                                    Complete
     2. Role                                                     Complete
-    3. Section
-        - controller                                            Complete (clean condition)
-        - create                                                TBA
-        - delete                                                TBA
-        - edit                                                  Complete (clean condition)
-        - index                                                 Complete (clean condition)                            Order-descend (grade)
-        - model                                                 Complete (clean condition)
-        - route                                                 Complete (clean condition)
-        - search
     4. Student
-        - controller                                            WIP                                 Rolecoded (1)
-        - create                                                Complete
-        - delete                                                TBA
-        - edit-form                                             Complete                            Debugging
-        - edit-info                                             Complete
-        - edit-s-sy                                             TBA
-        - index                                                 Complete                            Order-ascend (info_name_last) / Order-ascend (info_name_first) / Order-ascend (info_name_middle) / Order-ascend (info_name_suffix)
-        - model                                                 wip
-        - route                                                 Complete
-        - search                                                Complete
-        - stats                                                 TBA
-    5. User
-        - controller                                            Complete                            Rolecoded (1, 2, 3, 4, 5) / Remembers (year)
-        - create                                                Complete
-        - delete                                                Complete (clean condition)
-        - edit                                                  Complete
-        - index                                                 Complete (clean condition)                            Order-ascend (DB_ROLE_id) / Order-ascend (name_last) / Order-ascend (name_first)
-        - model                                                 Complete (clean condition) 
-        - route                                                 Complete (clean condition)
-        - search                                                Complete (clean condition)
-    6. Year
-        - controller                                            Complete (clean condition)                            Rolecoded (1) / Remembers (year)
-        - create                                                Complete (clean condition)
-        - delete
-        - edit                                                  Complete (clean condition)
-        - index                                                 Complete (clean condition)                            Order-descend (year)
-        - model                                                 Complete (clean condition)
-        - route                                                 Complete (clean condition)
-        - search                                                Complete (clean condition)
+        - controller                                            WIP                                 Role (1)
+        - create                                                Complete (clean)
+        - delete                                                Complete (clean)
+        - edit-acad             Complete (clean)
+        - edit-form                                             Complete (clean)                            Debugging
+        - edit-info             Complete (clean)
+        - index                 Complete (clean)
+        - model                 wip
+        - route                 Complete (clean)
+        - search                Complete (clean)
+        - stats                 TBA
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 LAYOUTS AND PAGES:
     Name:                                                       Status:                             Comments:
@@ -87,24 +135,22 @@ LAYOUTS AND PAGES:
         - sf9-front                                             Complete (75%)                      Missing section, principal, adviser, attendance backend linkings
         - sf10-back                                             Complete
         - sf10-certification                                    Complete
-        - sf10-front                                            Complete
+        - sf10-front                                            Complete                            Hardcoded (grade)
         - sf10-scholastic-record                                Complete
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
-SEARCH:
-    Name:
-    4. Student:
+SEARCH, ORDER, ETC.:
+    Name:                                                       Search & Index / Grab Order:
+    4. Student:                                                 Ascend (info_name_last) - Ascend (info_name_first) - Ascend (info_name_middle) - Ascend (info_name_suffix) / Descend (year)
         - info_name_last
         - info_name_first
         - info_name_suffix
         - info_name_middle
         - info_lrn
         - info_sex
-    5. User:
+    5. User:                                                    Ascend (DB_ROLE_id) - Ascend (name_last) - Ascend (name_first)
         - email
         - name_last
         - name_first
-    6. Year:
-        - year
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ROLES:
     Name:                           Manager:                    Access:                             Satus:
@@ -151,85 +197,3 @@ JUNKYARD:
         margin: calc(@size-spacing / 4);
         padding: calc(@size-spacing / 2);
     }
-
-
-
-    @foreach ($users as $user)
-
-							@foreach ($roles as $role)
-
-								@if ($role->id == $user->DB_ROLE_id)
-
-									<tr>
-										<td>{{ $user->email }}</td>
-										<td>{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</td>
-										<td class = "text-center">{{ $role->role }}</td>
-										<td class = "text-center">
-
-											<!-- Role IDs (see seeders) -->
-
-											@if ($user->DB_ROLE_id == "1")
-
-												N/A
-
-											@endif
-
-											@if ($user->DB_ROLE_id == "2")
-
-												N/A
-
-											@endif
-
-											@if ($user->DB_ROLE_id == "3")
-
-												@foreach ($grades as $grade)
-
-													@if ($user->DB_GRADE_id == $grade->id)
-
-														Grade {{ $grade->grade }}
-
-														@break
-
-													@endif
-
-												@endforeach
-
-											@endif
-
-											@if ($user->DB_ROLE_id == "4" || $user->DB_ROLE_id == "5")
-
-												@foreach ($sections as $section)
-
-														@if ($section->id == $user->DB_SECTION_id)
-
-																@foreach ($grades as $grade)
-
-																	@if ($grade->id == $section->DB_GRADE_id)
-
-																		Grade {{ $grade->grade }} - {{ $section->section }}
-
-																		@break
-
-																	@endif
-
-																@endforeach
-
-														@endif
-
-												@endforeach
-
-											@endif
-
-										</td>
-										<td class = "text-center">
-											<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
-										</td>
-									</tr>
-
-									@break
-
-								@endif
-
-							@endforeach
-
-						@endforeach

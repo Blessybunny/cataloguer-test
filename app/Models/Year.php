@@ -11,10 +11,11 @@ class Year extends Model {
     protected $fillable = [
         'DB_USER_id',
 
-        'REMEMBER_DB_USER_name_last',
-        'REMEMBER_DB_USER_name_first',
+        'PRESERVE_DB_USER_name_last',
+        'PRESERVE_DB_USER_name_first',
 
         'year',
+        'full',
 
         'attendance_jan_t',
         'attendance_feb_t',

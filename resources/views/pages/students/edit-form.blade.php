@@ -79,8 +79,14 @@
 
                             @foreach ($grades as $grade)
 
-                                <div id = "tab-sf9-{{ $grade->grade }}-front" class = "{{ $grade->grade == '7' ? 'active show' : ''}} fade tab-pane">@include('layouts.students.sf9-front', ['student' => $student, 'grade' => $grade->grade])</div>
-                                <div id = "tab-sf9-{{ $grade->grade }}-back" class = "fade tab-pane">@include('layouts.students.sf9-back', ['student' => $student, 'grade' => $grade->grade])</div>
+                                @php
+
+                                    $debug = $grade->grade == '7' ? 'active show' : '';
+
+                                @endphp
+
+                                <div id = "tab-sf9-{{ $grade->grade }}-front" class = "{{ $debug }} fade tab-pane">@include('layouts.students.sf9-front', ['student' => $student, 'grade' => $grade])</div>
+                                <div id = "tab-sf9-{{ $grade->grade }}-back" class = "fade tab-pane">@include('layouts.students.sf9-back', ['student' => $student, 'grade' => $grade])</div>
 
                             @endforeach
 

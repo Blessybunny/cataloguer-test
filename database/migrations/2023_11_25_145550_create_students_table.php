@@ -10,7 +10,7 @@ return new class extends Migration {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            
+
             $table->string('info_name_last', 50);
             $table->string('info_name_first', 50);
             $table->string('info_name_suffix', 50)->nullable();
@@ -22,28 +22,36 @@ return new class extends Migration {
 
         // SF9: Report
         Schema::table('students', function (Blueprint $table) {
-            $table->integer('DB_YEAR_ID_g7')->nullable();
-            $table->integer('DB_YEAR_ID_g8')->nullable();
-            $table->integer('DB_YEAR_ID_g9')->nullable();
-            $table->integer('DB_YEAR_ID_g10')->nullable();
+            $table->integer('DB_SECTION_id_g7')->nullable();
+            $table->integer('DB_SECTION_id_g8')->nullable();
+            $table->integer('DB_SECTION_id_g9')->nullable();
+            $table->integer('DB_SECTION_id_g10')->nullable();
 
+            $table->string('PRESERVE_DB_SECTION_name_g7', 50)->nullable();
+            $table->string('PRESERVE_DB_SECTION_name_g8', 50)->nullable();
+            $table->string('PRESERVE_DB_SECTION_name_g9', 50)->nullable();
+            $table->string('PRESERVE_DB_SECTION_name_g10', 50)->nullable();
 
-            $table->integer('db_section_id_sf9_g7_report_section')->nullable();
-            $table->integer('db_section_id_BAK_sf9_g7_report_section')->nullable(); // Remembers the last section name prior to its update
+            $table->integer('DB_USER_id_g7')->nullable();
+            $table->integer('DB_USER_id_g8')->nullable();
+            $table->integer('DB_USER_id_g9')->nullable();
+            $table->integer('DB_USER_id_g10')->nullable();
 
+            $table->string('PRESERVE_DB_USER_name_last_g7', 50)->nullable();
+            $table->string('PRESERVE_DB_USER_name_last_g8', 50)->nullable();
+            $table->string('PRESERVE_DB_USER_name_last_g9', 50)->nullable();
+            $table->string('PRESERVE_DB_USER_name_last_g10', 50)->nullable();
 
-            /*'' => 'nullable',
-            'db_section_id_sf9_g8_report_section' => 'nullable',
-            'db_section_id_sf9_g9_report_section' => 'nullable',
-            'db_section_id_sf9_g10_report_section' => 'nullable',
+            $table->string('PRESERVE_DB_USER_name_first_g7', 50)->nullable();
+            $table->string('PRESERVE_DB_USER_name_first_g8', 50)->nullable();
+            $table->string('PRESERVE_DB_USER_name_first_g9', 50)->nullable();
+            $table->string('PRESERVE_DB_USER_name_first_g10', 50)->nullable();
 
-            
-                Create a "last remembered value" field in case a principal or adviser's role is changed
-                Split variables into two for sf9 principal (letter/transfer)
+            $table->integer('DB_YEAR_id_g7')->nullable();
+            $table->integer('DB_YEAR_id_g8')->nullable();
+            $table->integer('DB_YEAR_id_g9')->nullable();
+            $table->integer('DB_YEAR_id_g10')->nullable();
 
-                No db_adviser_id, use db_section_id to grab said advisory user (this will become visible after a save refresh)
-            */
-            // db_year_id (standard integer)
             $table->string('sf9_g7_report_age', 50)->nullable();
             $table->string('sf9_g7_report_transfer_input_1', 50)->nullable();
             $table->string('sf9_g7_report_transfer_input_2', 50)->nullable();
@@ -83,7 +91,7 @@ return new class extends Migration {
             $table->tinyInteger('sf9_g7_attendance_oct_p')->nullable();
             $table->tinyInteger('sf9_g7_attendance_nov_p')->nullable();
             $table->tinyInteger('sf9_g7_attendance_dec_p')->nullable();
-            
+
             $table->tinyInteger('sf9_g8_attendance_jan_p')->nullable();
             $table->tinyInteger('sf9_g8_attendance_feb_p')->nullable();
             $table->tinyInteger('sf9_g8_attendance_mar_p')->nullable();
@@ -96,7 +104,7 @@ return new class extends Migration {
             $table->tinyInteger('sf9_g8_attendance_oct_p')->nullable();
             $table->tinyInteger('sf9_g8_attendance_nov_p')->nullable();
             $table->tinyInteger('sf9_g8_attendance_dec_p')->nullable();
-            
+
             $table->tinyInteger('sf9_g9_attendance_jan_p')->nullable();
             $table->tinyInteger('sf9_g9_attendance_feb_p')->nullable();
             $table->tinyInteger('sf9_g9_attendance_mar_p')->nullable();
@@ -109,7 +117,7 @@ return new class extends Migration {
             $table->tinyInteger('sf9_g9_attendance_oct_p')->nullable();
             $table->tinyInteger('sf9_g9_attendance_nov_p')->nullable();
             $table->tinyInteger('sf9_g9_attendance_dec_p')->nullable();
-            
+
             $table->tinyInteger('sf9_g10_attendance_jan_p')->nullable();
             $table->tinyInteger('sf9_g10_attendance_feb_p')->nullable();
             $table->tinyInteger('sf9_g10_attendance_mar_p')->nullable();
@@ -138,7 +146,7 @@ return new class extends Migration {
             $table->tinyInteger('sf9_g7_attendance_oct_a')->nullable();
             $table->tinyInteger('sf9_g7_attendance_nov_a')->nullable();
             $table->tinyInteger('sf9_g7_attendance_dec_a')->nullable();
-            
+
             $table->tinyInteger('sf9_g8_attendance_jan_a')->nullable();
             $table->tinyInteger('sf9_g8_attendance_feb_a')->nullable();
             $table->tinyInteger('sf9_g8_attendance_mar_a')->nullable();
@@ -151,7 +159,7 @@ return new class extends Migration {
             $table->tinyInteger('sf9_g8_attendance_oct_a')->nullable();
             $table->tinyInteger('sf9_g8_attendance_nov_a')->nullable();
             $table->tinyInteger('sf9_g8_attendance_dec_a')->nullable();
-            
+
             $table->tinyInteger('sf9_g9_attendance_jan_a')->nullable();
             $table->tinyInteger('sf9_g9_attendance_feb_a')->nullable();
             $table->tinyInteger('sf9_g9_attendance_mar_a')->nullable();
@@ -164,7 +172,7 @@ return new class extends Migration {
             $table->tinyInteger('sf9_g9_attendance_oct_a')->nullable();
             $table->tinyInteger('sf9_g9_attendance_nov_a')->nullable();
             $table->tinyInteger('sf9_g9_attendance_dec_a')->nullable();
-            
+
             $table->tinyInteger('sf9_g10_attendance_jan_a')->nullable();
             $table->tinyInteger('sf9_g10_attendance_feb_a')->nullable();
             $table->tinyInteger('sf9_g10_attendance_mar_a')->nullable();

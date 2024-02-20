@@ -94,7 +94,7 @@ class DatabaseSeeder extends Seeder {
     // USER: Principal, Adviser
     public function user () : void {
         User::create([
-            'db_role_id' => 1,
+            'DB_ROLE_id' => 1,
 
             'email' => '0123456789',
             'password' => bcrypt('password'),
@@ -102,7 +102,7 @@ class DatabaseSeeder extends Seeder {
             'name_first' => 'Ipsum Dolor',
         ]);
         User::create([
-            'db_role_id' => 1,
+            'DB_ROLE_id' => 4,
 
             'email' => '0223456789',
             'password' => bcrypt('password'),
@@ -116,7 +116,8 @@ class DatabaseSeeder extends Seeder {
         Year::create([
             'DB_USER_id' => 1,
 
-            'year' => 2023,
+            'year' => 2024,
+            'full' => '2024-2025',
 
             'attendance_jan_t' => 20,
             'attendance_feb_t' => 20,
@@ -132,9 +133,28 @@ class DatabaseSeeder extends Seeder {
             'attendance_dec_t' => 20,
         ]);
         Year::create([
-            'DB_USER_id' => 1,
+            'PRESERVE_DB_USER_name_last' => 'Tano',
+            'PRESERVE_DB_USER_name_first' => 'Ahsoka',
 
-            'year' => 2024,
+            'year' => 2023,
+            'full' => '2023-2024',
+
+            'attendance_jan_t' => 20,
+            'attendance_feb_t' => 20,
+            'attendance_mar_t' => 20,
+            'attendance_apr_t' => 20,
+            'attendance_may_t' => 20,
+            'attendance_jun_t' => 20,
+            'attendance_jul_t' => 20,
+            'attendance_aug_t' => 20,
+            'attendance_sep_t' => 20,
+            'attendance_oct_t' => 20,
+            'attendance_nov_t' => 20,
+            'attendance_dec_t' => 20,
+        ]);
+        Year::create([
+            'year' => 2022,
+            'full' => '2022-2023',
 
             'attendance_jan_t' => 20,
             'attendance_feb_t' => 20,
@@ -163,6 +183,7 @@ class DatabaseSeeder extends Seeder {
             'info_birthdate' => '2007/09/17',
 
             // SF9: Report
+            'DB_YEAR_id_g7' => 1,
 
             // SF9: Attendance -> present
             'sf9_g7_attendance_jan_p' => 10,

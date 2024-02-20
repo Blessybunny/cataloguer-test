@@ -42,14 +42,16 @@
 			<div class = "col">
 				<table class = "table">
 					<tr>
-						<th>Level</th>
-						<th>Action</th>
+						<th style = "width: 150px;">Level</th>
+						<th></th>
+						<th style = "width: 150px;">Action</th>
 					</tr>
 
 					@foreach ($grades as $grade)
 
 						<tr>
-							<td>Grade {{ $grade->grade }}</td>
+							<td class = "text-center">Grade {{ $grade->grade }}</td>
+							<td></td>
 							<td class = "text-center">
 								<a href = "{{ url('/sections/edit', $grade->id) }}">Edit</a>
 							</td>

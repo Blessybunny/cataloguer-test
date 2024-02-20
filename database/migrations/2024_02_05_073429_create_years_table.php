@@ -12,10 +12,11 @@ return new class extends Migration {
 
             $table->integer('DB_USER_id')->nullable();
 
-            $table->string('REMEMBER_DB_USER_name_last', 50)->nullable();
-            $table->string('REMEMBER_DB_USER_name_first', 50)->nullable();
+            $table->string('PRESERVE_DB_USER_name_last', 50)->nullable();
+            $table->string('PRESERVE_DB_USER_name_first', 50)->nullable();
 
             $table->smallInteger('year')->unique();
+            $table->string('full', 50);
 
             $table->tinyInteger('attendance_jan_t')->nullable();
             $table->tinyInteger('attendance_feb_t')->nullable();

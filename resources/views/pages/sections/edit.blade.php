@@ -48,15 +48,13 @@
 
 					@foreach ($sections as $section)
 
-						<label>
-							<span style = "min-width: 100px;">Section {{ $loop->index + 1 }}:</span>
-							<input
-								name = "section_{{ $grade->id }}_{{ $section->id }}"
-								type = "text"
-								maxlength = "50"
-								value = "{{ $section->section }}"
-							>
-						</label>
+						<span class = "font-bold">Section {{ $loop->index + 1 }} Name:</span>
+						<input
+							name = "section_{{ $section->DB_GRADE_id }}_{{ $section->id }}"
+							type = "text"
+							maxlength = "50"
+							value = "{{ $section->section }}"
+						>
 
 						@if ($loop->index + 1 != $loop->count)
 

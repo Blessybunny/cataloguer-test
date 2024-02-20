@@ -44,196 +44,175 @@
 			<div class = "row">
 
 				<!-- Edit -->
-				<div class = "col">
+				<div class = "col-6">
 
-					<!-- Selected Principal -->
-					<label>
-						<span style = "min-width: 250px;">Selected Principal:</span>
-						<select name = "DB_USER_id">
-							<option value = ""></option>
+					<!-- Principal -->
+					<span class = "font-bold">Principal:</span>
+					<select name = "DB_USER_id">
+						<option value = ""></option>
 
-							@php
+						@foreach ($users as $user)
 
-								$selected = "selected";
+							<option value = "{{ $user->id }}" {{ $year->DB_USER_id == $user->id ? "selected" : "" }}>{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</option>
 
-							@endphp
+						@endforeach
 
-							@if ($year->REMEMBER_DB_USER_id == null && $year->REMEMBER_DB_USER_name_last != null && $year->REMEMBER_DB_USER_name_first != null)
-
-								@php
-
-									$selected = "";
-
-								@endphp
-
-								<option value = "remember" hidden selected>{{ strtoupper($year->REMEMBER_DB_USER_name_last) }}, {{ ucfirst($year->REMEMBER_DB_USER_name_first) }} (This name has either been demoted or deleted but remains for record preservation)</option>
-
-							@endif
-
-							@foreach ($users as $user)
-
-								<option value = "{{ $user->id }}" {{ $year->DB_USER_id == $user->id ? $selected : "" }}>{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</option>
-
-							@endforeach
-
-						</select>
-					</label>
+					</select>
 					<br>
 
 					<!-- January -->
-					<label>
-						<span style = "min-width: 250px;">January Attendance Count:</span>
-						<input
-							name = "attendance_jan_t"
-							type = "number"
-							min = "0"
-							max = "31"
-							value = "{{ $year->attendance_jan_t }}"
-						>
-					</label>
+					<span class = "font-bold">January Attendance Count:</span>
+					<input
+						name = "attendance_jan_t"
+						type = "number"
+						min = "0"
+						max = "31"
+						value = "{{ $year->attendance_jan_t }}"
+					>
 					<br>
 
-					<!-- February -->
-					<label>
-						<span style = "min-width: 250px;">February Attendance Count:</span>
-						<input
-							name = "attendance_feb_t"
-							type = "number"
-							min = "0"
-							max = "28"
-							value = "{{ $year->attendance_feb_t }}"
-						>
-					</label>
+					<!-- February -->					
+					<span class = "font-bold">February Attendance Count:</span>
+					<input
+						name = "attendance_feb_t"
+						type = "number"
+						min = "0"
+						max = "28"
+						value = "{{ $year->attendance_feb_t }}"
+					>
 					<br>
 
 					<!-- March -->
-					<label>
-						<span style = "min-width: 250px;">March Attendance Count:</span>
-						<input
-							name = "attendance_mar_t"
-							type = "number"
-							min = "0"
-							max = "31"
-							value = "{{ $year->attendance_mar_t }}"
-						>
-					</label>
+					<span class = "font-bold">March Attendance Count:</span>
+					<input
+						name = "attendance_mar_t"
+						type = "number"
+						min = "0"
+						max = "31"
+						value = "{{ $year->attendance_mar_t }}"
+					>
 					<br>
 
 					<!-- April -->
-					<label>
-						<span style = "min-width: 250px;">April Attendance Count:</span>
-						<input
-							name = "attendance_apr_t"
-							type = "number"
-							min = "0"
-							max = "30"
-							value = "{{ $year->attendance_apr_t }}"
-						>
-					</label>
+					<span class = "font-bold">April Attendance Count:</span>
+					<input
+						name = "attendance_apr_t"
+						type = "number"
+						min = "0"
+						max = "30"
+						value = "{{ $year->attendance_apr_t }}"
+					>
 					<br>
 
 					<!-- May -->
-					<label>
-						<span style = "min-width: 250px;">May Attendance Count:</span>
-						<input
-							name = "attendance_may_t"
-							type = "number"
-							min = "0"
-							max = "31"
-							value = "{{ $year->attendance_may_t }}"
-						>
-					</label>
+					<span class = "font-bold">May Attendance Count:</span>
+					<input
+						name = "attendance_may_t"
+						type = "number"
+						min = "0"
+						max = "31"
+						value = "{{ $year->attendance_may_t }}"
+					>
 					<br>
 
 					<!-- June -->
-					<label>
-						<span style = "min-width: 250px;">June Attendance Count:</span>
-						<input
-							name = "attendance_jun_t"
-							type = "number"
-							min = "0"
-							max = "30"
-							value = "{{ $year->attendance_jun_t }}"
-						>
-					</label>
+					<span class = "font-bold">June Attendance Count:</span>
+					<input
+						name = "attendance_jun_t"
+						type = "number"
+						min = "0"
+						max = "30"
+						value = "{{ $year->attendance_jun_t }}"
+					>
 					<br>
 
 					<!-- July -->
-					<label>
-						<span style = "min-width: 250px;">July Attendance Count:</span>
-						<input
-							name = "attendance_jul_t"
-							type = "number"
-							min = "0"
-							max = "31"
-							value = "{{ $year->attendance_jul_t }}"
-						>
-					</label>
+					<span class = "font-bold">July Attendance Count:</span>
+					<input
+						name = "attendance_jul_t"
+						type = "number"
+						min = "0"
+						max = "31"
+						value = "{{ $year->attendance_jul_t }}"
+					>
 					<br>
 
 					<!-- August -->
-					<label>
-						<span style = "min-width: 250px;">August Attendance Count:</span>
-						<input
-							name = "attendance_aug_t"
-							type = "number"
-							min = "0"
-							max = "31"
-							value = "{{ $year->attendance_aug_t }}"
-						>
-					</label>
+					<span class = "font-bold">August Attendance Count:</span>
+					<input
+						name = "attendance_aug_t"
+						type = "number"
+						min = "0"
+						max = "31"
+						value = "{{ $year->attendance_aug_t }}"
+					>
 					<br>
 
 					<!-- September -->
-					<label>
-						<span style = "min-width: 250px;">September Attendance Count:</span>
-						<input
-							name = "attendance_sep_t"
-							type = "number"
-							min = "0"
-							max = "30"
-							value = "{{ $year->attendance_sep_t }}"
-						>
-					</label>
+					<span class = "font-bold">September Attendance Count:</span>
+					<input
+						name = "attendance_sep_t"
+						type = "number"
+						min = "0"
+						max = "30"
+						value = "{{ $year->attendance_sep_t }}"
+					>
 					<br>
 
 					<!-- October -->
-					<label>
-						<span style = "min-width: 250px;">October Attendance Count:</span>
-						<input
-							name = "attendance_oct_t"
-							type = "number"
-							min = "0"
-							max = "31"
-							value = "{{ $year->attendance_oct_t }}"
-						>
-					</label>
+					<span class = "font-bold">October Attendance Count:</span>
+					<input
+						name = "attendance_oct_t"
+						type = "number"
+						min = "0"
+						max = "31"
+						value = "{{ $year->attendance_oct_t }}"
+					>
 					<br>
 
 					<!-- November -->
-					<label>
-						<span style = "min-width: 250px;">November Attendance Count:</span>
-						<input
-							name = "attendance_nov_t"
-							type = "number"
-							min = "0"
-							max = "30"
-							value = "{{ $year->attendance_nov_t }}"
-						>
-					</label>
+					<span class = "font-bold">November Attendance Count:</span>
+					<input
+						name = "attendance_nov_t"
+						type = "number"
+						min = "0"
+						max = "30"
+						value = "{{ $year->attendance_nov_t }}"
+					>
 					<br>
 
 					<!-- December -->
-					<label>
-						<span style = "min-width: 250px;">December Attendance Count:</span>
-						<input
-							name = "attendance_dec_t"
-							type = "number"
-							min = "0"
-							max = "31"
-							value = "{{ $year->attendance_dec_t }}"
-						>
-					</label>
+					<span class = "font-bold">December Attendance Count:</span>
+					<input
+						name = "attendance_dec_t"
+						type = "number"
+						min = "0"
+						max = "31"
+						value = "{{ $year->attendance_dec_t }}"
+					>
+
+				</div>
+				<div class = "col-6">
+
+					<!-- Preserved Principal Last Name -->
+					<span class = "font-bold">Preserved Principal Last Name:</span>
+					<input
+						name = "PRESERVE_DB_USER_name_last"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $year->PRESERVE_DB_USER_name_last }}"
+					>
+					<p>This field only applies if a principal does not exist on the list</p>
+
+					<!-- Preserved Principal First Name -->
+					<span class = "font-bold">Preserved Principal First Name:</span>
+					<input
+						name = "PRESERVE_DB_USER_name_first"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $year->PRESERVE_DB_USER_name_first }}"
+					>
+					<p>This field only applies if a principal does not exist on the list</p>
 
 				</div>
 

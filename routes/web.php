@@ -22,8 +22,8 @@ Route::post('/students/create', 'App\Http\Controllers\StudentController@create_2
 Route::get('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_1');
 Route::post('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_2');
 
-Route::get('/students/edit/s_sy/{id}', 'App\Http\Controllers\StudentController@edit_s_sy_1');
-Route::post('/students/edit/s_sy/{id}', 'App\Http\Controllers\StudentController@edit_s_sy_2');
+Route::get('/students/edit/acad/{id}', 'App\Http\Controllers\StudentController@edit_acad_1');
+Route::post('/students/edit/acad/{id}', 'App\Http\Controllers\StudentController@edit_acad_2');
 
 Route::get('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_1');
 Route::post('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_2');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Year;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 use Request;
 
 class YearController extends Controller {
@@ -14,6 +14,7 @@ class YearController extends Controller {
     // Index (GET)
     public function index_1 () {
         $years = Year::orderBy('year', 'DESC')->get();
+        $years = self::func_make_index_info($years);
 
         return view('pages.years.index')->with('years', $years);
     }
@@ -26,14 +27,15 @@ class YearController extends Controller {
             $terminology = explode(' ', $terms);
             $query = Year::query();
 
-            foreach($terminology as $term){
+            foreach ($terminology as $term) {
                 $query->where(function ($q) use ($term) {
-                    $q->where('year', 'like', '%'.$term.'%');
+                    $q->where('full', 'like', '%'.$term.'%');
                 });
             }
 
-            $results = $query->get();
+            $results = $query->orderBy('year', 'DESC')->get();
             $results = (count($results) > 0) ? $results : [];
+            $results = self::func_make_index_info($results);
 
             return view('pages.years.index')
                 ->with('isSearched', true)
@@ -45,7 +47,7 @@ class YearController extends Controller {
 
     // Create (GET)
     public function create_1 () {
-        $users = User::where('db_role_id', '1')->get();
+        $users = User::where('DB_ROLE_id', '1')->get();
 
         return view('pages.years.create')->with('users', $users);
     }
@@ -54,6 +56,9 @@ class YearController extends Controller {
     public function create_2 () {
         $validate = request()->validate([
             'DB_USER_id' => 'nullable',
+            
+            'PRESERVE_DB_USER_name_last' => 'nullable',
+            'PRESERVE_DB_USER_name_first' => 'nullable',
 
             'year' => 'required|unique:years,year',
 
@@ -74,7 +79,11 @@ class YearController extends Controller {
         Year::create([
             'DB_USER_id' => $validate['DB_USER_id'],
 
+            'PRESERVE_DB_USER_name_last' =>  $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_last'] : null,
+            'PRESERVE_DB_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_first'] : null,
+
             'year' => $validate['year'],
+            'full' => $validate['year'].'-'.$validate['year'] + 1,
 
             'attendance_jan_t' => $validate['attendance_jan_t'],
             'attendance_feb_t' => $validate['attendance_feb_t'],
@@ -95,7 +104,7 @@ class YearController extends Controller {
 
     // Edit (GET)
     public function edit_1 ($id) {
-        $users = User::where('db_role_id', '1')->get();
+        $users = User::where('DB_ROLE_id', '1')->get();
         $year = Year::find($id);
 
         return view('pages.years.edit')
@@ -107,6 +116,9 @@ class YearController extends Controller {
     public function edit_2 ($id) {
         $validate = request()->validate([
             'DB_USER_id' => 'nullable',
+            
+            'PRESERVE_DB_USER_name_last' => 'nullable',
+            'PRESERVE_DB_USER_name_first' => 'nullable',
 
             'attendance_jan_t' => 'nullable',
             'attendance_feb_t' => 'nullable',
@@ -122,9 +134,12 @@ class YearController extends Controller {
             'attendance_dec_t' => 'nullable',
         ]);
 
-        $year = Year::find($id);
+        Year::find($id)->update([
+            'DB_USER_id' => $validate['DB_USER_id'],
 
-        $year->update([
+            'PRESERVE_DB_USER_name_last' =>  $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_last'] : null,
+            'PRESERVE_DB_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_first'] : null,
+
             'attendance_jan_t' => $validate['attendance_jan_t'],
             'attendance_feb_t' => $validate['attendance_feb_t'],
             'attendance_mar_t' => $validate['attendance_mar_t'],
@@ -139,25 +154,27 @@ class YearController extends Controller {
             'attendance_dec_t' => $validate['attendance_dec_t'],
         ]);
 
-        if ($validate['DB_USER_id'] != null) {
-            if ($validate['DB_USER_id'] != "remember") {
-                $year->update([
-                    'DB_USER_id' => $validate['DB_USER_id'],
+        return redirect()->to('/years/edit/'.$id);
+    }
 
-                    'REMEMBER_DB_USER_name_last' => null,
-                    'REMEMBER_DB_USER_name_first' => null,
-                ]);
+    // Functions
+    // Create various info that is displayed in the index
+    public function func_make_index_info ($param) {
+        foreach ($param as $year) {
+            $user = User::find($year->DB_USER_id);
+
+            if ($user != null) {
+                $year->principal = strtoupper($user->name_last).', '.ucfirst($user->name_first);
+            }
+            else {
+                $year->principal = 'N/A';
+            }
+
+            if ($year->DB_USER_id == null && $year->PRESERVE_DB_USER_name_last != null && $year->PRESERVE_DB_USER_name_first !== null) {
+                $year->principal = strtoupper($year->PRESERVE_DB_USER_name_last).', '.ucfirst($year->PRESERVE_DB_USER_name_first).' (Preserved)';
             }
         }
-        else {
-            $year->update([
-                'DB_USER_id' => null,
 
-                'REMEMBER_DB_USER_name_last' => null,
-                'REMEMBER_DB_USER_name_first' => null,
-            ]);
-        }
-
-        return redirect()->to('/years/edit/'.$id);
+        return $param;
     }
 }

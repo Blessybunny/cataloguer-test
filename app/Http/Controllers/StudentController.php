@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
+use App\Models\Section;
 use App\Models\Student;
 use App\Models\User;
 use App\Models\Year;
+
 use Request;
 
 class StudentController extends Controller {
-    // [100%] Redirect
+    // [do-not-touch] Redirect
     public function redirect () { return redirect()->to('/students'); }
 
-    // [100%] Index (GET)
+    // [do-not-touch] Index (GET)
     public function index_1 () {
         $students = Student::orderBy('info_name_last', 'ASC')
             ->orderBy('info_name_first', 'ASC')
@@ -23,7 +25,7 @@ class StudentController extends Controller {
         return view('pages.students.index')->with('students', $students);
     }
 
-    // [100%] Index (POST)
+    // [do-not-touch] Index (POST)
     public function index_2 () {
         $terms = Request::get('terms');
 
@@ -31,7 +33,7 @@ class StudentController extends Controller {
             $temp_terms = explode(' ', $terms);
             $query = Student::query();
 
-            foreach($temp_terms as $term){
+            foreach ($temp_terms as $term) {
                 $query->where(function ($q) use ($term) {
                     $q->where('info_name_last', 'like', '%'.$term.'%')
                     ->orWhere('info_name_first', 'like', '%'.$term.'%')
@@ -42,7 +44,12 @@ class StudentController extends Controller {
                 });
             }
 
-            $results = $query->get();
+            $results = $query->orderBy('info_name_last', 'ASC')
+                ->orderBy('info_name_first', 'ASC')
+                ->orderBy('info_name_middle', 'ASC')
+                ->orderBy('info_name_suffix', 'ASC')
+                ->get();
+
             $results = (count($results) > 0) ? $results : [];
 
             return view('pages.students.index')
@@ -53,12 +60,12 @@ class StudentController extends Controller {
         else return redirect()->to('/students');
     }
 
-    // [100%] Create (GET)
+    // [do-not-touch] Create (GET)
     public function create_1 () {
         return view('pages.students.create');
     }
 
-    // [100%] Create (POST)
+    // [do-not-touch] Create (POST)
     public function create_2 () {
         $validate = request()->validate([
             'info_name_last' => 'required',
@@ -83,14 +90,14 @@ class StudentController extends Controller {
         return redirect()->to('/students');
     }
 
-    // [100%] Edit: Info (GET)
+    // [do-not-touch] Edit: Info (GET)
     public function edit_info_1 ($id) {
         $student = Student::find($id);
 
         return view('pages.students.edit-info')->with('student', $student);
     }
 
-    // [100%] Edit: Info (POST)
+    // [do-not-touch] Edit: Info (POST)
     public function edit_info_2 ($id) {
         $validate = request()->validate([
             'info_name_last' => 'required',
@@ -115,53 +122,116 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/info/'.$id);
     }
 
-    // [100%] Edit: Sections / School Years (GET)
-    public function edit_s_sy_1 ($id) {
+    // [do-not-touch] Edit: Sections / School Years (GET)
+    public function edit_acad_1 ($id) {
         $grades = Grade::all();
+        $sections = Section::whereNotNull('section')->get();
         $student = Student::find($id);
-        $years = Year::all();
+        $years = Year::orderBy('year', 'DESC')->get();
 
-        return view('pages.students.edit-s-sy')
+        return view('pages.students.edit-acad')
             ->with('grades', $grades)
+            ->with('sections', $sections)
             ->with('student', $student)
             ->with('years', $years);
     }
 
     // Edit: Sections / School Years (POST)
-    public function edit_s_sy_2 ($id) {
+    public function edit_acad_2 ($id) {
         $validate = request()->validate([
-            'DB_YEAR_ID_g7' => 'nullable',
-            'DB_YEAR_ID_g8' => 'nullable',
-            'DB_YEAR_ID_g9' => 'nullable',
-            'DB_YEAR_ID_g10' => 'nullable',
+            'DB_SECTION_id_g7' => 'nullable',
+            'DB_SECTION_id_g8' => 'nullable',
+            'DB_SECTION_id_g9' => 'nullable',
+            'DB_SECTION_id_g10' => 'nullable',
+
+            /*
+            'PRESERVE_DB_USER_name_last' =>  $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_last'] : null,
+            'PRESERVE_DB_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_first'] : null,
+            
+            */
+
+            'DB_YEAR_id_g7' => 'nullable',
+            'DB_YEAR_id_g8' => 'nullable',
+            'DB_YEAR_id_g9' => 'nullable',
+            'DB_YEAR_id_g10' => 'nullable',
         ]);
 
         Student::find($id)->update([
-            'DB_YEAR_ID_g7' => $validate['DB_YEAR_ID_g7'],
-            'DB_YEAR_ID_g8' => $validate['DB_YEAR_ID_g8'],
-            'DB_YEAR_ID_g9' => $validate['DB_YEAR_ID_g9'],
-            'DB_YEAR_ID_g10' => $validate['DB_YEAR_ID_g10'],
+            'DB_SECTION_id_g7' => $validate['DB_SECTION_id_g7'],
+            'DB_SECTION_id_g8' => $validate['DB_SECTION_id_g8'],
+            'DB_SECTION_id_g9' => $validate['DB_SECTION_id_g9'],
+            'DB_SECTION_id_g10' => $validate['DB_SECTION_id_g10'],
+
+            'DB_YEAR_id_g7' => $validate['DB_YEAR_id_g7'],
+            'DB_YEAR_id_g8' => $validate['DB_YEAR_id_g8'],
+            'DB_YEAR_id_g9' => $validate['DB_YEAR_id_g9'],
+            'DB_YEAR_id_g10' => $validate['DB_YEAR_id_g10'],
         ]);
 
-        return redirect()->to('/students/edit/s_sy/'.$id);
+        return redirect()->to('/students/edit/acad/'.$id);
     }
 
-    // [100%] Edit: Form (GET)
+    // Edit: Form (GET)
     public function edit_form_1 ($id) {
         $grades = Grade::all();
+        $sections = new Section();
         $student = Student::find($id);
-        $users = User::where('DB_ROLE_ID', '1')->get();
-        $years = Year::all();
+        $years = new Year();
+        dd($student->PRESERVE_DB_USER_name_last_g7, $student->PRESERVE_DB_USER_name_first_g7);
+        foreach ($grades as $grade) {
+            $section = Section::find($student->{'DB_SECTION_id_g'.$grade->grade});
+
+            if ($section != null) {
+                $sections->{'sf9_g'.$grade->grade.'_report_section'} = $section->section;
+
+                $user = User::where('DB_SECTION_id', $section->id)->first();
+
+                if ($user != null) {
+                    $sections->{'sf9_g'.$grade->grade.'_report_adviser'} = strtoupper($user->name_last).', '.ucfirst($user->name_first);
+                }
+            }
+        }
+
+        foreach ($grades as $grade) {
+            $year = Year::find($student->{'DB_YEAR_id_g'.$grade->grade});
+
+            if ($year != null) {
+                $years->{'sf9_g'.$grade->grade.'_report_year'} = $year->year.'-'.$year->year + 1;
+
+                if ($year->DB_USER_id != null) {
+                    $user = User::find($year->DB_USER_id);
+                    $years->{'sf9_g'.$grade->grade.'_report_principal'} = strtoupper($user->name_last).', '.ucfirst($user->name_first);
+                }
+                else if ($year->DB_USER_id == null && $year->PRESERVE_DB_USER_name_last != null && $year->PRESERVE_DB_USER_name_first != null) {
+                    $years->{'sf9_g'.$grade->grade.'_report_principal'} = strtoupper($year->PRESERVE_DB_USER_name_last).', '.ucfirst($year->PRESERVE_DB_USER_name_first);
+                }
+
+                $years->{'sf9_g'.$grade->grade.'_attendance_jan_t'} = $year->attendance_jan_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_feb_t'} = $year->attendance_feb_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_mar_t'} = $year->attendance_mar_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_apr_t'} = $year->attendance_apr_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_may_t'} = $year->attendance_may_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_jun_t'} = $year->attendance_jun_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_jul_t'} = $year->attendance_jul_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_aug_t'} = $year->attendance_aug_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_sep_t'} = $year->attendance_sep_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_oct_t'} = $year->attendance_oct_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_nov_t'} = $year->attendance_nov_t;
+                $years->{'sf9_g'.$grade->grade.'_attendance_dec_t'} = $year->attendance_dec_t;
+            }
+        }
 
         return view('pages.students.edit-form')
             ->with('grades', $grades)
+            ->with('sections', $sections)
             ->with('student', $student)
-            ->with('users', $users)
             ->with('years', $years);
     }
 
-    // [Locked] Edit: Form (POST)
+    // [do-not-touch] Edit: Form (POST)
     public function edit_form_2 ($id) {
+        $student = Student::find($id);
+
         $validate_sf9_report = request()->validate([
             'sf9_g7_report_age' => 'nullable',  
             'sf9_g7_report_transfer_input_1' => 'nullable', 
@@ -188,7 +258,7 @@ class StudentController extends Controller {
             'sf9_g10_report_transfer_input_date' => 'nullable', 
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_report_age' => $validate_sf9_report['sf9_g7_report_age'],
             'sf9_g7_report_transfer_input_1' => $validate_sf9_report['sf9_g7_report_transfer_input_1'],
             'sf9_g7_report_transfer_input_2' => $validate_sf9_report['sf9_g7_report_transfer_input_2'],
@@ -268,7 +338,7 @@ class StudentController extends Controller {
             'sf9_g10_attendance_dec_p' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_attendance_jan_p' => $validate_sf9_attendance_p['sf9_g7_attendance_jan_p'],
             'sf9_g7_attendance_feb_p' => $validate_sf9_attendance_p['sf9_g7_attendance_feb_p'],
             'sf9_g7_attendance_mar_p' => $validate_sf9_attendance_p['sf9_g7_attendance_mar_p'],
@@ -376,7 +446,7 @@ class StudentController extends Controller {
             'sf9_g10_attendance_dec_a' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_attendance_jan_a' => $validate_sf9_attendance_a['sf9_g7_attendance_jan_a'],
             'sf9_g7_attendance_feb_a' => $validate_sf9_attendance_a['sf9_g7_attendance_feb_a'],
             'sf9_g7_attendance_mar_a' => $validate_sf9_attendance_a['sf9_g7_attendance_mar_a'],
@@ -468,7 +538,7 @@ class StudentController extends Controller {
             'sf9_g10_values_qr4_md_s2' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_values_qr1_md_s1' => $validate_sf9_values_md['sf9_g7_values_qr1_md_s1'],
             'sf9_g7_values_qr2_md_s1' => $validate_sf9_values_md['sf9_g7_values_qr2_md_s1'],
             'sf9_g7_values_qr3_md_s1' => $validate_sf9_values_md['sf9_g7_values_qr3_md_s1'],
@@ -544,7 +614,7 @@ class StudentController extends Controller {
             'sf9_g10_values_qr4_mt_s2' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_values_qr1_mt_s1' => $validate_sf9_values_mt['sf9_g7_values_qr1_mt_s1'],
             'sf9_g7_values_qr2_mt_s1' => $validate_sf9_values_mt['sf9_g7_values_qr2_mt_s1'],
             'sf9_g7_values_qr3_mt_s1' => $validate_sf9_values_mt['sf9_g7_values_qr3_mt_s1'],
@@ -604,7 +674,7 @@ class StudentController extends Controller {
             'sf9_g10_values_qr4_mk' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_values_qr1_mk' => $validate_sf9_values_mk['sf9_g7_values_qr1_mk'],
             'sf9_g7_values_qr2_mk' => $validate_sf9_values_mk['sf9_g7_values_qr2_mk'],
             'sf9_g7_values_qr3_mk' => $validate_sf9_values_mk['sf9_g7_values_qr3_mk'],
@@ -664,7 +734,7 @@ class StudentController extends Controller {
             'sf9_g10_values_qr4_mb_s2' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_values_qr1_mb_s1' => $validate_sf9_values_mb['sf9_g7_values_qr1_mb_s1'],
             'sf9_g7_values_qr2_mb_s1' => $validate_sf9_values_mb['sf9_g7_values_qr2_mb_s1'],
             'sf9_g7_values_qr3_mb_s1' => $validate_sf9_values_mb['sf9_g7_values_qr3_mb_s1'],
@@ -721,7 +791,7 @@ class StudentController extends Controller {
             'sf10_enrollment_other_location' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf10_enrollment_elementary_boolean' => isset($validate_sf10_enrollment['sf10_enrollment_elementary_boolean']) ? 1 : 0,
             'sf10_enrollment_elementary_average' => $validate_sf10_enrollment['sf10_enrollment_elementary_average'],
             'sf10_enrollment_elementary_citation' => $validate_sf10_enrollment['sf10_enrollment_elementary_citation'],
@@ -790,7 +860,7 @@ class StudentController extends Controller {
             'sf10_g10_record_remedial_date_end' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf10_g7_record_school_name' => $validate_sf10_record['sf10_g7_record_school_name'],
             'sf10_g7_record_school_id' => $validate_sf10_record['sf10_g7_record_school_id'],
             'sf10_g7_record_school_district' => $validate_sf10_record['sf10_g7_record_school_district'],
@@ -887,7 +957,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_fil' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_fil' => $validate_all_subject_fil['sf9_g7_subject_qr1_fil'],
             'sf9_g7_subject_qr2_fil' => $validate_all_subject_fil['sf9_g7_subject_qr2_fil'],
             'sf9_g7_subject_qr3_fil' => $validate_all_subject_fil['sf9_g7_subject_qr3_fil'],
@@ -980,7 +1050,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_eng' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_eng' => $validate_all_subject_eng['sf9_g7_subject_qr1_eng'],
             'sf9_g7_subject_qr2_eng' => $validate_all_subject_eng['sf9_g7_subject_qr2_eng'],
             'sf9_g7_subject_qr3_eng' => $validate_all_subject_eng['sf9_g7_subject_qr3_eng'],
@@ -1073,7 +1143,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_mat' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_mat' => $validate_all_subject_mat['sf9_g7_subject_qr1_mat'],
             'sf9_g7_subject_qr2_mat' => $validate_all_subject_mat['sf9_g7_subject_qr2_mat'],
             'sf9_g7_subject_qr3_mat' => $validate_all_subject_mat['sf9_g7_subject_qr3_mat'],
@@ -1166,7 +1236,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_sci' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_sci' => $validate_all_subject_sci['sf9_g7_subject_qr1_sci'],
             'sf9_g7_subject_qr2_sci' => $validate_all_subject_sci['sf9_g7_subject_qr2_sci'],
             'sf9_g7_subject_qr3_sci' => $validate_all_subject_sci['sf9_g7_subject_qr3_sci'],
@@ -1259,7 +1329,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_ap' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_ap' => $validate_all_subject_ap['sf9_g7_subject_qr1_ap'],
             'sf9_g7_subject_qr2_ap' => $validate_all_subject_ap['sf9_g7_subject_qr2_ap'],
             'sf9_g7_subject_qr3_ap' => $validate_all_subject_ap['sf9_g7_subject_qr3_ap'],
@@ -1352,7 +1422,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_ep' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_ep' => $validate_all_subject_ep['sf9_g7_subject_qr1_ep'],
             'sf9_g7_subject_qr2_ep' => $validate_all_subject_ep['sf9_g7_subject_qr2_ep'],
             'sf9_g7_subject_qr3_ep' => $validate_all_subject_ep['sf9_g7_subject_qr3_ep'],
@@ -1445,7 +1515,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_tle' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_tle' => $validate_all_subject_tle['sf9_g7_subject_qr1_tle'],
             'sf9_g7_subject_qr2_tle' => $validate_all_subject_tle['sf9_g7_subject_qr2_tle'],
             'sf9_g7_subject_qr3_tle' => $validate_all_subject_tle['sf9_g7_subject_qr3_tle'],
@@ -1538,7 +1608,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_mus' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_mus' => $validate_all_subject_mus['sf9_g7_subject_qr1_mus'],
             'sf9_g7_subject_qr2_mus' => $validate_all_subject_mus['sf9_g7_subject_qr2_mus'],
             'sf9_g7_subject_qr3_mus' => $validate_all_subject_mus['sf9_g7_subject_qr3_mus'],
@@ -1631,7 +1701,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_art' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_art' => $validate_all_subject_art['sf9_g7_subject_qr1_art'],
             'sf9_g7_subject_qr2_art' => $validate_all_subject_art['sf9_g7_subject_qr2_art'],
             'sf9_g7_subject_qr3_art' => $validate_all_subject_art['sf9_g7_subject_qr3_art'],
@@ -1724,7 +1794,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_pe' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_pe' => $validate_all_subject_pe['sf9_g7_subject_qr1_pe'],
             'sf9_g7_subject_qr2_pe' => $validate_all_subject_pe['sf9_g7_subject_qr2_pe'],
             'sf9_g7_subject_qr3_pe' => $validate_all_subject_pe['sf9_g7_subject_qr3_pe'],
@@ -1817,7 +1887,7 @@ class StudentController extends Controller {
             //'sf10_g10_subject_rem_hp' => 'nullable',
         ]);
 
-        Student::where('id', $id)->update([
+        $student->update([
             'sf9_g7_subject_qr1_hp' => $validate_all_subject_hp['sf9_g7_subject_qr1_hp'],
             'sf9_g7_subject_qr2_hp' => $validate_all_subject_hp['sf9_g7_subject_qr2_hp'],
             'sf9_g7_subject_qr3_hp' => $validate_all_subject_hp['sf9_g7_subject_qr3_hp'],
@@ -1867,16 +1937,16 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/form/'.$id);
     }
 
-    // [Locked] Delete (GET)
+    // [Clean] Delete (GET)
     public function delete_1 ($id) {
-        $student = Student::findOrFail($id);
+        $student = Student::find($id);
 
         return view('pages.students.delete')->with('student', $student);
     }
 
-    // [Locked] Delete (POST)
+    // [Clean] Delete (POST)
     public function delete_2 ($id) {
-        Student::where('id', $id)->delete();
+        Student::find($id)->delete();
 
         return redirect()->to('/students');
     }

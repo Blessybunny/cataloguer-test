@@ -10,6 +10,7 @@ class Section extends Model {
 
     protected $fillable = [
         'DB_GRADE_id',
+        'DB_USER_id',
 
         'section',
     ];

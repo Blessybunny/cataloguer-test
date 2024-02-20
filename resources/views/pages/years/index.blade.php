@@ -96,14 +96,16 @@
 				<div class = "col">
 					<table class = "table">
 						<tr>
-							<th>School Year</th>
-							<th>Action</th>
+							<th style = "width: 150px;">School Year</th>
+							<th>Principal</th>
+							<th style = "width: 150px;">Action</th>
 						</tr>
 
 						@foreach ($years as $year)
 
 							<tr>
-								<td>{{ $year->year }}-{{ $year->year + 1 }}</td>
+								<td class = "text-center">{{ $year->full }}</td>
+								<td>{{ $year->principal }}</td>
 								<td class = "text-center">
 									<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
 								</td>

@@ -96,17 +96,17 @@
 				<div class = "col">
 					<table class = "table">
 						<tr>
-							<th>DepEd ID</th>
+							<th style = "width: 150px;">DepEd ID</th>
 							<th>Name</th>
-							<th>Role</th>
-							<th>Advisory Grade / Section</th>
-							<th>Action</th>
+							<th style = "width: 150px;">Role</th>
+							<th style = "width: 300px;">Advisory</th>
+							<th style = "width: 150px;">Action</th>
 						</tr>
 
 						@foreach ($users as $user)
 
 							<tr>
-								<td>{{ $user->email }}</td>
+								<td class = "text-center">{{ $user->email }}</td>
 								<td>{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</td>
 								<td class = "text-center">{{ $user->role }}</td>
 								<td class = "text-center">{{ $user->advisory }}</td>

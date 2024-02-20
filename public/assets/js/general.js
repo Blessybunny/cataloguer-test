@@ -21,7 +21,7 @@
     
             if (this.value < min) this.value = min;
             if (this.value > max) this.value = max;
-        });
+        }, true);
     
         // For some reason, event listeners don't work when "on-" does
         numbers[i].onkeydown = function (event) {

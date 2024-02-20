@@ -47,97 +47,83 @@
 				<div class = "col">
 
 					<!-- Learner Reference Number -->
-					<label>
-						<span style = "min-width: 250px;">Learner Reference Number:</span>
-						<input
-							name = "info_lrn"
-							type = "text"
-							maxlength = "50"
-							value = "{{ $student->info_lrn }}"
-							required
-						>
-					</label>
+					<span class = "font-bold">Learner Reference Number:</span>
+					<input
+						name = "info_lrn"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->info_lrn }}"
+						required
+					>
 
 					@if($errors->has('info_lrn'))
 
-						<span class = "error" style = "margin-left: 250px;">* The LRN has already been taken.</span>
+						<span class = "error">* The LRN has already been taken.</span>
 
 					@endif
 
 					<br>
 
 					<!-- Last Name -->
-					<label>
-						<span style = "min-width: 250px;">Last Name:</span>
-						<input
-							name = "info_name_last"
-							type = "text"
-							maxlength = "50"
-							value = "{{ $student->info_name_last }}"
-							required
-						>
-					</label>
+					<span class = "font-bold">Last Name:</span>
+					<input
+						name = "info_name_last"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->info_name_last }}"
+						required
+					>
 					<br>
 
 					<!-- First Name -->
-					<label>
-						<span style = "min-width: 250px;">First Name:</span>
-						<input
-							name = "info_name_first"
-							type = "text"
-							maxlength = "50"
-							value = "{{ $student->info_name_first }}"
-							required
-						>
-					</label>
+					<span class = "font-bold">First Name:</span>
+					<input
+						name = "info_name_first"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->info_name_first }}"
+						required
+					>
 					<br>
 
 					<!-- Middle Name -->
-					<label>
-						<span style = "min-width: 250px;">Middle Name:</span>
-						<input
-							name = "info_name_middle"
-							type = "text"
-							maxlength = "50"
-							value = "{{ $student->info_name_middle }}"
-							required
-						>
-					</label>
+					<span class = "font-bold">Middle Name:</span>
+					<input
+						name = "info_name_middle"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->info_name_middle }}"
+						required
+					>
 					<br>
 
 					<!-- Birthdate -->
-					<label>
-						<span style = "min-width: 250px;">Birthdate (MM/DD/YYYY):</span>
-						<input
-							name = "info_birthdate"
-							type = "text"
-							maxlength = "50"
-							value = "{{ $student->info_birthdate }}"
-							required
-						>
-					</label>
+					<span class = "font-bold">Birthdate (MM/DD/YYYY):</span>
+					<input
+						name = "info_birthdate"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->info_birthdate }}"
+						required
+					>
 					<br>
 
 					<!-- Sex -->
-					<label>
-						<span style = "min-width: 250px;">Sex:</span>
-						<select name = "info_sex" required>
-							<option value = "Male" {{ $student->info_sex == "Male" ? "selected" : "" }}>Male</option>
-							<option value = "Female" {{ $student->info_sex == "Female" ? "selected" : "" }}>Female</option>
-						</select>
-					</label>
-					<hr>
+					<span class = "font-bold">Sex:</span>
+					<select name = "info_sex" required>
+						<option value = "Male" {{ $student->info_sex == "Male" ? "selected" : "" }}>Male</option>
+						<option value = "Female" {{ $student->info_sex == "Female" ? "selected" : "" }}>Female</option>
+					</select>
+					<br>
 
 					<!-- Name Suffix -->
-					<label>
-						<span style = "min-width: 250px;">Name Suffix:</span>
-						<input
-							name = "info_name_suffix"
-							type = "text"
-							maxlength = "50"
-							value = "{{ $student->info_name_suffix }}"
-						>
-					</label>
+					<span class = "font-bold">Name Suffix:</span>
+					<input
+						name = "info_name_suffix"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $student->info_name_suffix }}"
+					>
 
 				</div>
 			
@@ -157,7 +143,7 @@
 
 				<!-- Danger -->
 				<div class = "col text-center">
-					<a href = "#">
+					<a href = "{{ url('/students/delete', $student->id) }}">
 						<button class = "button" type = "button">Delete</button>
 					</a>
 				</div>

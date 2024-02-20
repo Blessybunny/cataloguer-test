@@ -96,7 +96,7 @@
 				<div class = "col">
 					<table class = "table">
 						<tr>
-							<th>LRN</th>
+							<th style = "width: 150px;">LRN</th>
 							<th>Name</th>
 							<th colspan = "4">Actions</th>
 						</tr>
@@ -104,19 +104,19 @@
 						@foreach ($students as $student)
 
 							<tr>
-								<td>{{ $student->info_lrn }}</td>
+								<td class = "text-center">{{ $student->info_lrn }}</td>
 								<td>{{ strtoupper($student->info_name_last) }}, {{ ucfirst($student->info_name_first) }} {{ ucfirst($student->info_name_middle) }} {{ ucfirst($student->info_name_suffix) }}</td>
-								<td class = "text-center">
+								<td class = "text-center" style = "width: 150px;">
 									<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
 								</td>
-								<td class = "text-center">
-									<a href = "{{ url('/students/edit/s_sy', $student->id) }}">Edit Sections / School Years</a>
+								<td class = "text-center" style = "width: 300px;">
+									<a href = "{{ url('/students/edit/acad', $student->id) }}">Edit School Years / Sections</a>
 								</td>
-								<td class = "text-center">
+								<td class = "text-center" style = "width: 150px;">
 									<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
 								</td>
-								<td class = "text-center">
-									<a href = "#">View Progress Report</a>
+								<td class = "text-center" style = "width: 150px;">
+									<a href = "#">View Report</a>
 								</td>
 							</tr>
 

@@ -12,7 +12,7 @@ return new class extends Migration {
 
             $table->tinyInteger('DB_ROLE_id');
             $table->tinyInteger('DB_GRADE_id')->nullable();
-            $table->tinyInteger('DB_SECTION_id')->nullable();
+            $table->tinyInteger('DB_SECTION_id')->nullable()->unique();
 
             $table->string('email', 50)->unique();
             $table->string('password');

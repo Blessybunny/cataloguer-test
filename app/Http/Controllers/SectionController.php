@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Grade;
 use App\Models\Section;
-use Illuminate\Http\Request;
+
+use Request;
 
 class SectionController extends Controller {
     // Redirect
     public function redirect () { return redirect()->to('/sections'); }
 
     // Index (GET)
-    public function index () { 
-        $grades = Grade::orderBy('grade', 'DESC')->get();
+    public function index () {
+        $grades = Grade::all();
 
         return view('pages.sections.index')->with('grades', $grades);
     }
@@ -33,9 +34,9 @@ class SectionController extends Controller {
         $sections = Section::where('DB_GRADE_id', $id)->get();
 
         foreach ($sections as $section) {
-            $validate = request()->validate(['section_'.$grade->id.'_'.$section->id => 'nullable']);
+            $validate = request()->validate(['section_'.$section->DB_GRADE_id.'_'.$section->id => 'nullable']);
 
-            $section->update(['section' => $validate['section_'.$grade->id.'_'.$section->id]]);
+            $section->update(['section' => $validate['section_'.$section->DB_GRADE_id.'_'.$section->id]]);
         }
 
         return redirect()->to('/sections/edit/'.$id);

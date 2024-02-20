@@ -65,11 +65,11 @@
         total();
     };
 
-    const fields = document.getElementsByTagName(`input`);
+    const numbers = document.querySelectorAll(`input[type = "number"]`);
     const buffer = 250;
 
-    for (let i = 0,  ii = fields.length; i < ii; i++) {
-        fields[i].addEventListener('focusout', function () {
+    for (let i = 0,  ii = numbers.length; i < ii; i++) {
+        numbers[i].addEventListener('focusout', function () {
             setTimeout(() => {
                 average();
                 remarks();

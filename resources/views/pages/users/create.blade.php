@@ -1,6 +1,6 @@
 @extends('layouts.general.page')
 
-@section('title') Cataloger - School Year Manager @endsection
+@section('title') Cataloger - User Manager @endsection
 
 @section('content')
 
@@ -47,80 +47,68 @@
 				<div class = "col">
 
 					<!-- DepEd ID -->
-					<label>
-						<span style = "min-width: 150px;">DepEd ID:</span>
-						<input
-							name = "email"
-							type = "text"
-							maxlength = "50"
-							value = "{{ old('email') }}"
-							required
-						>
-					</label>
+					<span class = "font-bold">DepEd ID:</span>
+					<input
+						name = "email"
+						type = "text"
+						maxlength = "50"
+						value = "{{ old('email') }}"
+						required
+					>
 
 					@if($errors->has('email'))
 
-						<span class = "error" style = "margin-left: 150px;">* This DepEd ID has already been taken</span>
+						<span class = "error">* This DepEd ID has already been taken</span>
 
 					@endif
 
 					<br>
 
 					<!-- Password -->
-					<label>
-						<span style = "min-width: 150px;">Password:</span>
-						<input
-							name = "password"
-							type = "password"
-							pattern = ".{10,}"
-							value = ""
-							required
-						>
-					</label>
-					<span style = "margin-left: 150px;">Minimum: 10 characters</span>
-					<br>
+					<span class = "font-bold">Password (min. 10 characters):</span>
+					<input
+						name = "password"
+						type = "password"
+						pattern = ".{10,}"
+						value = ""
+						required
+					>
 					<br>
 
 					<!-- Last Name -->
-					<label>
-						<span style = "min-width: 150px;">Last Name:</span>
-						<input
-							name = "name_last"
-							type = "text"
-							maxlength = "50"
-							value = "{{ old('name_last') }}"
-							required
-						>
-					</label>
+					<span class = "font-bold">Last Name:</span>
+					<input
+						name = "name_last"
+						type = "text"
+						maxlength = "50"
+						value = "{{ old('name_last') }}"
+						required
+					>
 					<br>
 
 					<!-- First Name -->
-					<label>
-						<span style = "min-width: 150px;">First Name:</span>
-						<input
-							name = "name_first"
-							type = "text"
-							maxlength = "50"
-							value = "{{ old('name_first') }}"
-							required
-						>
-					</label>
+					<span class = "font-bold">First Name:</span>
+					<input
+						name = "name_first"
+						type = "text"
+						maxlength = "50"
+						value = "{{ old('name_first') }}"
+						required
+					>
 					<br>
 
 					<!-- Role -->
-					<label>
-						<span style = "min-width: 150px;">Role:</span>
-						<select name = "DB_ROLE_id" required>
-							<option value = ""></option>
+					<span class = "font-bold">Role:</span>
+					<select name = "DB_ROLE_id" required>
+						<option value = ""></option>
 
-							@foreach ($roles as $role)
+						@foreach ($roles as $role)
 
-								<option value = "{{ $role->id }}" {{ old('DB_ROLE_id') == $role->id ? 'selected' : '' }}>{{ $role->role }}</option>
+							<option value = "{{ $role->id }}" {{ old('DB_ROLE_id') == $role->id ? 'selected' : '' }}>{{ $role->role }}</option>
 
-							@endforeach
+						@endforeach
 
-						</select>
-					</label>
+					</select>
 
 				</div>
 
@@ -142,52 +130,32 @@
 				<div class = "col">
 
 					<!-- Advisory Grade -->
-					<label>
-						<span style = "min-width: 150px;">Advisory Grade:</span>
-						<select name = "DB_GRADE_id">
-							<option value = ""></option>
+					<span class = "font-bold">Advisory Grade:</span>
+					<select name = "DB_GRADE_id">
+						<option value = ""></option>
 
-							@foreach ($grades as $grade)
+						@foreach ($grades as $grade)
 
-								<option value = "{{ $grade->id }}" {{ old("DB_GRADE_id") == $grade->id ? "selected" : "" }}>{{ $grade->grade }}</option>
+							<option value = "{{ $grade->id }}" {{ old("DB_GRADE_id") == $grade->id ? "selected" : "" }}>{{ $grade->grade }}</option>
 
-							@endforeach
+						@endforeach
 
-						</select>
-					</label>
-					<span style = "margin-left: 150px;">Note: this setting only applies to grade level coordinators</span>
-					<br>
-					<br>
+					</select>
+					<p>This setting only applies to grade level coordinators</p>
 
 					<!-- Advisory Section -->
-					<label>
-						<span style = "min-width: 150px;">Advisory Section:</span>
-						<select name = "DB_SECTION_id">
-							<option value = ""></option>
+					<span class = "font-bold">Advisory Section:</span>
+					<select name = "DB_SECTION_id">
+						<option value = ""></option>
 
-							@foreach ($sections as $section)
+						@foreach ($sections as $section)
 
-								@if ($section->section != null)
+							<option value = "{{ $section->id }}" {{ old("DB_SECTION_id") == $section->id ? "selected" : "" }}>Grade {{ $section->grade }} - {{ $section->section }}</option>
 
-									@foreach ($grades as $grade)
+						@endforeach
 
-										@if ($grade->id == $section->DB_GRADE_id)
-
-											<option value = "{{ $section->id }}" {{ old("DB_SECTION_id") == $section->id ? "selected" : "" }}>Grade {{ $grade->grade }} - {{ $section->section }}</option>
-
-											@break
-
-										@endif
-
-									@endforeach
-
-								@endif
-
-							@endforeach
-
-						</select>
-					</label>
-					<span style = "margin-left: 150px;">Note: this setting only applies to advisers and teachers</span>
+					</select>
+					<p>This setting only applies to advisers and teachers</p>
 
 				</div>
 
