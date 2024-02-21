@@ -75,13 +75,13 @@
                                 </ul>
                             </li>
                         </ul>
-                        <div class = "tab-content">
+                        <div class = "tab-content" style = "min-height: 720px">
 
                             @foreach ($grades as $grade)
 
                                 @php
 
-                                    $debug = $grade->grade == '7' ? 'active show' : '';
+                                    $debug = $grade->grade == '12' ? 'active show' : '';
 
                                 @endphp
 
