@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder {
         self::user();
         self::year();
         self::student_1();
+        self::student_2();
     }
 
     // GRADE: All
@@ -96,26 +97,48 @@ class DatabaseSeeder extends Seeder {
         User::create([
             'DB_ROLE_id' => 1,
 
-            'email' => '0123456789',
+            'email' => 'user1',
             'password' => bcrypt('password'),
-            'name_last' => 'Lorem',
-            'name_first' => 'Ipsum Dolor',
+            'name_last' => 'Olsen',
+            'name_first' => 'Tulip',
+        ]);
+        User::create([
+            'DB_ROLE_id' => 2,
+
+            'email' => 'user2',
+            'password' => bcrypt('password'),
+            'name_last' => 'Cosay',
+            'name_first' => 'Jesse',
+        ]);
+        User::create([
+            'DB_ROLE_id' => 3,
+
+            'email' => 'user3',
+            'password' => bcrypt('password'),
+            'name_last' => 'Monroe',
+            'name_first' => 'Grace',
         ]);
         User::create([
             'DB_ROLE_id' => 4,
 
-            'email' => '0223456789',
+            'email' => 'user4',
             'password' => bcrypt('password'),
-            'name_last' => 'Consectetur',
-            'name_first' => 'Adipiscing Elit',
+            'name_last' => 'Laurent',
+            'name_first' => 'Simon',
+        ]);
+        User::create([
+            'DB_ROLE_id' => 5,
+
+            'email' => 'user5',
+            'password' => bcrypt('password'),
+            'name_last' => 'Hughes',
+            'name_first' => 'Amelia',
         ]);
     }
 
     // YEAR: 2020-2024
     public function year () : void {
         Year::create([
-            'DB_USER_id' => 1,
-
             'year' => 2024,
             'full' => '2024-2025',
 
@@ -133,9 +156,6 @@ class DatabaseSeeder extends Seeder {
             'attendance_dec_t' => 20,
         ]);
         Year::create([
-            'PRESERVE_DB_USER_name_last' => 'Tano',
-            'PRESERVE_DB_USER_name_first' => 'Ahsoka',
-
             'year' => 2023,
             'full' => '2023-2024',
 
@@ -383,6 +403,32 @@ class DatabaseSeeder extends Seeder {
             'sf10_g7_subject_qr2_hp' => 85,
             'sf10_g7_subject_qr3_hp' => 90,
             'sf10_g7_subject_qr4_hp' => 100,
+        ]);
+    }
+    public function student_2 () : void {
+        Student::create([
+            'info_name_last' => 'Alamag',
+            'info_name_first' => 'Mark Joseph',
+            'info_name_middle' => 'Bringas',
+            'info_lrn' => '01-0001-002',
+            'info_sex' => 'Male',
+            'info_birthdate' => '2000/01/01',
+        ]);
+        Student::create([
+            'info_name_last' => 'Sotelo',
+            'info_name_first' => 'Gleister Isaac',
+            'info_name_middle' => 'Middle',
+            'info_lrn' => '01-0001-003',
+            'info_sex' => 'Male',
+            'info_birthdate' => '2000/01/01',
+        ]);
+        Student::create([
+            'info_name_last' => 'Viray',
+            'info_name_first' => 'James',
+            'info_name_middle' => 'Middle',
+            'info_lrn' => '01-0001-004',
+            'info_sex' => 'Male',
+            'info_birthdate' => '2000/01/01',
         ]);
     }
 }
