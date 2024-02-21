@@ -183,6 +183,7 @@ class DatabaseSeeder extends Seeder {
             'info_birthdate' => '2007/09/17',
 
             // SF9: Report
+            'DB_SECTION_id_g7' => 1,
             'DB_YEAR_id_g7' => 1,
 
             // SF9: Attendance -> present

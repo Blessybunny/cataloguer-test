@@ -11,14 +11,18 @@ class SectionController extends Controller {
     // Redirect
     public function redirect () { return redirect()->to('/sections'); }
 
-    // Index (GET)
+    // 1.1 - Index (GET)
+    // From the index page, display info
+    // Null bubbled
     public function index () {
         $grades = Grade::all();
 
         return view('pages.sections.index')->with('grades', $grades);
     }
 
-    // Edit (GET)
+    // 2.1 - Edit (GET)
+    // From the edit page, display the fields
+    // Null bubbled
     public function edit_1 ($id) {
         $grade = Grade::find($id);
         $sections = Section::where('DB_GRADE_id', $id)->get();
@@ -28,7 +32,9 @@ class SectionController extends Controller {
             ->with('sections', $sections);
     }
 
-    // Edit (POST)
+    // 2.2 - Edit (POST)
+    // From the edit page, update the fields
+    // Null bubbled
     public function edit_2 ($id) {
         $grade = Grade::find($id);
         $sections = Section::where('DB_GRADE_id', $id)->get();

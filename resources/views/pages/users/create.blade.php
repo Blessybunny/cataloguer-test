@@ -136,7 +136,7 @@
 
 						@foreach ($grades as $grade)
 
-							<option value = "{{ $grade->id }}" {{ old("DB_GRADE_id") == $grade->id ? "selected" : "" }}>{{ $grade->grade }}</option>
+							<option value = "{{ $grade->id }}" {{ old("DB_GRADE_id") == $grade->id ? "selected" : "" }}>Grade {{ $grade->grade }}</option>
 
 						@endforeach
 

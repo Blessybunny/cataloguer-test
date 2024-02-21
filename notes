@@ -1,45 +1,24 @@
 UTMOST PRIO:
-    - UserController: Step 2 of preservation
-
-
-
+    - Going back to page of recently deleted Model (like user) should throw an error or redirect to Model's index
+        - Perform a null bubble on all GET and POST functions using the designated model and id.
+        - After fixing this, label it: True null bubbled
 CHECKPOINT:
     - Add brute force method to students (REMEMBER tokens for sections/advisers)
     - REMEMBER_DB_SECTION_name_gx
 
 High-prio:
-    - Inside edit-s-sy.blade.php, include the name of principal next to the school year (and remember token warning)
     - When deleting an adviser, make a remember token!
 
 
 
-    - SECTIONS with ADVISERS assigned to them should no longer appear during user create/edit under selection of advisory sections. (field already created in sections migration file)
     - REMEMBER tokens for sections:
         - This should go under User and Student model.
         - SF9 should use this remember tokens.
-
-    - grammarly the comments inside students migration file
 To-do:
     - Add a danger zone for "edit-s-sy.blade.php" which includes the brute-forcing of section and adviser names.
     - Add a new field for Year named "full" that contains the full searchable term "xxxx-xxxx".
     - Add a toggle button for SF9-10 editor to highlight the backgrounds of editable fields.
     - User POV: navigation links.
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-TO ASK OR NOT TO ASK, THAT IS THE QUESTION (questions that must be answered after presented):
-    Area:
-        - Student
-            - What in the world is in SF10 certification?
-            - Confirm what is contained in the "certificate" section in SF10, whether or not variables have to be defined or is handwritten.
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Seeders and Relatives:
-    Name:                   Relatives:                          Status:                             Comments:
-    1. Grade                                                    Complete                            Seeder finalized
-    2. Role                                                     Complete                            Seeder finalized
-    3. Section              Grade / User                        Complete                            Seeder finalized - Values are replaceable
-    4. Student              Grade / Section / User / Year       WIP                                 Seeder optional
-    5. User                 Grade / Role / Section / Year       Complete                            Seeder finalized - Values are replaceable - One principal user minimum
-    6. Year                 User                                Complete                            Seeder optional
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SECTION MANAGER:
     Back-end:                   Status:                 Comments:
@@ -56,7 +35,7 @@ SECTION MANAGER:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 STUDENT MANAGER:
     Back-end:                   Status:                 Comments:
-    - controller
+    - controller                wip                     Preserves (section's name)
     - migration
     - model
     - route                     Complete                .
@@ -75,7 +54,7 @@ STUDENT MANAGER:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 USER MANAGER:
     Back-end:                   Status:                 Comments:
-    - controller                wip                Role -> 1, 2, 3, 4, 5 | Has preserves (year's principal, student's adviser)
+    - controller                wip                Role -> 1, 2, 3, 4, 5 | Preserves (year's principal, student's adviser)
     - migration                 Complete                .
     - model                     Complete                .
     - route                     Complete                .
@@ -94,7 +73,7 @@ USER MANAGER:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 YEAR MANAGER:
     Back-end:                   Status:                 Comments:
-    - controller                Complete                Role -> 1 | Has preserves (year's principal)
+    - controller                Complete                Role -> 1
     - migration                 Complete                .
     - model                     Complete                .
     - route                     Complete                .
@@ -107,23 +86,6 @@ YEAR MANAGER:
 
     Terms:
     - full
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER:
-    Name:                       Status:                             Comments:
-    1. Grade                                                    Complete
-    2. Role                                                     Complete
-    4. Student
-        - controller                                            WIP                                 Role (1)
-        - create                                                Complete (clean)
-        - delete                                                Complete (clean)
-        - edit-acad             Complete (clean)
-        - edit-form                                             Complete (clean)                            Debugging
-        - edit-info             Complete (clean)
-        - index                 Complete (clean)
-        - model                 wip
-        - route                 Complete (clean)
-        - search                Complete (clean)
-        - stats                 TBA
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 LAYOUTS AND PAGES:
     Name:                                                       Status:                             Comments:
@@ -197,3 +159,25 @@ JUNKYARD:
         margin: calc(@size-spacing / 4);
         padding: calc(@size-spacing / 2);
     }
+
+
+
+    // Step: 
+    /*// Reset preservations of the assigned section's adviser's name.
+    public function func_preserve_section_reset ($user) {
+        if ($user->DB_ROLE_id == '4') {
+            $section = Section::find($user->DB_SECTION_id);
+    
+            if ($section != null) {
+                $grade = Grade::find($section->DB_GRADE_id);
+                $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
+
+                foreach ($students as $student) {
+                    $student->update([
+                        'PRESERVE_DB_USER_name_last_g'.$grade->grade => null,
+                        'PRESERVE_DB_USER_name_first_g'.$grade->grade => null,
+                    ]);
+                }
+            }
+        }
+    }*/

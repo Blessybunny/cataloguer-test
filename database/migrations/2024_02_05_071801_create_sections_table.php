@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->tinyInteger('DB_GRADE_id');
-            $table->integer('DB_USER_id')->nullable()->unique();
+            $table->integer('DB_USER_id')->nullable();
 
             $table->string('section', 50)->nullable();
         });

@@ -13,7 +13,7 @@
 
 				<!-- Action -->
 				<div class = "col">
-                    <a href = "{{ url('/students/edit', $student->id) }}">
+                    <a href = "{{ url('/students/edit/info', $student->id) }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>

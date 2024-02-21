@@ -15,18 +15,23 @@ class UserController extends Controller {
     // Redirect
     public function redirect () { return redirect()->to('/users'); }
 
-    // Index (GET)
+    // 1.1 - Index (GET)
+    // From the index page, display info
+    // Null bubbled
     public function index_1 () {
         $users = User::orderBy('DB_ROLE_id', 'ASC')
             ->orderBy('name_last', 'ASC')
             ->orderBy('name_first', 'ASC')
             ->get();
-        $users = self::func_make_index_info($users);
+
+        $users = self::func_index_make_info($users);
 
         return view('pages.users.index')->with('users', $users);
     }
 
-    // Index (POST)
+    // 1.2 - Index (POST)
+    // From the index page, display info from the search
+    // Null bubbled
     public function index_2 () {
         $terms = Request::get('terms');
 
@@ -47,7 +52,8 @@ class UserController extends Controller {
                 ->orderBy('name_first', 'ASC')
                 ->get();
             $results = (count($results) > 0) ? $results : [];
-            $results = self::func_make_index_info($results);
+
+            $results = self::func_index_make_info($results);
 
             return view('pages.users.index')
                 ->with('isSearched', true)
@@ -57,14 +63,22 @@ class UserController extends Controller {
         else return redirect()->to('/users');
     }
 
-    // Create (GET)
+    // 2.1 - Create (GET)
+    // From the create page, display the fields
+    // Null bubbled
     public function create_1 () {
         $grades = Grade::all();
         $roles = Role::all();
-        $sections = Section::whereNotNull('section')->get();
+        $sections = Section::whereNotNull('section')
+            ->whereNull('DB_USER_id')
+            ->get();
 
         foreach ($sections as $section) {
-            $section->grade = Grade::find($section->DB_GRADE_id)->grade;
+            $grade = Grade::find($section->DB_GRADE_id);
+
+            if ($grade != null) {
+                $section->grade = $grade->grade;
+            }
         }
 
         return view('pages.users.create')
@@ -73,7 +87,9 @@ class UserController extends Controller {
             ->with('sections', $sections);
     }
 
-    // Create (POST)
+    // 2.2 - Create (POST)
+    // From the create page, create the fields
+    // Null bubbled
     public function create_2 () {
         $validate = request()->validate([
             'DB_ROLE_id' => 'required',
@@ -87,7 +103,7 @@ class UserController extends Controller {
             'name_first' => 'required',
         ]);
 
-        $validate = self::func_validate_role($validate);
+        $validate = self::func_credit_validate_role($validate);
 
         $user = User::create([
             'DB_ROLE_id' => $validate['DB_ROLE_id'],
@@ -101,17 +117,12 @@ class UserController extends Controller {
             'name_first' => $validate['name_first'],
         ]);
 
-        self::func_preserve_STUDENT_Section_on_role_change($user);
-        self::func_preserve_STUDENT_Section_on_section_change($user);
-        self::func_preserve_YEAR_User_on_role_change($user);
-
-        self::func_section_unassign($user);
-        self::func_section_assign($user);
-
         return redirect()->to('/users');
     }
 
-    // Edit (GET)
+    // 3.1 - Edit (GET)
+    // From the edit page, display the fields
+    // Null bubbled
     public function edit_1 ($id) {
         $grades = Grade::all();
         $roles = Role::all();
@@ -119,7 +130,11 @@ class UserController extends Controller {
         $user = User::find($id);
 
         foreach ($sections as $section) {
-            $section->grade = Grade::find($section->DB_GRADE_id)->grade;
+            $grade = Grade::find($section->DB_GRADE_id);
+
+            if ($grade != null) {
+                $section->grade = $grade->grade;
+            }
         }
 
         return view('pages.users.edit')
@@ -129,7 +144,9 @@ class UserController extends Controller {
             ->with('user', $user);
     }
 
-    // Edit (POST)
+    // 3.2 - Edit (POST)
+    // From the edit page, update the fields
+    // Null bubbled
     public function edit_2 ($id) {
         $user = User::find($id);
 
@@ -142,7 +159,9 @@ class UserController extends Controller {
             'name_first' => 'required',
         ]);
 
-        $validate = self::func_validate_role($validate);
+        $user_old = clone $user;
+
+        $validate = self::func_credit_validate_role($validate);
 
         $user->update([
             'DB_ROLE_id' => $validate['DB_ROLE_id'],
@@ -153,29 +172,33 @@ class UserController extends Controller {
             'name_first' => $validate['name_first'],
         ]);
 
-        self::func_preserve_STUDENT_Section_on_role_change($user);
-        self::func_preserve_STUDENT_Section_on_section_change($user);
-        self::func_preserve_YEAR_User_on_role_change($user);
+        self::func_credit_preserve_STUDENT_User_on_role_change($user, $user_old);
+        self::func_credit_preserve_STUDENT_User_on_section_change($user, $user_old);
+        self::func_credit_preserve_YEAR_User_on_role_change($user, $user_old);
 
-        self::func_section_unassign($user);
-        self::func_section_assign($user);
+        self::func_credit_section_unassign($user);
+        self::func_credit_section_assign($user);
 
         return redirect()->to('/users/edit/'.$id);
     }
 
-    // Delete (GET)
+    // 4.1 - Delete (GET)
+    // From the delete page, display info
+    // Null bubbled
     public function delete_1 ($id) {
         $user = User::find($id);
 
         return view('pages.users.delete')->with('user', $user);
     }
 
-    // Delete (POST)
+    // 4.2 - Delete (POST)
+    // From the delete page, delete the fields
+    // Null bubbled
     public function delete_2 ($id) {
         $user = User::find($id);
 
-        self::func_section_unassign($user);
-        self::func_preserve_YEAR_User_on_deletion($user);
+        self::func_credit_section_unassign($user);
+        self::func_delete_preserve_YEAR_User_on_deletion($user);
 
         $user->delete();
 
@@ -183,10 +206,15 @@ class UserController extends Controller {
     }
 
     // Functions
-    // [do-not-touch] Create various info that is displayed in the index
-    public function func_make_index_info ($param) {
+    // [do-not-touch] From the index page, make info
+    // Null bubbled
+    public function func_index_make_info ($param) {
         foreach ($param as $user) {
-            $user->role = Role::find($user->DB_ROLE_id)->role;
+            $role = Role::find($user->DB_ROLE_id);
+
+            if ($role != null) {
+                $user->role = $role->role;
+            }
 
             if ($user->DB_ROLE_id == '1' || $user->DB_ROLE_id == '2') {
                 $user->advisory = 'N/A';
@@ -223,8 +251,9 @@ class UserController extends Controller {
         return $param;
     }
 
-    // [do-not-touch] Validate roles to manage advisory grades and sections
-    public function func_validate_role ($validate) {
+    // [do-not-touch] From the create + edit page, validate roles to manage advisory grades and sections
+    // Null bubbled
+    public function func_credit_validate_role ($validate) {
         if ($validate['DB_ROLE_id'] == '1' || $validate['DB_ROLE_id'] == '2') {
             $validate['DB_GRADE_id'] = null;
             $validate['DB_SECTION_id'] = null;
@@ -239,33 +268,58 @@ class UserController extends Controller {
         return $validate;
     }
 
-    // [do-not-touch] Step 1: Preserve the adviser's name to the assigned section's students on role change
-    public function func_preserve_STUDENT_Section_on_role_change ($user) {
-        if ($user->DB_ROLE_id != '4') {
+    // [do-not-touch] From the edit page, preserve the adviser's name to the assigned section's students on role change
+    // Null bubbled
+    public function func_credit_preserve_STUDENT_User_on_role_change ($user, $user_old) {
+        if ($user_old->DB_ROLE_id != '4') {
             $sections = Section::where('DB_USER_id', $user->id)->get();
 
             foreach ($sections as $section) {
                 $grade = Grade::find($section->DB_GRADE_id);
-                $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
 
-                foreach ($students as $student) {
-                    $student->update([
-                        'PRESERVE_DB_USER_name_last_g'.$grade->grade => $user->name_last,
-                        'PRESERVE_DB_USER_name_first_g'.$grade->grade => $user->name_first,
-                    ]);
+                if ($grade != null) {
+                    $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
+    
+                    foreach ($students as $student) {
+                        $student->update([
+                            'PRESERVE_DB_USER_name_last_g'.$grade->grade => $user->name_last,
+                            'PRESERVE_DB_USER_name_first_g'.$grade->grade => $user->name_first,
+                        ]);
+                    }
                 }
             }
         }
     }
 
-    // Step 2: Preserve the adviser's name to the assigned section's students on section change
-    public function func_preserve_STUDENT_Section_on_section_change ($user) {
+    // [do-not-touch] From the edit page, preserve the adviser's name to the assigned section's students on section change
+    // Null bubbled
+    public function func_credit_preserve_STUDENT_User_on_section_change ($user, $user_old) {
+        if ($user_old->DB_ROLE_id == '4') {
+            if ($user_old->DB_SECTION_id != $user->DB_SECTION_id) {
+                $section = Section::find($user_old->DB_SECTION_id);
 
+                if ($section != null) {
+                    $grade = Grade::find($section->DB_GRADE_id);
+
+                    if ($grade != null) {
+                        $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
+
+                        foreach ($students as $student) {
+                            $student->update([
+                                'PRESERVE_DB_USER_name_last_g'.$grade->grade => $user->name_last,
+                                'PRESERVE_DB_USER_name_first_g'.$grade->grade => $user->name_first,
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    // [do-not-touch] Step 3: Preserve the principal's name to the assigned school year on role change
-    public function func_preserve_YEAR_User_on_role_change ($user) {
-        if ($user->DB_ROLE_id != '1') {
+    // [do-not-touch] From the edit page, preserve the principal's name to the assigned school year on role change
+    // Null bubbled
+    public function func_credit_preserve_YEAR_User_on_role_change ($user, $user_old) {
+        if ($user_old->DB_ROLE_id != '1') {
             $years = Year::where('DB_USER_ID', $user->id)->get();
 
             foreach ($years as $year) {
@@ -279,48 +333,9 @@ class UserController extends Controller {
         }
     }
 
-    // [do-not-touch] Step 4: Unassign the adviser from a section
-    public function func_section_unassign ($user) {
-        // This usage is safe, and the section's user id and user's section id are unique (see migrations)
-        $section = Section::where('DB_USER_id', $user->id)->first();
-
-        if ($section != null) {
-            $section->update(['DB_USER_id' => null]);
-        }
-    }
-
-    // [do-not-touch] Step 5: Assign the adviser to a section
-    public function func_section_assign ($user) {
-        $section = Section::find($user->DB_SECTION_id);
-
-        if ($section != null) {
-            $section->update(['DB_USER_id' => $user->id]);
-        }
-    }
-
-    // Step: 
-    /*// Reset preservations of the assigned section's adviser's name.
-    public function func_preserve_section_reset ($user) {
-        if ($user->DB_ROLE_id == '4') {
-            $section = Section::find($user->DB_SECTION_id);
-    
-            if ($section != null) {
-                $grade = Grade::find($section->DB_GRADE_id);
-                $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
-
-                foreach ($students as $student) {
-                    $student->update([
-                        'PRESERVE_DB_USER_name_last_g'.$grade->grade => null,
-                        'PRESERVE_DB_USER_name_first_g'.$grade->grade => null,
-                    ]);
-                }
-            }
-        }
-    }*/
-
-
-    // Preserve the principal's name to the assigned school year on deletion
-    public function func_preserve_YEAR_User_on_deletion ($user) {
+    // [do-not-touch] From the delete page, preserve the principal's name to the assigned school year on deletion
+    // Null bubbled
+    public function func_delete_preserve_YEAR_User_on_deletion ($user) {
         $years = Year::where('DB_USER_ID', $user->id)->get();
 
         foreach ($years as $year) {
@@ -334,7 +349,44 @@ class UserController extends Controller {
     }
 
     //
-    public function func_preserve_STUDENT_Section_on_deletion ($user) {
+    public function func_delete_preserve_STUDENT_User_on_deletion ($user) {
 
+    }
+
+    // [do-not-touch] From the edit page, unassign the user from a section on section or role change
+    // Null bubbled
+    public function func_credit_section_unassign ($user) {
+        $sections = Section::where('DB_USER_id', $user->id)->get();
+
+        foreach ($sections as $section) {
+            if ($section != null) {
+                $section->update(['DB_USER_id' => null]);
+            }
+        }
+    }
+
+    // [do-not-touch] From the edit page, assign the adviser to a section and clear the adviser name preserves of the assigned section's students
+    // Null bubbled
+    public function func_credit_section_assign ($user) {
+        if ($user->DB_ROLE_id == '4') {
+            $section = Section::find($user->DB_SECTION_id);
+
+            if ($section != null) {
+                $section->update(['DB_USER_id' => $user->id]);
+
+                $grade = Grade::find($section->DB_GRADE_id);
+
+                if ($grade != null) {
+                    $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
+                    
+                    foreach ($students as $student) {
+                        $student->update([
+                            'PRESERVE_DB_USER_name_last_g'.$grade->grade => null,
+                            'PRESERVE_DB_USER_name_first_g'.$grade->grade => null,
+                        ]);
+                    }
+                }
+            }
+        }
     }
 }

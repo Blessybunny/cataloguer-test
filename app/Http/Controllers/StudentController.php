@@ -177,7 +177,7 @@ class StudentController extends Controller {
         $sections = new Section();
         $student = Student::find($id);
         $years = new Year();
-        dd($student->PRESERVE_DB_USER_name_last_g7, $student->PRESERVE_DB_USER_name_first_g7);
+        //dd($student->PRESERVE_DB_USER_name_last_g7, $student->PRESERVE_DB_USER_name_first_g7);
         foreach ($grades as $grade) {
             $section = Section::find($student->{'DB_SECTION_id_g'.$grade->grade});
 
