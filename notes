@@ -1,8 +1,10 @@
 UTMOST PRIO:
-    - func_delete_preserve_STUDENT_User_on_deletion
+    - For every edit page and save action, implement a javascript window prompt to confirm changes.
+    - add copyright and current year to footer
     - Going back to page of recently deleted Model (like user) should throw an error or redirect to Model's index
         - Perform a null bubble on all GET and POST functions using the designated model and id.
         - After fixing this, label it: True null bubbled
+        - Perform this fix on every GET/POST method in controllers
 CHECKPOINT:
     - Add brute force method to students (REMEMBER tokens for sections/advisers)
     - REMEMBER_DB_SECTION_name_gx
@@ -23,7 +25,7 @@ To-do:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SECTION MANAGER:
     Back-end:                   Status:                 Comments:
-    - controller                Complete                .
+    - controller                Complete                Preserves (student's section)
     - migration                 Complete                .
     - model                     Complete                .
     - route                     Complete                .
@@ -36,7 +38,7 @@ SECTION MANAGER:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 STUDENT MANAGER:
     Back-end:                   Status:                 Comments:
-    - controller                wip                     Preserves (section's name)
+    - controller                wip
     - migration
     - model
     - route                     Complete                .
@@ -55,7 +57,7 @@ STUDENT MANAGER:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 USER MANAGER:
     Back-end:                   Status:                 Comments:
-    - controller                wip                Role -> 1, 2, 3, 4, 5 | Preserves (year's principal, student's adviser)
+    - controller                Complete                Role -> 1, 2, 3, 4, 5 | Preserves (year's principal, student's adviser)
     - migration                 Complete                .
     - model                     Complete                .
     - route                     Complete                .
@@ -118,25 +120,32 @@ SEARCH, ORDER, ETC.:
 ROLES:
     Name:                           Manager:                    Access:                             Satus:
     - Principal                     Section                     View + Edit (full)
-                                    Student                     View + Edit (only locker)
-                                    User                        View + Edit (full)
-                                    Year                        View + Edit (full)
-    - Administrator                 Section                     View + Edit (full)
-                                    Student                     Edit (only locker)
-                                    User                        View + Edit (limited)
-                                    Year                        View + Edit
-    - Grade Level Coordinator       Section
-                                    Student                     View + Edit (no locker)
-                                    User
-                                    Year
-    - Adviser                       Section
-                                    Student                     View + Edit (no locker)
-                                    User
-                                    Year
-    - Teacher                       Section
+                                    Student                     View + Create + Edit (info, acad, lock)
+                                    User                        View + Create + Edit (full)
+                                    Year                        View + Create + Edit (full)
+        - this role can create legacy students
+
+    - Administrator                 Section                     View
+                                    Student                     View + Create + Edit (info, acad, lock)
+                                    User                        View + Create + Edit (cannot create principal role, cannot demote another administrator)
+                                    Year                        View
+        - this role can create legacy students
+
+    - Grade Level Coordinator       Section                     .
+                                    Student                     View + Edit (form)
+                                    User                        .
+                                    Year                        .
+        - this role will now manage legacy students and their forms.
+
+    - Adviser                       Section                     .
+                                    Student                     View + Edit (form)
+                                    User                        .
+                                    Year                        .
+
+    - Teacher                       Section                     .
                                     Student                     View
-                                    User
-                                    Year
+                                    User                        .
+                                    Year                        .
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 RESOURCES:
     Name:                                                       Status:
@@ -161,24 +170,3 @@ JUNKYARD:
         padding: calc(@size-spacing / 2);
     }
 
-
-
-    // Step: 
-    /*// Reset preservations of the assigned section's adviser's name.
-    public function func_preserve_section_reset ($user) {
-        if ($user->DB_ROLE_id == '4') {
-            $section = Section::find($user->DB_SECTION_id);
-    
-            if ($section != null) {
-                $grade = Grade::find($section->DB_GRADE_id);
-                $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
-
-                foreach ($students as $student) {
-                    $student->update([
-                        'PRESERVE_DB_USER_name_last_g'.$grade->grade => null,
-                        'PRESERVE_DB_USER_name_first_g'.$grade->grade => null,
-                    ]);
-                }
-            }
-        }
-    }*/

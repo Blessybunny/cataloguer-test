@@ -238,25 +238,25 @@
 				</div>
 				<div class = "col-6">
 
-					<!-- Preserved Principal Last Name -->
-					<span class = "font-bold">Preserved Principal Last Name:</span>
+					<!-- Legacy Principal Last Name -->
+					<span class = "font-bold">Legacy Principal Last Name:</span>
 					<input
 						name = "PRESERVE_DB_USER_name_last"
 						type = "text"
 						maxlength = "50"
 						value = "{{ old('PRESERVE_DB_USER_name_last') }}"
 					>
-					<p>This field only applies if a principal does not exist on the list</p>
+					<p>This field is only for use if the appropriate principal is NOT on the list</p>
 
-					<!-- Preserved Principal First Name -->
-					<span class = "font-bold">Preserved Principal First Name:</span>
+					<!-- Legacy Principal First Name -->
+					<span class = "font-bold">Legacy Principal First Name:</span>
 					<input
 						name = "PRESERVE_DB_USER_name_first"
 						type = "text"
 						maxlength = "50"
 						value = "{{ old('PRESERVE_DB_USER_name_first') }}"
 					>
-					<p>This field only applies if a principal does not exist on the list</p>
+					<p>This field is only for use if the appropriate principal is NOT on the list</p>
 
 				</div>
 

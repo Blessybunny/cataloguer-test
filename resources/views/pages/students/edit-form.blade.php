@@ -81,7 +81,7 @@
 
                                 @php
 
-                                    $debug = $grade->grade == '12' ? 'active show' : '';
+                                    $debug = $grade->grade == '7' ? 'active show' : '';
 
                                 @endphp
 

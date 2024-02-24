@@ -13,7 +13,6 @@ class YearController extends Controller {
 
     // 1.1 - Index (GET)
     // From the index page, display info
-    // Null bubbled
     public function index_1 () {
         $years = Year::orderBy('year', 'DESC')->get();
 
@@ -24,7 +23,6 @@ class YearController extends Controller {
 
     // 1.2 - Index (POST)
     // From the index page, display info from the search
-    // Null bubbled
     public function index_2 () {
         $terms = Request::get('terms');
 
@@ -53,7 +51,6 @@ class YearController extends Controller {
 
     // 2.1 - Create (GET)
     // From the create page, display the fields
-    // Null bubbled
     public function create_1 () {
         $users = User::where('DB_ROLE_id', '1')->get();
 
@@ -62,7 +59,6 @@ class YearController extends Controller {
 
     // 2.2 - Create (POST)
     // From the create page, create the fields
-    // Null bubbled
     public function create_2 () {
         $validate = request()->validate([
             'DB_USER_id' => 'nullable',
@@ -114,7 +110,6 @@ class YearController extends Controller {
 
     // 3.1 - Edit (GET)
     // From the edit page, display the fields
-    // Null bubbled
     public function edit_1 ($id) {
         $users = User::where('DB_ROLE_id', '1')->get();
         $year = Year::find($id);
@@ -126,7 +121,6 @@ class YearController extends Controller {
 
     // 3.2 - Edit (POST)
     // From the edit page, update the fields
-    // Null bubbled
     public function edit_2 ($id) {
         $validate = request()->validate([
             'DB_USER_id' => 'nullable',
@@ -173,7 +167,6 @@ class YearController extends Controller {
 
     // Functions
     // From the index page, make info
-    // Null bubbled
     public function func_index_make_info ($param) {
         foreach ($param as $year) {
             $user = User::find($year->DB_USER_id);

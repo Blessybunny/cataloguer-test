@@ -41,7 +41,8 @@
 				</div>
 
 			</div>
-
+			<h1>To-do: </h1>
+			<h5>- Legacy advicer name should be saveable when a selected section has no adviser assigned.</h5>
 			@foreach ($grades as $grade)
 
 				<div class = "row">
@@ -66,7 +67,7 @@
 					<div class = "col-3">
 
 						<!-- Section -->
-						<span class = "font-bold">Grade {{ $grade->grade }} Section:</span>
+						<span class = "font-bold">Grade {{ $grade->grade }} Section | Adviser:</span>
 						<select name = "DB_SECTION_id_g{{ $grade->grade }}">
 							<option value = ""></option>
 
@@ -74,7 +75,7 @@
 
 								@if ($grade->id == $section->DB_GRADE_id)
 
-									<option value = "{{ $section->id }}" {{ $student->{'DB_SECTION_id_g'.$grade->grade} == $section->id ? "selected" : "" }}>{{ $section->section }}</option>
+									<option value = "{{ $section->id }}" {{ $student->{'DB_SECTION_id_g'.$grade->grade} == $section->id ? "selected" : "" }}>{{ $section->section }} {{ $section->user }}</option>
 
 								@endif
 
@@ -85,29 +86,35 @@
 					</div>
 					<div class = "col-6">
 
-						<!-- Preserved Grade Section -->
-						<span class = "font-bold">Preserved Grade {{ $grade->grade }} Section:</span>
+						<!-- Legacy Grade Section -->
+						<span class = "font-bold">Legacy Grade {{ $grade->grade }} Section:</span>
 						<input
+							name = "PRESERVE_DB_SECTION_name_g{{ $grade->grade }}"
 							type = "text"
 							maxlength = "50"
+							value = "{{ $student->{'PRESERVE_DB_SECTION_name_g'.$grade->grade} }}"
 						>
-						<p>This field only applies if a section does not exist on the list</p>
+						<p>This field is only for use if the appropriate section is NOT on the list</p>
 
-						<!-- Preserved Adviser Last Name -->
-						<span class = "font-bold">Preserved Grade {{ $grade->grade }} Adviser Last Name:</span>
+						<!-- Legacy Adviser Last Name -->
+						<span class = "font-bold">Legacy Grade {{ $grade->grade }} Adviser Last Name:</span>
 						<input
+							name = "PRESERVE_DB_USER_name_last_g{{ $grade->grade }}"
 							type = "text"
 							maxlength = "50"
+							value = "{{ $student->{'PRESERVE_DB_USER_name_last_g'.$grade->grade} }}"
 						>
-						<p>This field only applies if an adviser does not exist</p>
+						<p>This field is only for use if the appropriate adviser is NOT on the list</p>
 
-						<!-- Preserved Adviser First Name -->
-						<span class = "font-bold">Preserved Grade {{ $grade->grade }} Adviser First Name:</span>
+						<!-- Legacy Adviser First Name -->
+						<span class = "font-bold">Legacy Grade {{ $grade->grade }} Adviser First Name:</span>
 						<input
+							name = "PRESERVE_DB_USER_name_first_g{{ $grade->grade }}"
 							type = "text"
 							maxlength = "50"
+							value = "{{ $student->{'PRESERVE_DB_USER_name_first_g'.$grade->grade} }}"
 						>
-						<p>This field only applies if an adviser does not exist</p>
+						<p>This field is only for use if the appropriate adviser is NOT on the list</p>
 
 					</div>
 					<hr>

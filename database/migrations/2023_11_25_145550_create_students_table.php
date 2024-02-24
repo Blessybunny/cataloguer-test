@@ -32,11 +32,6 @@ return new class extends Migration {
             $table->string('PRESERVE_DB_SECTION_name_g9', 50)->nullable();
             $table->string('PRESERVE_DB_SECTION_name_g10', 50)->nullable();
 
-            $table->integer('DB_USER_id_g7')->nullable();
-            $table->integer('DB_USER_id_g8')->nullable();
-            $table->integer('DB_USER_id_g9')->nullable();
-            $table->integer('DB_USER_id_g10')->nullable();
-
             $table->string('PRESERVE_DB_USER_name_last_g7', 50)->nullable();
             $table->string('PRESERVE_DB_USER_name_last_g8', 50)->nullable();
             $table->string('PRESERVE_DB_USER_name_last_g9', 50)->nullable();

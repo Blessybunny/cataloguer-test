@@ -29,11 +29,6 @@ class Student extends Model {
         'PRESERVE_DB_SECTION_name_g9',
         'PRESERVE_DB_SECTION_name_g10',
 
-        'DB_USER_id_g7',
-        'DB_USER_id_g8',
-        'DB_USER_id_g9',
-        'DB_USER_id_g10',
-
         'PRESERVE_DB_USER_name_last_g7',
         'PRESERVE_DB_USER_name_last_g8',
         'PRESERVE_DB_USER_name_last_g9',

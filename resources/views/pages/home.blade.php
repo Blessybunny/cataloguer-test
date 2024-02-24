@@ -31,7 +31,7 @@
 
 					<!-- Role IDs (see seeders) -->
 
-					@if ($user->db_role_id == "1" || $user->db_role_id == "2")
+					@if ($user->DB_ROLE_id == "1" || $user->DB_ROLE_id == "2")
 
 						<!-- Sections -->
 						<div class = "col-3">
@@ -55,7 +55,7 @@
 						</a>
 					</div>
 
-					@if ($user->db_role_id == "1" || $user->db_role_id == "2")
+					@if ($user->DB_ROLE_id == "1" || $user->DB_ROLE_id == "2")
 
 						<!-- Users -->
 						<div class = "col-3">
@@ -69,7 +69,7 @@
 
 					@endif
 
-					@if ($user->db_role_id == "1")
+					@if ($user->DB_ROLE_id == "1")
 
 						<!-- School Years -->
 						<div class = "col-3">

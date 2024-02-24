@@ -12,9 +12,11 @@ use Request;
 
 class StudentController extends Controller {
     // [do-not-touch] Redirect
+    // Null bubbled
     public function redirect () { return redirect()->to('/students'); }
 
-    // [do-not-touch] Index (GET)
+    // [do-not-touch] 1.1 - Index (GET)
+    // Null bubbled
     public function index_1 () {
         $students = Student::orderBy('info_name_last', 'ASC')
             ->orderBy('info_name_first', 'ASC')
@@ -25,7 +27,8 @@ class StudentController extends Controller {
         return view('pages.students.index')->with('students', $students);
     }
 
-    // [do-not-touch] Index (POST)
+    // [do-not-touch] 1.2 - Index (POST)
+    // Null bubbled
     public function index_2 () {
         $terms = Request::get('terms');
 
@@ -60,12 +63,14 @@ class StudentController extends Controller {
         else return redirect()->to('/students');
     }
 
-    // [do-not-touch] Create (GET)
+    // [do-not-touch] 2.1 - Create (GET)
+    // Null bubbled
     public function create_1 () {
         return view('pages.students.create');
     }
 
-    // [do-not-touch] Create (POST)
+    // [do-not-touch] 2.2 - Create (POST)
+    // Null bubbled
     public function create_2 () {
         $validate = request()->validate([
             'info_name_last' => 'required',
@@ -90,14 +95,16 @@ class StudentController extends Controller {
         return redirect()->to('/students');
     }
 
-    // [do-not-touch] Edit: Info (GET)
+    // [do-not-touch] 3.1 - Edit: Info (GET)
+    // Null bubbled
     public function edit_info_1 ($id) {
         $student = Student::find($id);
 
         return view('pages.students.edit-info')->with('student', $student);
     }
 
-    // [do-not-touch] Edit: Info (POST)
+    // [do-not-touch] 3.2 - Edit: Info (POST)
+    // Null bubbled
     public function edit_info_2 ($id) {
         $validate = request()->validate([
             'info_name_last' => 'required',
@@ -122,12 +129,21 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/info/'.$id);
     }
 
-    // [do-not-touch] Edit: Sections / School Years (GET)
+    // [do-not-touch] 3.3 - Edit: Sections / School Years (GET)
+    // Null bubbled
     public function edit_acad_1 ($id) {
         $grades = Grade::all();
         $sections = Section::whereNotNull('section')->get();
         $student = Student::find($id);
         $years = Year::orderBy('year', 'DESC')->get();
+
+        foreach ($sections as $section) {
+            $user = User::find($section->DB_USER_id);
+
+            if ($user != null) {
+                $section->user = '| '.strtoupper($user->name_last).', '.ucfirst($user->name_first);
+            }
+        }
 
         return view('pages.students.edit-acad')
             ->with('grades', $grades)
@@ -136,7 +152,8 @@ class StudentController extends Controller {
             ->with('years', $years);
     }
 
-    // Edit: Sections / School Years (POST)
+    // [do-not-touch] 3.4 - Edit: Sections / School Years (POST)
+    // Null bubbled
     public function edit_acad_2 ($id) {
         $validate = request()->validate([
             'DB_SECTION_id_g7' => 'nullable',
@@ -144,11 +161,20 @@ class StudentController extends Controller {
             'DB_SECTION_id_g9' => 'nullable',
             'DB_SECTION_id_g10' => 'nullable',
 
-            /*
-            'PRESERVE_DB_USER_name_last' =>  $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_last'] : null,
-            'PRESERVE_DB_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_first'] : null,
-            
-            */
+            'PRESERVE_DB_SECTION_name_g7' => 'nullable',
+            'PRESERVE_DB_SECTION_name_g8' => 'nullable',
+            'PRESERVE_DB_SECTION_name_g9' => 'nullable',
+            'PRESERVE_DB_SECTION_name_g10' => 'nullable',
+
+            'PRESERVE_DB_USER_name_last_g7' => 'nullable',
+            'PRESERVE_DB_USER_name_last_g8' => 'nullable',
+            'PRESERVE_DB_USER_name_last_g9' => 'nullable',
+            'PRESERVE_DB_USER_name_last_g10' => 'nullable',
+
+            'PRESERVE_DB_USER_name_first_g7' => 'nullable',
+            'PRESERVE_DB_USER_name_first_g8' => 'nullable',
+            'PRESERVE_DB_USER_name_first_g9' => 'nullable',
+            'PRESERVE_DB_USER_name_first_g10' => 'nullable',
 
             'DB_YEAR_id_g7' => 'nullable',
             'DB_YEAR_id_g8' => 'nullable',
@@ -162,22 +188,38 @@ class StudentController extends Controller {
             'DB_SECTION_id_g9' => $validate['DB_SECTION_id_g9'],
             'DB_SECTION_id_g10' => $validate['DB_SECTION_id_g10'],
 
+            'PRESERVE_DB_SECTION_name_g7' => $validate['DB_SECTION_id_g7'] == null ? $validate['PRESERVE_DB_SECTION_name_g7'] : null,
+            'PRESERVE_DB_SECTION_name_g8' => $validate['DB_SECTION_id_g8'] == null ? $validate['PRESERVE_DB_SECTION_name_g8'] : null,
+            'PRESERVE_DB_SECTION_name_g9' => $validate['DB_SECTION_id_g9'] == null ? $validate['PRESERVE_DB_SECTION_name_g9'] : null,
+            'PRESERVE_DB_SECTION_name_g10' => $validate['DB_SECTION_id_g10'] == null ? $validate['PRESERVE_DB_SECTION_name_g10'] : null,
+
             'DB_YEAR_id_g7' => $validate['DB_YEAR_id_g7'],
             'DB_YEAR_id_g8' => $validate['DB_YEAR_id_g8'],
             'DB_YEAR_id_g9' => $validate['DB_YEAR_id_g9'],
             'DB_YEAR_id_g10' => $validate['DB_YEAR_id_g10'],
         ]);
 
+        
+
+        /*'PRESERVE_DB_USER_name_last_g7' => $validate['DB_SECTION_id_g7'] == null ? $validate['PRESERVE_DB_USER_name_last_g7'] : null,
+        //'PRESERVE_DB_USER_name_last_g8' => $validate['DB_SECTION_id_g8'] == null ? $validate['PRESERVE_DB_USER_name_last_g8'] : null,
+        //'PRESERVE_DB_USER_name_last_g9' => $validate['DB_SECTION_id_g9'] == null ? $validate['PRESERVE_DB_USER_name_last_g9'] : null,
+        //'PRESERVE_DB_USER_name_last_g10' => $validate['DB_SECTION_id_g10'] == null ? $validate['PRESERVE_DB_USER_name_last_g10'] : null,
+
+        //'PRESERVE_DB_USER_name_first_g7' => $validate['DB_SECTION_id_g7'] == null ? $validate['PRESERVE_DB_USER_name_first_g7'] : null,
+        //'PRESERVE_DB_USER_name_first_g8' => $validate['DB_SECTION_id_g8'] == null ? $validate['PRESERVE_DB_USER_name_first_g8'] : null,
+        //'PRESERVE_DB_USER_name_first_g9' => $validate['DB_SECTION_id_g9'] == null ? $validate['PRESERVE_DB_USER_name_first_g9'] : null,
+        //'PRESERVE_DB_USER_name_first_g10' => $validate['DB_SECTION_id_g10'] == null ? $validate['PRESERVE_DB_USER_name_first_g10'] : null,*/
         return redirect()->to('/students/edit/acad/'.$id);
     }
 
-    // Edit: Form (GET)
+    // 3.5 - Edit: Form (GET)
     public function edit_form_1 ($id) {
         $grades = Grade::all();
         $sections = new Section();
         $student = Student::find($id);
         $years = new Year();
-        //dd($student->PRESERVE_DB_USER_name_last_g7, $student->PRESERVE_DB_USER_name_first_g7);
+        dd($student->PRESERVE_DB_USER_name_last_g7, $student->PRESERVE_DB_USER_name_first_g7);
         foreach ($grades as $grade) {
             $section = Section::find($student->{'DB_SECTION_id_g'.$grade->grade});
 
@@ -228,7 +270,7 @@ class StudentController extends Controller {
             ->with('years', $years);
     }
 
-    // [do-not-touch] Edit: Form (POST)
+    // [do-not-touch] 3.6 - Edit: Form (POST)
     public function edit_form_2 ($id) {
         $student = Student::find($id);
 

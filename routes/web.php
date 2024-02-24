@@ -56,7 +56,7 @@ Route::post('/years/edit/{id}', 'App\Http\Controllers\YearController@edit_2');
 
 // LOGIN
 Route::get('/', 'App\Http\Controllers\LoginController@redirect');
-Route::get('/login', 'App\Http\Controllers\LoginController@index_1');
+Route::get('/login', 'App\Http\Controllers\LoginController@index_1')->name('login');
 Route::post('/login', 'App\Http\Controllers\LoginController@index_2');
 
 // Home
