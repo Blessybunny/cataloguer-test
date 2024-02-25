@@ -1,65 +1,68 @@
+CHECKPOINT:
+    - sf10 certification
+    - student lock boolean
+
+
+
+
 UTMOST PRIO:
     - For every edit page and save action, implement a javascript window prompt to confirm changes.
     - add copyright and current year to footer
     - Going back to page of recently deleted Model (like user) should throw an error or redirect to Model's index
         - Perform a null bubble on all GET and POST functions using the designated model and id.
-        - After fixing this, label it: True null bubbled
+        - After fixing this, label it: User bubbled
         - Perform this fix on every GET/POST method in controllers
-CHECKPOINT:
-    - Add brute force method to students (REMEMBER tokens for sections/advisers)
-    - REMEMBER_DB_SECTION_name_gx
 
-High-prio:
-    - When deleting an adviser, make a remember token!
-
-
-
-    - REMEMBER tokens for sections:
-        - This should go under User and Student model.
-        - SF9 should use this remember tokens.
 To-do:
-    - Add a danger zone for "edit-s-sy.blade.php" which includes the brute-forcing of section and adviser names.
-    - Add a new field for Year named "full" that contains the full searchable term "xxxx-xxxx".
     - Add a toggle button for SF9-10 editor to highlight the backgrounds of editable fields.
     - User POV: navigation links.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SECTION MANAGER:
+DEVELOPER'S NOTES:
+    - Grade range is hardcoded between 7 and 10 and is located in the following files:
+        - 2023_11_25_145550_create_students_table.php (migration)
+        - DatabaseSeeder.php (seeder)
+        - sf10-back.blade.php (views)
+        - sf10-front.blade.php (views)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SECTION MANAGER: (WIP) IMPORTANT(Clear an erased section's DB_USER_id when the name is completely null)
     Back-end:                   Status:                 Comments:
-    - controller                Complete                Preserves (student's section)
+    - controller                WIP                Preserves (student's section)
     - migration                 Complete                .
-    - model                     Complete                .
     - route                     Complete                .
 
     Front-end:                  Status:                 Comments:
     - index                     Complete                .
-    - create                    TBA                     .
+    - create                    .                       .
     - edit                      Complete                .
-    - delete                    TBA                     .
+    - delete                    .                       .
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-STUDENT MANAGER:
+STUDENT MANAGER: (WIP)
     Back-end:                   Status:                 Comments:
-    - controller                wip
-    - migration
-    - model
+    - controller                WIP
+    - migration                 WIP                     Used for debug
     - route                     Complete                .
     - search                    Complete                .
 
     Front-end:
     - index                     Complete                .
     - create                    Complete                .
-    - edit-acad
+    - edit-acad                 Complete
     - edit-form
     - edit-info                 Complete                .
     - delete                    Complete                .
 
     Terms:
-    -
+    - info_name_last
+    - info_name_first
+    - info_name_suffix
+    - info_name_middle
+    - info_lrn
+    - info_sex
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 USER MANAGER:
     Back-end:                   Status:                 Comments:
     - controller                Complete                Role -> 1, 2, 3, 4, 5 | Preserves (year's principal, student's adviser)
     - migration                 Complete                .
-    - model                     Complete                .
     - route                     Complete                .
     - search                    Complete                .
 
@@ -78,7 +81,6 @@ YEAR MANAGER:
     Back-end:                   Status:                 Comments:
     - controller                Complete                Role -> 1
     - migration                 Complete                .
-    - model                     Complete                .
     - route                     Complete                .
     - search                    Complete                .
 
@@ -90,8 +92,8 @@ YEAR MANAGER:
     Terms:
     - full
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-LAYOUTS AND PAGES:
-    Name:                                                       Status:                             Comments:
+VIEWS:
+    Front-end:                                                  Status:                             Comments:
     - Home                                                      WIP, add anti-admin condition to students                            Rolecoded
     - Login                                                     WIP
     - Page                                                      Pending split
@@ -112,10 +114,6 @@ SEARCH, ORDER, ETC.:
         - info_name_middle
         - info_lrn
         - info_sex
-    5. User:                                                    Ascend (DB_ROLE_id) - Ascend (name_last) - Ascend (name_first)
-        - email
-        - name_last
-        - name_first
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ROLES:
     Name:                           Manager:                    Access:                             Satus:

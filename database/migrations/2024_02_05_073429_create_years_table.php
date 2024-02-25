@@ -10,7 +10,7 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
 
-            $table->integer('DB_USER_id')->nullable();
+            $table->integer('DB_USER_id')->nullable(); // Used to reference a principal
 
             $table->string('PRESERVE_DB_USER_name_last', 50)->nullable();
             $table->string('PRESERVE_DB_USER_name_first', 50)->nullable();

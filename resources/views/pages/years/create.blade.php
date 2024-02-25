@@ -246,7 +246,7 @@
 						maxlength = "50"
 						value = "{{ old('PRESERVE_DB_USER_name_last') }}"
 					>
-					<p>This field is only for use if the appropriate principal is NOT on the list</p>
+					<p>This field is used if the appropriate principal is NOT on the list</p>
 
 					<!-- Legacy Principal First Name -->
 					<span class = "font-bold">Legacy Principal First Name:</span>
@@ -256,7 +256,7 @@
 						maxlength = "50"
 						value = "{{ old('PRESERVE_DB_USER_name_first') }}"
 					>
-					<p>This field is only for use if the appropriate principal is NOT on the list</p>
+					<p>This field is used if the appropriate principal is NOT on the list</p>
 
 				</div>
 

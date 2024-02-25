@@ -51,7 +51,7 @@ class SectionController extends Controller {
     }
 
     // Functions
-    // From the edit page, unassign all students from the section and preserve the section's name on those students on any change (strict)
+    // From the edit page, unassign all students from the section and preserve the section's name on those students on name change (strict)
     public function func_edit_preserve_STUDENT_Section_on_name_change ($grade, $section, $section_old) {
         if ($section_old->section !== $section->section) {
             $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
@@ -65,4 +65,6 @@ class SectionController extends Controller {
             }
         }
     }
+
+    // From the edit page, unassign all advisers from the section on name removal.
 }

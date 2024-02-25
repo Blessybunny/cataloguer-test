@@ -41,8 +41,7 @@
 				</div>
 
 			</div>
-			<h1>To-do: </h1>
-			<h5>- Legacy advicer name should be saveable when a selected section has no adviser assigned.</h5>
+
 			@foreach ($grades as $grade)
 
 				<div class = "row">
@@ -94,7 +93,7 @@
 							maxlength = "50"
 							value = "{{ $student->{'PRESERVE_DB_SECTION_name_g'.$grade->grade} }}"
 						>
-						<p>This field is only for use if the appropriate section is NOT on the list</p>
+						<p>This field is used if the appropriate section is NOT on the list</p>
 
 						<!-- Legacy Adviser Last Name -->
 						<span class = "font-bold">Legacy Grade {{ $grade->grade }} Adviser Last Name:</span>
@@ -104,7 +103,7 @@
 							maxlength = "50"
 							value = "{{ $student->{'PRESERVE_DB_USER_name_last_g'.$grade->grade} }}"
 						>
-						<p>This field is only for use if the appropriate adviser is NOT on the list</p>
+						<p>This field is used if the appropriate adviser is NOT on the list</p>
 
 						<!-- Legacy Adviser First Name -->
 						<span class = "font-bold">Legacy Grade {{ $grade->grade }} Adviser First Name:</span>
@@ -114,10 +113,15 @@
 							maxlength = "50"
 							value = "{{ $student->{'PRESERVE_DB_USER_name_first_g'.$grade->grade} }}"
 						>
-						<p>This field is only for use if the appropriate adviser is NOT on the list</p>
+						<p>This field is used if the appropriate adviser is NOT on the list</p>
 
 					</div>
-					<hr>
+
+					@if ($loop->index + 1 != $loop->count)
+
+						<hr>
+
+					@endif
 
 				</div>
 
