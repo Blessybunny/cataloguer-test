@@ -62,9 +62,6 @@ class DatabaseSeeder extends Seeder {
         Section::create(['DB_GRADE_id' => '2', 'section' => '8-H',]);
         Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
         Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
-
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-A',]);
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-B',]);
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-C',]);
@@ -73,8 +70,6 @@ class DatabaseSeeder extends Seeder {
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-F',]);
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-G',]);
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-H',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
         Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
         Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
 
@@ -86,8 +81,6 @@ class DatabaseSeeder extends Seeder {
         Section::create(['DB_GRADE_id' => '4', 'section' => '10-F',]);
         Section::create(['DB_GRADE_id' => '4', 'section' => '10-G',]);
         Section::create(['DB_GRADE_id' => '4', 'section' => '10-H',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
         Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
         Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
     }

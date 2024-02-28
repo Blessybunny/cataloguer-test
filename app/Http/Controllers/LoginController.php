@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Models\User;
+
 use Request;
 
 class LoginController extends Controller {
@@ -33,7 +34,7 @@ class LoginController extends Controller {
         return back()->withErrors(['credentials' => 'Incorrect email or password.']);
     }
 
-    // Logout
+    // Function: logout
     public function logout () {
         Auth::logout();
 

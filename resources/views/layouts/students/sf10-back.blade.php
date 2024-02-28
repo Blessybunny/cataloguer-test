@@ -25,7 +25,7 @@
 		</div>
 	</div>
 
-	@include('layouts.students.sf10-certification')
+	@include('layouts.students.sf10-certification', ['side' => 'back'])
 
 	<div class = "row">
 		<div class = "col-6">

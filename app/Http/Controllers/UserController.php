@@ -12,24 +12,36 @@ use App\Models\Year;
 use Request;
 
 class UserController extends Controller {
+    // Protect
+    public function protect ($auth) {
+        if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     // Redirect
     public function redirect () { return redirect()->to('/users'); }
 
-    // 1.1 - Index (GET)
-    // From the index page, display info
+    // Index (GET)
     public function index_1 () {
+        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+
         $users = User::orderBy('DB_ROLE_id', 'ASC')
             ->orderBy('name_last', 'ASC')
             ->orderBy('name_first', 'ASC')
             ->get();
 
-        $users = self::func_index_make_info($users);
+        $users = self::func_make_info($users);
 
-        return view('pages.users.index')->with('users', $users);
+        return view('pages.users.index')
+            ->with('auth', $auth)
+            ->with('users', $users);
     }
 
-    // 1.2 - Index (POST)
-    // From the index page, display info from the search
+    // Index (POST)
     public function index_2 () {
         $terms = Request::get('terms');
 
@@ -51,19 +63,22 @@ class UserController extends Controller {
                 ->get();
             $results = (count($results) > 0) ? $results : [];
 
-            $results = self::func_index_make_info($results);
+            $results = self::func_make_info($results);
 
             return view('pages.users.index')
                 ->with('isSearched', true)
                 ->with('terms', $terms)
                 ->with('results', $results);
         }
-        else return redirect()->to('/users');
+        else {
+            return self::redirect();
+        }
     }
 
-    // 2.1 - Create (GET)
-    // From the create page, display the fields
+    // Create (GET)
     public function create_1 () {
+        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+
         $grades = Grade::all();
         $roles = Role::all();
         $sections = Section::whereNotNull('section')
@@ -79,13 +94,13 @@ class UserController extends Controller {
         }
 
         return view('pages.users.create')
+            ->with('auth', $auth)
             ->with('grades', $grades)
             ->with('roles', $roles)
             ->with('sections', $sections);
     }
 
-    // 2.2 - Create (POST)
-    // From the create page, create the fields
+    // Create (POST)
     public function create_2 () {
         $validate = request()->validate([
             'DB_ROLE_id' => 'required',
@@ -99,7 +114,7 @@ class UserController extends Controller {
             'name_first' => 'required',
         ]);
 
-        $validate = self::func_credit_validate_role($validate);
+        $validate = self::func_validate_role($validate);
 
         $user = User::create([
             'DB_ROLE_id' => $validate['DB_ROLE_id'],
@@ -113,158 +128,195 @@ class UserController extends Controller {
             'name_first' => $validate['name_first'],
         ]);
 
-        return redirect()->to('/users');
+        return self::redirect();
     }
 
-    // 3.1 - Edit (GET)
-    // From the edit page, display the fields
+    // Edit (GET)
     public function edit_1 ($id) {
-        $grades = Grade::all();
-        $roles = Role::all();
+        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+
         $user = User::find($id);
-        $sections = Section::whereNotNull('section')
-            ->whereNull('DB_USER_id')
-            ->orWhere('DB_USER_id', $user->id)
-            ->get();
 
-        foreach ($sections as $section) {
-            $grade = Grade::find($section->DB_GRADE_id);
+        if ($user != null) {
+            $grades = Grade::all();
+            $roles = Role::all();
+            $sections = Section::whereNotNull('section')
+                ->whereNull('DB_USER_id')
+                ->orWhere('DB_USER_id', $user->id)
+                ->get();
 
-            if ($grade != null) {
-                $section->grade = $grade->grade;
+            foreach ($sections as $section) {
+                $grade = Grade::find($section->DB_GRADE_id);
+
+                if ($grade != null) {
+                    $section->grade = $grade->grade;
+                }
             }
-        }
 
-        return view('pages.users.edit')
-            ->with('grades', $grades)
-            ->with('roles', $roles)
-            ->with('sections', $sections)
-            ->with('user', $user);
+            return view('pages.users.edit')
+                ->with('auth', $grade)
+                ->with('grades', $grades)
+                ->with('roles', $roles)
+                ->with('sections', $sections)
+                ->with('user', $user);
+        }
+        else {
+            return self::redirect();
+        }
     }
 
-    // 3.2 - Edit (POST)
-    // From the edit page, update the fields
+    // Edit (POST)
     public function edit_2 ($id) {
         $user = User::find($id);
 
-        $validate = request()->validate([
-            'DB_ROLE_id' => 'required',
-            'DB_GRADE_id' => 'nullable',
-            'DB_SECTION_id' => 'nullable',
+        if ($user != null) {
+            $validate = request()->validate([
+                'DB_ROLE_id' => 'required',
+                'DB_GRADE_id' => 'nullable',
+                'DB_SECTION_id' => 'nullable',
 
-            'name_last' => 'required',
-            'name_first' => 'required',
-        ]);
+                'name_last' => 'required',
+                'name_first' => 'required',
+            ]);
 
-        $user_old = clone $user;
+            $user_old = clone $user;
 
-        $validate = self::func_credit_validate_role($validate);
+            $validate = self::func_validate_role($validate);
 
-        $user->update([
-            'DB_ROLE_id' => $validate['DB_ROLE_id'],
-            'DB_GRADE_id' => $validate['DB_GRADE_id'],
-            'DB_SECTION_id' => $validate['DB_SECTION_id'],
+            $user->update([
+                'DB_ROLE_id' => $validate['DB_ROLE_id'],
+                'DB_GRADE_id' => $validate['DB_GRADE_id'],
+                'DB_SECTION_id' => $validate['DB_SECTION_id'],
 
-            'name_last' => $validate['name_last'],
-            'name_first' => $validate['name_first'],
-        ]);
+                'name_last' => $validate['name_last'],
+                'name_first' => $validate['name_first'],
+            ]);
 
-        self::func_edit_preserve_STUDENT_User_on_role_change($user, $user_old);
-        self::func_edit_preserve_STUDENT_User_on_section_change($user, $user_old);
-        self::func_edit_preserve_YEAR_User_on_role_change($user, $user_old);
+            self::func_preserve_STUDENT_User_on_role_change($user, $user_old);
+            self::func_preserve_STUDENT_User_on_section_change($user, $user_old);
+            self::func_preserve_YEAR_User_on_role_change($user, $user_old);
 
-        self::func_edit_section_unassign($user);
-        self::func_edit_section_assign($user);
+            self::func_section_unassign($user);
+            self::func_section_reassign($user);
 
-        return redirect()->to('/users/edit/'.$id);
+            return redirect()->to('/users/edit/'.$id);
+        }
+        else {
+            return self::redirect();
+        }
     }
 
-    // 4.1 - Delete (GET)
-    // From the delete page, display info
+    // Delete (GET)
     public function delete_1 ($id) {
+        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+
         $user = User::find($id);
 
-        return view('pages.users.delete')->with('user', $user);
+        if ($user != null) {
+            return view('pages.users.delete')
+                ->with('auth', $auth)
+                ->with('user', $user);
+        }
+        else {
+            return self::redirect();
+        }
     }
 
-    // 4.2 - Delete (POST)
-    // From the delete page, delete the fields
+    // Delete (POST)
     public function delete_2 ($id) {
         $user = User::find($id);
 
-        self::func_delete_preserve_STUDENT_User_on_deletion($user);
-        self::func_delete_preserve_YEAR_User_on_deletion($user);
+        if ($user != null) {
+            self::func_delete_preserve_STUDENT_User_on_deletion($user);
+            self::func_preserve_YEAR_User_on_deletion($user);
 
-        self::func_edit_section_unassign($user);
+            self::func_section_unassign($user);
 
-        $user->delete();
+            $user->delete();
+        }
 
-        return redirect()->to('/users');
+        return self::redirect();
     }
 
-    // Functions
-    // From the index page, make info
-    public function func_index_make_info ($param) {
+    // Function: make info
+    // Index (GET)
+    // Index (POST)
+    public function func_make_info ($param) {
         foreach ($param as $user) {
+            // Role
             $role = Role::find($user->DB_ROLE_id);
 
             if ($role != null) {
                 $user->role = $role->role;
             }
-
-            if ($user->DB_ROLE_id == '1' || $user->DB_ROLE_id == '2') {
-                $user->advisory = 'N/A';
+            else {
+                $user->role = 'N/A';
             }
-            else if ($user->DB_ROLE_id == '3') {
+
+            // Designation - principal
+            if ($user->DB_ROLE_id == '1' || $user->DB_ROLE_id == '2') {
+                $user->designation = 'N/A';
+            }
+
+            // Designation - grade level coordinator and teachers
+            else if ($user->DB_ROLE_id == '3' || $user->DB_ROLE_id == '5') {
                 $grade = Grade::find($user->DB_GRADE_id);
 
                 if ($grade != null) {
-                    $user->advisory = 'Grade '.$grade->grade;
+                    $user->designation = 'Grade '.$grade->grade;
                 }
                 else {
-                    $user->advisory = 'N/A';
+                    $user->designation = 'N/A';
                 }
             }
-            else if ($user->DB_ROLE_id == '4' || $user->DB_ROLE_id == '5') {
+
+            // Designation - adviser
+            else if ($user->DB_ROLE_id == '4') {
                 $section = Section::find($user->DB_SECTION_id);
 
                 if ($section != null) {
                     $grade = Grade::find($section->DB_GRADE_id);
                     
                     if ($grade != null) {
-                        $user->advisory = 'Grade '.$grade->grade.' - '.$section->section;
+                        $user->designation = 'Grade '.$grade->grade.' - '.$section->section;
                     }
                     else {
-                        $user->advisory = 'N/A';
+                        $user->designation = 'N/A';
                     }
                 }
                 else {
-                    $user->advisory = 'N/A';
+                    $user->designation = 'N/A';
                 }
             }
+
+            // Year
         }
 
         return $param;
     }
 
-    // From the create + edit page, validate roles to manage advisory grades and sections
-    public function func_credit_validate_role ($validate) {
+    // Function: validate role
+    // Edit (POST)
+    // Create (POST)
+    public function func_validate_role ($validate) {
         if ($validate['DB_ROLE_id'] == '1' || $validate['DB_ROLE_id'] == '2') {
             $validate['DB_GRADE_id'] = null;
             $validate['DB_SECTION_id'] = null;
+            // Year ID = null;
         }
-        else if ($validate['DB_ROLE_id'] == '3') {
+        else if ($validate['DB_ROLE_id'] == '3' || $validate['DB_ROLE_id'] == '5') {
             $validate['DB_SECTION_id'] = null;
         }
-        else if ($validate['DB_ROLE_id'] == '4' || $validate['DB_ROLE_id'] == '5') {
+        else if ($validate['DB_ROLE_id'] == '4') {
             $validate['DB_GRADE_id'] = null;
         }
 
         return $validate;
     }
 
-    // From the edit page, preserve the adviser's name to the assigned section's students on role change
-    public function func_edit_preserve_STUDENT_User_on_role_change ($user, $user_old) {
+    // Function: apply user preserves from all students with the user's section ID on role change (adviser)
+    // Edit (POST)
+    public function func_preserve_STUDENT_User_on_role_change ($user, $user_old) {
         if ($user_old->DB_ROLE_id == '4') {
             if ($user_old->DB_ROLE_id != $user->DB_ROLE_id) {
                 $sections = Section::where('DB_USER_id', $user->id)->get();
@@ -274,7 +326,7 @@ class UserController extends Controller {
 
                     if ($grade != null) {
                         $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
-        
+
                         foreach ($students as $student) {
                             $student->update([
                                 'PRESERVE_DB_USER_name_last_g'.$grade->grade => $user->name_last,
@@ -287,8 +339,9 @@ class UserController extends Controller {
         }
     }
 
-    // From the edit page, preserve the adviser's name to the assigned section's students on section change
-    public function func_edit_preserve_STUDENT_User_on_section_change ($user, $user_old) {
+    // Function: apply user preserves from all students with the user's section ID on section change (adviser)
+    // Edit (POST)
+    public function func_preserve_STUDENT_User_on_section_change ($user, $user_old) {
         if ($user_old->DB_ROLE_id == '4') {
             if ($user_old->DB_SECTION_id != $user->DB_SECTION_id) {
                 $sections = Section::where('DB_USER_id', $user->id)->get();
@@ -311,8 +364,9 @@ class UserController extends Controller {
         }
     }
 
-    // From the edit page, preserve the principal's name to the assigned school year on role change
-    public function func_edit_preserve_YEAR_User_on_role_change ($user, $user_old) {
+    // Function: apply user preserves from all years with the user's ID on role change (principal)
+    // Edit (POST)
+    public function func_preserve_YEAR_User_on_role_change ($user, $user_old) {
         if ($user_old->DB_ROLE_id == '1') {
             if ($user_old->DB_ROLE_id != $user->DB_ROLE_id) {
                 $years = Year::where('DB_USER_id', $user->id)->get();
@@ -329,8 +383,9 @@ class UserController extends Controller {
         }
     }
 
-    // From the edit page, unassign the user from a section on section or role change
-    public function func_edit_section_unassign ($user) {
+    // Function: find sections with the user's ID and erase those sections' user IDs
+    // Edit (POST)
+    public function func_section_unassign ($user) {
         $sections = Section::where('DB_USER_id', $user->id)->get();
 
         foreach ($sections as $section) {
@@ -340,8 +395,10 @@ class UserController extends Controller {
         }
     }
 
-    // From the edit page, assign the adviser to a section and clear the adviser name preserves of the assigned section's students
-    public function func_edit_section_assign ($user) {
+    // Function: find a section with the user's ID and update that section's user ID with the user's ID (adviser)
+    // Function: erase user preserves from all students with the user's section ID (adviser)
+    // Edit (POST)
+    public function func_section_reassign ($user) {
         if ($user->DB_ROLE_id == '4') {
             $section = Section::find($user->DB_SECTION_id);
 
@@ -352,7 +409,7 @@ class UserController extends Controller {
 
                 if ($grade != null) {
                     $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
-                    
+
                     foreach ($students as $student) {
                         $student->update([
                             'PRESERVE_DB_USER_name_last_g'.$grade->grade => null,
@@ -364,7 +421,8 @@ class UserController extends Controller {
         }
     }
 
-    // From the delete page, preserve the adviser's name to the assigned section's students on deletion
+    // Function: apply user preserves from all students with the user's section ID on deletion (adviser)
+    // Delete (POST)
     public function func_delete_preserve_STUDENT_User_on_deletion ($user) {
         $sections = Section::where('DB_USER_id', $user->id)->get();
 
@@ -384,8 +442,9 @@ class UserController extends Controller {
         }
     }
 
-    // From the delete page, preserve the principal's name to the assigned school year on deletion
-    public function func_delete_preserve_YEAR_User_on_deletion ($user) {
+    // Function: apply user preserves from all years with the user's ID on deletion (principal)
+    // Delete (POST)
+    public function func_preserve_YEAR_User_on_deletion ($user) {
         $years = Year::where('DB_USER_id', $user->id)->get();
 
         foreach ($years as $year) {

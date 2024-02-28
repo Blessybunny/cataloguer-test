@@ -129,8 +129,8 @@
 				<!-- Optional -->
 				<div class = "col">
 
-					<!-- Advisory Grade -->
-					<span class = "font-bold">Advisory Grade:</span>
+					<!-- Designated Grade -->
+					<span class = "font-bold">Designated Grade:</span>
 					<select name = "DB_GRADE_id">
 						<option value = ""></option>
 
@@ -141,10 +141,10 @@
 						@endforeach
 
 					</select>
-					<p>This setting only applies to grade level coordinators</p>
+					<p>This field is used for grade level coordinators and teachers</p>
 
-					<!-- Advisory Section -->
-					<span class = "font-bold">Advisory Section:</span>
+					<!-- Designated Section -->
+					<span class = "font-bold">Designated Section:</span>
 					<select name = "DB_SECTION_id">
 						<option value = ""></option>
 
@@ -155,7 +155,7 @@
 						@endforeach
 
 					</select>
-					<p>This setting only applies to advisers and teachers</p>
+					<p>This field is used for advisers</p>
 
 				</div>
 

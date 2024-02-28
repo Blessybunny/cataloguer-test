@@ -1,4 +1,4 @@
-@extends('layouts.general.page')
+@extends('layouts.general.page', ['auth' => $auth])
 
 @section('title') Cataloger - Home @endsection
 
@@ -29,11 +29,10 @@
 			<div class = "container-fluid">
 				<div class = "row">
 
-					<!-- Role IDs (see seeders) -->
+					<!-- Sections -->
 
-					@if ($user->DB_ROLE_id == "1" || $user->DB_ROLE_id == "2")
+					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
 
-						<!-- Sections -->
 						<div class = "col-3">
 							<a href = "{{ url('/sections') }}" class = "card h-100">
 								<div class = "card-body">
@@ -55,9 +54,10 @@
 						</a>
 					</div>
 
-					@if ($user->DB_ROLE_id == "1" || $user->DB_ROLE_id == "2")
+					<!-- Users -->
 
-						<!-- Users -->
+					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
+
 						<div class = "col-3">
 							<a href = "{{ url('/users') }}" class = "card h-100">
 								<div class = "card-body">
@@ -69,9 +69,10 @@
 
 					@endif
 
-					@if ($user->DB_ROLE_id == "1")
+					<!-- School Years -->
 
-						<!-- School Years -->
+					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
+
 						<div class = "col-3">
 							<a href = "{{ url('/years') }}" class = "card h-100">
 								<div class = "card-body">

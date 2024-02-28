@@ -5,109 +5,66 @@ CHECKPOINT:
 
 
 
+
+    - pending addition of DB_YEAR_id for Users
+        - this property is exclusive to grade level coordinators and below
+
+
+
 UTMOST PRIO:
     - For every edit page and save action, implement a javascript window prompt to confirm changes.
     - add copyright and current year to footer
-    - Going back to page of recently deleted Model (like user) should throw an error or redirect to Model's index
-        - Perform a null bubble on all GET and POST functions using the designated model and id.
-        - After fixing this, label it: User bubbled
-        - Perform this fix on every GET/POST method in controllers
 
 To-do:
     - Add a toggle button for SF9-10 editor to highlight the backgrounds of editable fields.
     - User POV: navigation links.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DEVELOPER'S NOTES:
-    - Grade range is hardcoded between 7 and 10 and is located in the following files:
+    - GRADE is hard coded across multiple files (see also views)
         - 2023_11_25_145550_create_students_table.php (migration)
         - DatabaseSeeder.php (seeder)
-        - sf10-back.blade.php (views)
-        - sf10-front.blade.php (views)
+    - ROLE is hard coded across multiple files (see also managers)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-SECTION MANAGER: (WIP) IMPORTANT(Clear an erased section's DB_USER_id when the name is completely null)
-    Back-end:                   Status:                 Comments:
-    - controller                WIP                Preserves (student's section)
-    - migration                 Complete                .
-    - route                     Complete                .
-
-    Front-end:                  Status:                 Comments:
-    - index                     Complete                .
-    - create                    .                       .
-    - edit                      Complete                .
-    - delete                    .                       .
+MANAGER - LOGIN:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-STUDENT MANAGER: (WIP)
-    Back-end:                   Status:                 Comments:
-    - controller                WIP
-    - migration                 WIP                     Used for debug
-    - route                     Complete                .
-    - search                    Complete                .
+MANAGER - HOME: WIP
+    1. Front-end:               Status:                 Comments:
+        - home                  Complete                Authcoded -> 1, 2 (relocate these to controller, make booleans instead of brute-forcing to html)
 
-    Front-end:
-    - index                     Complete                .
-    - create                    Complete                .
-    - edit-acad                 Complete
-    - edit-form
-    - edit-info                 Complete                .
-    - delete                    Complete                .
-
-    Terms:
-    - info_name_last
-    - info_name_first
-    - info_name_suffix
-    - info_name_middle
-    - info_lrn
-    - info_sex
+    2. Controller               Complete                Debugging
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-USER MANAGER:
-    Back-end:                   Status:                 Comments:
-    - controller                Complete                Role -> 1, 2, 3, 4, 5 | Preserves (year's principal, student's adviser)
-    - migration                 Complete                .
-    - route                     Complete                .
-    - search                    Complete                .
+MANAGER - SECTION:
+    1. Back-end:                Status:                 Comments:
+        - migration             Complete                .
+        - route                 Complete                .
 
-    Front-end:
-    - index                     Complete                .
-    - create                    Complete                .
-    - edit                      Complete                .
-    - delete                    Complete                .
+    2. Front-end:
+        - index                 Complete                .
+        - create                .                       .
+        - edit                  Complete                .
+        - delete                .                       .
 
-    Terms:
-    - email
-    - name_last
-    - name_first
+    3. Controller               Complete                Authcoded -> 1, 2
+                                                        Preserves -> student's adviser
+                                                        Preserves -> student's section
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-YEAR MANAGER:
-    Back-end:                   Status:                 Comments:
-    - controller                Complete                Role -> 1
-    - migration                 Complete                .
-    - route                     Complete                .
-    - search                    Complete                .
+MANAGER - STUDENT:
+    1. Back-end:                Status:                 Comments:
+        - migration             Complete                .
+        - route                 Complete                .
+        - search                Complete                .
 
-    Front-end:
-    - index                     Complete                .
-    - create                    Complete                .
-    - edit                      Complete                .
+    2. Front-end:
+        - index                 Complete                .
+        - create                Complete                .
+        - edit-acad             Complete                .
+        - edit-form             Complete                .
+        - edit-info             Complete                .
+        - delete                Complete                .
 
-    Terms:
-    - full
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-VIEWS:
-    Front-end:                                                  Status:                             Comments:
-    - Home                                                      WIP, add anti-admin condition to students                            Rolecoded
-    - Login                                                     WIP
-    - Page                                                      Pending split
-    - Student
-        - sf9-back                                              Complete 
-        - sf9-front                                             Complete (75%)                      Missing section, principal, adviser, attendance backend linkings
-        - sf10-back                                             Complete
-        - sf10-certification                                    Complete
-        - sf10-front                                            Complete                            Hardcoded (grade)
-        - sf10-scholastic-record                                Complete
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
-SEARCH, ORDER, ETC.:
-    Name:                                                       Search & Index / Grab Order:
-    4. Student:                                                 Ascend (info_name_last) - Ascend (info_name_first) - Ascend (info_name_middle) - Ascend (info_name_suffix) / Descend (year)
+    3. Controller               Complete                .
+
+    4. Terms:
         - info_name_last
         - info_name_first
         - info_name_suffix
@@ -115,12 +72,64 @@ SEARCH, ORDER, ETC.:
         - info_lrn
         - info_sex
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MANAGER - USER:
+    1. Back-end:                Status:                 Comments:
+        - migration             Complete                .
+        - route                 Complete                .
+        - search                Complete                .
+
+    2. Front-end:
+        - index                 Complete                .
+        - create                Complete                .
+        - edit                  Complete                .
+        - delete                Complete                .
+
+    3. Controller               Complete                Authcoded -> 1, 2
+                                                        Preserves -> year's principal
+                                                        Preserves -> student's adviser
+                                                        Rolecoded -> 1, 2, 3, 4, 5
+
+    4. Terms:
+        - email
+        - name_last
+        - name_first
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MANAGER - YEAR:
+    1. Back-end:                Status:                 Comments:
+        - migration             Complete                .
+        - route                 Complete                .
+        - search                Complete                .
+
+    2. Front-end:
+        - index                 Complete                .
+        - create                Complete                .
+        - edit                  Complete                .
+
+    3. Controller               Complete                Authcoded -> 1, 2
+                                                        Preserves -> year's principal
+                                                        Rolecoded -> 1
+
+    4. Terms:
+        - full
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LAYOUTS:
+    Front-end:                                          Status:                 Comments:
+    - Meta                                              Complete
+    - Page                                              Complete                Authcoded -> 1, 2
+    - Student
+        - sf9-back                                      Complete
+        - sf9-front                                     Complete
+        - sf10-back                                     Complete                Gradecoded -> 7, 8
+        - sf10-certification                            Complete
+        - sf10-front                                    Complete                Gradecoded -> 9, 10
+        - sf10-scholastic-record                        Complete
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ROLES:
-    Name:                           Manager:                    Access:                             Satus:
-    - Principal                     Section                     View + Edit (full)
-                                    Student                     View + Create + Edit (info, acad, lock)
-                                    User                        View + Create + Edit (full)
-                                    Year                        View + Create + Edit (full)
+    Name:                           Manager:        Satus:                      Access:
+    - Principal                     Section         Done                        View + Edit (full)
+                                    Student                                     View + Create + Edit (info, acad, lock)
+                                    User                                        View + Create + Edit (full)
+                                    Year                                        View + Create + Edit (full)
         - this role can create legacy students
 
     - Administrator                 Section                     View

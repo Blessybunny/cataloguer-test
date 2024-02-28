@@ -46,6 +46,7 @@ select {
     appearance: none;
     background: none;
     border: @border-light;
+    color: #000;
     display: block;
     padding: calc(@size-spacing / 4);
     width: 100%;
@@ -75,22 +76,23 @@ th {
 }
 
 /* CLASSES: Common */
-.border-all-dark { border: @border-dark; }
-.border-all-light { border: @border-light; }
+.border-all-dark { border: @border-dark !important; }
+.border-all-light { border: @border-light !important; }
 
 .border-bottom-dark { border-bottom: @border-dark !important; }
 .border-left-dark { border-left: @border-dark !important; }
 .border-right-dark { border-right: @border-dark !important; }
 .border-top-dark { border-top: @border-dark !important; }
 
-.border-bottom-none { border-bottom: none; }
-.border-left-none { border-left: none; }
-.border-right-none { border-right: none; }
-.border-top-none { border-top: none; }
+.border-bottom-none { border-bottom: none !important; }
+.border-left-none { border-left: none !important; }
+.border-right-none { border-right: none !important; }
+.border-top-none { border-top: none !important; }
 
-.display-block { display: block; }
-.display-flex { display: flex; }
-.display-none { display: none; }
+.display-block { display: block !important; }
+.display-flex { display: flex !important; }
+.display-inline { display: inline !important; }
+.display-none { display: none !important; }
 
 .float-center {
     display: block;

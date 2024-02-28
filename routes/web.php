@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\YearController;
 use Illuminate\Support\Facades\Route;
 
 // SECTION
@@ -59,24 +55,10 @@ Route::get('/', 'App\Http\Controllers\LoginController@redirect');
 Route::get('/login', 'App\Http\Controllers\LoginController@index_1')->name('login');
 Route::post('/login', 'App\Http\Controllers\LoginController@index_2');
 
-// Home
-Route::get('/home', function () {
-    $user = Auth::user();
-
-    return view('pages.home')->with('user', $user);
-});
+// HOME
+Route::get('/home', 'App\Http\Controllers\Controller@land');
 
 // MIDDLEWARE
 Route::middleware(['auth'])->group(function () {
     Route::get('/logout','App\Http\Controllers\LoginController@logout');
-
-    /*$user = Auth::user();
-
-    if ($user->role === "Administrator") {
-        return (new UserController)->index();
-    }
-    else {
-        return (new StudentController)->redirect();
-    }*/
-
 });

@@ -119,14 +119,14 @@
 			<tr>
 				<th colspan = "2" rowspan = "2">Learning Areas</th>
 				<th colspan = "4">Quarter</th>
-				<th rowspan = "2" style = "width: 200px;">Final Rating</th>
-				<th rowspan = "2" style = "width: 200px;">Remarks</th>
+				<th rowspan = "2" style = "min-width: 200px;">Final Rating</th>
+				<th rowspan = "2" style = "min-width: 200px;">Remarks</th>
 			</tr>
 			<tr>
-				<th style = "width: 50px;">1st</th>
-				<th style = "width: 50px;">2nd</th>
-				<th style = "width: 50px;">3rd</th>
-				<th style = "width: 50px;">4th</th>
+				<th style = "min-width: 50px;">1st</th>
+				<th style = "min-width: 50px;">2nd</th>
+				<th style = "min-width: 50px;">3rd</th>
+				<th style = "min-width: 50px;">4th</th>
 			</tr>
 
 			<!-- Subject -> filipino -->
@@ -900,7 +900,7 @@
 
 			<!-- Remedial -->
 			<tr>
-				<th style = "width: 339px;">Remedial Classes</td>
+				<th style = "min-width: 339px;">Remedial Classes</td>
 				<td class = "border-right-none" colspan = "5">
 					<label>
 						<span>Conducted from (MM/DD/YYYY):&nbsp;</span>

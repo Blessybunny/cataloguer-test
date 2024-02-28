@@ -1,87 +1,58 @@
-<!doctype html>
-<html lang = "en">
+@extends('layouts.general.meta')
 
-	<head>
+@section('body')
 
-		<!-- LOCKED: Main -->
-		<meta charset = "utf-8">
-		<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
-		<meta name = "viewport" content = "initial-scale=1, width=device-width">
-		
-		<title>@yield('title')</title>
+    <!-- Header -->
+    <header id = "header" class = "header fixed-top d-flex align-items-center">
+        <div class = "container d-flex align-items-center justify-content-between">
+            
+            <a href = "{{ url('/login') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
+                <h1 class = "capitalize">Cataloger<span>.</span></h1>
+            </a>
 
-		<!-- LOCKED: Template -->
-		<link href = "{{ asset('yummy/img/favicon.png') }}" rel = "icon">
-		<link href = "{{ asset('yummy/img/apple-touch-icon.png') }}" rel = "apple-touch-icon">
-		<link rel = "preconnect" href = "https://fonts.googleapis.com">
-		<link rel = "preconnect" href = "https://fonts.gstatic.com" crossorigin>
-		<link href = "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/bootstrap/css/bootstrap.min.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/aos/aos.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/glightbox/css/glightbox.min.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/swiper/swiper-bundle.min.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/css/main.css') }}" rel = "stylesheet">
-		
-		<!-- LOCKED: Custom -->
-		<link href = "{{ asset('assets/less/general.less') }}" rel = "stylesheet" type = "text/less">
+            <nav id = "navbar" class = "navbar">
+                <ul>
 
-		@yield('head')
+					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
 
-	</head>
+                        <li><a href = "{{ url('/sections') }}">Sections</a></li>
 
-    <body>
+                    @endif
 
-		<!-- Header -->
-		<header id = "header" class = "header fixed-top d-flex align-items-center">
-			<div class = "container d-flex align-items-center justify-content-between">
-				
-				<a href = "{{ url('/login') }}" class = "logo d-flex align-items-center me-auto me-lg-0">
-					<h1 class = "capitalize">Cataloger<span>.</span></h1>
-				</a>
+                    <li><a href = "{{ url('/students') }}">Students</a></li>
 
-				<nav id = "navbar" class = "navbar">
-					<ul>
-						<li><a href = "{{ url('/home') }}">Home</a></li>
-						<li><a href = "{{ url('/sections') }}">Sections</a></li>
-						<li><a href = "{{ url('/students') }}">Students</a></li>
-						<li><a href = "{{ url('/users') }}">Users</a></li>
-						<li><a href = "{{ url('/years') }}">Years</a></li>
-						<li><a href = "{{ url('/logout') }}">Log out</a></li>
-					</ul>
-				</nav>
-				
-				<i class = "mobile-nav-toggle mobile-nav-show bi bi-list"></i>
-				<i class = "mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
 
-			</div>
-		</header>
+                        <li><a href = "{{ url('/users') }}">Users</a></li>
 
-		<!-- Main -->
-		<main id = "main">
-			@yield('content')
-		</main>
+                    @endif
 
-		<!-- LOCKED: Footer -->
-		<footer id = "footer" class = "align-middle container-fluid footer">
-			This project is a proof-of-concept demo and does not use legitimate data and information.
-			<br>
-			All names are fictitious personas and do not reflect real subjects.
-		</footer>
-		
-		<!-- LOCKED: Template -->
-		<script src = "{{ asset('yummy/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-		<script src = "{{ asset('yummy/vendor/aos/aos.js') }}"></script>
-		<script src = "{{ asset('yummy/vendor/glightbox/js/glightbox.min.js') }}"></script>
-		<script src = "{{ asset('yummy/vendor/purecounter/purecounter_vanilla.js') }}"></script>
-		<script src = "{{ asset('yummy/vendor/swiper/swiper-bundle.min.js') }}"></script>
-		<script src = "{{ asset('yummy/vendor/php-email-form/validate.js') }}"></script>
-		<script src = "{{ asset('yummy/js/main.js') }}"></script>
-		
-		<!-- LOCKED: Custom -->
-		<script src = "{{ asset('assets/js/less.min.js') }}"></script>
-		<script src = "{{ asset('assets/js/general.js') }}"></script>
-        
-    </body>
-	
-</html>
+					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
+
+                        <li><a href = "{{ url('/years') }}">Years</a></li>
+
+                    @endif
+
+                    <li><a href = "{{ url('/logout') }}">Log out</a></li>
+                </ul>
+            </nav>
+            
+            <i class = "mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i class = "mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main id = "main">
+        @yield('content')
+    </main>
+
+    <!-- Footer -->
+    <footer id = "footer" class = "align-middle container-fluid footer">
+        This project is a proof-of-concept demo and does not use legitimate data and information.
+        <br>
+        All names are fictitious personas and do not reflect real subjects.
+    </footer>
+
+@endsection

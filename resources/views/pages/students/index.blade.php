@@ -98,7 +98,7 @@
 						<tr>
 							<th style = "width: 150px;">LRN</th>
 							<th>Name</th>
-							<th colspan = "4">Actions</th>
+							<th colspan = "5">Actions</th>
 						</tr>
 
 						@foreach ($students as $student)
@@ -109,14 +109,17 @@
 								<td class = "text-center" style = "width: 150px;">
 									<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
 								</td>
-								<td class = "text-center" style = "width: 300px;">
-									<a href = "{{ url('/students/edit/acad', $student->id) }}">Edit School Years / Sections</a>
+								<td class = "text-center" style = "width: 150px;">
+									<a href = "{{ url('/students/edit/acad', $student->id) }}">Edit S.Y. / Sections</a>
 								</td>
 								<td class = "text-center" style = "width: 150px;">
 									<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
 								</td>
 								<td class = "text-center" style = "width: 150px;">
 									<a href = "#">View Report</a>
+								</td>
+								<td class = "text-center" style = "width: 150px;">
+									<a href = "#">Settings (insert nihonggo/lockers)</a>
 								</td>
 							</tr>
 

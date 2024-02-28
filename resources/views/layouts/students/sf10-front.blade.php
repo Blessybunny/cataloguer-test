@@ -246,6 +246,6 @@
 	@include('layouts.students.sf10-scholastic-record', ['grade' => 8])
 
 	<!-- Certification -->
-	@include('layouts.students.sf10-certification')
+	@include('layouts.students.sf10-certification', ['side' => 'front'])
 
 </div>

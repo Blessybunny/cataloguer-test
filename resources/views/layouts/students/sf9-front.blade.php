@@ -28,12 +28,12 @@
 					</div>
 				</div>
 				<br>
-				
+
 				<!-- Info -->
 				<div class = "row">
 					<div class = "col">
 						<span>Leaner Reference Number: {{ $student->info_lrn }}</span>
-						<span>Name: {{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</span>
+						<span>Name: {{ strtoupper($student->info_name_last) }}, {{ ucfirst($student->info_name_first) }} {{ ucfirst($student->info_name_middle) }} {{ ucfirst($student->info_name_suffix) }}</span>
 					</div>
 				</div>
 				<div class = "row">
@@ -51,12 +51,12 @@
 					</div>
 					<div class = "col">
 						<span>Sex: {{ $student->info_sex }}</span>
-						<span>Section: {{ $sections->{'sf9_g'.$grade->grade.'_report_section'} }}</span>
+						<span>Section: {{ $student->{'sf9_g'.$grade->grade.'_report_section'} }}</span>
 					</div>
 				</div>
 				<div class = "row">
 					<div class = "col">
-						<span>School Year: {{ $years->{'sf9_g'.$grade->grade.'_report_year'} }}</span>
+						<span>School Year: {{ $student->{'sf9_g'.$grade->grade.'_report_year'} }}</span>
 					</div>
 				</div>
 				<br>
@@ -73,13 +73,13 @@
 				<div class = "row">
 					<div class = "col">
 						<div class = "text-center">
-							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $years->{'sf9_g'.$grade->grade.'_report_principal'} }}&nbsp;</span>
+							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_principal'} }}&nbsp;</span>
 							<span>OIC - Office of the Principal</span>
 						</div>
 					</div>
 					<div class = "col">
 						<div class = "text-center">
-							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $sections->{'sf9_g'.$grade->grade.'_report_adviser'} }}&nbsp;</span>
+							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_adviser'} }}&nbsp;</span>
 							<span>Adviser</span>
 						</div>
 					</div>
@@ -115,13 +115,13 @@
 				<div class = "row">
 					<div class = "col">
 						<div class = "text-center">
-							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $years->{'sf9_g'.$grade->grade.'_report_principal'} }}&nbsp;</span>
+							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_principal'} }}&nbsp;</span>
 							<span>OIC - Office of the Principal</span>
 						</div>
 					</div>
 					<div class = "col">
 						<div class = "text-center">
-							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $sections->{'sf9_g'.$grade->grade.'_report_adviser'} }}&nbsp;</span>
+							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_adviser'} }}&nbsp;</span>
 							<span>Adviser</span>
 						</div>
 					</div>
@@ -177,11 +177,11 @@
 				<tr>
 					<td class = "text-center">Oct</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_oct_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_oct_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_oct_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_oct_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_oct_t'} }}"
 						>
 					</td>
 					<td>
@@ -210,11 +210,11 @@
 				<tr>
 					<td class = "text-center">Nov</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_nov_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_nov_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_nov_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_nov_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_nov_t'} }}"
 						>
 					</td>
 					<td>
@@ -243,11 +243,11 @@
 				<tr>
 					<td class = "text-center">Dec</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_dec_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_dec_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_dec_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_dec_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_dec_t'} }}"
 						>
 					</td>
 					<td>
@@ -276,11 +276,11 @@
 				<tr>
 					<td class = "text-center">Jan</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_jan_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_jan_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_jan_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_jan_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jan_t'} }}"
 						>
 					</td>
 					<td>
@@ -309,11 +309,11 @@
 				<tr>
 					<td class = "text-center">Feb</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_feb_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_feb_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_feb_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_t'} }}"
 						>
 					</td>
 					<td>
@@ -342,11 +342,11 @@
 				<tr>
 					<td class = "text-center">Mar</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_mar_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_mar_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_mar_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_mar_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_mar_t'} }}"
 						>
 					</td>
 					<td>
@@ -375,11 +375,11 @@
 				<tr>
 					<td class = "text-center">Apr</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_apr_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_apr_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_apr_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_apr_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_apr_t'} }}"
 						>
 					</td>
 					<td>
@@ -408,11 +408,11 @@
 				<tr>
 					<td class = "text-center">May</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_may_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_may_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_may_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_may_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_may_t'} }}"
 						>
 					</td>
 					<td>
@@ -441,11 +441,11 @@
 				<tr>
 					<td class = "text-center">Jun</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_jun_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_jun_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_jun_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_jun_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jun_t'} }}"
 						>
 					</td>
 					<td>
@@ -474,11 +474,11 @@
 				<tr>
 					<td class = "text-center">Jul</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_jul_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_jul_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_jul_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_jul_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jul_t'} }}"
 						>
 					</td>
 					<td>
@@ -507,11 +507,11 @@
 				<tr>
 					<td class = "text-center">Aug</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_aug_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_aug_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_aug_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_aug_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_aug_t'} }}"
 						>
 					</td>
 					<td>
@@ -540,11 +540,11 @@
 				<tr>
 					<td class = "text-center">Sep</td>
 					<td class = "text-center">
-						{{ $years->{'sf9_g'.$grade->grade.'_attendance_sep_t'} }}
+						{{ $student->{'sf9_g'.$grade->grade.'_attendance_sep_t'} }}
 						<input
 							class = "display-none"
 							name = "sf9_g{{ $grade->grade }}_attendance_sep_t"
-							value = "{{ $years->{'sf9_g'.$grade->grade.'_attendance_sep_t'} }}"
+							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_sep_t'} }}"
 						>
 					</td>
 					<td>

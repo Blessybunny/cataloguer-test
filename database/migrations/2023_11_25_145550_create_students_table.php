@@ -39,9 +39,26 @@ return new class extends Migration {
             $table->string('sf10_enrollment_other_location', 50)->nullable();
         });
 
+        // SF10: Certification
+        Schema::table('students', function (Blueprint $table) {
+            $table->string('sf10_certification_back_grade', 50)->nullable();
+            $table->string('sf10_certification_back_school_name', 50)->nullable();
+            $table->string('sf10_certification_back_school_id', 50)->nullable();
+            $table->string('sf10_certification_back_school_year', 50)->nullable();
+            $table->string('sf10_certification_back_date', 50)->nullable();
+            $table->string('sf10_certification_back_principal', 50)->nullable();
+
+            $table->string('sf10_certification_front_grade', 50)->nullable();
+            $table->string('sf10_certification_front_school_name', 50)->nullable();
+            $table->string('sf10_certification_front_school_id', 50)->nullable();
+            $table->string('sf10_certification_front_school_year', 50)->nullable();
+            $table->string('sf10_certification_front_date', 50)->nullable();
+            $table->string('sf10_certification_front_principal', 50)->nullable();
+        });
+
         // Various
         Schema::table('students', function (Blueprint $table) {
-            // Grade range
+            // Grade
             $grade_min = 7;
             $grade_max = 10;
 
@@ -52,7 +69,6 @@ return new class extends Migration {
                 $table->string('PRESERVE_DB_SECTION_name_g'.$i, 50)->nullable();
 
                 $table->string('PRESERVE_DB_USER_name_last_g'.$i, 50)->nullable();
-
                 $table->string('PRESERVE_DB_USER_name_first_g'.$i, 50)->nullable();
 
                 $table->integer('DB_YEAR_id_g'.$i)->nullable(); // Used to reference a year
