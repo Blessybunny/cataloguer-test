@@ -96,17 +96,20 @@
 				<div class = "col">
 					<table class = "table">
 						<tr>
-							<th style = "width: 150px;">School Year</th>
+							<th>School Year</th>
 							<th>Principal</th>
-							<th style = "width: 150px;">Action</th>
+							<th colspan = "2">Action</th>
 						</tr>
 
 						@foreach ($years as $year)
 
 							<tr>
-								<td class = "text-center">{{ $year->full }}</td>
+								<td class = "text-center" style = "width: 200px;">{{ $year->full }}</td>
 								<td>{{ $year->principal }}</td>
-								<td class = "text-center">
+								<td class = "text-center" style = "width: 100px;">
+									<a href = "{{ url('/years/view', $year->id) }}">View</a>
+								</td>
+								<td class = "text-center" style = "width: 100px;">
 									<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
 								</td>
 							</tr>

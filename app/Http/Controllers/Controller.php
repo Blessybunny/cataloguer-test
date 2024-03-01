@@ -12,7 +12,7 @@ class Controller extends BaseController {
     use AuthorizesRequests, ValidatesRequests;
 
     // Auth
-    public function auth () { return User::find(1); }
+    public function auth () { return User::first(); }
 
     // Redirect
     public function home () { return redirect()->to('/home'); }

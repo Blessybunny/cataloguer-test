@@ -23,18 +23,34 @@ class UserController extends Controller {
     }
 
     // Redirect
-    public function redirect () { return redirect()->to('/users'); }
+    public function redirect () {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        return redirect()->to('/users');
+    }
 
     // Index (GET)
     public function index_1 () {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $users = User::orderBy('DB_ROLE_id', 'ASC')
             ->orderBy('name_last', 'ASC')
             ->orderBy('name_first', 'ASC')
             ->get();
 
-        $users = self::func_make_info($users);
+        $users = self::func_format_users($users);
 
         return view('pages.users.index')
             ->with('auth', $auth)
@@ -43,6 +59,14 @@ class UserController extends Controller {
 
     // Index (POST)
     public function index_2 () {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $terms = Request::get('terms');
 
         if (isset($terms)) {
@@ -63,10 +87,11 @@ class UserController extends Controller {
                 ->get();
             $results = (count($results) > 0) ? $results : [];
 
-            $results = self::func_make_info($results);
+            $results = self::func_format_users($results);
 
             return view('pages.users.index')
                 ->with('isSearched', true)
+                ->with('auth', $auth)
                 ->with('terms', $terms)
                 ->with('results', $results);
         }
@@ -77,8 +102,14 @@ class UserController extends Controller {
 
     // Create (GET)
     public function create_1 () {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $grades = Grade::all();
         $roles = Role::all();
         $sections = Section::whereNotNull('section')
@@ -102,6 +133,14 @@ class UserController extends Controller {
 
     // Create (POST)
     public function create_2 () {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $validate = request()->validate([
             'DB_ROLE_id' => 'required',
             'DB_GRADE_id' => 'nullable',
@@ -133,8 +172,14 @@ class UserController extends Controller {
 
     // Edit (GET)
     public function edit_1 ($id) {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $user = User::find($id);
 
         if ($user != null) {
@@ -154,7 +199,7 @@ class UserController extends Controller {
             }
 
             return view('pages.users.edit')
-                ->with('auth', $grade)
+                ->with('auth', $auth)
                 ->with('grades', $grades)
                 ->with('roles', $roles)
                 ->with('sections', $sections)
@@ -167,6 +212,14 @@ class UserController extends Controller {
 
     // Edit (POST)
     public function edit_2 ($id) {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $user = User::find($id);
 
         if ($user != null) {
@@ -208,8 +261,14 @@ class UserController extends Controller {
 
     // Delete (GET)
     public function delete_1 ($id) {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $user = User::find($id);
 
         if ($user != null) {
@@ -224,6 +283,14 @@ class UserController extends Controller {
 
     // Delete (POST)
     public function delete_2 ($id) {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $user = User::find($id);
 
         if ($user != null) {
@@ -238,11 +305,11 @@ class UserController extends Controller {
         return self::redirect();
     }
 
-    // Function: make info
+    // Function: format user (array)
     // Index (GET)
     // Index (POST)
-    public function func_make_info ($param) {
-        foreach ($param as $user) {
+    public function func_format_users ($users) {
+        foreach ($users as $user) {
             // Role
             $role = Role::find($user->DB_ROLE_id);
 
@@ -292,8 +359,13 @@ class UserController extends Controller {
             // Year
         }
 
-        return $param;
+        return $users;
     }
+
+    // Function: format section (array)
+    public function func_format_sections ($sections) {
+
+    } 
 
     // Function: validate role
     // Edit (POST)

@@ -31,6 +31,8 @@ class StudentController extends Controller {
 
     // Index (POST)
     public function index_2 () {
+        $auth = (new Controller)->auth();
+
         $terms = Request::get('terms');
 
         if (isset($terms)) {
@@ -58,6 +60,7 @@ class StudentController extends Controller {
 
             return view('pages.students.index')
                 ->with('isSearched', true)
+                ->with('auth', $auth)
                 ->with('terms', $terms)
                 ->with('results', $results);
         }

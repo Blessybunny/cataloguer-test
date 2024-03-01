@@ -1,39 +1,46 @@
+UTMOST PRIORITY:
+    - PUT THE OTHER CONSULTATION PAPER IN THE BAG.
+    - ISSUE: You can delete yourself while logged in.
+        - You must be logged out for anyone to delete you.
+            - Make a boolean value to "safety-lock" you while logged in, this goes false when logged out.
+            - This boolean will hide the danger zone area in the edit pages.
+            - DB_SAFETY_LOCK (boolean)
+        - Logout a page when a user doesn't exist (POST methods, maybe GET)
+
 CHECKPOINT:
-    - sf10 certification
     - student lock boolean
-
-
-
-
-
     - pending addition of DB_YEAR_id for Users
         - this property is exclusive to grade level coordinators and below
 
-
-
-UTMOST PRIO:
-    - For every edit page and save action, implement a javascript window prompt to confirm changes.
-    - add copyright and current year to footer
-
 To-do:
     - Add a toggle button for SF9-10 editor to highlight the backgrounds of editable fields.
-    - User POV: navigation links.
+    - For every edit page and save action, implement a javascript window prompt to confirm changes.
+    - add copyright and current year to footer
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DEVELOPER'S NOTES:
-    - GRADE is hard coded across multiple files (see also views)
+    1. AUTH and ROLE are hard coded across multiple files (see also managers).
+    2. GRADE is hard coded across multiple files (see also layouts and views).
         - 2023_11_25_145550_create_students_table.php (migration)
         - DatabaseSeeder.php (seeder)
-    - ROLE is hard coded across multiple files (see also managers)
+    3. AUTH and ROLE are programmed as follows:
+        - Principal
+            - Section   - View + Edit (full)    - Currently missing view
+            - Student
+            - User
+            - Year
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MANAGER - LOGIN:
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MANAGER - HOME: WIP
-    1. Front-end:               Status:                 Comments:
+    1. Back-end:                Status:                 Comments:
+        - route                 Complete                .
+
+    2. Front-end:
         - home                  Complete                Authcoded -> 1, 2 (relocate these to controller, make booleans instead of brute-forcing to html)
 
-    2. Controller               Complete                Debugging
+    3. Controller               Complete                Debugging
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - SECTION:
+MANAGER - SECTION: View wip (wip - remove php text transforms inside blade files)
     1. Back-end:                Status:                 Comments:
         - migration             Complete                .
         - route                 Complete                .
@@ -48,11 +55,10 @@ MANAGER - SECTION:
                                                         Preserves -> student's adviser
                                                         Preserves -> student's section
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - STUDENT:
+MANAGER - STUDENT: View wip (wip - remove php text transforms inside blade files)
     1. Back-end:                Status:                 Comments:
         - migration             Complete                .
         - route                 Complete                .
-        - search                Complete                .
 
     2. Front-end:
         - index                 Complete                .
@@ -64,7 +70,7 @@ MANAGER - STUDENT:
 
     3. Controller               Complete                .
 
-    4. Terms:
+    4. Search:
         - info_name_last
         - info_name_first
         - info_name_suffix
@@ -72,15 +78,15 @@ MANAGER - STUDENT:
         - info_lrn
         - info_sex
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - USER:
+MANAGER - USER: View wip (wip - remove php text transforms inside blade files)
     1. Back-end:                Status:                 Comments:
         - migration             Complete                .
         - route                 Complete                .
-        - search                Complete                .
 
     2. Front-end:
         - index                 Complete                .
         - create                Complete                .
+        - view                  WIP                     .
         - edit                  Complete                .
         - delete                Complete                .
 
@@ -89,7 +95,7 @@ MANAGER - USER:
                                                         Preserves -> student's adviser
                                                         Rolecoded -> 1, 2, 3, 4, 5
 
-    4. Terms:
+    4. Search:
         - email
         - name_last
         - name_first
@@ -98,31 +104,38 @@ MANAGER - YEAR:
     1. Back-end:                Status:                 Comments:
         - migration             Complete                .
         - route                 Complete                .
-        - search                Complete                .
 
     2. Front-end:
         - index                 Complete                .
         - create                Complete                .
+        - view                  Complete                .
         - edit                  Complete                .
 
     3. Controller               Complete                Authcoded -> 1, 2
                                                         Preserves -> year's principal
                                                         Rolecoded -> 1
 
-    4. Terms:
+    4. Search:
         - full
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-LAYOUTS:
-    Front-end:                                          Status:                 Comments:
-    - Meta                                              Complete
-    - Page                                              Complete                Authcoded -> 1, 2
-    - Student
-        - sf9-back                                      Complete
-        - sf9-front                                     Complete
-        - sf10-back                                     Complete                Gradecoded -> 7, 8
-        - sf10-certification                            Complete
-        - sf10-front                                    Complete                Gradecoded -> 9, 10
-        - sf10-scholastic-record                        Complete
+RESOURCES:
+    1. Layouts:                             Status:                 Comments:
+        - meta                              Complete
+        - page                              Complete                Authcoded -> 1, 2 (manage from controller.php to remove this comment)
+        - sf9-back                          Complete                .
+        - sf9-front                         Complete                .
+        - sf10-back                         Complete                Gradecoded -> 7, 8
+        - sf10-certification                Complete                .
+        - sf10-front                        Complete                Gradecoded -> 9, 10
+        - sf10-scholastic-record            Complete                .
+
+    2. Less:
+        - general.less                      Complete                .
+        - students.less                     Complete                .
+
+    3. Script:
+        - general.js                        Complete                .
+        - students.js                       Complete                .
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ROLES:
     Name:                           Manager:        Satus:                      Access:
@@ -153,13 +166,13 @@ ROLES:
                                     Student                     View
                                     User                        .
                                     Year                        .
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-RESOURCES:
-    Name:                                                       Status:
-    - general.js                                                Complete
-    - general.less                                              Complete
-    - students.js                                               Complete
-    - students.less                                             Complete
+
+
+
+
+
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PROGRESS REPORTER:
     ! Base off data from the SF9 FIELDS ONLY.

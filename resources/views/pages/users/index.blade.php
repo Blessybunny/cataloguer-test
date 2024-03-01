@@ -96,28 +96,28 @@
 				<div class = "col">
 					<table class = "table">
 						<tr>
-							<th rowspan = "2" style = "width: 150px;">DepEd ID</th>
-							<th rowspan = "2">Name</th>
-							<th rowspan = "2" style = "width: 300px;">Role</th>
-							<th colspan = "3">Designation</th>
-							<th rowspan = "2" style = "width: 150px;">Action</th>
-						</tr>
-						<tr>
-							<th style = "width: 150px;">Grade</th>
-							<th style = "width: 150px;">Section</th>
-							<th style = "width: 150px;">School Year</th>
+							<th>DepEd ID</th>
+							<th>Name</th>
+							<th>Role</th>
+							<th>Designation</th>
+							<th>School Year</th>
+							<th colspan = "2">Action</th>
 						</tr>
 
 						@foreach ($users as $user)
 
 							<tr>
-								<td class = "text-center">{{ $user->email }}</td>
-								<td>{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</td>
-								<td class = "text-center">{{ $user->role }}</td>
-								<td class = "text-center">{{ $user->designation }}</td>
-								<td class = "text-center">N/A</td>
-								<td class = "text-center">N/A</td>
-								<td class = "text-center"><a href = "{{ url('/users/edit', $user->id) }}">Edit</a></td>
+								<td class = "text-center" style = "width: 200px;">{{ $user->email }}</td>
+								<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
+								<td class = "text-center" style = "width: 200px;">{{ $user->role }}</td>
+								<td class = "text-center" style = "width: 200px;">{{ $user->designation }}</td>
+								<td class = "text-center" style = "width: 200px;">N/A</td>
+								<td class = "text-center" style = "width: 100px;">
+									<a href = "{{ url('/users/view', $user->id) }}">View</a>
+								</td>
+								<td class = "text-center" style = "width: 100px;">
+									<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
+								</td>
 							</tr>
 
 						@endforeach

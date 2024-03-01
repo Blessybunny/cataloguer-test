@@ -36,7 +36,7 @@
 				<div class = "col">
 					<hr>
 					<h6 class = "text-center">Edit</h6>
-					<p class = "text-center">{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</p>
+					<p class = "text-center">{{ $user->name_last }}, {{ $user->name_first }}</p>
 					<hr>
 				</div>
 

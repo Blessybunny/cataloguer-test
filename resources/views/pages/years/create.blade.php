@@ -97,7 +97,7 @@
 
 						@foreach ($users as $user)
 
-							<option value = "{{ $user->id }}">{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</option>
+							<option value = "{{ $user->id }}">{{ $user->name_last }}, {{ $user->name_first }}</option>
 
 						@endforeach
 

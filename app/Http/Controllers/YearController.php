@@ -19,15 +19,31 @@ class YearController extends Controller {
     }
 
     // Redirect
-    public function redirect () { return redirect()->to('/years'); }
+    public function redirect () {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        return redirect()->to('/years');
+    }
 
     // Index (GET)
     public function index_1 () {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $years = Year::orderBy('year', 'DESC')->get();
 
-        $years = self::func_make_info($years);
+        $years = self::func_format_years($years);
 
         return view('pages.years.index')
             ->with('auth', $auth)
@@ -36,6 +52,14 @@ class YearController extends Controller {
 
     // Index (POST)
     public function index_2 () {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $terms = Request::get('terms');
 
         if (isset($terms)) {
@@ -51,10 +75,11 @@ class YearController extends Controller {
             $results = $query->orderBy('year', 'DESC')->get();
             $results = (count($results) > 0) ? $results : [];
 
-            $results = self::func_make_info($results);
+            $results = self::func_format_years($results);
 
             return view('pages.years.index')
                 ->with('isSearched', true)
+                ->with('auth', $auth)
                 ->with('terms', $terms)
                 ->with('results', $results);
         }
@@ -65,8 +90,14 @@ class YearController extends Controller {
 
     // Create (GET)
     public function create_1 () {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $users = User::where('DB_ROLE_id', '1')->get();
 
         return view('pages.years.create')
@@ -76,6 +107,14 @@ class YearController extends Controller {
 
     // Create (POST)
     public function create_2 () {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $validate = request()->validate([
             'DB_USER_id' => 'nullable',
             
@@ -124,10 +163,40 @@ class YearController extends Controller {
         return self::redirect();
     }
 
+    // View (GET)
+    public function view ($id) {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $year = Year::find($id);
+
+        if ($year != null) {
+            $year = self::func_format_year($year);
+
+            return view('pages.years.view')
+                ->with('auth', $auth)
+                ->with('year', $year);
+        }
+        else {
+            return self::redirect();
+        }
+    }
+
     // Edit (GET)
     public function edit_1 ($id) {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $year = Year::find($id);
 
         if ($year != null) {
@@ -145,6 +214,14 @@ class YearController extends Controller {
 
     // Edit (POST)
     public function edit_2 ($id) {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $year = Year::find($id);
 
         if ($year != null) {
@@ -195,11 +272,11 @@ class YearController extends Controller {
         }
     }
 
-    // FUNCTION: make info
+    // FUNCTION: format year (array)
     // Index (GET)
     // Index (POST)
-    public function func_make_info ($param) {
-        foreach ($param as $year) {
+    public function func_format_years ($years) {
+        foreach ($years as $year) {
             $user = User::find($year->DB_USER_id);
             $user_name_last = $year->PRESERVE_DB_USER_name_last;
             $user_name_first = $year->PRESERVE_DB_USER_name_first;
@@ -209,7 +286,7 @@ class YearController extends Controller {
                 $user_name_last == null &&
                 $user_name_first == null
             ) {
-                $year->principal = strtoupper($user->name_last).', '.ucfirst($user->name_first);
+                $year->principal = $user->name_last.', '.$user->name_first;
             }
             else if (
                 $user == null &&
@@ -223,10 +300,42 @@ class YearController extends Controller {
                 $user_name_last != null &&
                 $user_name_first != null
             ) {
-                $year->principal = strtoupper($user_name_last).', '.ucfirst($user_name_first).' (Legacy)';
+                $year->principal = $user_name_last.', '.$user_name_first.' (Legacy)';
             }
         }
 
-        return $param;
+        return $years;
+    }
+
+    // FUNCTION: format year (single)
+    // View (GET)
+    public function func_format_year ($year) {
+        $user = User::find($year->DB_USER_id);
+        $user_name_last = $year->PRESERVE_DB_USER_name_last;
+        $user_name_first = $year->PRESERVE_DB_USER_name_first;
+
+        if (
+            $user != null &&
+            $user_name_last == null &&
+            $user_name_first == null
+        ) {
+            $year->principal = $user->name_last.', '.$user->name_first;
+        }
+        else if (
+            $user == null &&
+            $user_name_last == null &&
+            $user_name_first == null
+        ) {
+            $year->principal = 'N/A';
+        }
+        else if (
+            $user == null &&
+            $user_name_last != null &&
+            $user_name_first != null
+        ) {
+            $year->principal = $user_name_last.', '.$user_name_first.' (Legacy)';
+        }
+
+        return $year;
     }
 }

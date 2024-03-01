@@ -47,6 +47,8 @@ Route::post('/years', 'App\Http\Controllers\YearController@index_2');
 Route::get('/years/create', 'App\Http\Controllers\YearController@create_1');
 Route::post('/years/create', 'App\Http\Controllers\YearController@create_2');
 
+Route::get('/years/view/{id}', 'App\Http\Controllers\YearController@view');
+
 Route::get('/years/edit/{id}', 'App\Http\Controllers\YearController@edit_1');
 Route::post('/years/edit/{id}', 'App\Http\Controllers\YearController@edit_2');
 

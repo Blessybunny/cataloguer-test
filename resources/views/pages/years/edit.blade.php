@@ -36,7 +36,7 @@
 				<div class = "col">
 					<hr>
 					<h6 class = "text-center">Edit</h6>
-					<p class = "text-center">{{ $year->year }}-{{ $year->year + 1 }}</p>
+					<p class = "text-center">{{ $year->full }}</p>
 					<hr>
 				</div>
 
@@ -53,7 +53,7 @@
 
 						@foreach ($users as $user)
 
-							<option value = "{{ $user->id }}" {{ $year->DB_USER_id == $user->id ? "selected" : "" }}>{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</option>
+							<option value = "{{ $user->id }}" {{ $year->DB_USER_id == $user->id ? "selected" : "" }}>{{ $user->name_last }}, {{ $user->name_first }}</option>
 
 						@endforeach
 

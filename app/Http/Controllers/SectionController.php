@@ -21,12 +21,28 @@ class SectionController extends Controller {
     }
 
     // Redirect
-    public function redirect () { return redirect()->to('/sections'); }
+    public function redirect () {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        return redirect()->to('/sections');
+    }
 
     // Index (GET)
     public function index () {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $grades = Grade::all();
 
         return view('pages.sections.index')
@@ -36,8 +52,14 @@ class SectionController extends Controller {
 
     // Edit (GET)
     public function edit_1 ($id) {
-        $auth = (new Controller)->auth(); if (self::protect($auth)) return (new Controller)->home();
+        // Protect
+        $auth = (new Controller)->auth();
 
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $grade = Grade::find($id);
 
         if ($grade != null) {
@@ -55,6 +77,14 @@ class SectionController extends Controller {
 
     // Edit (POST)
     public function edit_2 ($id) {
+        // Protect
+        $auth = (new Controller)->auth();
+
+        if (self::protect($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $grade = Grade::find($id);
 
         if ($grade != null) {
