@@ -6,7 +6,7 @@ UTMOST PRIORITY:
             - This boolean will hide the danger zone area in the edit pages.
             - DB_SAFETY_LOCK (boolean)
         - Logout a page when a user doesn't exist (POST methods, maybe GET)
-
+        - Since most permission redirects lead to home, bubble home to log out the user.
 CHECKPOINT:
     - student lock boolean
     - pending addition of DB_YEAR_id for Users
@@ -40,7 +40,7 @@ MANAGER - HOME: WIP
 
     3. Controller               Complete                Debugging
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - SECTION: View wip (wip - remove php text transforms inside blade files)
+MANAGER - SECTION: View wip (remove spans)
     1. Back-end:                Status:                 Comments:
         - migration             Complete                .
         - route                 Complete                .
@@ -55,7 +55,7 @@ MANAGER - SECTION: View wip (wip - remove php text transforms inside blade files
                                                         Preserves -> student's adviser
                                                         Preserves -> student's section
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - STUDENT: View wip (wip - remove php text transforms inside blade files)
+MANAGER - STUDENT: View wip
     1. Back-end:                Status:                 Comments:
         - migration             Complete                .
         - route                 Complete                .
@@ -63,12 +63,13 @@ MANAGER - STUDENT: View wip (wip - remove php text transforms inside blade files
     2. Front-end:
         - index                 Complete                .
         - create                Complete                .
+        - view                  WIP                     .
         - edit-acad             Complete                .
         - edit-form             Complete                .
         - edit-info             Complete                .
         - delete                Complete                .
 
-    3. Controller               Complete                .
+    3. Controller               Complete                Authcoded -> 1, 2, 3, 4, 5
 
     4. Search:
         - info_name_last
@@ -78,7 +79,7 @@ MANAGER - STUDENT: View wip (wip - remove php text transforms inside blade files
         - info_lrn
         - info_sex
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - USER: View wip (wip - remove php text transforms inside blade files)
+MANAGER - USER: (Do-not-touch)
     1. Back-end:                Status:                 Comments:
         - migration             Complete                .
         - route                 Complete                .
@@ -86,7 +87,7 @@ MANAGER - USER: View wip (wip - remove php text transforms inside blade files)
     2. Front-end:
         - index                 Complete                .
         - create                Complete                .
-        - view                  WIP                     .
+        - view                  Complete                .
         - edit                  Complete                .
         - delete                Complete                .
 
@@ -100,7 +101,7 @@ MANAGER - USER: View wip (wip - remove php text transforms inside blade files)
         - name_last
         - name_first
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - YEAR:
+MANAGER - YEAR: (Do-not-touch)
     1. Back-end:                Status:                 Comments:
         - migration             Complete                .
         - route                 Complete                .

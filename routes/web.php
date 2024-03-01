@@ -18,8 +18,8 @@ Route::post('/students/create', 'App\Http\Controllers\StudentController@create_2
 Route::get('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_1');
 Route::post('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_2');
 
-Route::get('/students/edit/acad/{id}', 'App\Http\Controllers\StudentController@edit_acad_1');
-Route::post('/students/edit/acad/{id}', 'App\Http\Controllers\StudentController@edit_acad_2');
+Route::get('/students/edit/area/{id}', 'App\Http\Controllers\StudentController@edit_area_1');
+Route::post('/students/edit/area/{id}', 'App\Http\Controllers\StudentController@edit_area_2');
 
 Route::get('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_1');
 Route::post('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_2');
@@ -33,6 +33,8 @@ Route::post('/users', 'App\Http\Controllers\UserController@index_2');
 
 Route::get('/users/create', 'App\Http\Controllers\UserController@create_1');
 Route::post('/users/create', 'App\Http\Controllers\UserController@create_2');
+
+Route::get('/users/view/{id}', 'App\Http\Controllers\UserController@view');
 
 Route::get('/users/edit/{id}', 'App\Http\Controllers\UserController@edit_1');
 Route::post('/users/edit/{id}', 'App\Http\Controllers\UserController@edit_2');

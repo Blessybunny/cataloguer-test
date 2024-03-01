@@ -11,13 +11,44 @@ use App\Models\Year;
 use Request;
 
 class StudentController extends Controller {
-    // Redirect
-    public function redirect () { return redirect()->to('/students'); }
+    // Restriction
+    public function restriction ($auth) {
+        if ($auth != null) {
+            if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2 || $auth->DB_ROLE_id == 3 || $auth->DB_ROLE_id == 4 || $auth->DB_ROLE_id == 5) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
+    }
 
-    // Index (GET)
-    public function index_1 () {
+    // Redirect
+    public function redirect () {
+        // Restriction
         $auth = (new Controller)->auth();
 
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        return redirect()->to('/students');
+    }
+
+    // Index
+    public function index_1 () {
+        // Restriction
+        $auth = (new Controller)->auth();
+
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $students = Student::orderBy('info_name_last', 'ASC')
             ->orderBy('info_name_first', 'ASC')
             ->orderBy('info_name_middle', 'ASC')
@@ -28,11 +59,15 @@ class StudentController extends Controller {
             ->with('auth', $auth)
             ->with('students', $students);
     }
-
-    // Index (POST)
     public function index_2 () {
+        // Restriction
         $auth = (new Controller)->auth();
 
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $terms = Request::get('terms');
 
         if (isset($terms)) {
@@ -55,7 +90,6 @@ class StudentController extends Controller {
                 ->orderBy('info_name_middle', 'ASC')
                 ->orderBy('info_name_suffix', 'ASC')
                 ->get();
-
             $results = (count($results) > 0) ? $results : [];
 
             return view('pages.students.index')
@@ -69,16 +103,28 @@ class StudentController extends Controller {
         }
     }
 
-    // Create (GET)
+    // Create
     public function create_1 () {
+        // Restriction
         $auth = (new Controller)->auth();
 
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         return view('pages.students.create')
             ->with('auth', $auth);
     }
-
-    // Create (POST)
     public function create_2 () {
+        // Restriction
+        $auth = (new Controller)->auth();
+
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $validate = request()->validate([
             'info_name_last' => 'required',
             'info_name_first' => 'required',
@@ -102,10 +148,16 @@ class StudentController extends Controller {
         return self::redirect();
     }
 
-    // Edit: Info (GET)
+    // Edit: Info
     public function edit_info_1 ($id) {
+        // Restriction
         $auth = (new Controller)->auth();
 
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $student = Student::find($id);
 
         if ($student != null) {
@@ -117,9 +169,15 @@ class StudentController extends Controller {
             return self::redirect();
         }
     }
-
-    // Edit: Info (POST)
     public function edit_info_2 ($id) {
+        // Restriction
+        $auth = (new Controller)->auth();
+
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $student = Student::find($id);
 
         if ($student != null) {
@@ -150,10 +208,16 @@ class StudentController extends Controller {
         }
     }
 
-    // Edit: Acad (GET)
-    public function edit_acad_1 ($id) {
+    // Edit: Area
+    public function edit_area_1 ($id) {
+        // Restriction
         $auth = (new Controller)->auth();
 
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $student = Student::find($id);
 
         if ($student != null) {
@@ -165,11 +229,11 @@ class StudentController extends Controller {
                 $user = User::find($section->DB_USER_id);
 
                 if ($user != null) {
-                    $section->user = '| '.strtoupper($user->name_last).', '.ucfirst($user->name_first);
+                    $section->user = '| '.$user->name_last.', '.$user->name_first;
                 }
             }
 
-            return view('pages.students.edit-acad')
+            return view('pages.students.edit-area')
                 ->with('auth', $auth)
                 ->with('grades', $grades)
                 ->with('sections', $sections)
@@ -180,9 +244,15 @@ class StudentController extends Controller {
             return self::redirect();
         }
     }
+    public function edit_area_2 ($id) {
+        // Restriction
+        $auth = (new Controller)->auth();
 
-    // Edit: Acad (POST)
-    public function edit_acad_2 ($id) {
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $student = Student::find($id);
 
         if ($student != null) {
@@ -221,17 +291,23 @@ class StudentController extends Controller {
                 ]);
             }
 
-            return redirect()->to('/students/edit/acad/'.$id);
+            return redirect()->to('/students/edit/area/'.$id);
         }
         else {
             return self::redirect();
         }
     }
 
-    // Edit: Form (GET)
+    // Edit: Form
     public function edit_form_1 ($id) {
+        // Restriction
         $auth = (new Controller)->auth();
 
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $student = Student::find($id);
 
         if ($student != null) {
@@ -317,9 +393,15 @@ class StudentController extends Controller {
             return self::redirect();
         }
     }
-
-    // Edit: Form (POST)
     public function edit_form_2 ($id) {
+        // Restriction
+        $auth = (new Controller)->auth();
+
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $student = Student::find($id);
 
         if ($student != null) {
@@ -875,10 +957,16 @@ class StudentController extends Controller {
         }
     }
 
-    // Delete (GET)
+    // Delete
     public function delete_1 ($id) {
+        // Restriction
         $auth = (new Controller)->auth();
 
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         $student = Student::find($id);
 
         if ($student != null) {
@@ -886,13 +974,19 @@ class StudentController extends Controller {
                 ->with('auth', $auth)
                 ->with('student', $student);
         }
-        else return self::redirect();
+        else {
+            return self::redirect();
+        }
     }
-
-    // Delete (POST)
     public function delete_2 ($id) {
-        $student = Student::find($id);
+        // Restriction
+        $auth = (new Controller)->auth();
 
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
         if ($student != null) {
             $student->delete();
         }

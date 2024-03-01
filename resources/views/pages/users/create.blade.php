@@ -23,7 +23,7 @@
 					<h4 class = "text-center">User Manager</h4>
 					<p class = "text-center">Manage user permission and access</p>
 				</div>
-				
+
 				<!-- Action -->
 				<div class = "col">
 					<input class = "button float-right" type = "submit" value = "Add">
@@ -47,7 +47,7 @@
 				<div class = "col">
 
 					<!-- DepEd ID -->
-					<span class = "font-bold">DepEd ID:</span>
+					<b>DepEd ID:</b>
 					<input
 						name = "email"
 						type = "text"
@@ -58,14 +58,15 @@
 
 					@if($errors->has('email'))
 
-						<span class = "error">* This DepEd ID has already been taken</span>
+						<b class = "error">* This DepEd ID has already been taken</b>
+						<br>
 
 					@endif
 
 					<br>
 
 					<!-- Password -->
-					<span class = "font-bold">Password (min. 10 characters):</span>
+					<b>Password (min. 10 characters):</b>
 					<input
 						name = "password"
 						type = "password"
@@ -76,7 +77,7 @@
 					<br>
 
 					<!-- Last Name -->
-					<span class = "font-bold">Last Name:</span>
+					<b>Last Name:</b>
 					<input
 						name = "name_last"
 						type = "text"
@@ -87,7 +88,7 @@
 					<br>
 
 					<!-- First Name -->
-					<span class = "font-bold">First Name:</span>
+					<b>First Name:</b>
 					<input
 						name = "name_first"
 						type = "text"
@@ -98,7 +99,7 @@
 					<br>
 
 					<!-- Role -->
-					<span class = "font-bold">Role:</span>
+					<b>Role:</b>
 					<select name = "DB_ROLE_id" required>
 						<option value = ""></option>
 
@@ -130,7 +131,7 @@
 				<div class = "col">
 
 					<!-- Designated Grade -->
-					<span class = "font-bold">Designated Grade:</span>
+					<b>Designated Grade:</b>
 					<select name = "DB_GRADE_id">
 						<option value = ""></option>
 
@@ -144,13 +145,13 @@
 					<p>This field is used for grade level coordinators and teachers</p>
 
 					<!-- Designated Section -->
-					<span class = "font-bold">Designated Section:</span>
+					<b>Designated Section:</b>
 					<select name = "DB_SECTION_id">
 						<option value = ""></option>
 
 						@foreach ($sections as $section)
 
-							<option value = "{{ $section->id }}" {{ old("DB_SECTION_id") == $section->id ? "selected" : "" }}>Grade {{ $section->grade }} - {{ $section->section }}</option>
+							<option value = "{{ $section->id }}" {{ old("DB_SECTION_id") == $section->id ? "selected" : "" }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
 
 						@endforeach
 

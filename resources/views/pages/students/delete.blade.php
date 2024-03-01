@@ -23,7 +23,7 @@
 					<h4 class = "text-center">Student Manager</h4>
 					<p class = "text-center">Manage student info, grades, and forms</p>
 				</div>
-				
+
 				<!-- Action -->
 				<div class = "col">
 				</div>
@@ -45,7 +45,7 @@
 				<!-- Delete -->
 				<div class = "col">
                     <p class = "text-center">
-                        You are about to delete the user <b>{{ strtoupper($student->info_name_last) }}, {{ ucfirst($student->info_name_first) }} {{ ucfirst($student->info_name_middle) }} {{ ucfirst($student->info_name_suffix) }}</b>
+                        You are about to delete the user <b>{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</b>
                         <br>
                         This action cannot be reverted
                     </p>

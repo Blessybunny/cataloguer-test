@@ -23,7 +23,7 @@
 					<h4 class = "text-center">User Manager</h4>
 					<p class = "text-center">Manage user permission and access</p>
 				</div>
-				
+
 				<!-- Action -->
 				<div class = "col">
 					<input class = "button float-right" type = "submit" value = "Save">
@@ -102,7 +102,7 @@
 
 						@foreach ($sections as $section)
 
-							<option value = "{{ $section->id }}" {{ $user->DB_SECTION_id == $section->id ? "selected" : "" }}>Grade {{ $section->grade }} - {{ $section->section }}</option>
+							<option value = "{{ $section->id }}" {{ $user->DB_SECTION_id == $section->id ? "selected" : "" }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
 
 						@endforeach
 

@@ -23,7 +23,7 @@
 					<h4 class = "text-center">Section Manager</h4>
 					<p class = "text-center">Manage section names for each grade level</p>
 				</div>
-				
+
 				<!-- Action -->
 				<div class = "col">
 					<input class = "button float-right" type = "submit" value = "Save">

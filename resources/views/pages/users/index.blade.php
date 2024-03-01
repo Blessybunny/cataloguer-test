@@ -96,9 +96,8 @@
 				<div class = "col">
 					<table class = "table">
 						<tr>
-							<th>DepEd ID</th>
-							<th>Name</th>
 							<th>Role</th>
+							<th>Name</th>
 							<th>Designation</th>
 							<th>School Year</th>
 							<th colspan = "2">Action</th>
@@ -107,11 +106,10 @@
 						@foreach ($users as $user)
 
 							<tr>
-								<td class = "text-center" style = "width: 200px;">{{ $user->email }}</td>
-								<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
 								<td class = "text-center" style = "width: 200px;">{{ $user->role }}</td>
+								<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
 								<td class = "text-center" style = "width: 200px;">{{ $user->designation }}</td>
-								<td class = "text-center" style = "width: 200px;">N/A</td>
+								<td class = "text-center" style = "width: 200px;"></td>
 								<td class = "text-center" style = "width: 100px;">
 									<a href = "{{ url('/users/view', $user->id) }}">View</a>
 								</td>

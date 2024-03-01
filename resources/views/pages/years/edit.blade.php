@@ -23,7 +23,7 @@
 					<h4 class = "text-center">School Year Manager</h4>
 					<p class = "text-center">Manage school year monthly attendance counts and more</p>
 				</div>
-				
+
 				<!-- Action -->
 				<div class = "col">
 					<input class = "button float-right" type = "submit" value = "Save">
@@ -47,7 +47,7 @@
 				<div class = "col-6">
 
 					<!-- Principal -->
-					<span class = "font-bold">Principal:</span>
+					<b>Principal:</b>
 					<select name = "DB_USER_id">
 						<option value = ""></option>
 
@@ -61,7 +61,7 @@
 					<br>
 
 					<!-- January -->
-					<span class = "font-bold">January Attendance Count:</span>
+					<b>January Attendance Count:</b>
 					<input
 						name = "attendance_jan_t"
 						type = "number"
@@ -72,7 +72,7 @@
 					<br>
 
 					<!-- February -->					
-					<span class = "font-bold">February Attendance Count:</span>
+					<b>February Attendance Count:</b>
 					<input
 						name = "attendance_feb_t"
 						type = "number"
@@ -83,7 +83,7 @@
 					<br>
 
 					<!-- March -->
-					<span class = "font-bold">March Attendance Count:</span>
+					<b>March Attendance Count:</b>
 					<input
 						name = "attendance_mar_t"
 						type = "number"
@@ -94,7 +94,7 @@
 					<br>
 
 					<!-- April -->
-					<span class = "font-bold">April Attendance Count:</span>
+					<b>April Attendance Count:</b>
 					<input
 						name = "attendance_apr_t"
 						type = "number"
@@ -105,7 +105,7 @@
 					<br>
 
 					<!-- May -->
-					<span class = "font-bold">May Attendance Count:</span>
+					<b>May Attendance Count:</b>
 					<input
 						name = "attendance_may_t"
 						type = "number"
@@ -116,7 +116,7 @@
 					<br>
 
 					<!-- June -->
-					<span class = "font-bold">June Attendance Count:</span>
+					<b>June Attendance Count:</b>
 					<input
 						name = "attendance_jun_t"
 						type = "number"
@@ -127,7 +127,7 @@
 					<br>
 
 					<!-- July -->
-					<span class = "font-bold">July Attendance Count:</span>
+					<b>July Attendance Count:</b>
 					<input
 						name = "attendance_jul_t"
 						type = "number"
@@ -138,7 +138,7 @@
 					<br>
 
 					<!-- August -->
-					<span class = "font-bold">August Attendance Count:</span>
+					<b>August Attendance Count:</b>
 					<input
 						name = "attendance_aug_t"
 						type = "number"
@@ -149,7 +149,7 @@
 					<br>
 
 					<!-- September -->
-					<span class = "font-bold">September Attendance Count:</span>
+					<b>September Attendance Count:</b>
 					<input
 						name = "attendance_sep_t"
 						type = "number"
@@ -160,7 +160,7 @@
 					<br>
 
 					<!-- October -->
-					<span class = "font-bold">October Attendance Count:</span>
+					<b>October Attendance Count:</b>
 					<input
 						name = "attendance_oct_t"
 						type = "number"
@@ -171,7 +171,7 @@
 					<br>
 
 					<!-- November -->
-					<span class = "font-bold">November Attendance Count:</span>
+					<b>November Attendance Count:</b>
 					<input
 						name = "attendance_nov_t"
 						type = "number"
@@ -182,7 +182,7 @@
 					<br>
 
 					<!-- December -->
-					<span class = "font-bold">December Attendance Count:</span>
+					<b>December Attendance Count:</b>
 					<input
 						name = "attendance_dec_t"
 						type = "number"
@@ -195,7 +195,7 @@
 				<div class = "col-6">
 
 					<!-- Legacy Principal Last Name -->
-					<span class = "font-bold">Legacy Principal Last Name:</span>
+					<b>Legacy Principal Last Name:</b>
 					<input
 						name = "PRESERVE_DB_USER_name_last"
 						type = "text"
@@ -205,7 +205,7 @@
 					<p>This field is used if the appropriate principal is NOT on the list</p>
 
 					<!-- Legacy Principal First Name -->
-					<span class = "font-bold">Legacy Principal First Name:</span>
+					<b>Legacy Principal First Name:</b>
 					<input
 						name = "PRESERVE_DB_USER_name_first"
 						type = "text"

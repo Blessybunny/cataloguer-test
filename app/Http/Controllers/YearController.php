@@ -8,10 +8,15 @@ use App\Models\Year;
 use Request;
 
 class YearController extends Controller {
-    // Protect
-    public function protect ($auth) {
-        if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
-            return false;
+    // Restriction
+    public function restriction ($auth) {
+        if ($auth != null) {
+            if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
         else {
             return true;
@@ -20,10 +25,10 @@ class YearController extends Controller {
 
     // Redirect
     public function redirect () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -31,12 +36,12 @@ class YearController extends Controller {
         return redirect()->to('/years');
     }
 
-    // Index (GET)
+    // Index
     public function index_1 () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -49,13 +54,11 @@ class YearController extends Controller {
             ->with('auth', $auth)
             ->with('years', $years);
     }
-
-    // Index (POST)
     public function index_2 () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -88,12 +91,12 @@ class YearController extends Controller {
         }
     }
 
-    // Create (GET)
+    // Create
     public function create_1 () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -104,13 +107,11 @@ class YearController extends Controller {
             ->with('auth', $auth)
             ->with('users', $users);
     }
-
-    // Create (POST)
     public function create_2 () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -163,12 +164,12 @@ class YearController extends Controller {
         return self::redirect();
     }
 
-    // View (GET)
+    // View
     public function view ($id) {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -187,12 +188,12 @@ class YearController extends Controller {
         }
     }
 
-    // Edit (GET)
+    // Edit
     public function edit_1 ($id) {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -211,13 +212,11 @@ class YearController extends Controller {
             return self::redirect();
         }
     }
-
-    // Edit (POST)
     public function edit_2 ($id) {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -272,11 +271,12 @@ class YearController extends Controller {
         }
     }
 
-    // FUNCTION: format year (array)
+    // FUNCTION: format year (multiple)
     // Index (GET)
     // Index (POST)
     public function func_format_years ($years) {
         foreach ($years as $year) {
+            // Name
             $user = User::find($year->DB_USER_id);
             $user_name_last = $year->PRESERVE_DB_USER_name_last;
             $user_name_first = $year->PRESERVE_DB_USER_name_first;
@@ -290,13 +290,6 @@ class YearController extends Controller {
             }
             else if (
                 $user == null &&
-                $user_name_last == null &&
-                $user_name_first == null
-            ) {
-                $year->principal = 'N/A';
-            }
-            else if (
-                $user == null &&
                 $user_name_last != null &&
                 $user_name_first != null
             ) {
@@ -304,12 +297,14 @@ class YearController extends Controller {
             }
         }
 
+        // Return
         return $years;
     }
 
     // FUNCTION: format year (single)
     // View (GET)
     public function func_format_year ($year) {
+        // Name
         $user = User::find($year->DB_USER_id);
         $user_name_last = $year->PRESERVE_DB_USER_name_last;
         $user_name_first = $year->PRESERVE_DB_USER_name_first;
@@ -323,19 +318,13 @@ class YearController extends Controller {
         }
         else if (
             $user == null &&
-            $user_name_last == null &&
-            $user_name_first == null
-        ) {
-            $year->principal = 'N/A';
-        }
-        else if (
-            $user == null &&
             $user_name_last != null &&
             $user_name_first != null
         ) {
             $year->principal = $user_name_last.', '.$user_name_first.' (Legacy)';
         }
 
+        // Return
         return $year;
     }
 }

@@ -4,7 +4,7 @@
 
 @section('content')
 
-	<form action = "{{ url('/students/edit/acad', $student->id) }}" method = "POST">
+	<form action = "{{ url('/students/edit/area', $student->id) }}" method = "POST">
 
 		@csrf
 
@@ -36,7 +36,7 @@
 				<div class = "col">
 					<hr>
 					<h6 class = "text-center">Edit</h6>
-					<p class = "text-center">{{ strtoupper($student->info_name_last) }}, {{ ucfirst($student->info_name_first) }} {{ ucfirst($student->info_name_middle) }} {{ ucfirst($student->info_name_suffix) }}</p>
+					<p class = "text-center">{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</p>
 					<hr>
 				</div>
 
@@ -50,7 +50,7 @@
 					<div class = "col-3">
 
 						<!-- School Year -->
-						<span class = "font-bold">Grade {{ $grade->grade }} School Year:</span>
+						<b>Grade {{ $grade->grade }} School Year:</b>
 						<select name = "DB_YEAR_id_g{{ $grade->grade }}">
 							<option value = ""></option>
 
@@ -66,7 +66,7 @@
 					<div class = "col-3">
 
 						<!-- Section -->
-						<span class = "font-bold">Grade {{ $grade->grade }} Section | Adviser:</span>
+						<b>Grade {{ $grade->grade }} Section | Adviser:</b>
 						<select name = "DB_SECTION_id_g{{ $grade->grade }}">
 							<option value = ""></option>
 
@@ -86,7 +86,7 @@
 					<div class = "col-6">
 
 						<!-- Legacy Grade Section -->
-						<span class = "font-bold">Legacy Grade {{ $grade->grade }} Section:</span>
+						<b>Legacy Grade {{ $grade->grade }} Section:</b>
 						<input
 							name = "PRESERVE_DB_SECTION_name_g{{ $grade->grade }}"
 							type = "text"
@@ -96,7 +96,7 @@
 						<p>This field is used if the appropriate section is NOT on the list</p>
 
 						<!-- Legacy Adviser Last Name -->
-						<span class = "font-bold">Legacy Grade {{ $grade->grade }} Adviser Last Name:</span>
+						<b>Legacy Grade {{ $grade->grade }} Adviser Last Name:</b>
 						<input
 							name = "PRESERVE_DB_USER_name_last_g{{ $grade->grade }}"
 							type = "text"
@@ -106,7 +106,7 @@
 						<p>This field is used if the appropriate adviser is NOT on the list</p>
 
 						<!-- Legacy Adviser First Name -->
-						<span class = "font-bold">Legacy Grade {{ $grade->grade }} Adviser First Name:</span>
+						<b>Legacy Grade {{ $grade->grade }} Adviser First Name:</b>
 						<input
 							name = "PRESERVE_DB_USER_name_first_g{{ $grade->grade }}"
 							type = "text"

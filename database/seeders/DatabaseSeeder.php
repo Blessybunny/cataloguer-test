@@ -85,51 +85,100 @@ class DatabaseSeeder extends Seeder {
         Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
     }
 
-    // USER: Principal, Adviser
+    // USER: Debug
     public function user () : void {
+        // 1
         User::create([
             'DB_ROLE_id' => 1,
 
-            'email' => 'user1',
+            'email' => 'user1_1',
             'password' => bcrypt('password'),
             'name_last' => 'Olsen',
             'name_first' => 'Tulip',
         ]);
         User::create([
+            'DB_ROLE_id' => 1,
+
+            'email' => 'user1_2',
+            'password' => bcrypt('password'),
+            'name_last' => 'Olsen',
+            'name_first' => 'Lake',
+        ]);
+
+        // 2
+        User::create([
             'DB_ROLE_id' => 2,
 
-            'email' => 'user2',
+            'email' => 'user2_1',
             'password' => bcrypt('password'),
             'name_last' => 'Cosay',
             'name_first' => 'Jesse',
         ]);
         User::create([
+            'DB_ROLE_id' => 2,
+
+            'email' => 'user2_2',
+            'password' => bcrypt('password'),
+            'name_last' => 'Dracula',
+            'name_first' => 'Alan',
+        ]);
+
+        // 3
+        User::create([
             'DB_ROLE_id' => 3,
 
-            'email' => 'user3',
+            'email' => 'user3_1',
             'password' => bcrypt('password'),
             'name_last' => 'Monroe',
             'name_first' => 'Grace',
         ]);
         User::create([
-            'DB_ROLE_id' => 4,
+            'DB_ROLE_id' => 3,
 
-            'email' => 'user4',
+            'email' => 'user3_2',
             'password' => bcrypt('password'),
             'name_last' => 'Laurent',
             'name_first' => 'Simon',
         ]);
-        User::create([
-            'DB_ROLE_id' => 5,
 
-            'email' => 'user5',
+        // 4
+        User::create([
+            'DB_ROLE_id' => 4,
+
+            'email' => 'user4_1',
             'password' => bcrypt('password'),
             'name_last' => 'Hughes',
             'name_first' => 'Amelia',
         ]);
+        User::create([
+            'DB_ROLE_id' => 4,
+
+            'email' => 'user4_2',
+            'password' => bcrypt('password'),
+            'name_last' => 'Timmens',
+            'name_first' => 'Alrick',
+        ]);
+
+        // 5
+        User::create([
+            'DB_ROLE_id' => 5,
+
+            'email' => 'user5_1',
+            'password' => bcrypt('password'),
+            'name_last' => 'Corgi',
+            'name_first' => 'Atticus',
+        ]);
+        User::create([
+            'DB_ROLE_id' => 5,
+
+            'email' => 'user5_2',
+            'password' => bcrypt('password'),
+            'name_last' => 'One',
+            'name_first' => 'One',
+        ]);
     }
 
-    // YEAR: 2020-2024
+    // YEAR: Debug
     public function year () : void {
         Year::create([
             'year' => 2024,

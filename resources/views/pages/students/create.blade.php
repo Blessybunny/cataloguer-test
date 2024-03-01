@@ -23,7 +23,7 @@
 					<h4 class = "text-center">Student Manager</h4>
 					<p class = "text-center">Manage student info, grades, and forms</p>
 				</div>
-				
+
 				<!-- Action -->
 				<div class = "col">
 					<input class = "button float-right" type = "submit" value = "Add">
@@ -47,7 +47,7 @@
 				<div class = "col">
 
 					<!-- Learner Reference Number -->
-					<span class = "font-bold">Learner Reference Number:</span>
+					<b>Learner Reference Number:</b>
 					<input
 						name = "info_lrn"
 						type = "text"
@@ -58,14 +58,15 @@
 
 					@if($errors->has('info_lrn'))
 
-						<span class = "error">* This LRN has already been taken.</span>
+						<b class = "error">* This LRN has already been taken.</b>
+						<br>
 
 					@endif
 
 					<br>
 
 					<!-- Last Name -->
-					<span class = "font-bold">Last Name:</span>
+					<b>Last Name:</b>
 					<input
 						name = "info_name_last"
 						type = "text"
@@ -76,7 +77,7 @@
 					<br>
 
 					<!-- First Name -->
-					<span class = "font-bold">First Name:</span>
+					<b>First Name:</b>
 					<input
 						name = "info_name_first"
 						type = "text"
@@ -87,7 +88,7 @@
 					<br>
 
 					<!-- Middle Name -->
-					<span class = "font-bold">Middle Name:</span>
+					<b>Middle Name:</b>
 					<input
 						name = "info_name_middle"
 						type = "text"
@@ -98,7 +99,7 @@
 					<br>
 
 					<!-- Birthdate -->
-					<span class = "font-bold">Birthdate (MM/DD/YYYY):</span>
+					<b>Birthdate (MM/DD/YYYY):</b>
 					<input
 						name = "info_birthdate"
 						type = "text"
@@ -109,7 +110,7 @@
 					<br>
 
 					<!-- Sex -->
-					<span class = "font-bold">Sex:</span>
+					<b>Sex:</b>
 					<select name = "info_sex" required>
 						<option value = ""></option>
 						<option value = "Male" {{ old("info_sex") == "Male" ? "selected" : "" }}>Male</option>
@@ -136,7 +137,7 @@
 				<div class = "col">
 
 					<!-- Name Suffix -->
-					<span class = "font-bold">Name Suffix:</span>
+					<b>Name Suffix:</b>
 					<input
 						name = "info_name_suffix"
 						type = "text"

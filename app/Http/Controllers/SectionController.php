@@ -10,10 +10,15 @@ use App\Models\User;
 use Request;
 
 class SectionController extends Controller {
-    // Protect
-    public function protect ($auth) {
-        if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
-            return false;
+    // Restriction
+    public function restriction ($auth) {
+        if ($auth != null) {
+            if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
         else {
             return true;
@@ -22,10 +27,10 @@ class SectionController extends Controller {
 
     // Redirect
     public function redirect () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -33,12 +38,12 @@ class SectionController extends Controller {
         return redirect()->to('/sections');
     }
 
-    // Index (GET)
+    // Index
     public function index () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -50,12 +55,12 @@ class SectionController extends Controller {
             ->with('grades', $grades);
     }
 
-    // Edit (GET)
+    // Edit
     public function edit_1 ($id) {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -74,13 +79,11 @@ class SectionController extends Controller {
             return self::redirect();
         }
     }
-
-    // Edit (POST)
     public function edit_2 ($id) {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -108,7 +111,7 @@ class SectionController extends Controller {
         }
     }
 
-    // Function: apply user preserves from all students with the student's section ID on name change (strict)
+    // FUNCTION: apply user preserves from all students with the student's section ID on name change (strict)
     // Edit (POST)
     public function func_preserve_STUDENT_User_on_name_change ($grade, $section, $section_old) {
         if ($section_old->section !== $section->section) {
@@ -130,7 +133,7 @@ class SectionController extends Controller {
         }
     }
 
-    // Function: apply section preserves from all students with the student's section ID on name change (strict)
+    // FUNCTION: apply section preserves from all students with the student's section ID on name change (strict)
     // Edit (POST)
     public function func_preserve_STUDENT_Section_on_name_change ($grade, $section, $section_old) {
         if ($section_old->section !== $section->section) {

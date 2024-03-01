@@ -23,7 +23,7 @@
 					<h4 class = "text-center">User Manager</h4>
 					<p class = "text-center">Manage user permission and access</p>
 				</div>
-				
+
 				<!-- Action -->
 				<div class = "col">
 				</div>
@@ -45,7 +45,7 @@
 				<!-- Delete -->
 				<div class = "col">
                     <p class = "text-center">
-                        You are about to delete the user <b>{{ strtoupper($user->name_last) }}, {{ ucfirst($user->name_first) }}</b>
+                        You are about to delete the user <b>{{ $user->name_last }}, {{ $user->name_first }}</b>
                         <br>
                         This action cannot be reverted
                     </p>

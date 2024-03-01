@@ -12,10 +12,15 @@ use App\Models\Year;
 use Request;
 
 class UserController extends Controller {
-    // Protect
-    public function protect ($auth) {
-        if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
-            return false;
+    // Restriction
+    public function restriction ($auth) {
+        if ($auth != null) {
+            if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
+                return false;
+            }
+            else {
+                return true;
+            }
         }
         else {
             return true;
@@ -24,10 +29,10 @@ class UserController extends Controller {
 
     // Redirect
     public function redirect () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -35,12 +40,12 @@ class UserController extends Controller {
         return redirect()->to('/users');
     }
 
-    // Index (GET)
+    // Index
     public function index_1 () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -56,13 +61,11 @@ class UserController extends Controller {
             ->with('auth', $auth)
             ->with('users', $users);
     }
-
-    // Index (POST)
     public function index_2 () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -100,12 +103,12 @@ class UserController extends Controller {
         }
     }
 
-    // Create (GET)
+    // Create
     public function create_1 () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -116,13 +119,7 @@ class UserController extends Controller {
             ->whereNull('DB_USER_id')
             ->get();
 
-        foreach ($sections as $section) {
-            $grade = Grade::find($section->DB_GRADE_id);
-
-            if ($grade != null) {
-                $section->grade = $grade->grade;
-            }
-        }
+        $sections = self::func_format_sections($sections);
 
         return view('pages.users.create')
             ->with('auth', $auth)
@@ -130,13 +127,11 @@ class UserController extends Controller {
             ->with('roles', $roles)
             ->with('sections', $sections);
     }
-
-    // Create (POST)
     public function create_2 () {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -170,12 +165,36 @@ class UserController extends Controller {
         return self::redirect();
     }
 
-    // Edit (GET)
-    public function edit_1 ($id) {
-        // Protect
+    // View
+    public function view ($id) {
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $user = User::find($id);
+
+        if ($user != null) {
+            $user = self::func_format_user($user);
+
+            return view('pages.users.view')
+                ->with('auth', $auth)
+                ->with('user', $user);
+        }
+        else {
+            return self::redirect();
+        }
+    }
+
+    // Edit
+    public function edit_1 ($id) {
+        // Restriction
+        $auth = (new Controller)->auth();
+
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -190,13 +209,7 @@ class UserController extends Controller {
                 ->orWhere('DB_USER_id', $user->id)
                 ->get();
 
-            foreach ($sections as $section) {
-                $grade = Grade::find($section->DB_GRADE_id);
-
-                if ($grade != null) {
-                    $section->grade = $grade->grade;
-                }
-            }
+            $sections = self::func_format_sections($sections);
 
             return view('pages.users.edit')
                 ->with('auth', $auth)
@@ -209,13 +222,11 @@ class UserController extends Controller {
             return self::redirect();
         }
     }
-
-    // Edit (POST)
     public function edit_2 ($id) {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -259,12 +270,12 @@ class UserController extends Controller {
         }
     }
 
-    // Delete (GET)
+    // Delete
     public function delete_1 ($id) {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -280,13 +291,11 @@ class UserController extends Controller {
             return self::redirect();
         }
     }
-
-    // Delete (POST)
     public function delete_2 ($id) {
-        // Protect
+        // Restriction
         $auth = (new Controller)->auth();
 
-        if (self::protect($auth)) {
+        if (self::restriction($auth)) {
             return (new Controller)->home();
         }
 
@@ -305,7 +314,7 @@ class UserController extends Controller {
         return self::redirect();
     }
 
-    // Function: format user (array)
+    // FUNCTION: format user (multiple)
     // Index (GET)
     // Index (POST)
     public function func_format_users ($users) {
@@ -316,58 +325,92 @@ class UserController extends Controller {
             if ($role != null) {
                 $user->role = $role->role;
             }
-            else {
-                $user->role = 'N/A';
-            }
 
-            // Designation - principal
-            if ($user->DB_ROLE_id == '1' || $user->DB_ROLE_id == '2') {
-                $user->designation = 'N/A';
-            }
-
-            // Designation - grade level coordinator and teachers
-            else if ($user->DB_ROLE_id == '3' || $user->DB_ROLE_id == '5') {
+            // Designation - grade level coordinator
+            // Designation - teacher
+            if ($user->DB_ROLE_id == 3 || $user->DB_ROLE_id == 5) {
                 $grade = Grade::find($user->DB_GRADE_id);
 
                 if ($grade != null) {
                     $user->designation = 'Grade '.$grade->grade;
                 }
-                else {
-                    $user->designation = 'N/A';
-                }
             }
 
             // Designation - adviser
-            else if ($user->DB_ROLE_id == '4') {
+            if ($user->DB_ROLE_id == 4) {
                 $section = Section::find($user->DB_SECTION_id);
 
                 if ($section != null) {
                     $grade = Grade::find($section->DB_GRADE_id);
                     
                     if ($grade != null) {
-                        $user->designation = 'Grade '.$grade->grade.' - '.$section->section;
+                        $user->designation = 'Grade '.$grade->grade.' | '.$section->section;
                     }
-                    else {
-                        $user->designation = 'N/A';
-                    }
-                }
-                else {
-                    $user->designation = 'N/A';
                 }
             }
 
             // Year
         }
 
+        // Return
         return $users;
     }
 
-    // Function: format section (array)
-    public function func_format_sections ($sections) {
+    // FUNCTION: format user (single)
+    // View (GET)
+    public function func_format_user ($user) {
+        // Role
+        $role = Role::find($user->DB_ROLE_id);
 
+        if ($role != null) {
+            $user->role = $role->role;
+        }
+
+        // Designation - grade level coordinator
+        // Designation - teacher
+        if ($user->DB_ROLE_id == 3 || $user->DB_ROLE_id == 5) {
+            $grade = Grade::find($user->DB_GRADE_id);
+
+            if ($grade != null) {
+                $user->designation = 'Grade '.$grade->grade;
+            }
+        }
+
+        // Designation - adviser
+        if ($user->DB_ROLE_id == 4) {
+            $section = Section::find($user->DB_SECTION_id);
+
+            if ($section != null) {
+                $grade = Grade::find($section->DB_GRADE_id);
+                
+                if ($grade != null) {
+                    $user->designation = 'Grade '.$grade->grade.' | '.$section->section;
+                }
+            }
+        }
+
+        // Year
+
+        // Return
+        return $user;
+    }
+
+    // FUNCTION: format section (multiple)
+    // Create (GET)
+    // Edit (GET)
+    public function func_format_sections ($sections) {
+        foreach ($sections as $section) {
+            $grade = Grade::find($section->DB_GRADE_id);
+
+            if ($grade != null) {
+                $section->grade = $grade->grade;
+            }
+        }
+
+        return $sections;
     } 
 
-    // Function: validate role
+    // FUNCTION: validate role
     // Edit (POST)
     // Create (POST)
     public function func_validate_role ($validate) {
@@ -386,10 +429,10 @@ class UserController extends Controller {
         return $validate;
     }
 
-    // Function: apply user preserves from all students with the user's section ID on role change (adviser)
+    // FUNCTION: apply user preserves from all students with the user's section ID on role change (adviser)
     // Edit (POST)
     public function func_preserve_STUDENT_User_on_role_change ($user, $user_old) {
-        if ($user_old->DB_ROLE_id == '4') {
+        if ($user_old->DB_ROLE_id == 4) {
             if ($user_old->DB_ROLE_id != $user->DB_ROLE_id) {
                 $sections = Section::where('DB_USER_id', $user->id)->get();
 
@@ -411,10 +454,10 @@ class UserController extends Controller {
         }
     }
 
-    // Function: apply user preserves from all students with the user's section ID on section change (adviser)
+    // FUNCTION: apply user preserves from all students with the user's section ID on section change (adviser)
     // Edit (POST)
     public function func_preserve_STUDENT_User_on_section_change ($user, $user_old) {
-        if ($user_old->DB_ROLE_id == '4') {
+        if ($user_old->DB_ROLE_id == 4) {
             if ($user_old->DB_SECTION_id != $user->DB_SECTION_id) {
                 $sections = Section::where('DB_USER_id', $user->id)->get();
 
@@ -436,10 +479,10 @@ class UserController extends Controller {
         }
     }
 
-    // Function: apply user preserves from all years with the user's ID on role change (principal)
+    // FUNCTION: apply user preserves from all years with the user's ID on role change (principal)
     // Edit (POST)
     public function func_preserve_YEAR_User_on_role_change ($user, $user_old) {
-        if ($user_old->DB_ROLE_id == '1') {
+        if ($user_old->DB_ROLE_id == 1) {
             if ($user_old->DB_ROLE_id != $user->DB_ROLE_id) {
                 $years = Year::where('DB_USER_id', $user->id)->get();
 
@@ -455,7 +498,7 @@ class UserController extends Controller {
         }
     }
 
-    // Function: find sections with the user's ID and erase those sections' user IDs
+    // FUNCTION: find sections with the user's ID and erase those sections' user IDs
     // Edit (POST)
     public function func_section_unassign ($user) {
         $sections = Section::where('DB_USER_id', $user->id)->get();
@@ -467,11 +510,11 @@ class UserController extends Controller {
         }
     }
 
-    // Function: find a section with the user's ID and update that section's user ID with the user's ID (adviser)
-    // Function: erase user preserves from all students with the user's section ID (adviser)
+    // FUNCTION: find a section with the user's ID and update that section's user ID with the user's ID (adviser)
+    // FUNCTION: erase user preserves from all students with the user's section ID (adviser)
     // Edit (POST)
     public function func_section_reassign ($user) {
-        if ($user->DB_ROLE_id == '4') {
+        if ($user->DB_ROLE_id == 4) {
             $section = Section::find($user->DB_SECTION_id);
 
             if ($section != null) {
@@ -493,7 +536,7 @@ class UserController extends Controller {
         }
     }
 
-    // Function: apply user preserves from all students with the user's section ID on deletion (adviser)
+    // FUNCTION: apply user preserves from all students with the user's section ID on deletion (adviser)
     // Delete (POST)
     public function func_delete_preserve_STUDENT_User_on_deletion ($user) {
         $sections = Section::where('DB_USER_id', $user->id)->get();
@@ -514,7 +557,7 @@ class UserController extends Controller {
         }
     }
 
-    // Function: apply user preserves from all years with the user's ID on deletion (principal)
+    // FUNCTION: apply user preserves from all years with the user's ID on deletion (principal)
     // Delete (POST)
     public function func_preserve_YEAR_User_on_deletion ($user) {
         $years = Year::where('DB_USER_id', $user->id)->get();

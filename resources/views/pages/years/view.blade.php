@@ -42,83 +42,69 @@
 			<div class = "col">
 
 				<!-- Principal -->
-				<label>
-					<span class = "font-bold">Principal:&nbsp;</span>
-					<span>{{ $year->principal }}</span>
-				</label>
+				<b>Principal:</b>
+				{{ $year->principal }}
+				<br>
 				<br>
 
 				<!-- January -->
-				<label>
-					<span class = "font-bold">January Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_jan_t }}</span>
-				</label>
+				<b>January Attendance Count:</b>
+				{{ $year->attendance_jan_t }}
+				<br>
 
 				<!-- February -->
-				<label>	
-					<span class = "font-bold">February Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_feb_t }}</span>
-				</label>
+				<b>February Attendance Count:</b>
+				{{ $year->attendance_feb_t }}
+				<br>
 
 				<!-- March -->
-				<label>	
-					<span class = "font-bold">March Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_mar_t }}</span>
-				</label>
+				<b>March Attendance Count:</b>
+				{{ $year->attendance_mar_t }}
+				<br>
 
 				<!-- April -->
-				<label>	
-					<span class = "font-bold">April Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_apr_t }}</span>
-				</label>
+				<b>April Attendance Count:</b>
+				{{ $year->attendance_apr_t }}
+				<br>
 
 				<!-- May -->
-				<label>	
-					<span class = "font-bold">May Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_may_t }}</span>
-				</label>
+				<b>May Attendance Count:</b>
+				{{ $year->attendance_may_t }}
+				<br>
 
 				<!-- June -->
-				<label>	
-					<span class = "font-bold">June Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_jun_t }}</span>
-				</label>
+				<b>June Attendance Count:</b>
+				{{ $year->attendance_jun_t }}
+				<br>
 
 				<!-- July -->
-				<label>	
-					<span class = "font-bold">July Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_jul_t }}</span>
-				</label>
+				<b>July Attendance Count:</b>
+				{{ $year->attendance_jul_t }}
+				<br>
 
 				<!-- August -->
-				<label>	
-					<span class = "font-bold">August Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_aug_t }}</span>
-				</label>
+				<b>August Attendance Count:</b>
+				{{ $year->attendance_aug_t }}
+				<br>
 
 				<!-- September -->
-				<label>	
-					<span class = "font-bold">September Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_sep_t }}</span>
-				</label>
+				<b>September Attendance Count:</b>
+				{{ $year->attendance_sep_t }}
+				<br>
 
 				<!-- October -->
-				<label>	
-					<span class = "font-bold">October Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_oct_t }}</span>
-				</label>
+				<b>October Attendance Count:</b>
+				{{ $year->attendance_oct_t }}
+				<br>
 
 				<!-- November -->
-				<label>	
-					<span class = "font-bold">November Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_nov_t }}</span>
-				</label>
+				<b>November Attendance Count:</b>
+				{{ $year->attendance_nov_t }}
+				<br>
 
 				<!-- December -->
-				<label>	
-					<span class = "font-bold">December Attendance Count:&nbsp;</span>
-					<span>{{ $year->attendance_dec_t }}</span>
-				</label>
+				<b>December Attendance Count:</b>
+				{{ $year->attendance_dec_t }}
 
 			</div>
 
