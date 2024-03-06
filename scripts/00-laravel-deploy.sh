@@ -9,5 +9,6 @@ echo "Caching routes..."
 php artisan route:cache
 
 echo "Running migrations..."
-php artisan migrate:refresh --force
-#php artisan db:seed --force
+php artisan migrate:refresh --force #rebuild database with data clearing
+#fresh - rebuild database without data clearing
+php artisan db:seed --force
