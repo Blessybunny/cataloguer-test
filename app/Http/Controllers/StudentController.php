@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
+use App\Models\Role;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\User;
@@ -11,10 +12,17 @@ use App\Models\Year;
 use Request;
 
 class StudentController extends Controller {
-    // Restriction
-    public function restriction ($auth) {
+    // RESTRICTION
+    // ALLOWED: 1, 2, 3, 4, 5
+    public function restrict ($auth) {
         if ($auth != null) {
-            if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2 || $auth->DB_ROLE_id == 3 || $auth->DB_ROLE_id == 4 || $auth->DB_ROLE_id == 5) {
+            if (
+                $auth->DB_ROLE_id == 1 ||
+                $auth->DB_ROLE_id == 2 ||
+                $auth->DB_ROLE_id == 3 ||
+                $auth->DB_ROLE_id == 4 ||
+                $auth->DB_ROLE_id == 5
+            ) {
                 return false;
             }
             else {
@@ -26,27 +34,25 @@ class StudentController extends Controller {
         }
     }
 
-    // Redirect
-    public function redirect () {
-        // Restriction
-        $auth = (new Controller)->auth();
+    // REDIRECT
+    public function redirect () { return redirect()->to('/students'); }
 
-        if (self::restriction($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Proceed
-        return redirect()->to('/students');
-    }
-
-    // Index
+    // INDEX
+    // DENIED: 1, 3, 4, 5
     public function index_1 () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
             return (new Controller)->home();
         }
+
+        // Deny (HTML)
+        $deny = new Role();
+        $deny->principal = $auth->DB_ROLE_id == 1 ? false : true;
+        $deny->grade_level_coordinator = $auth->DB_ROLE_id == 3 ? false : true;
+        $deny->adviser = $auth->DB_ROLE_id == 4 ? false : true;
+        $deny->teacher = $auth->DB_ROLE_id == 5 ? false : true;
 
         // Proceed
         $students = Student::orderBy('info_name_last', 'ASC')
@@ -57,15 +63,23 @@ class StudentController extends Controller {
 
         return view('pages.students.index')
             ->with('auth', $auth)
+            ->with('deny', $deny)
             ->with('students', $students);
     }
     public function index_2 () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
             return (new Controller)->home();
         }
+
+        // Deny (HTML)
+        $deny = new Role();
+        $deny->principal = $auth->DB_ROLE_id == 1 ? false : true;
+        $deny->grade_level_coordinator = $auth->DB_ROLE_id == 3 ? false : true;
+        $deny->adviser = $auth->DB_ROLE_id == 4 ? false : true;
+        $deny->teacher = $auth->DB_ROLE_id == 5 ? false : true;
 
         // Proceed
         $terms = Request::get('terms');
@@ -93,8 +107,9 @@ class StudentController extends Controller {
             $results = (count($results) > 0) ? $results : [];
 
             return view('pages.students.index')
-                ->with('isSearched', true)
                 ->with('auth', $auth)
+                ->with('deny', $deny)
+                ->with('isSearched', true)
                 ->with('terms', $terms)
                 ->with('results', $results);
         }
@@ -103,12 +118,23 @@ class StudentController extends Controller {
         }
     }
 
-    // Create
+    // CREATE
+    // DENIED: 1, 3, 4, 5
     public function create_1 () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -117,10 +143,20 @@ class StudentController extends Controller {
             ->with('auth', $auth);
     }
     public function create_2 () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -148,12 +184,45 @@ class StudentController extends Controller {
         return self::redirect();
     }
 
-    // Edit: Info
-    public function edit_info_1 ($id) {
-        // Restriction
+    // VIEW
+    public function view ($id) {
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $student = Student::find($id);
+
+        if ($student != null) {
+            return view('pages.students.view')
+                ->with('auth', $auth)
+                ->with('student', $student);
+        }
+        else {
+            return self::redirect();
+        }
+    }
+
+    // EDIT (Info)
+    // DENIED: 1, 3, 4, 5
+    public function edit_info_1 ($id) {
+        // Restrict
+        $auth = (new Controller)->auth();
+
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -170,10 +239,20 @@ class StudentController extends Controller {
         }
     }
     public function edit_info_2 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -201,6 +280,8 @@ class StudentController extends Controller {
                 'info_birthdate' => $validate['info_birthdate'],
             ]);
 
+            $student->touch();
+
             return redirect()->to('/students/edit/info/'.$id);
         }
         else {
@@ -208,12 +289,23 @@ class StudentController extends Controller {
         }
     }
 
-    // Edit: Area
+    // EDIT (Area)
+    // DENIED: 1, 3, 4, 5
     public function edit_area_1 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -245,10 +337,20 @@ class StudentController extends Controller {
         }
     }
     public function edit_area_2 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -262,10 +364,10 @@ class StudentController extends Controller {
                 $validate = request()->validate([
                     'DB_SECTION_id_g'.$grade->grade => 'nullable',
 
-                    'PRESERVE_DB_SECTION_name_g'.$grade->grade => 'nullable',
+                    'LG_SECTION_name_g'.$grade->grade => 'nullable',
 
-                    'PRESERVE_DB_USER_name_last_g'.$grade->grade => 'nullable',
-                    'PRESERVE_DB_USER_name_first_g'.$grade->grade => 'nullable',
+                    'LG_USER_name_last_g'.$grade->grade => 'nullable',
+                    'LG_USER_name_first_g'.$grade->grade => 'nullable',
 
                     'DB_YEAR_id_g'.$grade->grade => 'nullable',
                 ]);
@@ -273,7 +375,7 @@ class StudentController extends Controller {
                 $student->update([
                     'DB_SECTION_id_g'.$grade->grade => $validate['DB_SECTION_id_g'.$grade->grade],
 
-                    'PRESERVE_DB_SECTION_name_g'.$grade->grade => $validate['DB_SECTION_id_g'.$grade->grade] == null ? $validate['PRESERVE_DB_SECTION_name_g'.$grade->grade] : null,
+                    'LG_SECTION_name_g'.$grade->grade => $validate['DB_SECTION_id_g'.$grade->grade] == null ? $validate['LG_SECTION_name_g'.$grade->grade] : null,
 
                     'DB_YEAR_id_g'.$grade->grade => $validate['DB_YEAR_id_g'.$grade->grade],
                 ]);
@@ -286,9 +388,11 @@ class StudentController extends Controller {
                 }
 
                 $student->update([
-                    'PRESERVE_DB_USER_name_last_g'.$grade->grade => $user == null ? $validate['PRESERVE_DB_USER_name_last_g'.$grade->grade] : null,
-                    'PRESERVE_DB_USER_name_first_g'.$grade->grade => $user == null ? $validate['PRESERVE_DB_USER_name_first_g'.$grade->grade] : null,
+                    'LG_USER_name_last_g'.$grade->grade => $user == null ? $validate['LG_USER_name_last_g'.$grade->grade] : null,
+                    'LG_USER_name_first_g'.$grade->grade => $user == null ? $validate['LG_USER_name_first_g'.$grade->grade] : null,
                 ]);
+
+                $student->touch();
             }
 
             return redirect()->to('/students/edit/area/'.$id);
@@ -298,12 +402,21 @@ class StudentController extends Controller {
         }
     }
 
-    // Edit: Form
+    // EDIT (Form)
+    // DENIED: 1, 2
     public function edit_form_1 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -322,11 +435,11 @@ class StudentController extends Controller {
                     $student->{'sf9_g'.$grade->grade.'_report_section'} = $section->section;
                 }
                 else {
-                    $student->{'sf9_g'.$grade->grade.'_report_section'} = $student->{'PRESERVE_DB_SECTION_name_g'.$grade->grade};
+                    $student->{'sf9_g'.$grade->grade.'_report_section'} = $student->{'LG_SECTION_name_g'.$grade->grade};
                 }
 
-                $user_name_last = $student->{'PRESERVE_DB_USER_name_last_g'.$grade->grade};
-                $user_name_first = $student->{'PRESERVE_DB_USER_name_first_g'.$grade->grade};
+                $user_name_last = $student->{'LG_USER_name_last_g'.$grade->grade};
+                $user_name_first = $student->{'LG_USER_name_first_g'.$grade->grade};
 
                 if (
                     $user != null &&
@@ -351,8 +464,8 @@ class StudentController extends Controller {
                     $student->{'sf9_g'.$grade->grade.'_report_year'} = $year->year.'-'.$year->year + 1;
 
                     $user = User::find($year->DB_USER_id);
-                    $user_name_last = $year->PRESERVE_DB_USER_name_last;
-                    $user_name_first = $year->PRESERVE_DB_USER_name_first;
+                    $user_name_last = $year->LG_USER_name_last;
+                    $user_name_first = $year->LG_USER_name_first;
 
                     if (
                         $user != null &&
@@ -394,10 +507,18 @@ class StudentController extends Controller {
         }
     }
     public function edit_form_2 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -479,7 +600,7 @@ class StudentController extends Controller {
 
             // Various
             foreach ($grades as $grade) {
-                // SF9: Report (Form)
+                // SF9: Report
                 $validate_sf9_report = request()->validate([
                     'sf9_g'.$grade->grade.'_report_age' => 'nullable',  
                     'sf9_g'.$grade->grade.'_report_transfer_input_1' => 'nullable', 
@@ -946,8 +1067,11 @@ class StudentController extends Controller {
                     'sf10_g'.$grade->grade.'_subject_qr4_hp' => $validate_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr4_hp'],
                 ]);
 
-                // NOTE: Place special subject here
+                // All: Subject -> nihongo
             }
+
+            // Touch
+            $student->touch();
 
             // Redirect
             return redirect()->to('/students/edit/form/'.$id);
@@ -957,12 +1081,111 @@ class StudentController extends Controller {
         }
     }
 
-    // Delete
-    public function delete_1 ($id) {
-        // Restriction
+    // EDIT (Lock)
+    // DENIED: 1, 3, 4, 5
+    public function edit_lock_1 ($id) {
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $student = Student::find($id);
+
+        if ($student != null) {
+            $grades = Grade::all();
+
+            return view('pages.students.edit-lock')
+                ->with('auth', $auth)
+                ->with('student', $student)
+                ->with('grades', $grades);
+        }
+        else {
+            return self::redirect();
+        }
+    }
+    public function edit_lock_2 ($id) {
+        // Restrict
+        $auth = (new Controller)->auth();
+
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $student = Student::find($id);
+
+        if ($student != null) {
+            $grades = Grade::all();
+
+            $validate = request()->validate([
+                'ST_locker' => 'nullable',
+            ]);
+
+            $student->update([
+                'ST_locker' => isset($validate['ST_locker']) ? 1 : 0,
+            ]);
+
+            foreach ($grades as $grade) {
+                $validate = request()->validate([
+                    'ST_sf9_g'.$grade->grade.'_subject_jp' => 'nullable',
+                    'ST_sf10_g'.$grade->grade.'_subject_jp' => 'nullable',
+                ]);
+
+                $student->update([
+                    'ST_sf9_g'.$grade->grade.'_subject_jp' => isset($validate['ST_sf9_g'.$grade->grade.'_subject_jp']) ? 1 : 0,
+                    'ST_sf10_g'.$grade->grade.'_subject_jp' => isset($validate['ST_sf10_g'.$grade->grade.'_subject_jp']) ? 1 : 0,
+                ]);
+            }
+
+            $student->touch();
+
+            return redirect()->to('/students/edit/lock/'.$id);
+        }
+        else {
+            return self::redirect();
+        }
+    }
+
+    // DELETE
+    // DENIED: 1, 3, 4, 5
+    public function delete_1 ($id) {
+        // Restrict
+        $auth = (new Controller)->auth();
+
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 
@@ -979,10 +1202,20 @@ class StudentController extends Controller {
         }
     }
     public function delete_2 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if (
+            $auth->DB_ROLE_id == 1 ||
+            $auth->DB_ROLE_id == 3 ||
+            $auth->DB_ROLE_id == 4 ||
+            $auth->DB_ROLE_id == 5
+        ) {
             return (new Controller)->home();
         }
 

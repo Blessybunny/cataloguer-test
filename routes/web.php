@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 // SECTION
 Route::get('/sections', 'App\Http\Controllers\SectionController@index');
 
+Route::get('/sections/view/{id}', 'App\Http\Controllers\SectionController@view');
+
 Route::get('/sections/edit/{id}', 'App\Http\Controllers\SectionController@edit_1');
 Route::post('/sections/edit/{id}', 'App\Http\Controllers\SectionController@edit_2');
 
@@ -15,6 +17,8 @@ Route::post('/students', 'App\Http\Controllers\StudentController@index_2');
 Route::get('/students/create', 'App\Http\Controllers\StudentController@create_1');
 Route::post('/students/create', 'App\Http\Controllers\StudentController@create_2');
 
+Route::get('/students/view/{id}', 'App\Http\Controllers\StudentController@view');
+
 Route::get('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_1');
 Route::post('/students/edit/info/{id}', 'App\Http\Controllers\StudentController@edit_info_2');
 
@@ -23,6 +27,9 @@ Route::post('/students/edit/area/{id}', 'App\Http\Controllers\StudentController@
 
 Route::get('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_1');
 Route::post('/students/edit/form/{id}', 'App\Http\Controllers\StudentController@edit_form_2');
+
+Route::get('/students/edit/lock/{id}', 'App\Http\Controllers\StudentController@edit_lock_1');
+Route::post('/students/edit/lock/{id}', 'App\Http\Controllers\StudentController@edit_lock_2');
 
 Route::get('/students/delete/{id}', 'App\Http\Controllers\StudentController@delete_1');
 Route::post('/students/delete/{id}', 'App\Http\Controllers\StudentController@delete_2');

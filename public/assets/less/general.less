@@ -38,6 +38,10 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
     font-weight: bold;
 }
+input[type=checkbox] {
+    transform: scale(1.25);
+    margin-right: 10px;
+}
 input[type=number],
 input[type=password],
 input[type=search],
@@ -74,6 +78,7 @@ th {
     text-align: center;
     vertical-align: middle;
 }
+ul { list-style-type: circle; }
 
 /* CLASSES: Common */
 .border-all-dark { border: @border-dark !important; }
@@ -99,6 +104,7 @@ th {
     left: 0;
     margin: auto;
     right: 0;
+    width: fit-content;
 }
 .float-left { float: left; }
 .float-right { float: right; }

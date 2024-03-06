@@ -6,10 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     public function up () : void {
-        // All: Info
+        // All: Info (edit-info)
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->boolean('ST_locker')->default(0);
 
             $table->string('info_name_last', 50);
             $table->string('info_name_first', 50);
@@ -18,6 +20,7 @@ return new class extends Migration {
             $table->string('info_lrn', 50)->unique();
             $table->string('info_sex', 50);
             $table->string('info_birthdate', 50);
+            $table->string('info_editor', 50)->nullable();
         });
 
         // SF10: Enrollment
@@ -62,19 +65,19 @@ return new class extends Migration {
             $grade_min = 7;
             $grade_max = 10;
 
-            // SF9: Report (Acad)
+            // SF9: Report (edit-area)
             for ($i = $grade_min; $i <= $grade_max; $i++) {
                 $table->integer('DB_SECTION_id_g'.$i)->nullable(); // Used to reference a section
 
-                $table->string('PRESERVE_DB_SECTION_name_g'.$i, 50)->nullable();
+                $table->string('LG_SECTION_name_g'.$i, 50)->nullable();
 
-                $table->string('PRESERVE_DB_USER_name_last_g'.$i, 50)->nullable();
-                $table->string('PRESERVE_DB_USER_name_first_g'.$i, 50)->nullable();
+                $table->string('LG_USER_name_last_g'.$i, 50)->nullable();
+                $table->string('LG_USER_name_first_g'.$i, 50)->nullable();
 
                 $table->integer('DB_YEAR_id_g'.$i)->nullable(); // Used to reference a year
             }
 
-            // SF9: Report (Form)
+            // SF9: Report (edit-form)
             for ($i = $grade_min; $i <= $grade_max; $i++) {
                 $table->string('sf9_g'.$i.'_report_age', 50)->nullable();
                 $table->string('sf9_g'.$i.'_report_transfer_input_1', 50)->nullable();
@@ -317,7 +320,21 @@ return new class extends Migration {
                 $table->tinyInteger('sf10_g'.$i.'_subject_qr4_hp')->nullable();
             }
 
-            // NOTE: Place special subject here
+            // All: Subject -> nihongo (edit-lock)
+            for ($i = $grade_min; $i <= $grade_max; $i++) {
+                $table->boolean('ST_sf9_g'.$i.'_subject_jp')->default(0);
+                $table->boolean('ST_sf10_g'.$i.'_subject_jp')->default(0);
+
+                $table->tinyInteger('sf9_g'.$i.'_subject_qr1_jp')->nullable();
+                $table->tinyInteger('sf9_g'.$i.'_subject_qr2_jp')->nullable();
+                $table->tinyInteger('sf9_g'.$i.'_subject_qr3_jp')->nullable();
+                $table->tinyInteger('sf9_g'.$i.'_subject_qr4_jp')->nullable();
+
+                $table->tinyInteger('sf10_g'.$i.'_subject_qr1_jp')->nullable();
+                $table->tinyInteger('sf10_g'.$i.'_subject_qr2_jp')->nullable();
+                $table->tinyInteger('sf10_g'.$i.'_subject_qr3_jp')->nullable();
+                $table->tinyInteger('sf10_g'.$i.'_subject_qr4_jp')->nullable();
+            }
         });
     }
     public function down () : void { Schema::dropIfExists('students'); }

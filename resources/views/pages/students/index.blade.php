@@ -9,44 +9,39 @@
 		@csrf
 
 		<section class = "container">
-			<div class = "row">
 
-				<!-- Action -->
-				<div class = "col">
+			<!-- Header -->
+			<div class = "row">
+				<div class = "align-self-center col-4">
 					<a href = "{{ url('/home') }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>
-
-				<!-- Header -->
-				<div class = "col">
-					<h4 class = "text-center">Student Manager</h4>
-					<p class = "text-center">Manage student info, grades, and forms</p>
+				<div class = "align-self-center col-4">
+					<h4 class = "text-center">Student Index</h4>
 				</div>
+				<div class = "align-self-center col-4">
 
-				<!-- Action -->
-				<div class = "col">
-					<a href = "{{ url('/students/create') }}">
-						<button class = "button float-right" type = "button">Add</button>
-					</a>
+					@if (
+						$deny->principal &&
+						$deny->grade_level_coordinator &&
+						$deny->adviser &&
+						$deny->teacher
+					)
+
+						<a href = "{{ url('/students/create') }}">
+							<button class = "button float-right" type = "button">Add</button>
+						</a>
+
+					@endif
+
 				</div>
-
 			</div>
+
+			<!-- Search -->
 			<div class = "row">
-
-				<!-- Subtitle -->
-				<div class = "col">
+				<div class = "col-12">
 					<hr>
-					<h6 class = "text-center">Index</h6>
-					<p class = "text-center">Students</p>
-					<hr>
-				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Search -->
-				<div class = "col">
 					<label>
 						<input
 							name = "terms"
@@ -66,7 +61,7 @@
 						<br>
 						<p class = "text-center">
 
-							@if(count($results) > 0)
+							@if (count($results) > 0)
 
 								Found results for <b>{{ $terms }}</b>
 
@@ -88,17 +83,16 @@
 
 					<hr>
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Index -->
-				<div class = "col">
+			<!-- Index -->
+			<div class = "row">
+				<div class = "col-12">
 					<table class = "table">
 						<tr>
 							<th>LRN</th>
 							<th>Name</th>
-							<th colspan = "5">Actions</th>
+							<th colspan = "5">Action</th>
 						</tr>
 
 						@foreach ($students as $student)
@@ -107,28 +101,67 @@
 								<td class = "text-center" style = "width: 200px;">{{ $student->info_lrn }}</td>
 								<td>{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</td>
 								<td class = "text-center" style = "width: 100px;">
-									<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
+									<a href = "{{ url('/students/view', $student->id) }}">View</a>
 								</td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "{{ url('/students/edit/area', $student->id) }}">Edit Areas</a>
-								</td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
-								</td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "#">View Report</a>
-								</td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "#">Settings</a>
-								</td>
+
+								@if (
+									$deny->principal &&
+									$deny->grade_level_coordinator &&
+									$deny->adviser &&
+									$deny->teacher
+								)
+
+									<td class = "text-center" style = "width: 100px;">
+										<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
+									</td>
+
+								@endif
+
+								@if (
+									$deny->principal &&
+									$deny->grade_level_coordinator &&
+									$deny->adviser &&
+									$deny->teacher
+								)
+
+									<td class = "text-center" style = "width: 100px;">
+										<a href = "{{ url('/students/edit/area', $student->id) }}">Edit Areas</a>
+									</td>
+
+								@endif
+
+								@if (
+									$deny->principal &&
+									$deny->teacher
+								)
+
+									<td class = "text-center" style = "width: 100px;">
+										<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
+									</td>
+
+								@endif
+
+								@if (
+									$deny->principal &&
+									$deny->grade_level_coordinator &&
+									$deny->adviser &&
+									$deny->teacher
+								)
+
+									<td class = "text-center" style = "width: 100px;">
+											<a href = "{{ url('/students/edit/lock', $student->id) }}">Settings</a>
+									</td>
+
+								@endif
+
 							</tr>
 
 						@endforeach
 
 					</table>
 				</div>
-
 			</div>
+
 		</section>
 
 	</form>

@@ -322,7 +322,7 @@
 							name = "sf9_g{{ $grade->grade }}_attendance_feb_p"
 							type = "number"
 							min = "0"
-							max = "28"
+							max = "29"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_p'} }}"
 						>
 					</td>
@@ -332,7 +332,7 @@
 							name = "sf9_g{{ $grade->grade }}_attendance_feb_a"
 							type = "number"
 							min = "0"
-							max = "28"
+							max = "29"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_a'} }}"
 						>
 					</td>

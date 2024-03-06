@@ -9,50 +9,39 @@
 		@csrf
 
 		<section class = "container">
-			<div class = "row">
 
-				<!-- Action -->
-				<div class = "col">
+			<!-- Header -->
+			<div class = "row">
+				<div class = "align-self-center col-4">
                     <a href = "{{ url('/users/edit', $user->id) }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>
-
-				<!-- Header -->
-				<div class = "col">
-					<h4 class = "text-center">User Manager</h4>
-					<p class = "text-center">Manage user permission and access</p>
+				<div class = "align-self-center col-4">
+					<h4 class = "text-center">User Editor</h4>
+					<p class = "text-center">{{ $user->name_last }}, {{ $user->name_first }}</p>
 				</div>
-
-				<!-- Action -->
-				<div class = "col">
+				<div class = "align-self-center col-4">
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Subtitle -->
-				<div class = "col">
+			<!-- Danger -->
+			<div class = "row">
+				<div class = "col-12">
 					<hr>
-					<h6 class = "text-center">Danger Zone</h6>
-					<p class = "text-center">Some actions become permanent</p>
+					<h6 class = "text-center">Danger</h6>
 					<hr>
 				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Delete -->
-				<div class = "col">
+				<div class = "col-12">
                     <p class = "text-center">
-                        You are about to delete the user <b>{{ $user->name_last }}, {{ $user->name_first }}</b>
+                        You are about to delete <b>{{ $user->name_last }}, {{ $user->name_first }}</b>
                         <br>
                         This action cannot be reverted
                     </p>
 					<input class = "button float-center" type = "submit" value = "Confirm and Delete">
 				</div>
-
 			</div>
+
 		</section>
 
 	</form>

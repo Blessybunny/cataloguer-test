@@ -5,41 +5,28 @@
 @section('content')
 
 	<section class = "container">
-		<div class = "row">
 
-			<!-- Action -->
-			<div class = "col">
+		<!-- Header -->
+		<div class = "row">
+			<div class = "align-self-center col-4">
 				<a href = "{{ url('/users') }}">
 					<button class = "button" type = "button">Back</button>
 				</a>
 			</div>
-
-			<!-- Header -->
-			<div class = "col">
-				<h4 class = "text-center">User Manager</h4>
-				<p class = "text-center">Manage user permission and access</p>
-			</div>
-
-			<!-- Action -->
-			<div class = "col">
-			</div>
-
-		</div>
-		<div class = "row">
-
-			<!-- Subtitle -->
-			<div class = "col">
-				<hr>
-				<h6 class = "text-center">Edit</h6>
+			<div class = "align-self-center col-4">
+				<h4 class = "text-center">User Viewer</h4>
 				<p class = "text-center">{{ $user->name_last }}, {{ $user->name_first }}</p>
+			</div>
+			<div class = "align-self-center col-4">
+			</div>
+		</div>
+
+		<!-- View -->
+		<div class = "row">
+			<div class = "col-12">
 				<hr>
 			</div>
-
-		</div>
-		<div class = "row">
-
-			<!-- View -->
-			<div class = "col">
+			<div class = "col-12">
 
 				<!-- DepEd ID -->
 				<b>DepEd ID:</b>
@@ -61,10 +48,14 @@
 				<!-- Designation -->
 				<b>Designation:</b>
 				{{ $user->designation }}
+				<br>
+
+				<!-- School Year -->
+				<b>School Year:</b>
 
 			</div>
-
 		</div>
+
 	</section>
 
 @endsection

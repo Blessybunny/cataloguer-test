@@ -1,5 +1,11 @@
+CHECKPOINT:
+    - StudentController.php (Edit - lock)
+
+                boolean('SAFETY_locker')
+                string('SAFETY_editor', 50)
+
+                // find a comfortable place for nihonggo visibility
 UTMOST PRIORITY:
-    - PUT THE OTHER CONSULTATION PAPER IN THE BAG.
     - ISSUE: You can delete yourself while logged in.
         - You must be logged out for anyone to delete you.
             - Make a boolean value to "safety-lock" you while logged in, this goes false when logged out.
@@ -7,12 +13,13 @@ UTMOST PRIORITY:
             - DB_SAFETY_LOCK (boolean)
         - Logout a page when a user doesn't exist (POST methods, maybe GET)
         - Since most permission redirects lead to home, bubble home to log out the user.
-CHECKPOINT:
     - student lock boolean
+    - create a DB_PRESERVE_CREATED for creation.
+    - create a DB_PRESERVE_EDITED for editing.
     - pending addition of DB_YEAR_id for Users
-        - this property is exclusive to grade level coordinators and below
+        - this property is exclusive to grade level coordinators, advisers, and teachers
 
-To-do:
+The Easy Stuff:
     - Add a toggle button for SF9-10 editor to highlight the backgrounds of editable fields.
     - For every edit page and save action, implement a javascript window prompt to confirm changes.
     - add copyright and current year to footer
@@ -22,101 +29,142 @@ DEVELOPER'S NOTES:
     2. GRADE is hard coded across multiple files (see also layouts and views).
         - 2023_11_25_145550_create_students_table.php (migration)
         - DatabaseSeeder.php (seeder)
-    3. AUTH and ROLE are programmed as follows:
-        - Principal
-            - Section   - View + Edit (full)    - Currently missing view
-            - Student
-            - User
-            - Year
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - LOGIN:
+PERMISSION - PRINCIPAL:
+    - Section
+        - view                                  Allow   [100%] Tested
+        - edit                                  Allow   [100%] Tested
+    - Student
+        - create                                Deny    [100%] Tested
+        - view                                  Allow   [100%] Tested
+        - edit info                             Deny    [100%] Tested
+        - edit area                             Deny    [100%] Tested
+        - edit form                             Deny    [100%] Tested
+        - edit lock                             Deny    [100%] Tested
+        - delete                                Deny    [100%] Tested
+    - User
+        - create                                Allow   [100%] Tested
+        - view                                  Allow   [100%] Tested
+        - edit                                  Allow   [100%] Tested
+        - delete                                Allow   [100%] Tested
+    - Year
+        - create                                Allow   [100%] Tested
+        - view                                  Allow   [100%] Tested
+        - edit                                  Allow   [100%] Tested
+PERMISSION - ADMINISTRATOR:
+    - Section
+        - view                                  Allow   [100%] Tested
+        - edit                                  Deny    [100%] Tested
+    - Student
+        - create                                Allow   [100%] Tested
+        - view                                  Allow   [100%] Tested
+        - edit info                             Allow   [100%] Tested
+        - edit area                             Allow   [100%] Tested
+        - edit form                             Allow   [100%] Tested
+        - edit lock                             Allow   [100%] Tested
+        - delete                                Allow   [100%] Tested
+    - User
+        - create                                Allow   [100%] Tested with role boundaries
+        - view                                  Allow   [100%] Tested
+        - edit                                  Allow   [100%] Tested with role boundaries
+        - delete                                Allow   [100%] Tested with role boundaries
+    - Year
+        - create                                Deny    [100%] Tested
+        - view                                  Allow   [100%] Tested
+        - edit                                  Deny    [100%] Tested
+PERMISSION - GRADE LEVEL COORDINATOR:
+    - Student
+        - create                                Deny    [100%] Tested
+        - view                                  Allow   [100%] Tested
+        - edit info                             Deny    [100%] Tested
+        - edit area                             Deny    [100%] Tested
+        - edit form                             Allow   [100%] Tested
+        - edit lock                             Deny    [100%] Tested
+        - delete                                Deny    [100%] Tested
+PERMISSION - ADVISER:
+    - Student
+        - create                                Deny    [100%] Tested
+        - view                                  Allow   [100%] Tested
+        - edit info                             Deny    [100%] Tested
+        - edit area                             Deny    [100%] Tested
+        - edit form                             Allow   [100%] Tested
+        - edit lock                             Deny    [100%] Tested
+        - delete                                Deny    [100%] Tested
+PERMISSION - TEACHER:
+    - Student
+        - create                                Deny    [100%] Tested
+        - view                                  Allow   [100%] Tested
+        - edit info                             Deny    [100%] Tested
+        - edit area                             Deny    [100%] Tested
+        - edit form                             Deny    [100%] Tested
+        - edit lock                             Deny    [100%] Tested
+        - delete                                Deny    [100%] Tested
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - HOME: WIP
-    1. Back-end:                Status:                 Comments:
-        - route                 Complete                .
-
-    2. Front-end:
-        - home                  Complete                Authcoded -> 1, 2 (relocate these to controller, make booleans instead of brute-forcing to html)
-
-    3. Controller               Complete                Debugging
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - SECTION: View wip (remove spans)
-    1. Back-end:                Status:                 Comments:
-        - migration             Complete                .
-        - route                 Complete                .
-
-    2. Front-end:
-        - index                 Complete                .
-        - create                .                       .
-        - edit                  Complete                .
-        - delete                .                       .
-
-    3. Controller               Complete                Authcoded -> 1, 2
-                                                        Preserves -> student's adviser
-                                                        Preserves -> student's section
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - STUDENT: View wip
-    1. Back-end:                Status:                 Comments:
-        - migration             Complete                .
-        - route                 Complete                .
-
-    2. Front-end:
-        - index                 Complete                .
-        - create                Complete                .
-        - view                  WIP                     .
-        - edit-acad             Complete                .
-        - edit-form             Complete                .
-        - edit-info             Complete                .
-        - delete                Complete                .
-
-    3. Controller               Complete                Authcoded -> 1, 2, 3, 4, 5
-
-    4. Search:
+MANAGER - LOGIN: (wip)
+MANAGER - HOME: (wip)
+    - Back-end
+        - controller            [wip]
+        - route                 [100%]
+    - Front-end
+        - home                  [wip]
+MANAGER - SECTION:
+    - Back-end
+        - controller            [100%]
+        - migration             [100%]
+        - route                 [100%]
+    - Front-end
+        - index                 [100%]
+        - view                  [100%]
+        - edit                  [100%]
+MANAGER - STUDENT: (wip)
+    - Back-end
+        - controller            [100%]
+        - migration             [100%]
+        - route                 [100%]
+    - Front-end
+        - index                 [100%]
+        - create                [100%]
+        - view                  [wip]
+        
+     - Wrap EVERY SINGLE INPUT/SELECT to in a permission bubble
+        - edit-area             [100%]
+        - edit-form             [100%]
+        - edit-info             [100%]
+        - edit-lock             [100%]
+        - delete                [100%]
+    - Search
         - info_name_last
         - info_name_first
         - info_name_suffix
         - info_name_middle
         - info_lrn
         - info_sex
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - USER: (Do-not-touch)
-    1. Back-end:                Status:                 Comments:
-        - migration             Complete                .
-        - route                 Complete                .
-
-    2. Front-end:
-        - index                 Complete                .
-        - create                Complete                .
-        - view                  Complete                .
-        - edit                  Complete                .
-        - delete                Complete                .
-
-    3. Controller               Complete                Authcoded -> 1, 2
-                                                        Preserves -> year's principal
-                                                        Preserves -> student's adviser
-                                                        Rolecoded -> 1, 2, 3, 4, 5
-
-    4. Search:
+MANAGER - USER:
+    - Back-end
+        - controller            [100%]
+        - migration             [100%]
+        - route                 [100%]
+    - Front-end
+        - index                 [100%]
+        - create                [100%]
+        - view                  [100%]
+        - edit                  [100%]
+        - delete                [100%]
+    - Search
         - email
         - name_last
         - name_first
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - YEAR: (Do-not-touch)
-    1. Back-end:                Status:                 Comments:
-        - migration             Complete                .
-        - route                 Complete                .
-
-    2. Front-end:
-        - index                 Complete                .
-        - create                Complete                .
-        - view                  Complete                .
-        - edit                  Complete                .
-
-    3. Controller               Complete                Authcoded -> 1, 2
-                                                        Preserves -> year's principal
-                                                        Rolecoded -> 1
-
-    4. Search:
+MANAGER - YEAR:
+    - Back-end
+        - controller            [100%]
+        - migration             [100%]
+        - route                 [100%]
+    - Front-end
+        - index                 [100%]
+        - create                [100%]
+        - view                  [100%]
+        - edit                  [100%]
+    - Search
         - full
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 RESOURCES:
@@ -138,43 +186,9 @@ RESOURCES:
         - general.js                        Complete                .
         - students.js                       Complete                .
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ROLES:
-    Name:                           Manager:        Satus:                      Access:
-    - Principal                     Section         Done                        View + Edit (full)
-                                    Student                                     View + Create + Edit (info, acad, lock)
-                                    User                                        View + Create + Edit (full)
-                                    Year                                        View + Create + Edit (full)
-        - this role can create legacy students
-
-    - Administrator                 Section                     View
-                                    Student                     View + Create + Edit (info, acad, lock)
-                                    User                        View + Create + Edit (cannot create principal role, cannot demote another administrator)
-                                    Year                        View
-        - this role can create legacy students
-
-    - Grade Level Coordinator       Section                     .
-                                    Student                     View + Edit (form)
-                                    User                        .
-                                    Year                        .
-        - this role will now manage legacy students and their forms.
-
-    - Adviser                       Section                     .
-                                    Student                     View + Edit (form)
-                                    User                        .
-                                    Year                        .
-
-    - Teacher                       Section                     .
-                                    Student                     View
-                                    User                        .
-                                    Year                        .
 
 
 
-
-
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PROGRESS REPORTER:
     ! Base off data from the SF9 FIELDS ONLY.
     - coming soon!
@@ -191,3 +205,27 @@ JUNKYARD:
         padding: calc(@size-spacing / 2);
     }
 
+
+            - User manual notes:
+                - sections are a sensitive form of data and have to be exlusive to principals.
+                - school years are best managed by principals where they are fit to use their role
+                  to assign themselves or another into the record. administrators can ask their
+                  principal to create legacy school years if ever there are missing records.
+                - students are a sensitive form of data and can only be viewd and lock-toggled for
+                  this role.
+                - users can be modified by the principal, and can exclusively add another principal
+                  should one step down from the position.
+
+
+
+
+
+                  
+        // Deny (backend) user create POST and edit POST
+        if ($auth->DB_ROLE_id == 2) {
+            $check = request()->validate(['DB_ROLE_id' => 'required']);
+
+            if ($check['DB_ROLE_id'] != '3' && $check['DB_ROLE_id'] != '4' && $check['DB_ROLE_id'] && '5') {
+                return (new Controller)->home();
+            }
+        }

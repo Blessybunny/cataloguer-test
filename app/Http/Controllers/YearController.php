@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Grade;
+use App\Models\Role;
+use App\Models\Section;
+use App\Models\Student;
 use App\Models\User;
 use App\Models\Year;
 
 use Request;
 
 class YearController extends Controller {
-    // Restriction
-    public function restriction ($auth) {
+    // RESTRICTION
+    // ALLOWED: 1, 2
+    public function restrict ($auth) {
         if ($auth != null) {
-            if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
+            if (
+                $auth->DB_ROLE_id == 1 ||
+                $auth->DB_ROLE_id == 2
+            ) {
                 return false;
             }
             else {
@@ -23,27 +31,22 @@ class YearController extends Controller {
         }
     }
 
-    // Redirect
-    public function redirect () {
-        // Restriction
-        $auth = (new Controller)->auth();
+    // REDIRECT
+    public function redirect () { return redirect()->to('/years'); }
 
-        if (self::restriction($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Proceed
-        return redirect()->to('/years');
-    }
-
-    // Index
+    // INDEX
+    // DENIED: 2
     public function index_1 () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
             return (new Controller)->home();
         }
+
+        // Deny (HTML)
+        $deny = new Role();
+        $deny->administrator = $auth->DB_ROLE_id == 2 ? false : true;
 
         // Proceed
         $years = Year::orderBy('year', 'DESC')->get();
@@ -52,15 +55,20 @@ class YearController extends Controller {
 
         return view('pages.years.index')
             ->with('auth', $auth)
+            ->with('deny', $deny)
             ->with('years', $years);
     }
     public function index_2 () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
             return (new Controller)->home();
         }
+
+        // Deny (HTML)
+        $deny = new Role();
+        $deny->administrator = $auth->DB_ROLE_id == 2 ? false : true;
 
         // Proceed
         $terms = Request::get('terms');
@@ -81,8 +89,9 @@ class YearController extends Controller {
             $results = self::func_format_years($results);
 
             return view('pages.years.index')
-                ->with('isSearched', true)
                 ->with('auth', $auth)
+                ->with('deny', $deny)
+                ->with('isSearched', true)
                 ->with('terms', $terms)
                 ->with('results', $results);
         }
@@ -91,12 +100,18 @@ class YearController extends Controller {
         }
     }
 
-    // Create
+    // CREATE
+    // DENIED: 2
     public function create_1 () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if ($auth->DB_ROLE_id == 2) {
             return (new Controller)->home();
         }
 
@@ -108,10 +123,15 @@ class YearController extends Controller {
             ->with('users', $users);
     }
     public function create_2 () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if ($auth->DB_ROLE_id == 2) {
             return (new Controller)->home();
         }
 
@@ -119,8 +139,8 @@ class YearController extends Controller {
         $validate = request()->validate([
             'DB_USER_id' => 'nullable',
             
-            'PRESERVE_DB_USER_name_last' => 'nullable',
-            'PRESERVE_DB_USER_name_first' => 'nullable',
+            'LG_USER_name_last' => 'nullable',
+            'LG_USER_name_first' => 'nullable',
 
             'year' => 'required|unique:years,year',
 
@@ -141,8 +161,8 @@ class YearController extends Controller {
         Year::create([
             'DB_USER_id' => $validate['DB_USER_id'],
 
-            'PRESERVE_DB_USER_name_last' =>  $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_last'] : null,
-            'PRESERVE_DB_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_first'] : null,
+            'LG_USER_name_last' =>  $validate['DB_USER_id'] == null ? $validate['LG_USER_name_last'] : null,
+            'LG_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['LG_USER_name_first'] : null,
 
             'year' => $validate['year'],
             'full' => $validate['year'].'-'.$validate['year'] + 1,
@@ -164,12 +184,12 @@ class YearController extends Controller {
         return self::redirect();
     }
 
-    // View
+    // VIEW
     public function view ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
             return (new Controller)->home();
         }
 
@@ -188,12 +208,18 @@ class YearController extends Controller {
         }
     }
 
-    // Edit
+    // EDIT
+    // DENIED: 2
     public function edit_1 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if ($auth->DB_ROLE_id == 2) {
             return (new Controller)->home();
         }
 
@@ -213,10 +239,15 @@ class YearController extends Controller {
         }
     }
     public function edit_2 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if ($auth->DB_ROLE_id == 2) {
             return (new Controller)->home();
         }
 
@@ -227,8 +258,8 @@ class YearController extends Controller {
             $validate = request()->validate([
                 'DB_USER_id' => 'nullable',
 
-                'PRESERVE_DB_USER_name_last' => 'nullable',
-                'PRESERVE_DB_USER_name_first' => 'nullable',
+                'LG_USER_name_last' => 'nullable',
+                'LG_USER_name_first' => 'nullable',
 
                 'attendance_jan_t' => 'nullable',
                 'attendance_feb_t' => 'nullable',
@@ -247,8 +278,8 @@ class YearController extends Controller {
             $year->update([
                 'DB_USER_id' => $validate['DB_USER_id'],
 
-                'PRESERVE_DB_USER_name_last' =>  $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_last'] : null,
-                'PRESERVE_DB_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['PRESERVE_DB_USER_name_first'] : null,
+                'LG_USER_name_last' => $validate['DB_USER_id'] == null ? $validate['LG_USER_name_last'] : null,
+                'LG_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['LG_USER_name_first'] : null,
 
                 'attendance_jan_t' => $validate['attendance_jan_t'],
                 'attendance_feb_t' => $validate['attendance_feb_t'],
@@ -272,14 +303,13 @@ class YearController extends Controller {
     }
 
     // FUNCTION: format year (multiple)
-    // Index (GET)
-    // Index (POST)
+    // index_1, index_2
     public function func_format_years ($years) {
         foreach ($years as $year) {
             // Name
             $user = User::find($year->DB_USER_id);
-            $user_name_last = $year->PRESERVE_DB_USER_name_last;
-            $user_name_first = $year->PRESERVE_DB_USER_name_first;
+            $user_name_last = $year->LG_USER_name_last;
+            $user_name_first = $year->LG_USER_name_first;
 
             if (
                 $user != null &&
@@ -302,12 +332,12 @@ class YearController extends Controller {
     }
 
     // FUNCTION: format year (single)
-    // View (GET)
+    // view
     public function func_format_year ($year) {
         // Name
         $user = User::find($year->DB_USER_id);
-        $user_name_last = $year->PRESERVE_DB_USER_name_last;
-        $user_name_first = $year->PRESERVE_DB_USER_name_first;
+        $user_name_last = $year->LG_USER_name_last;
+        $user_name_first = $year->LG_USER_name_first;
 
         if (
             $user != null &&

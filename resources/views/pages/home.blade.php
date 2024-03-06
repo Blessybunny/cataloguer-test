@@ -31,7 +31,7 @@
 
 					<!-- Sections -->
 
-					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
+					@if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2)
 
 						<div class = "col-3">
 							<a href = "{{ url('/sections') }}" class = "card h-100">
@@ -56,7 +56,7 @@
 
 					<!-- Users -->
 
-					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
+					@if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2)
 
 						<div class = "col-3">
 							<a href = "{{ url('/users') }}" class = "card h-100">
@@ -71,7 +71,7 @@
 
 					<!-- School Years -->
 
-					@if ($auth->DB_ROLE_id == "1" || $auth->DB_ROLE_id == "2")
+					@if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2)
 
 						<div class = "col-3">
 							<a href = "{{ url('/years') }}" class = "card h-100">

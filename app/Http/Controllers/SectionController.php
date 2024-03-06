@@ -3,17 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Grade;
+use App\Models\Role;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\User;
+use App\Models\Year;
 
 use Request;
 
 class SectionController extends Controller {
-    // Restriction
-    public function restriction ($auth) {
+    // RESTRICTION
+    // ALLOWED: 1, 2
+    public function restrict ($auth) {
         if ($auth != null) {
-            if ($auth->DB_ROLE_id == 1 || $auth->DB_ROLE_id == 2) {
+            if (
+                $auth->DB_ROLE_id == 1 ||
+                $auth->DB_ROLE_id == 2
+            ) {
                 return false;
             }
             else {
@@ -25,42 +31,94 @@ class SectionController extends Controller {
         }
     }
 
-    // Redirect
-    public function redirect () {
-        // Restriction
-        $auth = (new Controller)->auth();
+    // REDIRECT
+    public function redirect () { return redirect()->to('/sections'); }
 
-        if (self::restriction($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Proceed
-        return redirect()->to('/sections');
-    }
-
-    // Index
+    // INDEX
+    // DENIED: 2
     public function index () {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
             return (new Controller)->home();
         }
+
+        // Deny (HTML)
+        $deny = new Role();
+        $deny->administrator = $auth->DB_ROLE_id == 2 ? false : true;
 
         // Proceed
         $grades = Grade::all();
 
         return view('pages.sections.index')
             ->with('auth', $auth)
+            ->with('deny', $deny)
             ->with('grades', $grades);
     }
 
-    // Edit
-    public function edit_1 ($id) {
-        // Restriction
+    // VIEW
+    public function view ($id) {
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $grade = Grade::find($id);
+
+        if ($grade != null) {
+            $sections = Section::where('DB_GRADE_id', $id)
+                ->whereNotNull('section')
+                ->get();
+
+            foreach ($sections as $section) {
+                $user_4 = User::find($section->DB_USER_id);
+
+                if ($user_4 != null) {
+                    $section->user_id = $user_4->id;
+                    $section->user_name_last = $user_4->name_last;
+                    $section->user_name_first = $user_4->name_first;
+                }
+            }
+
+            $users_3 = User::orderBy('name_last', 'ASC')
+                ->orderBy('name_first', 'ASC')
+                ->where('DB_GRADE_id', $id)
+                ->where('DB_ROLE_id', 3)
+                ->get();
+            $users_5 = User::orderBy('name_last', 'ASC')
+                ->orderBy('name_first', 'ASC')
+                ->where('DB_GRADE_id', $id)
+                ->where('DB_ROLE_id', 5)
+                ->get();
+
+            return view('pages.sections.view')
+                ->with('auth', $auth)
+                ->with('grade', $grade)
+                ->with('users_3', $users_3)
+                ->with('users_5', $users_5)
+                ->with('sections', $sections);
+        }
+        else {
+            return self::redirect();
+        }
+    }
+
+    // EDIT
+    // DENIED: 2
+    public function edit_1 ($id) {
+        // Restrict
+        $auth = (new Controller)->auth();
+
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if ($auth->DB_ROLE_id == 2) {
             return (new Controller)->home();
         }
 
@@ -80,10 +138,15 @@ class SectionController extends Controller {
         }
     }
     public function edit_2 ($id) {
-        // Restriction
+        // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restriction($auth)) {
+        if (self::restrict($auth)) {
+            return (new Controller)->home();
+        }
+
+        // Deny (restrict)
+        if ($auth->DB_ROLE_id == 2) {
             return (new Controller)->home();
         }
 
@@ -112,7 +175,7 @@ class SectionController extends Controller {
     }
 
     // FUNCTION: apply user preserves from all students with the student's section ID on name change (strict)
-    // Edit (POST)
+    // edit_2
     public function func_preserve_STUDENT_User_on_name_change ($grade, $section, $section_old) {
         if ($section_old->section !== $section->section) {
             $user = User::find($section->DB_USER_id);
@@ -125,8 +188,8 @@ class SectionController extends Controller {
 
                 foreach ($students as $student) {
                     $student->update([
-                        'PRESERVE_DB_USER_name_last_g'.$grade->grade => $user->name_last,
-                        'PRESERVE_DB_USER_name_first_g'.$grade->grade => $user->name_first,
+                        'LG_USER_name_last_g'.$grade->grade => $user->name_last,
+                        'LG_USER_name_first_g'.$grade->grade => $user->name_first,
                     ]);
                 }
             }
@@ -134,7 +197,7 @@ class SectionController extends Controller {
     }
 
     // FUNCTION: apply section preserves from all students with the student's section ID on name change (strict)
-    // Edit (POST)
+    // edit_2
     public function func_preserve_STUDENT_Section_on_name_change ($grade, $section, $section_old) {
         if ($section_old->section !== $section->section) {
             $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
@@ -143,7 +206,7 @@ class SectionController extends Controller {
                 $student->update([
                     'DB_SECTION_id_g'.$grade->grade => null,
 
-                    'PRESERVE_DB_SECTION_name_g'.$grade->grade => $section_old->section,
+                    'LG_SECTION_name_g'.$grade->grade => $section_old->section,
                 ]);
             }
         }

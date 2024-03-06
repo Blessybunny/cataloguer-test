@@ -9,44 +9,34 @@
 		@csrf
 
 		<section class = "container">
-			<div class = "row">
 
-				<!-- Action -->
-				<div class = "col">
+			<!-- Header -->
+			<div class = "row">
+				<div class = "align-self-center col-4">
 					<a href = "{{ url('/home') }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>
-
-				<!-- Header -->
-				<div class = "col">
-					<h4 class = "text-center">School Year Manager</h4>
-					<p class = "text-center">Manage school year monthly attendance counts and more</p>
+				<div class = "align-self-center col-4">
+					<h4 class = "text-center">School Year Index</h4>
 				</div>
+				<div class = "align-self-center col-4">
 
-				<!-- Action -->
-				<div class = "col">
-					<a href = "{{ url('/years/create') }}">
-						<button class = "button float-right" type = "button">Add</button>
-					</a>
+					@if ($deny->administrator)
+
+						<a href = "{{ url('/years/create') }}">
+							<button class = "button float-right" type = "button">Add</button>
+						</a>
+
+					@endif
+
 				</div>
-
 			</div>
+
+			<!-- Search -->
 			<div class = "row">
-
-				<!-- Subtitle -->
-				<div class = "col">
+				<div class = "col-12">
 					<hr>
-					<h6 class = "text-center">Index</h6>
-					<p class = "text-center">School Years</p>
-					<hr>
-				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Search -->
-				<div class = "col">
 					<label>
 						<input
 							name = "terms"
@@ -66,7 +56,7 @@
 						<br>
 						<p class = "text-center">
 
-							@if(count($results) > 0)
+							@if (count($results) > 0)
 
 								Found results for <b>{{ $terms }}</b>
 
@@ -88,12 +78,11 @@
 
 					<hr>
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Index -->
-				<div class = "col">
+			<!-- Index -->
+			<div class = "row">
+				<div class = "col-12">
 					<table class = "table">
 						<tr>
 							<th>School Year</th>
@@ -109,17 +98,23 @@
 								<td class = "text-center" style = "width: 100px;">
 									<a href = "{{ url('/years/view', $year->id) }}">View</a>
 								</td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
-								</td>
+
+								@if ($deny->administrator)
+
+									<td class = "text-center" style = "width: 100px;">
+										<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
+									</td>
+
+								@endif
+
 							</tr>
 
 						@endforeach
 
 					</table>
 				</div>
-
 			</div>
+
 		</section>
 
 	</form>

@@ -9,42 +9,30 @@
 		@csrf
 
 		<section class = "container">
-			<div class = "row">
 
-				<!-- Action -->
-				<div class = "col">
+			<!-- Header -->
+			<div class = "row">
+				<div class = "align-self-center col-4">
 					<a href = "{{ url('/users') }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>
-
-				<!-- Header -->
-				<div class = "col">
-					<h4 class = "text-center">User Manager</h4>
-					<p class = "text-center">Manage user permission and access</p>
+				<div class = "align-self-center col-4">
+					<h4 class = "text-center">User Creator</h4>
 				</div>
-
-				<!-- Action -->
-				<div class = "col">
+				<div class = "align-self-center col-4">
 					<input class = "button float-right" type = "submit" value = "Add">
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Subtitle -->
-				<div class = "col">
+			<!-- Required -->
+			<div class = "row">
+				<div class = "col-12">
 					<hr>
 					<h6 class = "text-center">Required</h6>
-					<p class = "text-center">Please fill in the fields below</p>
 					<hr>
 				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Required -->
-				<div class = "col">
+				<div class = "col-12">
 
 					<!-- DepEd ID -->
 					<b>DepEd ID:</b>
@@ -112,23 +100,16 @@
 					</select>
 
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Subtitle -->
-				<div class = "col">
+			<!-- Optional -->
+			<div class = "row">
+				<div class = "col-12">
 					<hr>
 					<h6 class = "text-center">Optional</h6>
-					<p class = "text-center">The fields below can be edited and changed later</p>
 					<hr>
 				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Optional -->
-				<div class = "col">
+				<div class = "col-12">
 
 					<!-- Designated Grade -->
 					<b>Designated Grade:</b>
@@ -142,7 +123,9 @@
 						@endforeach
 
 					</select>
-					<p>This field is used for grade level coordinators and teachers</p>
+					This field is used for grade level coordinators and teachers
+					<br>
+					<br>
 
 					<!-- Designated Section -->
 					<b>Designated Section:</b>
@@ -156,11 +139,11 @@
 						@endforeach
 
 					</select>
-					<p>This field is used for advisers</p>
+					This field is used for advisers
 
 				</div>
-
 			</div>
+
 		</section>
 
 	</form>

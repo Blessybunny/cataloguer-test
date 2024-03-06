@@ -9,44 +9,28 @@
 		@csrf
 
 		<section class = "container">
-			<div class = "row">
 
-				<!-- Action -->
-				<div class = "col">
+			<!-- Header -->
+			<div class = "row">
+				<div class = "align-self-center col-4">
 					<a href = "{{ url('/home') }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>
-
-				<!-- Header -->
-				<div class = "col">
-					<h4 class = "text-center">User Manager</h4>
-					<p class = "text-center">Manage user permission and access</p>
+				<div class = "align-self-center col-4">
+					<h4 class = "text-center">User Index</h4>
 				</div>
-
-				<!-- Action -->
-				<div class = "col">
+				<div class = "align-self-center col-4">
 					<a href = "{{ url('/users/create') }}">
 						<button class = "button float-right" type = "button">Add</button>
 					</a>
 				</div>
-
 			</div>
+
+			<!-- Search -->
 			<div class = "row">
-
-				<!-- Subtitle -->
-				<div class = "col">
+				<div class = "col-12">
 					<hr>
-					<h6 class = "text-center">Index</h6>
-					<p class = "text-center">Users</p>
-					<hr>
-				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Search -->
-				<div class = "col">
 					<label>
 						<input
 							name = "terms"
@@ -66,7 +50,7 @@
 						<br>
 						<p class = "text-center">
 
-							@if(count($results) > 0)
+							@if (count($results) > 0)
 
 								Found results for <b>{{ $terms }}</b>
 
@@ -88,12 +72,11 @@
 
 					<hr>
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Index -->
-				<div class = "col">
+			<!-- Index -->
+			<div class = "row">
+				<div class = "col-12">
 					<table class = "table">
 						<tr>
 							<th>Role</th>
@@ -109,21 +92,38 @@
 								<td class = "text-center" style = "width: 200px;">{{ $user->role }}</td>
 								<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
 								<td class = "text-center" style = "width: 200px;">{{ $user->designation }}</td>
+
+								@php
+
+									$colspan = 2;
+
+									if ($user->editable) {
+										$colspan = 1;
+									}
+
+								@endphp
+
 								<td class = "text-center" style = "width: 200px;"></td>
-								<td class = "text-center" style = "width: 100px;">
+								<td class = "text-center" colspan = "{{ $colspan }}" style = "width: 100px;">
 									<a href = "{{ url('/users/view', $user->id) }}">View</a>
 								</td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
-								</td>
+
+								@if ($user->editable) 
+
+									<td class = "text-center" style = "width: 100px;">
+										<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
+									</td>
+
+								@endif
+
 							</tr>
 
 						@endforeach
 
 					</table>
 				</div>
-
 			</div>
+
 		</section>
 
 	</form>

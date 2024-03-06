@@ -15,43 +15,30 @@
         @csrf
 
         <section class = "container">
-            <div class = "row">
 
-                <!-- Action -->
-                <div class = "col">
+			<!-- Header -->
+            <div class = "row">
+                <div class = "align-self-center col-4">
                     <a href = "{{ url('/students') }}">
                         <button class = "button" type = "button">Back</button>
                     </a>
                 </div>
-
-                <!-- Header -->
-                <div class = "col">
-                    <h4 class = "text-center">Student Manager</h4>
-                    <p class = "text-center">Manage student info, grades, and forms</p>
-                </div>
-
-                <!-- Action -->
-                <div class = "col">
+                <div class = "align-self-center col-4">
+					<h4 class = "text-center">Student Editor</h4>
+					<p class = "text-center">{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</p>
+				</div>
+                <div class = "align-self-center col-4">
                     <input class = "button float-right" type = "submit" value = "Save">
                     <button class = "button float-right" type = "button" onclick = "window.print(); window.close();" style = "margin-right: 5px;">Print</button>
                 </div>
-
             </div>
+
+			<!-- Content -->
             <div class = "row">
-
-                <!-- Subtitle -->
-				<div class = "col">
-					<hr>
-					<h6 class = "text-center">Edit</h6>
-					<p class = "text-center">{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</p>
-					<hr>
-				</div>
-
-            </div>
-            <div class = "row">
-
-                <!-- Edit -->
-                <div class = "col">
+                <div class = "col-12">
+                    <hr>
+                </div>
+                <div class = "col-12">
                     <div class = "container-pill">
                         <ul class = "nav nav-fill nav-pills">
                             <li class = "dropdown nav-item">
@@ -81,7 +68,7 @@
 
                                 @php
 
-                                    $debug = $grade->grade == '' ? 'active show' : '';
+                                    $debug = $grade->grade == '7' ? 'active show' : '';
 
                                 @endphp
 
@@ -96,7 +83,6 @@
                         </div>
                     </div>
                 </div>
-            
             </div>
         </section>
 

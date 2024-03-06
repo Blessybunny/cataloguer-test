@@ -9,46 +9,33 @@
 		@csrf
 
 		<section class = "container">
-			<div class = "row">
 
-				<!-- Action -->
-				<div class = "col">
+			<!-- Header -->
+			<div class = "row">
+				<div class = "align-self-center col-4">
 					<a href = "{{ url('/sections') }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>
-
-				<!-- Header -->
-				<div class = "col">
-					<h4 class = "text-center">Section Manager</h4>
-					<p class = "text-center">Manage section names for each grade level</p>
+				<div class = "align-self-center col-4">
+					<h4 class = "text-center">Section Editor</h4>
+					<p class = "text-center">Grade {{ $grade->grade }}</p>
 				</div>
-
-				<!-- Action -->
-				<div class = "col">
+				<div class = "align-self-center col-4">
 					<input class = "button float-right" type = "submit" value = "Save">
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Subtitle -->
-				<div class = "col">
-					<hr>
-					<h6 class = "text-center">Edit</h6>
-					<p class = "text-center">Grade {{ $grade->grade }}</p>
+			<!-- Content -->
+			<div class = "row">
+				<div class = "col-12">
 					<hr>
 				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Edit -->
-				<div class = "col">
+				<div class = "col-12">
 
 					@foreach ($sections as $section)
 
-						<span class = "font-bold">Section {{ $loop->index + 1 }} Name:</span>
+						<b>Section {{ $loop->index + 1 }} Name:</b>
 						<input
 							name = "section_{{ $section->DB_GRADE_id }}_{{ $section->id }}"
 							type = "text"
@@ -65,8 +52,8 @@
 					@endforeach
 
 				</div>
-
 			</div>
+
 		</section>
 
 	</form>

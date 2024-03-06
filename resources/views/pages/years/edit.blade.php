@@ -9,41 +9,28 @@
 		@csrf
 
 		<section class = "container">
-			<div class = "row">
 
-				<!-- Action -->
-				<div class = "col">
+			<!-- Header -->
+			<div class = "row">
+				<div class = "align-self-center col-4">
 					<a href = "{{ url('/years') }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>
-
-				<!-- Header -->
-				<div class = "col">
-					<h4 class = "text-center">School Year Manager</h4>
-					<p class = "text-center">Manage school year monthly attendance counts and more</p>
+				<div class = "align-self-center col-4">
+					<h4 class = "text-center">School Year Editor</h4>
+					<p class = "text-center">{{ $year->full }}</p>
 				</div>
-
-				<!-- Action -->
-				<div class = "col">
+				<div class = "align-self-center col-4">
 					<input class = "button float-right" type = "submit" value = "Save">
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Subtitle -->
-				<div class = "col">
-					<hr>
-					<h6 class = "text-center">Edit</h6>
-					<p class = "text-center">{{ $year->full }}</p>
+			<!-- Content -->
+			<div class = "row">
+				<div class = "col-12">
 					<hr>
 				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Edit -->
 				<div class = "col-6">
 
 					<!-- Principal -->
@@ -59,6 +46,33 @@
 
 					</select>
 					<br>
+
+					<!-- Legacy Principal Last Name -->
+					<b>Legacy Principal Last Name:</b>
+					<input
+						name = "LG_USER_name_last"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $year->LG_USER_name_last }}"
+					>
+					This field is used if the appropriate principal is NOT on the list
+					<br>
+					<br>
+
+					<!-- Legacy Principal First Name -->
+					<b>Legacy Principal First Name:</b>
+					<input
+						name = "LG_USER_name_first"
+						type = "text"
+						maxlength = "50"
+						value = "{{ $year->LG_USER_name_first }}"
+					>
+					This field is used if the appropriate principal is NOT on the list
+					<br>
+					<br>
+
+				</div>
+				<div class = "col-6">
 
 					<!-- January -->
 					<b>January Attendance Count:</b>
@@ -77,7 +91,7 @@
 						name = "attendance_feb_t"
 						type = "number"
 						min = "0"
-						max = "28"
+						max = "29"
 						value = "{{ $year->attendance_feb_t }}"
 					>
 					<br>
@@ -192,31 +206,8 @@
 					>
 
 				</div>
-				<div class = "col-6">
-
-					<!-- Legacy Principal Last Name -->
-					<b>Legacy Principal Last Name:</b>
-					<input
-						name = "PRESERVE_DB_USER_name_last"
-						type = "text"
-						maxlength = "50"
-						value = "{{ $year->PRESERVE_DB_USER_name_last }}"
-					>
-					<p>This field is used if the appropriate principal is NOT on the list</p>
-
-					<!-- Legacy Principal First Name -->
-					<b>Legacy Principal First Name:</b>
-					<input
-						name = "PRESERVE_DB_USER_name_first"
-						type = "text"
-						maxlength = "50"
-						value = "{{ $year->PRESERVE_DB_USER_name_first }}"
-					>
-					<p>This field is used if the appropriate principal is NOT on the list</p>
-
-				</div>
-
 			</div>
+
 		</section>
 
 	</form>

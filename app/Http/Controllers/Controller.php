@@ -13,7 +13,7 @@ class Controller extends BaseController {
     use AuthorizesRequests, ValidatesRequests;
 
     // Auth
-    public function auth () { return User::first(); } //find(1)
+    public function auth () { return User::find(4); } //find(1)
 
     // Redirect
     public function home () { return redirect()->to('/home'); }
@@ -29,6 +29,19 @@ class Controller extends BaseController {
             ->with('auth', $auth);
     }
 }
+
+/*
+    $user = \User::find(Auth::user()->id);
+
+    Auth::logout();
+
+    if ($user->delete()) {
+
+         return Redirect::route('site-home')->with('global', 'Your account has been deleted!');
+    }
+
+*/
+
 
 
 /*

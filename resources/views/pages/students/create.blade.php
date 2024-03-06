@@ -9,42 +9,30 @@
 		@csrf
 
 		<section class = "container">
-			<div class = "row">
 
-				<!-- Action -->
-				<div class = "col">
+			<!-- Header -->
+			<div class = "row">
+				<div class = "align-self-center col-4">
 					<a href = "{{ url('/students') }}">
 						<button class = "button" type = "button">Back</button>
 					</a>
 				</div>
-
-				<!-- Header -->
-				<div class = "col">
-					<h4 class = "text-center">Student Manager</h4>
-					<p class = "text-center">Manage student info, grades, and forms</p>
+				<div class = "align-self-center col-4">
+					<h4 class = "text-center">Student Creator</h4>
 				</div>
-
-				<!-- Action -->
-				<div class = "col">
+				<div class = "align-self-center col-4">
 					<input class = "button float-right" type = "submit" value = "Add">
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Subtitle -->
-				<div class = "col">
+			<!-- Required -->
+			<div class = "row">
+				<div class = "col-12">
 					<hr>
 					<h6 class = "text-center">Required</h6>
-					<p class = "text-center">Please fill in the fields below</p>
 					<hr>
 				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Required -->
-				<div class = "col">
+				<div class = "col-12">
 
 					<!-- Learner Reference Number -->
 					<b>Learner Reference Number:</b>
@@ -98,6 +86,15 @@
 					>
 					<br>
 
+					<!-- Sex -->
+					<b>Sex:</b>
+					<select name = "info_sex" required>
+						<option value = ""></option>
+						<option value = "Male" {{ old("info_sex") == "Male" ? "selected" : "" }}>Male</option>
+						<option value = "Female" {{ old("info_sex") == "Female" ? "selected" : "" }}>Female</option>
+					</select>
+					<br>
+
 					<!-- Birthdate -->
 					<b>Birthdate (MM/DD/YYYY):</b>
 					<input
@@ -107,34 +104,18 @@
 						value = "{{ old('info_birthdate') }}"
 						required
 					>
-					<br>
-
-					<!-- Sex -->
-					<b>Sex:</b>
-					<select name = "info_sex" required>
-						<option value = ""></option>
-						<option value = "Male" {{ old("info_sex") == "Male" ? "selected" : "" }}>Male</option>
-						<option value = "Female" {{ old("info_sex") == "Female" ? "selected" : "" }}>Female</option>
-					</select>
 
 				</div>
-
 			</div>
-			<div class = "row">
 
-				<!-- Subtitle -->
-				<div class = "col">
+			<!-- Optional -->
+			<div class = "row">
+				<div class = "col-12">
 					<hr>
 					<h6 class = "text-center">Optional</h6>
-					<p class = "text-center">The fields below can be edited and changed later.</p>
 					<hr>
 				</div>
-
-			</div>
-			<div class = "row">
-
-				<!-- Optional -->
-				<div class = "col">
+				<div class = "col-12">
 
 					<!-- Name Suffix -->
 					<b>Name Suffix:</b>
@@ -146,8 +127,8 @@
 					>
 
 				</div>
-
 			</div>
+
 		</section>
 
 	</form>

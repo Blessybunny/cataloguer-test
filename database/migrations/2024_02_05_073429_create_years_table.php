@@ -12,8 +12,8 @@ return new class extends Migration {
 
             $table->integer('DB_USER_id')->nullable(); // Used to reference a principal
 
-            $table->string('PRESERVE_DB_USER_name_last', 50)->nullable();
-            $table->string('PRESERVE_DB_USER_name_first', 50)->nullable();
+            $table->string('LG_USER_name_last', 50)->nullable();
+            $table->string('LG_USER_name_first', 50)->nullable();
 
             $table->smallInteger('year')->unique();
             $table->string('full', 50);
