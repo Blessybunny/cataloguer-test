@@ -1,11 +1,9 @@
 CHECKPOINT:
-    - StudentController.php (Edit - lock)
+    - locked students should also block forced access inside controllers.
+    - school year view should create a link to user if not legacy
 
-                boolean('SAFETY_locker')
-                string('SAFETY_editor', 50)
-
-                // find a comfortable place for nihonggo visibility
 UTMOST PRIORITY:
+    - Password resets into danger zone
     - ISSUE: You can delete yourself while logged in.
         - You must be logged out for anyone to delete you.
             - Make a boolean value to "safety-lock" you while logged in, this goes false when logged out.
@@ -13,15 +11,13 @@ UTMOST PRIORITY:
             - DB_SAFETY_LOCK (boolean)
         - Logout a page when a user doesn't exist (POST methods, maybe GET)
         - Since most permission redirects lead to home, bubble home to log out the user.
-    - student lock boolean
+
     - create a DB_PRESERVE_CREATED for creation.
     - create a DB_PRESERVE_EDITED for editing.
     - pending addition of DB_YEAR_id for Users
         - this property is exclusive to grade level coordinators, advisers, and teachers
-
+    - Look up "Laravel 10 - Pagination"
 The Easy Stuff:
-    - Add a toggle button for SF9-10 editor to highlight the backgrounds of editable fields.
-    - For every edit page and save action, implement a javascript window prompt to confirm changes.
     - add copyright and current year to footer
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DEVELOPER'S NOTES:
@@ -30,202 +26,149 @@ DEVELOPER'S NOTES:
         - 2023_11_25_145550_create_students_table.php (migration)
         - DatabaseSeeder.php (seeder)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-PERMISSION - PRINCIPAL:
-    - Section
-        - view                                  Allow   [100%] Tested
-        - edit                                  Allow   [100%] Tested
-    - Student
-        - create                                Deny    [100%] Tested
-        - view                                  Allow   [100%] Tested
-        - edit info                             Deny    [100%] Tested
-        - edit area                             Deny    [100%] Tested
-        - edit form                             Deny    [100%] Tested
-        - edit lock                             Deny    [100%] Tested
-        - delete                                Deny    [100%] Tested
-    - User
-        - create                                Allow   [100%] Tested
-        - view                                  Allow   [100%] Tested
-        - edit                                  Allow   [100%] Tested
-        - delete                                Allow   [100%] Tested
-    - Year
-        - create                                Allow   [100%] Tested
-        - view                                  Allow   [100%] Tested
-        - edit                                  Allow   [100%] Tested
-PERMISSION - ADMINISTRATOR:
-    - Section
-        - view                                  Allow   [100%] Tested
-        - edit                                  Deny    [100%] Tested
-    - Student
-        - create                                Allow   [100%] Tested
-        - view                                  Allow   [100%] Tested
-        - edit info                             Allow   [100%] Tested
-        - edit area                             Allow   [100%] Tested
-        - edit form                             Allow   [100%] Tested
-        - edit lock                             Allow   [100%] Tested
-        - delete                                Allow   [100%] Tested
-    - User
-        - create                                Allow   [100%] Tested with role boundaries
-        - view                                  Allow   [100%] Tested
-        - edit                                  Allow   [100%] Tested with role boundaries
-        - delete                                Allow   [100%] Tested with role boundaries
-    - Year
-        - create                                Deny    [100%] Tested
-        - view                                  Allow   [100%] Tested
-        - edit                                  Deny    [100%] Tested
-PERMISSION - GRADE LEVEL COORDINATOR:
-    - Student
-        - create                                Deny    [100%] Tested
-        - view                                  Allow   [100%] Tested
-        - edit info                             Deny    [100%] Tested
-        - edit area                             Deny    [100%] Tested
-        - edit form                             Allow   [100%] Tested
-        - edit lock                             Deny    [100%] Tested
-        - delete                                Deny    [100%] Tested
-PERMISSION - ADVISER:
-    - Student
-        - create                                Deny    [100%] Tested
-        - view                                  Allow   [100%] Tested
-        - edit info                             Deny    [100%] Tested
-        - edit area                             Deny    [100%] Tested
-        - edit form                             Allow   [100%] Tested
-        - edit lock                             Deny    [100%] Tested
-        - delete                                Deny    [100%] Tested
-PERMISSION - TEACHER:
-    - Student
-        - create                                Deny    [100%] Tested
-        - view                                  Allow   [100%] Tested
-        - edit info                             Deny    [100%] Tested
-        - edit area                             Deny    [100%] Tested
-        - edit form                             Deny    [100%] Tested
-        - edit lock                             Deny    [100%] Tested
-        - delete                                Deny    [100%] Tested
+
+
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-MANAGER - LOGIN: (wip)
-MANAGER - HOME: (wip)
-    - Back-end
-        - controller            [wip]
-        - route                 [100%]
-    - Front-end
-        - home                  [wip]
-MANAGER - SECTION:
-    - Back-end
-        - controller            [100%]
-        - migration             [100%]
-        - route                 [100%]
-    - Front-end
-        - index                 [100%]
-        - view                  [100%]
-        - edit                  [100%]
-MANAGER - STUDENT: (wip)
-    - Back-end
-        - controller            [100%]
-        - migration             [100%]
-        - route                 [100%]
-    - Front-end
-        - index                 [100%]
-        - create                [100%]
-        - view                  [wip]
-        
-     - Wrap EVERY SINGLE INPUT/SELECT to in a permission bubble
-        - edit-area             [100%]
-        - edit-form             [100%]
-        - edit-info             [100%]
-        - edit-lock             [100%]
-        - delete                [100%]
-    - Search
-        - info_name_last
-        - info_name_first
-        - info_name_suffix
-        - info_name_middle
-        - info_lrn
-        - info_sex
-MANAGER - USER:
-    - Back-end
-        - controller            [100%]
-        - migration             [100%]
-        - route                 [100%]
-    - Front-end
-        - index                 [100%]
-        - create                [100%]
-        - view                  [100%]
-        - edit                  [100%]
-        - delete                [100%]
-    - Search
-        - email
-        - name_last
-        - name_first
-MANAGER - YEAR:
-    - Back-end
-        - controller            [100%]
-        - migration             [100%]
-        - route                 [100%]
-    - Front-end
-        - index                 [100%]
-        - create                [100%]
-        - view                  [100%]
-        - edit                  [100%]
-    - Search
-        - full
+BLADE - Pages: (wip)
+    - home                  [100%]
+    - login                 [wip]
+
+
+
+
+
+
+
+
+
+THE COMPLETE BOUNDARY
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PERMISSION - Principal:
+    - Section
+        - view              Allow
+        - edit              Allow
+    - Student
+        - create            Deny
+        - view              Allow
+        - edit info         Deny
+        - edit area         Deny
+        - edit form         Deny
+        - edit lock         Deny
+        - delete            Deny
+    - User
+        - create            Allow
+        - view              Allow
+        - edit              Allow
+        - delete            Allow
+    - Year
+        - create            Allow
+        - view              Allow
+        - edit              Allow
+PERMISSION - Administrator:
+    - Section
+        - view              Allow
+        - edit              Deny
+    - Student
+        - create            Allow
+        - view              Allow
+        - edit info         Allow
+        - edit area         Allow
+        - edit form         Allow
+        - edit lock         Allow
+        - delete            Allow
+    - User
+        - create            Allow
+        - view              Allow
+        - edit              Allow
+        - delete            Allow
+    - Year
+        - create            Deny
+        - view              Allow
+        - edit              Deny
+PERMISSION - Grade Level Coordinator:
+    - Student
+        - create            Deny
+        - view              Allow
+        - edit info         Deny
+        - edit area         Deny
+        - edit form         Allow
+        - edit lock         Deny
+        - delete            Deny
+PERMISSION - Adviser:
+    - Student
+        - create            Deny
+        - view              Allow
+        - edit info         Deny
+        - edit area         Deny
+        - edit form         Allow
+        - edit lock         Deny
+        - delete            Deny
+PERMISSION - Teacher:
+    - Student
+        - create            Deny
+        - view              Allow
+        - edit info         Deny
+        - edit area         Deny
+        - edit form         Deny
+        - edit lock         Deny
+        - delete            Deny
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BLADE - Section:
+    - index
+    - view
+    - edit
+BLADE - Student:
+    - create
+    - delete
+    - edit-area
+    - edit-form
+    - edit-info
+    - edit-lock
+    - index
+    - view                  SFcoded -> 9, 10
+BLADE - User:
+    - create
+    - delete
+    - edit
+    - index
+    - view
+BLADE - Year:
+    - create
+    - edit
+    - index
+    - view
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SEARCH - Student:
+    - info_name_last
+    - info_name_first
+    - info_name_suffix
+    - info_name_middle
+    - info_lrn
+SEARCH - User:
+    - name_last
+    - name_first
+SEARCH - Year:
+    - full
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 RESOURCES:
-    1. Layouts:                             Status:                 Comments:
-        - meta                              Complete
-        - page                              Complete                Authcoded -> 1, 2 (manage from controller.php to remove this comment)
-        - sf9-back                          Complete                .
-        - sf9-front                         Complete                .
-        - sf10-back                         Complete                Gradecoded -> 7, 8
-        - sf10-certification                Complete                .
-        - sf10-front                        Complete                Gradecoded -> 9, 10
-        - sf10-scholastic-record            Complete                .
+    - Layouts
+        - meta
+        - page
+        - sf9-back
+        - sf9-front
+        - sf10-back                     Gradecoded -> 9, 10, Sidecoded -> back
+        - sf10-certification
+        - sf10-front                    Gradecoded -> 7, 8, Sidecoded -> front
+        - sf10-scholastic-record
+        - stats
 
-    2. Less:
-        - general.less                      Complete                .
-        - students.less                     Complete                .
+    - Less
+        - general.Less
+        - students.less
 
-    3. Script:
-        - general.js                        Complete                .
-        - students.js                       Complete                .
+    - Script
+        - general.js
+        - students.js
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-PROGRESS REPORTER:
-    ! Base off data from the SF9 FIELDS ONLY.
-    - coming soon!
-------------------------------------------------------------
-PENDING:
-    - Look up "Laravel 10 - Pagination"
-    - Create print-specific classnames that hide on actual page printing (eg. remedial add button)
-    - Re-split page.blade.php's content into dashboard.blade.php in order for login.blade.php to use meta, head, and body format.
-------------------------------------------------------------
-JUNKYARD:
-
-.chart {
-        margin: calc(@size-spacing / 4);
-        padding: calc(@size-spacing / 2);
-    }
-
-
-            - User manual notes:
-                - sections are a sensitive form of data and have to be exlusive to principals.
-                - school years are best managed by principals where they are fit to use their role
-                  to assign themselves or another into the record. administrators can ask their
-                  principal to create legacy school years if ever there are missing records.
-                - students are a sensitive form of data and can only be viewd and lock-toggled for
-                  this role.
-                - users can be modified by the principal, and can exclusively add another principal
-                  should one step down from the position.
-
-
-
-
-
-                  
-        // Deny (backend) user create POST and edit POST
-        if ($auth->DB_ROLE_id == 2) {
-            $check = request()->validate(['DB_ROLE_id' => 'required']);
-
-            if ($check['DB_ROLE_id'] != '3' && $check['DB_ROLE_id'] != '4' && $check['DB_ROLE_id'] && '5') {
-                return (new Controller)->home();
-            }
-        }

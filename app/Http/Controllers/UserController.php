@@ -11,20 +11,18 @@ use App\Models\Year;
 
 use Request;
 
+// Do-not-touch
+// Whitespace-checked
+
 class UserController extends Controller {
     // RESTRICTION
-    // ALLOWED: 1, 2
     public function restrict ($auth) {
-        if ($auth != null) {
-            if (
-                $auth->DB_ROLE_id == 1 ||
-                $auth->DB_ROLE_id == 2
-            ) {
-                return false;
-            }
-            else {
-                return true;
-            }
+        if (
+            $auth != null &&
+            $auth->is_principal ||
+            $auth->is_administrator
+        ) {
+            return false;
         }
         else {
             return true;
@@ -35,7 +33,6 @@ class UserController extends Controller {
     public function redirect () { return redirect()->to('/users'); }
 
     // INDEX
-    // DENIED: 2
     public function index_1 () {
         // Restrict
         $auth = (new Controller)->auth();
@@ -45,28 +42,8 @@ class UserController extends Controller {
         }
 
         // Proceed
-        $users = User::orderBy('DB_ROLE_id', 'ASC')
-            ->orderBy('name_last', 'ASC')
-            ->orderBy('name_first', 'ASC')
-            ->get();
+        $users = self::func_format_users($auth, User::query());
 
-        $users = self::func_format_users($users);
-
-        // Deny (HTML)
-        foreach ($users as $user) {
-            $user->editable = true;
-
-            if ($auth->DB_ROLE_id == 2) {
-                if (
-                    $user->DB_ROLE_id == 1 ||
-                    $user->DB_ROLE_id == 2
-                ) {
-                    $user->editable = false;
-                }
-            }
-        }
-
-        // Proceed
         return view('pages.users.index')
             ->with('auth', $auth)
             ->with('users', $users);
@@ -83,46 +60,22 @@ class UserController extends Controller {
         $terms = Request::get('terms');
 
         if (isset($terms)) {
-            // Proceed
             $temp_terms = explode(' ', $terms);
             $query = User::query();
 
             foreach ($temp_terms as $term) {
                 $query->where(function ($q) use ($term) {
-                    $q->where('email', 'like', '%'.$term.'%')
-                    ->orWhere('name_last', 'like', '%'.$term.'%')
+                    $q->where('name_last', 'like', '%'.$term.'%')
                     ->orWhere('name_first', 'like', '%'.$term.'%');
                 });
             }
 
-            $results = $query->orderBy('DB_ROLE_id', 'ASC')
-                ->orderBy('name_last', 'ASC')
-                ->orderBy('name_first', 'ASC')
-                ->get();
-            $results = (count($results) > 0) ? $results : [];
+            $users = self::func_format_users($auth, $query);
 
-            $results = self::func_format_users($results);
-
-            // Deny (HTML)
-            foreach ($results as $user) {
-                $user->editable = true;
-
-                if ($auth->DB_ROLE_id == 2) {
-                    if (
-                        $user->DB_ROLE_id == 1 ||
-                        $user->DB_ROLE_id == 2
-                    ) {
-                        $user->editable = false;
-                    }
-                }
-            }
-
-            // Proceed
             return view('pages.users.index')
-                ->with('isSearched', true)
                 ->with('auth', $auth)
                 ->with('terms', $terms)
-                ->with('results', $results);
+                ->with('users', $users);
         }
         else {
             return self::redirect();
@@ -130,7 +83,6 @@ class UserController extends Controller {
     }
 
     // CREATE
-    // DENIED: 2
     public function create_1 () {
         // Restrict
         $auth = (new Controller)->auth();
@@ -140,21 +92,8 @@ class UserController extends Controller {
         }
 
         // Proceed
-        $roles = null;
-
-        // Deny (HTML)
-        if ($auth->DB_ROLE_id == 2) {
-            $roles = Role::where('id', 3)
-                ->orWhere('id', 4)
-                ->orWhere('id', 5)
-                ->get();
-        }
-        else {
-            $roles = Role::all();
-        }
-
-        // Proceed
         $grades = Grade::all();
+        $roles = self::func_format_roles($auth, Role::query());
         $sections = Section::whereNotNull('section')
             ->whereNull('DB_USER_id')
             ->get();
@@ -218,7 +157,7 @@ class UserController extends Controller {
         $user = User::find($id);
 
         if ($user != null) {
-            $user = self::func_format_user($user);
+            $user = self::func_format_user($auth, $user);
 
             return view('pages.users.view')
                 ->with('auth', $auth)
@@ -230,45 +169,28 @@ class UserController extends Controller {
     }
 
     // EDIT
-    // DENIED: 2
     public function edit_1 ($id) {
-        // Restrict
-        $auth = (new Controller)->auth();
-
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
         // Proceed
         $user = User::find($id);
 
-        // Deny (restrict)
-        if ($auth->DB_ROLE_id == 2) {
+        if ($user != null) {
+            // Restrict
+            $auth = (new Controller)->auth();
+
             if (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
+                self::restrict($auth) ||
+                $auth->is_administrator &&
+                (
+                    $user->DB_ROLE_id == 1 ||
+                    $user->DB_ROLE_id == 2
+                )
             ) {
                 return (new Controller)->home();
             }
-        }
 
-        // Proceed
-        $roles = null;
-
-        // Deny (HTML)
-        if ($auth->DB_ROLE_id == 2) {
-            $roles = Role::where('id', 3)
-                ->orWhere('id', 4)
-                ->orWhere('id', 5)
-                ->get();
-        }
-        else {
-            $roles = Role::all();
-        }
-
-        // Proceed
-        if ($user != null) {
+            // Proceed
             $grades = Grade::all();
+            $roles = self::func_format_roles($auth, Role::query());
             $sections = Section::whereNotNull('section')
                 ->whereNull('DB_USER_id')
                 ->orWhere('DB_USER_id', $user->id)
@@ -288,17 +210,25 @@ class UserController extends Controller {
         }
     }
     public function edit_2 ($id) {
-        // Restrict
-        $auth = (new Controller)->auth();
-
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
         // Proceed
         $user = User::find($id);
 
         if ($user != null) {
+            // Restrict
+            $auth = (new Controller)->auth();
+
+            if (
+                self::restrict($auth) ||
+                $auth->is_administrator &&
+                (
+                    $user->DB_ROLE_id == 1 ||
+                    $user->DB_ROLE_id == 2
+                )
+            ) {
+                return (new Controller)->home();
+            }
+
+            // Proceed
             $validate = request()->validate([
                 'DB_ROLE_id' => 'required',
                 'DB_GRADE_id' => 'nullable',
@@ -336,30 +266,26 @@ class UserController extends Controller {
     }
 
     // DELETE
-    // DENIED: 2
     public function delete_1 ($id) {
-        // Restrict
-        $auth = (new Controller)->auth();
-
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
         // Proceed
         $user = User::find($id);
 
-        // Deny (restrict)
-        if ($auth->DB_ROLE_id == 2) {
+        if ($user != null) {
+            // Restrict
+            $auth = (new Controller)->auth();
+
             if (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
+                self::restrict($auth) ||
+                $auth->is_administrator &&
+                (
+                    $user->DB_ROLE_id == 1 ||
+                    $user->DB_ROLE_id == 2
+                )
             ) {
                 return (new Controller)->home();
             }
-        }
 
-        // Proceed
-        if ($user != null) {
+            // Proceed
             return view('pages.users.delete')
                 ->with('auth', $auth)
                 ->with('user', $user);
@@ -369,28 +295,25 @@ class UserController extends Controller {
         }
     }
     public function delete_2 ($id) {
-        // Restrict
-        $auth = (new Controller)->auth();
-
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
         // Proceed
         $user = User::find($id);
 
-        // Deny (restrict)
-        if ($auth->DB_ROLE_id == 2) {
+        if ($user != null) {
+            // Restrict
+            $auth = (new Controller)->auth();
+
             if (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
+                self::restrict($auth) ||
+                $auth->is_administrator &&
+                (
+                    $user->DB_ROLE_id == 1 ||
+                    $user->DB_ROLE_id == 2
+                )
             ) {
                 return (new Controller)->home();
             }
-        }
 
-        // Proceed
-        if ($user != null) {
+            // Proceed
             self::func_delete_preserve_STUDENT_User_on_deletion($user);
             self::func_preserve_YEAR_User_on_deletion($user);
 
@@ -403,43 +326,16 @@ class UserController extends Controller {
     }
 
     // FUNCTION: format user (multiple)
-    // index_1, index_2
-    public function func_format_users ($users) {
+    public function func_format_users ($auth, $users) {
+        // Order
+        $users = $users->orderBy('DB_ROLE_id', 'ASC')
+            ->orderBy('name_last', 'ASC')
+            ->orderBy('name_first', 'ASC')
+            ->get();
+
+        // Format
         foreach ($users as $user) {
-            // Role
-            $role = Role::find($user->DB_ROLE_id);
-
-            if ($role != null) {
-                $user->role = $role->role;
-            }
-
-            // Designation - grade level coordinator
-            // Designation - teacher
-            if (
-                $user->DB_ROLE_id == 3 ||
-                $user->DB_ROLE_id == 5
-            ) {
-                $grade = Grade::find($user->DB_GRADE_id);
-
-                if ($grade != null) {
-                    $user->designation = 'Grade '.$grade->grade;
-                }
-            }
-
-            // Designation - adviser
-            if ($user->DB_ROLE_id == 4) {
-                $section = Section::find($user->DB_SECTION_id);
-
-                if ($section != null) {
-                    $grade = Grade::find($section->DB_GRADE_id);
-                    
-                    if ($grade != null) {
-                        $user->designation = 'Grade '.$grade->grade.' | '.$section->section;
-                    }
-                }
-            }
-
-            // Year
+            $user = self::func_format_user($auth, $user);
         }
 
         // Return
@@ -447,8 +343,7 @@ class UserController extends Controller {
     }
 
     // FUNCTION: format user (single)
-    // view
-    public function func_format_user ($user) {
+    public function func_format_user ($auth, $user) {
         // Role
         $role = Role::find($user->DB_ROLE_id);
 
@@ -456,8 +351,7 @@ class UserController extends Controller {
             $user->role = $role->role;
         }
 
-        // Designation - grade level coordinator
-        // Designation - teacher
+        // Designation - grade level coordinator and teacher
         if (
             $user->DB_ROLE_id == 3 ||
             $user->DB_ROLE_id == 5
@@ -484,12 +378,38 @@ class UserController extends Controller {
 
         // Year
 
+        // Editability
+        if (
+            $auth->is_administrator &&
+            (
+                $user->DB_ROLE_id == 1 ||
+                $user->DB_ROLE_id == 2
+            )
+        ) {
+            $user->editable = false;
+        }
+        else {
+            $user->editable = true;
+        }
+
         // Return
         return $user;
     }
 
+    // FUNCTION: format role (multiple)
+    public function func_format_roles ($auth, $roles) {
+        if ($auth->is_administrator) {
+            return $roles->where('id', 3)
+                ->orWhere('id', 4)
+                ->orWhere('id', 5)
+                ->get();
+        }
+        else {
+            return $roles->get();
+        }
+    }
+
     // FUNCTION: format section (multiple)
-    // create_1, edit_1
     public function func_format_sections ($sections) {
         foreach ($sections as $section) {
             $grade = Grade::find($section->DB_GRADE_id);
@@ -503,7 +423,6 @@ class UserController extends Controller {
     } 
 
     // FUNCTION: validate role
-    // create_2, edit_2
     public function func_validate_role ($validate) {
         if (
             $validate['DB_ROLE_id'] == '1' ||
@@ -527,7 +446,6 @@ class UserController extends Controller {
     }
 
     // FUNCTION: apply user preserves from all students with the user's section ID on role change (adviser)
-    // edit_2
     public function func_preserve_STUDENT_User_on_role_change ($user, $user_old) {
         if ($user_old->DB_ROLE_id == 4) {
             if ($user_old->DB_ROLE_id != $user->DB_ROLE_id) {
@@ -552,7 +470,6 @@ class UserController extends Controller {
     }
 
     // FUNCTION: apply user preserves from all students with the user's section ID on section change (adviser)
-    // edit_2
     public function func_preserve_STUDENT_User_on_section_change ($user, $user_old) {
         if ($user_old->DB_ROLE_id == 4) {
             if ($user_old->DB_SECTION_id != $user->DB_SECTION_id) {
@@ -577,7 +494,6 @@ class UserController extends Controller {
     }
 
     // FUNCTION: apply user preserves from all years with the user's ID on role change (principal)
-    // edit_2
     public function func_preserve_YEAR_User_on_role_change ($user, $user_old) {
         if ($user_old->DB_ROLE_id == 1) {
             if ($user_old->DB_ROLE_id != $user->DB_ROLE_id) {
@@ -596,7 +512,6 @@ class UserController extends Controller {
     }
 
     // FUNCTION: find sections with the user's ID and erase those sections' user IDs
-    // edit_2
     public function func_section_unassign ($user) {
         $sections = Section::where('DB_USER_id', $user->id)->get();
 
@@ -609,7 +524,6 @@ class UserController extends Controller {
 
     // FUNCTION: find a section with the user's ID and update that section's user ID with the user's ID (adviser)
     // FUNCTION: erase user preserves from all students with the user's section ID (adviser)
-    // edit_2
     public function func_section_reassign ($user) {
         if ($user->DB_ROLE_id == 4) {
             $section = Section::find($user->DB_SECTION_id);
@@ -634,7 +548,6 @@ class UserController extends Controller {
     }
 
     // FUNCTION: apply user preserves from all students with the user's section ID on deletion (adviser)
-    // delete_2
     public function func_delete_preserve_STUDENT_User_on_deletion ($user) {
         $sections = Section::where('DB_USER_id', $user->id)->get();
 
@@ -655,7 +568,6 @@ class UserController extends Controller {
     }
 
     // FUNCTION: apply user preserves from all years with the user's ID on deletion (principal)
-    // delete_2
     public function func_preserve_YEAR_User_on_deletion ($user) {
         $years = Year::where('DB_USER_id', $user->id)->get();
 

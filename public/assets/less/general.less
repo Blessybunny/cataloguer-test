@@ -11,12 +11,12 @@
 /* VARIABLES */
 @opacity-step: 0.25;
 
-@color-table: rgba(#000, (@opacity-step / 2));
+@color-table: rgba(rgb(0, 0, 0), (@opacity-step / 2));
 @color-theme: rgb(255, 100, 0);
-@color-warning: red;
+@color-warning: rgb(255, 0, 0);
 
-@border-dark: 1px #000 solid;
-@border-light: 1px rgba(#000, @opacity-step) solid;
+@border-dark: 1px rgb(0, 0, 0) solid;
+@border-light: 1px rgba(rgb(0, 0, 0), @opacity-step) solid;
 
 @font-common: roboto;
 @font-footer: poppins;
@@ -25,12 +25,11 @@
 @font-paper: calibri;
 
 @size-spacing: 30px;
-@size-width-paper: 1200px;
 @size-width-website: 1000px;
 
-/* HTML */
-html, body, main, section {
-    min-width: @size-width-website !important;
+/* HTML: Common */
+html, section {
+    min-width: @size-width-website;
     width: auto !important;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -38,6 +37,22 @@ h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
     font-weight: bold;
 }
+main { margin: calc(@size-spacing * 4) 0 !important; }
+table { width: 100%; }
+td, th {
+    border: @border-light;
+    vertical-align: middle;
+}
+th {
+    align-items: center;
+    background-color: @color-table !important;
+    font-family: @font-header;
+    text-align: center;
+    vertical-align: middle;
+}
+ul { list-style-type: circle; }
+
+/* HTML: Forms */
 input[type=checkbox] {
     transform: scale(1.25);
     margin-right: 10px;
@@ -50,7 +65,7 @@ select {
     appearance: none;
     background: none;
     border: @border-light;
-    color: #000;
+    color: rgb(0, 0, 0);
     display: block;
     padding: calc(@size-spacing / 4);
     width: 100%;
@@ -66,19 +81,14 @@ label {
     display: flex;
     white-space: nowrap;
 }
-main { margin: calc(@size-spacing * 4.25) 0 !important; }
-td, th {
-    border: @border-light;
-    vertical-align: middle;
+
+/* CLASSES: Bootstrap */
+.container,
+.container-fluid { padding: 0; }
+.row {
+    font-family: @font-common;
+    font-size: 14px;
 }
-th {
-    align-items: center;
-    background-color: @color-table !important;
-    font-family: @font-header;
-    text-align: center;
-    vertical-align: middle;
-}
-ul { list-style-type: circle; }
 
 /* CLASSES: Common */
 .border-all-dark { border: @border-dark !important; }
@@ -115,7 +125,8 @@ ul { list-style-type: circle; }
 .font-bold { font-weight: bold; }
 .font-italic { font-style: italic; }
 
-.margin-0 { margin: 0; }
+.margin-0 { margin: 0 !important; }
+.margin-bottom-0 { margin-bottom: 0 !important; }
 
 .text-capitalize { text-transform: capitalize; }
 .text-center { text-align: center; }
@@ -131,45 +142,25 @@ ul { list-style-type: circle; }
 .button {
     background-color: @color-theme;
     border: none;
-    color: #FFF;
+    color: rgb(255, 255, 255);
     font-family: @font-navigation;
     padding: calc(@size-spacing / 2) @size-spacing;
 }
 .button-small {
     background-color: @color-theme;
     border: none;
-    color: #FFF;
+    color: rgb(255, 255, 255);
     font-family: @font-navigation;
     padding: calc(@size-spacing / 2 - 6.5px) @size-spacing;
 }
-.error { color: #F00; }
+.error { color: @color-warning; }
 
-/* BOOTSTRAP */
-.container,
-.container-fluid { padding: 0; }
-.row {
-    font-family: @font-common;
-    font-size: 14px;
-}
-
-/* NAVIGATION & FOOTER */
-#header {
-    border-bottom: @border-light;
-
-    a, h1 { font-family: @font-navigation; }
-}
-#footer {
-    font-family: @font-footer;
-    padding: @size-spacing * 2;
-    text-align: center;
-}
-
-/* TAB & PILLS */
+/* CLASSES: Tab & Pills */
 .container-pill {
     border: @border-light;
 
     .dropdown-item {
-        color: #000;
+        color: rgb(0, 0, 0);
         cursor: default;
         font-family: @font-header;
         font-size: 12px;
@@ -184,7 +175,7 @@ ul { list-style-type: circle; }
     .nav { border-bottom: @border-light; }
     .nav-link {
         border-radius: 0;
-        color: #000;
+        color: rgb(0, 0, 0);
         cursor: default;
         font-family: @font-header;
         font-size: 14px;
@@ -208,4 +199,16 @@ ul { list-style-type: circle; }
         overflow: auto;
         padding: 0 !important;
     }
+}
+
+/* NAVIGATION & FOOTER */
+#header {
+    border-bottom: @border-light;
+
+    a, h1 { font-family: @font-navigation; }
+}
+#footer {
+    font-family: @font-footer;
+    padding: @size-spacing * 2;
+    text-align: center;
 }

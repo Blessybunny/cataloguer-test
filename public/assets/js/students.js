@@ -2,16 +2,22 @@
 (() => {
     const average = () => {
         const field = document.querySelectorAll(`[data-property = "average"]`);
-    
+
         for (let i = 0, ii = field.length; i < ii; i++) {
             const targets = JSON.parse(field[i].dataset.targets);
             const length = targets.length;
-            
+
             let total = 0;
-            
-            for (j = 0; j < length; j++) total += parseInt(document.getElementsByName(targets[j])[0].value);
-    
-            field[i].innerHTML = !isNaN(total) ? Math.round(total / length) : ``;
+            let skip = 0;
+
+            for (let j = 0; j < length; j++) {
+                const target = document.getElementsByName(targets[j])[0];
+
+                if (target !== undefined) total += parseInt(target.value);
+                else skip++;
+            }
+
+            field[i].innerHTML = !isNaN(total) && skip === 0 ? Math.round(total / (length - skip)) : `&nbsp;`;
         }
     };
     const remarks = () => {
@@ -21,12 +27,18 @@
         for (let i = 0, ii = field.length; i < ii; i++) {
             const targets = JSON.parse(field[i].dataset.targets);
             const length = targets.length;
-            
+
             let total = 0;
+            let skip = 0;
 
-            for (j = 0; j < length; j++) total += parseInt(document.getElementsByName(targets[j])[0].value);
+            for (let j = 0; j < length; j++) {
+                const target = document.getElementsByName(targets[j])[0];
 
-            field[i].innerHTML = !isNaN(total) ? (Math.round(total / length) >= threshold ? `Passed` : `Failed`) : ``;
+                if (target !== undefined) total += parseInt(target.value);
+                else skip++;
+            }
+
+            field[i].innerHTML = !isNaN(total) && skip === 0 ? (Math.round(total / (length - skip)) >= threshold ? `Passed` : `Failed`) : `&nbsp;`;
         }
     };
     const grand = () => {
@@ -36,12 +48,18 @@
         for (let i = 0, ii = field.length; i < ii; i++) {
             const targets = JSON.parse(field[i].dataset.targets);
             const length = targets.length;
-            
+
             let total = 0;
+            let skip = 0;
 
-            for (j = 0; j < length; j++) total += parseInt(document.getElementsByName(targets[j])[0].value);
+            for (let j = 0; j < length; j++) {
+                const target = document.getElementsByName(targets[j])[0];
 
-            field[i].innerHTML = !isNaN(total) ? (Math.round(total / length) >= threshold ? `Promoted` : `Failed`) : ``;
+                if (target !== undefined) total += parseInt(target.value);
+                else skip++;
+            }
+
+            field[i].innerHTML = !isNaN(total) && skip === 0 ? (Math.round(total / length) >= threshold ? `Promoted` : `Failed`) : `&nbsp;`;
         }
     };
     const total = () => {
@@ -49,12 +67,17 @@
 
         for (let i = 0, ii = field.length; i < ii; i++) {
             const targets = JSON.parse(field[i].dataset.targets);
-            
+            const length = targets.length;
+
             let total = 0;
 
-            for (j = 0, jj = targets.length; j < jj; j++) total += parseInt(document.getElementsByName(targets[j])[0].value);
+            for (let j = 0; j < length; j++) {
+                const target = document.getElementsByName(targets[j])[0];
 
-            field[i].innerHTML = !isNaN(total) ? total : ``;
+                if (target !== undefined) total += parseInt(target.value);
+            }
+
+            field[i].innerHTML = !isNaN(total) ? total : `&nbsp;`;
         }
     };
 
@@ -69,7 +92,7 @@
     const buffer = 250;
 
     for (let i = 0,  ii = numbers.length; i < ii; i++) {
-        numbers[i].addEventListener('focusout', function () {
+        numbers[i].addEventListener(`focusout`, function () {
             setTimeout(() => {
                 average();
                 remarks();
@@ -78,5 +101,23 @@
             }, buffer);
         });
     }
+})();
+(() => {
+    const highlight = document.getElementById(`highlight`);
 
+    if (highlight !== null) {
+        const highlights = document.getElementsByClassName(`highlight`);
+
+        let toggle = false;
+
+        highlight.onclick = () => {
+            let color = toggle ? `transparent` : `rgba(100, 250, 100, 0.25)`;
+
+            for (let i = 0, ii = highlights.length; i < ii; i++) {
+                highlights[i].style.backgroundColor = color;
+            }
+
+            toggle = !toggle;
+        };
+    }
 })();

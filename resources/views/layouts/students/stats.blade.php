@@ -1,889 +1,1130 @@
-<div class = "container">
+<div class = "container-fluid paper">
 	<div class = "row">
 
-        <!-- Header -->
-        <div class = "col-12">
-            <h4 class = "margin-0 text-center">Attendances</h4>
-            <span class = "text-center">(Form changes must be saved to update statistics)</span>
-            <br>
-        </div>
-        
-        <!-- [03 - SF9] Attendance -> present -->
-        <div class = "col-lg-12">
-            <div class = "border-all-light chart">
-                <h6 class = "text-center">Presence</h6>
-                <div>
-                    <canvas id = "chart-attendance-p" style = "max-height: 200px;"></canvas>
-                </div>
-                <script>
-                    new Chart(document.getElementById('chart-attendance-p'), {
-                        type: 'line',
-                        data: {
-                            labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Sep'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'attendance_g7_p_oct'} }},
-                                    {{ $student->{'attendance_g7_p_nov'} }},
-                                    {{ $student->{'attendance_g7_p_dec'} }},
-                                    {{ $student->{'attendance_g7_p_jan'} }},
-                                    {{ $student->{'attendance_g7_p_feb'} }},
-                                    {{ $student->{'attendance_g7_p_mar'} }},
-                                    {{ $student->{'attendance_g7_p_apr'} }},
-                                    {{ $student->{'attendance_g7_p_may'} }},
-                                    {{ $student->{'attendance_g7_p_jun'} }},
-                                    {{ $student->{'attendance_g7_p_jul'} }},
-                                    {{ $student->{'attendance_g7_p_aug'} }},
-                                    {{ $student->{'attendance_g7_p_sep'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'attendance_g8_p_oct'} }},
-                                    {{ $student->{'attendance_g8_p_nov'} }},
-                                    {{ $student->{'attendance_g8_p_dec'} }},
-                                    {{ $student->{'attendance_g8_p_jan'} }},
-                                    {{ $student->{'attendance_g8_p_feb'} }},
-                                    {{ $student->{'attendance_g8_p_mar'} }},
-                                    {{ $student->{'attendance_g8_p_apr'} }},
-                                    {{ $student->{'attendance_g8_p_may'} }},
-                                    {{ $student->{'attendance_g8_p_jun'} }},
-                                    {{ $student->{'attendance_g8_p_jul'} }},
-                                    {{ $student->{'attendance_g8_p_aug'} }},
-                                    {{ $student->{'attendance_g8_p_sep'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'attendance_g9_p_oct'} }},
-                                    {{ $student->{'attendance_g9_p_nov'} }},
-                                    {{ $student->{'attendance_g9_p_dec'} }},
-                                    {{ $student->{'attendance_g9_p_jan'} }},
-                                    {{ $student->{'attendance_g9_p_feb'} }},
-                                    {{ $student->{'attendance_g9_p_mar'} }},
-                                    {{ $student->{'attendance_g9_p_apr'} }},
-                                    {{ $student->{'attendance_g9_p_may'} }},
-                                    {{ $student->{'attendance_g9_p_jun'} }},
-                                    {{ $student->{'attendance_g9_p_jul'} }},
-                                    {{ $student->{'attendance_g9_p_aug'} }},
-                                    {{ $student->{'attendance_g9_p_sep'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'attendance_g10_p_oct'} }},
-                                    {{ $student->{'attendance_g10_p_nov'} }},
-                                    {{ $student->{'attendance_g10_p_dec'} }},
-                                    {{ $student->{'attendance_g10_p_jan'} }},
-                                    {{ $student->{'attendance_g10_p_feb'} }},
-                                    {{ $student->{'attendance_g10_p_mar'} }},
-                                    {{ $student->{'attendance_g10_p_apr'} }},
-                                    {{ $student->{'attendance_g10_p_may'} }},
-                                    {{ $student->{'attendance_g10_p_jun'} }},
-                                    {{ $student->{'attendance_g10_p_jul'} }},
-                                    {{ $student->{'attendance_g10_p_aug'} }},
-                                    {{ $student->{'attendance_g10_p_sep'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: { max: 31, min: 0, }
-                            },
-                        },
-                    });
-                </script>
+        <!-- Variables -->
+        <script>
+            datasets = [];
+            daysMin = 0;
+            daysMax = 31;
+            gradesMin = 50;
+            gradesMax = 100;
+        </script>
+
+        @php
+
+            $max_height = 200;
+
+        @endphp
+
+        @if ($sf == 9)
+
+            <!-- Header -->
+            <div class = "col-12">
+                <h6 class = "heading">Attendance</h6>
             </div>
-        </div>
-        
-        <!-- [04 - SF9] Attendance -> absent -->
-        <div class = "col-lg-12">
-            <div class = "border-all-light chart">
-                <h6 class = "text-center">Absence</h6>
-                <div>
-                    <canvas id = "chart-attendance-a" style = "max-height: 200px;"></canvas>
+
+            <!-- Attendance -->
+            @foreach ($grades as $grade)
+
+                <div class = "col-6">
+                    <div class = "border-all-light chart">
+                        <h6 class = "text-center">Grade {{ $grade->grade }}</h6>
+
+                        <div>
+                            <canvas id = "sf{{ $sf }}_g{{ $grade->grade }}_attendance" style = "max-height: {{ $max_height }}px;"></canvas>
+                        </div>
+
+                        <script>
+                            datasets = [];
+                        </script>
+
+                        <script>
+                            new Chart(document.getElementById('sf{{ $sf }}_g{{ $grade->grade }}_attendance'), {
+                                type: 'line',
+                                data: {
+                                    labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Sep'],
+                                    datasets: [
+                                        {
+                                            label: 'Present',
+                                            data: [
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_oct_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_nov_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_dec_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jan_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_feb_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_mar_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_apr_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_may_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jun_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jul_p'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_sep_p'} }},
+                                            ],
+                                            borderWidth: 1,
+                                        },
+                                        {
+                                            label: 'Absent',
+                                            data: [
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_oct_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_nov_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_dec_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jan_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_feb_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_mar_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_apr_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_may_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jun_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jul_a'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_sep_a'} }},
+                                            ],
+                                            borderWidth: 1,
+                                        },
+                                        {
+                                            label: 'Total',
+                                            data: [
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_oct_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_nov_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_dec_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jan_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_feb_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_mar_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_apr_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_may_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jun_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_jul_t'} }},
+                                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_attendance_sep_t'} }},
+                                            ],
+                                            borderWidth: 1,
+                                        },
+                                    ],
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false,
+                                    scales: {
+                                        y: { max: daysMax, min: daysMin, }
+                                    },
+                                },
+                            });
+                        </script>
+
+                        <table class = "margin-bottom-0 table">
+                            <tr>
+                                <th>School Year</th>
+                                <th>Total Days Present</th>
+                                <th>Total Days Absent</th>
+                                <th>Total Days</th>
+                            </tr>
+                            <tr>
+                                <td class = "text-center">{{ $student->{'sf'.$sf.'_g'.$grade->grade.'_report_year'} }}</td>
+                                <td class = "text-center" data-property = "total" data-targets = '[
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jan_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_feb_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_mar_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_apr_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_may_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jun_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jul_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_aug_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_sep_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_oct_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_nov_p",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_dec_p"
+                                ]'></td>
+                                <td class = "text-center" data-property = "total" data-targets = '[
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jan_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_feb_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_mar_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_apr_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_may_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jun_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jul_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_aug_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_sep_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_oct_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_nov_a",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_dec_a"
+                                ]'></td>
+                                <td class = "text-center" data-property = "total" data-targets = '[
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jan_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_feb_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_mar_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_apr_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_may_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jun_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_jul_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_aug_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_sep_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_oct_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_nov_t",
+                                    "sf{{ $sf }}_g{{ $grade->grade }}_attendance_dec_t"
+                                ]'></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    @if ($loop->iteration <= $loop->count / 2)
+
+                        <br>
+
+                    @endif
+
                 </div>
-                <script>
-                    new Chart(document.getElementById('chart-attendance-a'), {
-                        type: 'line',
-                        data: {
-                            labels: ['Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'July', 'Sep'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'attendance_g7_a_oct'} }},
-                                    {{ $student->{'attendance_g7_a_nov'} }},
-                                    {{ $student->{'attendance_g7_a_dec'} }},
-                                    {{ $student->{'attendance_g7_a_jan'} }},
-                                    {{ $student->{'attendance_g7_a_feb'} }},
-                                    {{ $student->{'attendance_g7_a_mar'} }},
-                                    {{ $student->{'attendance_g7_a_apr'} }},
-                                    {{ $student->{'attendance_g7_a_may'} }},
-                                    {{ $student->{'attendance_g7_a_jun'} }},
-                                    {{ $student->{'attendance_g7_a_jul'} }},
-                                    {{ $student->{'attendance_g7_a_aug'} }},
-                                    {{ $student->{'attendance_g7_a_sep'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'attendance_g8_a_oct'} }},
-                                    {{ $student->{'attendance_g8_a_nov'} }},
-                                    {{ $student->{'attendance_g8_a_dec'} }},
-                                    {{ $student->{'attendance_g8_a_jan'} }},
-                                    {{ $student->{'attendance_g8_a_feb'} }},
-                                    {{ $student->{'attendance_g8_a_mar'} }},
-                                    {{ $student->{'attendance_g8_a_apr'} }},
-                                    {{ $student->{'attendance_g8_a_may'} }},
-                                    {{ $student->{'attendance_g8_a_jun'} }},
-                                    {{ $student->{'attendance_g8_a_jul'} }},
-                                    {{ $student->{'attendance_g8_a_aug'} }},
-                                    {{ $student->{'attendance_g8_a_sep'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'attendance_g9_a_oct'} }},
-                                    {{ $student->{'attendance_g9_a_nov'} }},
-                                    {{ $student->{'attendance_g9_a_dec'} }},
-                                    {{ $student->{'attendance_g9_a_jan'} }},
-                                    {{ $student->{'attendance_g9_a_feb'} }},
-                                    {{ $student->{'attendance_g9_a_mar'} }},
-                                    {{ $student->{'attendance_g9_a_apr'} }},
-                                    {{ $student->{'attendance_g9_a_may'} }},
-                                    {{ $student->{'attendance_g9_a_jun'} }},
-                                    {{ $student->{'attendance_g9_a_jul'} }},
-                                    {{ $student->{'attendance_g9_a_aug'} }},
-                                    {{ $student->{'attendance_g9_a_sep'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'attendance_g10_a_oct'} }},
-                                    {{ $student->{'attendance_g10_a_nov'} }},
-                                    {{ $student->{'attendance_g10_a_dec'} }},
-                                    {{ $student->{'attendance_g10_a_jan'} }},
-                                    {{ $student->{'attendance_g10_a_feb'} }},
-                                    {{ $student->{'attendance_g10_a_mar'} }},
-                                    {{ $student->{'attendance_g10_a_apr'} }},
-                                    {{ $student->{'attendance_g10_a_may'} }},
-                                    {{ $student->{'attendance_g10_a_jun'} }},
-                                    {{ $student->{'attendance_g10_a_jul'} }},
-                                    {{ $student->{'attendance_g10_a_aug'} }},
-                                    {{ $student->{'attendance_g10_a_sep'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                y: { max: 31, min: 0, }
-                            },
-                        },
-                    });
-                </script>
-            </div>
-        </div>
+
+            @endforeach
+
+        @endif
 
         <!-- Header -->
         <div class = "col-12">
-            <br>
-            <h4 class = "margin-0 text-center">Learning Areas</h4>
-            <span class = "text-center">(Form changes must be saved to update statistics)</span>
-            <br>
+            <h6 class = "heading">Subjects</h6>
         </div>
 
-        <!-- [11 - ALL] Subject -> filipino -->
-        <div class = "col-lg-6">
+        <!-- Subject -> filipino -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Filipino</h6>
+
                 <div>
-                    <canvas id = "chart-subject-fil" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_fil" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-fil'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_fil'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_fil'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_fil'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_fil'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_fil`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_fil_qr1'} }},
-                                    {{ $student->{'subject_g7_fil_qr2'} }},
-                                    {{ $student->{'subject_g7_fil_qr3'} }},
-                                    {{ $student->{'subject_g7_fil_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_fil_qr1'} }},
-                                    {{ $student->{'subject_g8_fil_qr2'} }},
-                                    {{ $student->{'subject_g8_fil_qr3'} }},
-                                    {{ $student->{'subject_g8_fil_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_fil_qr1'} }},
-                                    {{ $student->{'subject_g9_fil_qr2'} }},
-                                    {{ $student->{'subject_g9_fil_qr3'} }},
-                                    {{ $student->{'subject_g9_fil_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_fil_qr1'} }},
-                                    {{ $student->{'subject_g10_fil_qr2'} }},
-                                    {{ $student->{'subject_g10_fil_qr3'} }},
-                                    {{ $student->{'subject_g10_fil_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_fil",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_fil",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_fil",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_fil"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_fil",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_fil",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_fil",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_fil"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [12 - ALL] Subject -> english -->
-        <div class = "col-lg-6">
+        <!-- Subject -> english -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">English</h6>
+
                 <div>
-                    <canvas id = "chart-subject-eng" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_eng" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-eng'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_eng'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_eng'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_eng'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_eng'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_eng`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_eng_qr1'} }},
-                                    {{ $student->{'subject_g7_eng_qr2'} }},
-                                    {{ $student->{'subject_g7_eng_qr3'} }},
-                                    {{ $student->{'subject_g7_eng_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_eng_qr1'} }},
-                                    {{ $student->{'subject_g8_eng_qr2'} }},
-                                    {{ $student->{'subject_g8_eng_qr3'} }},
-                                    {{ $student->{'subject_g8_eng_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_eng_qr1'} }},
-                                    {{ $student->{'subject_g9_eng_qr2'} }},
-                                    {{ $student->{'subject_g9_eng_qr3'} }},
-                                    {{ $student->{'subject_g9_eng_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_eng_qr1'} }},
-                                    {{ $student->{'subject_g10_eng_qr2'} }},
-                                    {{ $student->{'subject_g10_eng_qr3'} }},
-                                    {{ $student->{'subject_g10_eng_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_eng",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_eng",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_eng",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_eng"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_eng",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_eng",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_eng",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_eng"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [13 - ALL] Subject -> mathematics -->
-        <div class = "col-lg-6">
+        <!-- Subject -> mathematics -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Mathematics</h6>
+
                 <div>
-                    <canvas id = "chart-subject-mat" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_mat" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-mat'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_mat'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_mat'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_mat'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_mat'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_mat`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_mat_qr1'} }},
-                                    {{ $student->{'subject_g7_mat_qr2'} }},
-                                    {{ $student->{'subject_g7_mat_qr3'} }},
-                                    {{ $student->{'subject_g7_mat_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_mat_qr1'} }},
-                                    {{ $student->{'subject_g8_mat_qr2'} }},
-                                    {{ $student->{'subject_g8_mat_qr3'} }},
-                                    {{ $student->{'subject_g8_mat_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_mat_qr1'} }},
-                                    {{ $student->{'subject_g9_mat_qr2'} }},
-                                    {{ $student->{'subject_g9_mat_qr3'} }},
-                                    {{ $student->{'subject_g9_mat_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_mat_qr1'} }},
-                                    {{ $student->{'subject_g10_mat_qr2'} }},
-                                    {{ $student->{'subject_g10_mat_qr3'} }},
-                                    {{ $student->{'subject_g10_mat_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_mat",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_mat",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_mat",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_mat"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_mat",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_mat",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_mat",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_mat"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [14 - ALL] Subject -> science -->
-        <div class = "col-lg-6">
+        <!-- Subject -> science -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Science</h6>
+
                 <div>
-                    <canvas id = "chart-subject-sci" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_sci" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-sci'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_sci'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_sci'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_sci'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_sci'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_sci`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_sci_qr1'} }},
-                                    {{ $student->{'subject_g7_sci_qr2'} }},
-                                    {{ $student->{'subject_g7_sci_qr3'} }},
-                                    {{ $student->{'subject_g7_sci_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_sci_qr1'} }},
-                                    {{ $student->{'subject_g8_sci_qr2'} }},
-                                    {{ $student->{'subject_g8_sci_qr3'} }},
-                                    {{ $student->{'subject_g8_sci_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_sci_qr1'} }},
-                                    {{ $student->{'subject_g9_sci_qr2'} }},
-                                    {{ $student->{'subject_g9_sci_qr3'} }},
-                                    {{ $student->{'subject_g9_sci_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_sci_qr1'} }},
-                                    {{ $student->{'subject_g10_sci_qr2'} }},
-                                    {{ $student->{'subject_g10_sci_qr3'} }},
-                                    {{ $student->{'subject_g10_sci_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_sci",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_sci",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_sci",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_sci"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_sci",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_sci",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_sci",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_sci"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [15 - ALL] Subject -> araling panlipunan (ap) -->
-        <div class = "col-lg-6">
+        <!-- Subject -> araling panlipunan (ap) -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Araling Panlipunan (AP)</h6>
+
                 <div>
-                    <canvas id = "chart-subject-ap" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_ap" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-ap'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_ap'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_ap'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_ap'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_ap'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_ap`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_ap_qr1'} }},
-                                    {{ $student->{'subject_g7_ap_qr2'} }},
-                                    {{ $student->{'subject_g7_ap_qr3'} }},
-                                    {{ $student->{'subject_g7_ap_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_ap_qr1'} }},
-                                    {{ $student->{'subject_g8_ap_qr2'} }},
-                                    {{ $student->{'subject_g8_ap_qr3'} }},
-                                    {{ $student->{'subject_g8_ap_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_ap_qr1'} }},
-                                    {{ $student->{'subject_g9_ap_qr2'} }},
-                                    {{ $student->{'subject_g9_ap_qr3'} }},
-                                    {{ $student->{'subject_g9_ap_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_ap_qr1'} }},
-                                    {{ $student->{'subject_g10_ap_qr2'} }},
-                                    {{ $student->{'subject_g10_ap_qr3'} }},
-                                    {{ $student->{'subject_g10_ap_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_ap",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_ap",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_ap",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_ap"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_ap",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_ap",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_ap",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_ap"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [16 - ALL] Subject -> edukasyon sa pagpapakatao (ep) -->
-        <div class = "col-lg-6">
+        <!-- Subject -> edukasyon sa pagpapakatao (ep) -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Edukasyon sa Pagpapakatao (EP)</h6>
+
                 <div>
-                    <canvas id = "chart-subject-ep" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_ep" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-ep'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_ep'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_ep'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_ep'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_ep'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_ep`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_ep_qr1'} }},
-                                    {{ $student->{'subject_g7_ep_qr2'} }},
-                                    {{ $student->{'subject_g7_ep_qr3'} }},
-                                    {{ $student->{'subject_g7_ep_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_ep_qr1'} }},
-                                    {{ $student->{'subject_g8_ep_qr2'} }},
-                                    {{ $student->{'subject_g8_ep_qr3'} }},
-                                    {{ $student->{'subject_g8_ep_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_ep_qr1'} }},
-                                    {{ $student->{'subject_g9_ep_qr2'} }},
-                                    {{ $student->{'subject_g9_ep_qr3'} }},
-                                    {{ $student->{'subject_g9_ep_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_ep_qr1'} }},
-                                    {{ $student->{'subject_g10_ep_qr2'} }},
-                                    {{ $student->{'subject_g10_ep_qr3'} }},
-                                    {{ $student->{'subject_g10_ep_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_ep",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_ep",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_ep",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_ep"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_ep",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_ep",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_ep",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_ep"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [17 - ALL] Subject -> technology and livelihood education (tle) -->
-        <div class = "col-lg-6">
+        <!-- Subject -> technology and livelihood education (tle) -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Technology and Livelihood Education (TLE)</h6>
+
                 <div>
-                    <canvas id = "chart-subject-tle" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_tle" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-tle'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_tle'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_tle'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_tle'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_tle'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_tle`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_tle_qr1'} }},
-                                    {{ $student->{'subject_g7_tle_qr2'} }},
-                                    {{ $student->{'subject_g7_tle_qr3'} }},
-                                    {{ $student->{'subject_g7_tle_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_tle_qr1'} }},
-                                    {{ $student->{'subject_g8_tle_qr2'} }},
-                                    {{ $student->{'subject_g8_tle_qr3'} }},
-                                    {{ $student->{'subject_g8_tle_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_tle_qr1'} }},
-                                    {{ $student->{'subject_g9_tle_qr2'} }},
-                                    {{ $student->{'subject_g9_tle_qr3'} }},
-                                    {{ $student->{'subject_g9_tle_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_tle_qr1'} }},
-                                    {{ $student->{'subject_g10_tle_qr2'} }},
-                                    {{ $student->{'subject_g10_tle_qr3'} }},
-                                    {{ $student->{'subject_g10_tle_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_tle",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_tle",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_tle",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_tle"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_tle",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_tle",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_tle",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_tle"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [18 - ALL] Subject -> music -->
-        <div class = "col-lg-6">
+        <!-- Subject -> music -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
-                <h6 class = "text-center">MAPEH | Music</h6>
+                <h6 class = "text-center">MAPEH: Music</h6>
+
                 <div>
-                    <canvas id = "chart-subject-mus" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_mus" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-mus'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_mus'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_mus'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_mus'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_mus'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_mus`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_mus_qr1'} }},
-                                    {{ $student->{'subject_g7_mus_qr2'} }},
-                                    {{ $student->{'subject_g7_mus_qr3'} }},
-                                    {{ $student->{'subject_g7_mus_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_mus_qr1'} }},
-                                    {{ $student->{'subject_g8_mus_qr2'} }},
-                                    {{ $student->{'subject_g8_mus_qr3'} }},
-                                    {{ $student->{'subject_g8_mus_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_mus_qr1'} }},
-                                    {{ $student->{'subject_g9_mus_qr2'} }},
-                                    {{ $student->{'subject_g9_mus_qr3'} }},
-                                    {{ $student->{'subject_g9_mus_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_mus_qr1'} }},
-                                    {{ $student->{'subject_g10_mus_qr2'} }},
-                                    {{ $student->{'subject_g10_mus_qr3'} }},
-                                    {{ $student->{'subject_g10_mus_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_mus",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_mus",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_mus",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_mus"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_mus",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_mus",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_mus",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_mus"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [19 - ALL] Subject -> arts -->
-        <div class = "col-lg-6">
+        <!-- Subject -> arts -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
-                <h6 class = "text-center">MAPEH | Arts</h6>
+                <h6 class = "text-center">MAPEH: Arts</h6>
+
                 <div>
-                    <canvas id = "chart-subject-art" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_art" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-art'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_art'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_art'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_art'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_art'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_art`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_art_qr1'} }},
-                                    {{ $student->{'subject_g7_art_qr2'} }},
-                                    {{ $student->{'subject_g7_art_qr3'} }},
-                                    {{ $student->{'subject_g7_art_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_art_qr1'} }},
-                                    {{ $student->{'subject_g8_art_qr2'} }},
-                                    {{ $student->{'subject_g8_art_qr3'} }},
-                                    {{ $student->{'subject_g8_art_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_art_qr1'} }},
-                                    {{ $student->{'subject_g9_art_qr2'} }},
-                                    {{ $student->{'subject_g9_art_qr3'} }},
-                                    {{ $student->{'subject_g9_art_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_art_qr1'} }},
-                                    {{ $student->{'subject_g10_art_qr2'} }},
-                                    {{ $student->{'subject_g10_art_qr3'} }},
-                                    {{ $student->{'subject_g10_art_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_art",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_art",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_art",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_art"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_art",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_art",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_art",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_art"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [20 - ALL] Subject -> physical education -->
-        <div class = "col-lg-6">
+        <!-- Subject -> physical education -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
-                <h6 class = "text-center">MAPEH | Physical Education</h6>
+                <h6 class = "text-center">MAPEH: Physical Education</h6>
+
                 <div>
-                    <canvas id = "chart-subject-pe" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_pe" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-pe'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_pe'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_pe'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_pe'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_pe'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_pe`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_pe_qr1'} }},
-                                    {{ $student->{'subject_g7_pe_qr2'} }},
-                                    {{ $student->{'subject_g7_pe_qr3'} }},
-                                    {{ $student->{'subject_g7_pe_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_pe_qr1'} }},
-                                    {{ $student->{'subject_g8_pe_qr2'} }},
-                                    {{ $student->{'subject_g8_pe_qr3'} }},
-                                    {{ $student->{'subject_g8_pe_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_pe_qr1'} }},
-                                    {{ $student->{'subject_g9_pe_qr2'} }},
-                                    {{ $student->{'subject_g9_pe_qr3'} }},
-                                    {{ $student->{'subject_g9_pe_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_pe_qr1'} }},
-                                    {{ $student->{'subject_g10_pe_qr2'} }},
-                                    {{ $student->{'subject_g10_pe_qr3'} }},
-                                    {{ $student->{'subject_g10_pe_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_pe",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_pe",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_pe",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_pe"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_pe",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_pe",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_pe",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_pe"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
         </div>
 
-        <!-- [20 - ALL] Subject -> health -->
-        <div class = "col-lg-6">
+        <!-- Subject -> health -->
+        <div class = "col-6">
             <div class = "border-all-light chart">
-                <h6 class = "text-center">MAPEH | Health</h6>
+                <h6 class = "text-center">MAPEH: Health</h6>
+
                 <div>
-                    <canvas id = "chart-subject-hp" style = "max-height: 200px;"></canvas>
+                    <canvas id = "sf{{ $sf }}_subject_hp" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
+
                 <script>
-                    new Chart(document.getElementById('chart-subject-hp'), {
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_hp'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_hp'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_hp'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_hp'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_hp`), {
                         type: 'line',
                         data: {
-                            labels: ['1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter'],
-                            datasets: [{
-                                label: 'Grade 7',
-                                data: [
-                                    {{ $student->{'subject_g7_hp_qr1'} }},
-                                    {{ $student->{'subject_g7_hp_qr2'} }},
-                                    {{ $student->{'subject_g7_hp_qr3'} }},
-                                    {{ $student->{'subject_g7_hp_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 8',
-                                data: [
-                                    {{ $student->{'subject_g8_hp_qr1'} }},
-                                    {{ $student->{'subject_g8_hp_qr2'} }},
-                                    {{ $student->{'subject_g8_hp_qr3'} }},
-                                    {{ $student->{'subject_g8_hp_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 9',
-                                data: [
-                                    {{ $student->{'subject_g9_hp_qr1'} }},
-                                    {{ $student->{'subject_g9_hp_qr2'} }},
-                                    {{ $student->{'subject_g9_hp_qr3'} }},
-                                    {{ $student->{'subject_g9_hp_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }, {
-                                label: 'Grade 10',
-                                data: [
-                                    {{ $student->{'subject_g10_hp_qr1'} }},
-                                    {{ $student->{'subject_g10_hp_qr2'} }},
-                                    {{ $student->{'subject_g10_hp_qr3'} }},
-                                    {{ $student->{'subject_g10_hp_qr4'} }},
-                                ],
-                                borderWidth: 1,
-                            }],
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
                         },
                         options: {
                             responsive: true,
                             maintainAspectRatio: false,
                             scales: {
-                                y: { min: 50, }
+                                y: { min: gradesMax, min: gradesMin, }
                             },
                         },
                     });
                 </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_hp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_hp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_hp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_hp"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_hp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_hp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_hp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_hp"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
             </div>
+            <br>
+        </div>
+
+        <!-- Subject -> nihongo -->
+        <div class = "col-6">
+            <div class = "border-all-light chart">
+                <h6 class = "text-center">Nihongo</h6>
+
+                <div>
+                    <canvas id = "sf{{ $sf }}_subject_jp" style = "max-height: {{ $max_height }}px;"></canvas>
+                </div>
+
+                <script>
+                    datasets = [];
+                </script>
+
+                @foreach ($grades as $grade)
+
+                    <script>
+                        datasets.push({
+                            label: 'Grade {{ $grade->grade }}',
+                            data: [
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr1_jp'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr2_jp'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr3_jp'} }},
+                                {{ $student->{'sf'.$sf.'_g'.$grade->grade.'_subject_qr4_jp'} }},
+                            ],
+                            borderWidth: 1,
+                        });
+                    </script>
+
+                @endforeach
+
+                <script>
+                    new Chart(document.getElementById(`sf{{ $sf }}_subject_jp`), {
+                        type: 'line',
+                        data: {
+                            labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],
+                            datasets: datasets,
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: { min: gradesMax, min: gradesMin, }
+                            },
+                        },
+                    });
+                </script>
+
+                <table class = "margin-bottom-0 table">
+                    <tr>
+                        <th style = "width: 75px;">Grade</th>
+                        <th style = "width: 150px;">Final Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+
+                    @foreach ($grades as $grade)
+
+                        <tr>
+                            <td class = "text-center">{{ $grade->grade }}</td>
+                            <td class = "text-center" data-property = "average" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_jp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_jp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_jp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_jp"
+                            ]'></td>
+                            <td class = "text-center" data-property = "remarks" data-targets = '[
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr1_jp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr2_jp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr3_jp",
+                                "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_jp"
+                            ]'></td>
+                        </tr>
+
+                    @endforeach
+
+                </table>
+            </div>
+            <br>
         </div>
 
 	</div>

@@ -7,20 +7,21 @@ use App\Models\User;
 
 use Request;
 
+// Do-not-touch
+// Whitespace-checked
+
 class LoginController extends Controller {
-    // Redirect
+    // REDIRECT
     public function redirect () { return redirect()->to('/login'); }
 
-    // Index (GET)
+    // INDEX
     public function index_1 () {
         if (Auth::check()) {
-            return redirect()->to('/home');
+            return (new Controller)->home();
         }
 
-        return view('pages.login.index');
+        return view('pages.login');
     }
-
-    // Index (POST)
     public function index_2 () {
         $credentials = request()->validate([
             'email' => 'required',
@@ -28,16 +29,16 @@ class LoginController extends Controller {
         ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect()->to('/home');
+            return (new Controller)->home();
         }
 
         return back()->withErrors(['credentials' => 'Incorrect email or password.']);
     }
 
-    // Function: logout
+    // FUNCTION: logout
     public function logout () {
         Auth::logout();
 
-        return redirect()->to('/login');
+        return self::redirect();
     }
 }

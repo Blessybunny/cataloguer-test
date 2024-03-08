@@ -1,19 +1,17 @@
 <div class = "border-all-light border-space container-fluid">
-
-    <!-- Header -->
     <div class = "row">
-        <div class = "col">
+
+        <!-- Header -->
+        <div class = "col-12">
             <span class = "break"></span>
             <h6>Certification</h6>
             <span class = "break"></span>
         </div>
-    </div>
 
-    <!-- Paragraph -->
-    <div class = "row">
-        <div class = "col">
+        <!-- Paragraph -->
+        <div class = "col-12">
 
-            <!-- Name, LRN, Grade -->
+            <!-- Name, Learner Reference Number, Grade -->
             <span class = "text-center">
                 I CERTIFY that this is a true record of
                 <input
@@ -33,12 +31,13 @@
                 >
                 and that he/she is eligible for admission to Grade
                 <input
-                    class = "border-bottom-dark display-inline text-center"
+                    class = "border-bottom-dark display-inline highlight text-center"
                     name = "sf10_certification_{{ $side }}_grade"
                     type = "text"
                     maxlength = "50"
                     value = "{{ $student->{'sf10_certification_'.$side.'_grade'} }}"
                     style = "width: 50px;"
+                    {{ $student->ST_locker ? "disabled" : "" }}
                 >
             </span>
 
@@ -46,53 +45,51 @@
             <span class = "text-center">
                 Name of School:
                 <input
-                    class = "border-bottom-dark display-inline text-center"
+                    class = "border-bottom-dark display-inline highlight text-center"
                     name = "sf10_certification_{{ $side }}_school_name"
                     type = "text"
                     maxlength = "50"
                     value = "{{ $student->{'sf10_certification_'.$side.'_school_name'} }}"
                     style = "width: 300px;"
+                    {{ $student->ST_locker ? "disabled" : "" }}
                 >
                 School ID:
                 <input
-                    class = "border-bottom-dark display-inline text-center"
+                    class = "border-bottom-dark display-inline highlight text-center"
                     name = "sf10_certification_{{ $side }}_school_id"
                     type = "text"
                     maxlength = "50"
                     value = "{{ $student->{'sf10_certification_'.$side.'_school_id'} }}"
                     style = "width: 200px;"
+                    {{ $student->ST_locker ? "disabled" : "" }}
                 >
                 Last School Year Attended:
                 <input
-                    class = "border-bottom-dark display-inline text-center"
+                    class = "border-bottom-dark display-inline highlight text-center"
                     name = "sf10_certification_{{ $side }}_school_year"
                     type = "text"
                     maxlength = "50"
                     value = "{{ $student->{'sf10_certification_'.$side.'_school_year'} }}"
                     style = "width: 135px;"
+                    {{ $student->ST_locker ? "disabled" : "" }}
                 >
             </span>
 
         </div>
-    </div>
-    <div class = "row">
-        <div class = "col">
+        <div class = "col-12">
             <span class = "break"></span>
         </div>
-    </div>
-
-    <!-- Bottom -->
-    <div class = "row">
 
         <!-- Year -->
         <div class = "col-3">
             <input
-                class = "border-bottom-dark float-center text-center"
+                class = "border-bottom-dark float-center highlight text-center"
                 name = "sf10_certification_{{ $side }}_date"
                 type = "text"
                 maxlength = "50"
                 value = "{{ $student->{'sf10_certification_'.$side.'_date'} }}"
                 style = "width: 200px;"
+                {{ $student->ST_locker ? "disabled" : "" }}
             >
             <span class = "text-center">Date</span>
         </div>
@@ -100,12 +97,13 @@
         <!-- Principal -->
         <div class = "col-6">
             <input
-                class = "border-bottom-dark float-center text-center"
+                class = "border-bottom-dark float-center highlight text-center"
                 name = "sf10_certification_{{ $side }}_principal"
                 type = "text"
                 maxlength = "50"
                 value = "{{ $student->{'sf10_certification_'.$side.'_principal'} }}"
                 style = "width: 400px;"
+                {{ $student->ST_locker ? "disabled" : "" }}
             >
             <span class = "text-center">Name of Principal/School Head over Printed Name</span>
         </div>
@@ -120,12 +118,9 @@
             >
             <span class = "text-center">(Affix School Seal here)</span>
         </div>
-
-    </div>
-    <div class = "row">
-        <div class = "col">
+        <div class = "col-12">
             <span class = "break"></span>
         </div>
-    </div>
 
+    </div>
 </div>

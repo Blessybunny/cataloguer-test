@@ -41,15 +41,15 @@
 							<td class = "text-center" style = "width: 100px;">
 								<a href = "{{ url('/sections/view', $grade->id) }}">View</a>
 							</td>
+							<td class = "text-center" style = "width: 100px;">
 
-							@if ($deny->administrator)
+								@if ($auth->is_principal)
 
-								<td class = "text-center" style = "width: 100px;">
 									<a href = "{{ url('/sections/edit', $grade->id) }}">Edit</a>
-								</td>
 
-							@endif
+								@endif
 
+							</td>
 						</tr>
 
 					@endforeach

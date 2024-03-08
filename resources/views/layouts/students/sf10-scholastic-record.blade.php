@@ -1,57 +1,62 @@
 <!-- Row 1 -->
 <div class = "row">
 	<div class = "col-2">
-		<label>
+		<label class = "highlight">
 			<span>School:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_name"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_name'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
 	<div class = "col-2">
-		<label>
+		<label class = "highlight">
 			<span>School ID:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_id"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_id'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
 	<div class = "col-2">
-		<label>
+		<label class = "highlight">
 			<span>District:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_district"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_district'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
 	<div class = "col-4">
-		<label>
+		<label class = "highlight">
 			<span>Division:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_division"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_division'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
 	<div class = "col-2">
-		<label>
+		<label class = "highlight">
 			<span>Region:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_region"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_region'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
@@ -60,46 +65,50 @@
 <!-- Row 2 -->
 <div class = "row">
 	<div class = "col-2">
-		<label>
+		<label class = "highlight">
 			<span>Classified as Grade:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_grade"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_grade'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
 	<div class = "col-2">
-		<label>
+		<label class = "highlight">
 			<span>Section:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_section"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_section'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
 	<div class = "col-2">
-		<label>
+		<label class = "highlight">
 			<span>School Year:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_year"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_year'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
 	<div class = "col-4">
-		<label>
+		<label class = "highlight">
 			<span>Name of Adviser/Teacher:&nbsp;</span>
 			<input
 				name = "sf10_g{{ $grade }}_record_school_teacher"
 				type = "text"
 				maxlength = "50"
 				value = "{{ $student->{'sf10_g'.$grade.'_record_school_teacher'} }}"
+				{{ $student->ST_locker ? "disabled" : "" }}
 			>
 		</label>
 	</div>
@@ -132,7 +141,7 @@
 			<!-- Subject -> filipino -->
 			<tr>
 				<td colspan = "2">Filipino {{ $grade }}</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_fil"
@@ -140,9 +149,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_fil'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_fil"
@@ -150,9 +160,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_fil'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_fil"
@@ -160,9 +171,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_fil'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_fil"
@@ -170,6 +182,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_fil'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 				<td class = "text-center" data-property = "average" data-targets = '[
@@ -189,7 +202,7 @@
 			<!-- Subject -> english -->
 			<tr>
 				<td colspan = "2">English {{ $grade }}</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_eng"
@@ -197,9 +210,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_eng'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_eng"
@@ -207,9 +221,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_eng'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_eng"
@@ -217,9 +232,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_eng'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_eng"
@@ -227,6 +243,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_eng'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 				<td class = "text-center" data-property = "average" data-targets = '[
@@ -246,7 +263,7 @@
 			<!-- Subject -> mathematics -->
 			<tr>
 				<td colspan = "2">Mathemathics {{ $grade }}</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_mat"
@@ -254,9 +271,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_mat'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_mat"
@@ -264,9 +282,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_mat'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_mat"
@@ -274,9 +293,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_mat'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_mat"
@@ -284,6 +304,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_mat'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 				<td class = "text-center" data-property = "average" data-targets = '[
@@ -303,7 +324,7 @@
 			<!-- Subject -> science -->
 			<tr>
 				<td colspan = "2">Science {{ $grade }}</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_sci"
@@ -311,9 +332,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_sci'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_sci"
@@ -321,9 +343,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_sci'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_sci"
@@ -331,9 +354,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_sci'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_sci"
@@ -341,6 +365,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_sci'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 				<td class = "text-center" data-property = "average" data-targets = '[
@@ -360,7 +385,7 @@
 			<!-- Subject -> araling panlipunan (ap) -->
 			<tr>
 				<td colspan = "2">Araling Panlipunan (AP) {{ $grade }}</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_ap"
@@ -368,9 +393,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_ap'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_ap"
@@ -378,9 +404,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_ap'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_ap"
@@ -388,9 +415,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_ap'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_ap"
@@ -398,6 +426,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_ap'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 				<td class = "text-center" data-property = "average" data-targets = '[
@@ -417,7 +446,7 @@
 			<!-- Subject -> edukasyon sa pagpapakatao (ep) -->
 			<tr>
 				<td colspan = "2">Edukasyon sa Pagpapakatao (EP) {{ $grade }}</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_ep"
@@ -425,9 +454,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_ep'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_ep"
@@ -435,9 +465,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_ep'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_ep"
@@ -445,9 +476,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_ep'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_ep"
@@ -455,6 +487,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_ep'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 				<td class = "text-center" data-property = "average" data-targets = '[
@@ -474,7 +507,7 @@
 			<!-- Subject -> technology and livelihood education (tle) -->
 			<tr>
 				<td colspan = "2">Technology and Livelihood Education (TLE) {{ $grade }}</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_tle"
@@ -482,9 +515,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_tle'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_tle"
@@ -492,9 +526,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_tle'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_tle"
@@ -502,9 +537,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_tle'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_tle"
@@ -512,6 +548,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_tle'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 				<td class = "text-center" data-property = "average" data-targets = '[
@@ -591,7 +628,7 @@
 					"sf10_g{{ $grade }}_subject_qr3_art",
 					"sf10_g{{ $grade }}_subject_qr3_pe",
 					"sf10_g{{ $grade }}_subject_qr3_hp",
-					
+
 					"sf10_g{{ $grade }}_subject_qr4_mus",
 					"sf10_g{{ $grade }}_subject_qr4_art",
 					"sf10_g{{ $grade }}_subject_qr4_pe",
@@ -602,7 +639,7 @@
 			<!-- Subject -> music -->
 			<tr>
 				<td colspan = "2" style = "text-indent: 15px;">Music</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_mus"
@@ -610,9 +647,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_mus'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_mus"
@@ -620,9 +658,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_mus'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_mus"
@@ -630,9 +669,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_mus'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_mus"
@@ -640,6 +680,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_mus'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 				<td colspan = "2" rowspan = "4"></td>
@@ -648,7 +689,7 @@
 			<!-- Subject -> arts -->
 			<tr>
 				<td colspan = "2" style = "text-indent: 15px;">Arts</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_art"
@@ -656,9 +697,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_art'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_art"
@@ -666,9 +708,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_art'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_art"
@@ -676,9 +719,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_art'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_art"
@@ -686,6 +730,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_art'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 			</tr>
@@ -693,7 +738,7 @@
 			<!-- Subject -> physical education -->
 			<tr>
 				<td colspan = "2" style = "text-indent: 15px;">Physical Education</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_pe"
@@ -701,9 +746,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_pe'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_pe"
@@ -711,9 +757,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_pe'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_pe"
@@ -721,9 +768,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_pe'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_pe"
@@ -731,6 +779,7 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_pe'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 			</tr>
@@ -738,7 +787,7 @@
 			<!-- Subject -> health -->
 			<tr>
 				<td colspan = "2" style = "text-indent: 15px;">Health</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr1_hp"
@@ -746,9 +795,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_hp'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr2_hp"
@@ -756,9 +806,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_hp'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr3_hp"
@@ -766,9 +817,10 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_hp'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
-				<td>
+				<td class = "highlight">
 					<input
 						class = "text-center"
 						name = "sf10_g{{ $grade }}_subject_qr4_hp"
@@ -776,9 +828,76 @@
 						min = "0"
 						max = "100"
 						value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_hp'} }}"
+						{{ $student->ST_locker ? "disabled" : "" }}
 					>
 				</td>
 			</tr>
+
+			<!-- Subject -> nihongo -->
+
+			@if ($student->{'ST_sf10_g'.$grade.'_subject_jp'})
+
+				<tr>
+					<td colspan = "2">Nihongo {{ $grade }}</td>
+					<td class = "highlight">
+						<input
+							class = "text-center"
+							name = "sf10_g{{ $grade }}_subject_qr1_jp"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf10_g'.$grade.'_subject_qr1_jp'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
+						>
+					</td>
+					<td class = "highlight">
+						<input
+							class = "text-center"
+							name = "sf10_g{{ $grade }}_subject_qr2_jp"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf10_g'.$grade.'_subject_qr2_jp'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
+						>
+					</td>
+					<td class = "highlight">
+						<input
+							class = "text-center"
+							name = "sf10_g{{ $grade }}_subject_qr3_jp"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf10_g'.$grade.'_subject_qr3_jp'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
+						>
+					</td>
+					<td class = "highlight">
+						<input
+							class = "text-center"
+							name = "sf10_g{{ $grade }}_subject_qr4_jp"
+							type = "number"
+							min = "0"
+							max = "100"
+							value = "{{ $student->{'sf10_g'.$grade.'_subject_qr4_jp'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
+						>
+					</td>
+					<td class = "text-center" data-property = "average" data-targets = '[
+						"sf10_g{{ $grade }}_subject_qr1_jp",
+						"sf10_g{{ $grade }}_subject_qr2_jp",
+						"sf10_g{{ $grade }}_subject_qr3_jp",
+						"sf10_g{{ $grade }}_subject_qr4_jp"
+					]'></td>
+					<td class = "text-center" data-property = "remarks" data-targets = '[
+						"sf10_g{{ $grade }}_subject_qr1_jp",
+						"sf10_g{{ $grade }}_subject_qr2_jp",
+						"sf10_g{{ $grade }}_subject_qr3_jp",
+						"sf10_g{{ $grade }}_subject_qr4_jp"
+					]'></td>
+				</tr>
+
+			@endif
 
 			<!-- Average -> all -->
 			<tr>
@@ -838,7 +957,12 @@
 					"sf10_g{{ $grade }}_subject_qr1_hp",
 					"sf10_g{{ $grade }}_subject_qr2_hp",
 					"sf10_g{{ $grade }}_subject_qr3_hp",
-					"sf10_g{{ $grade }}_subject_qr4_hp"
+					"sf10_g{{ $grade }}_subject_qr4_hp",
+
+					"sf10_g{{ $grade }}_subject_qr1_jp",
+					"sf10_g{{ $grade }}_subject_qr2_jp",
+					"sf10_g{{ $grade }}_subject_qr3_jp",
+					"sf10_g{{ $grade }}_subject_qr4_jp"
 				]'></td>
 				<td class = "text-center" data-property = "grand" data-targets = '[
 					"sf10_g{{ $grade }}_subject_qr1_fil",
@@ -894,14 +1018,19 @@
 					"sf10_g{{ $grade }}_subject_qr1_hp",
 					"sf10_g{{ $grade }}_subject_qr2_hp",
 					"sf10_g{{ $grade }}_subject_qr3_hp",
-					"sf10_g{{ $grade }}_subject_qr4_hp"
+					"sf10_g{{ $grade }}_subject_qr4_hp",
+
+					"sf10_g{{ $grade }}_subject_qr1_jp",
+					"sf10_g{{ $grade }}_subject_qr2_jp",
+					"sf10_g{{ $grade }}_subject_qr3_jp",
+					"sf10_g{{ $grade }}_subject_qr4_jp"
 				]'></td>
 			</tr>
 
 			<!-- Remedial -->
 			<tr>
 				<th style = "min-width: 339px;">Remedial Classes</td>
-				<td class = "border-right-none" colspan = "5">
+				<td class = "border-right-none highlight" colspan = "5">
 					<label>
 						<span>Conducted from (MM/DD/YYYY):&nbsp;</span>
 						<input
@@ -909,10 +1038,11 @@
 							type = "text"
 							maxlength = "50"
 							value = "{{ $student->{'sf10_g'.$grade.'_record_remedial_date_start'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</label>
 				</td>
-				<td class = "border-left-none" colspan = "2">
+				<td class = "border-left-none highlight" colspan = "2">
 					<label>
 						<span>to (MM/DD/YYYY):&nbsp;</span>
 						<input
@@ -920,6 +1050,7 @@
 							type = "text"
 							maxlength = "50"
 							value = "{{ $student->{'sf10_g'.$grade.'_record_remedial_date_end'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</label>
 				</td>

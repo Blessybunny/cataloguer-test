@@ -45,28 +45,10 @@
 						</a>
 					</label>
 
-					@if (isset($isSearched))
+					@if (isset($terms))
 
 						<br>
-						<p class = "text-center">
-
-							@if (count($results) > 0)
-
-								Found results for <b>{{ $terms }}</b>
-
-							@else
-
-								No results for <b>{{ $terms }}</b>
-
-							@endif
-
-						</p>
-
-						@php
-
-							$users = $results;
-
-						@endphp
+						<p class = "text-center">Results for <b>{{ $terms }}</b></p>
 
 					@endif
 
@@ -92,30 +74,19 @@
 								<td class = "text-center" style = "width: 200px;">{{ $user->role }}</td>
 								<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
 								<td class = "text-center" style = "width: 200px;">{{ $user->designation }}</td>
-
-								@php
-
-									$colspan = 2;
-
-									if ($user->editable) {
-										$colspan = 1;
-									}
-
-								@endphp
-
 								<td class = "text-center" style = "width: 200px;"></td>
-								<td class = "text-center" colspan = "{{ $colspan }}" style = "width: 100px;">
+								<td class = "text-center" style = "width: 100px;">
 									<a href = "{{ url('/users/view', $user->id) }}">View</a>
 								</td>
+								<td class = "text-center" style = "width: 100px;">
 
-								@if ($user->editable) 
+									@if ($user->editable) 
 
-									<td class = "text-center" style = "width: 100px;">
 										<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
-									</td>
 
-								@endif
+									@endif
 
+								</td>
 							</tr>
 
 						@endforeach

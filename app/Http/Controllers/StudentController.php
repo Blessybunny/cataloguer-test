@@ -11,23 +11,21 @@ use App\Models\Year;
 
 use Request;
 
+// Do-not-touch
+// Whitespace-checked
+
 class StudentController extends Controller {
     // RESTRICTION
-    // ALLOWED: 1, 2, 3, 4, 5
     public function restrict ($auth) {
-        if ($auth != null) {
-            if (
-                $auth->DB_ROLE_id == 1 ||
-                $auth->DB_ROLE_id == 2 ||
-                $auth->DB_ROLE_id == 3 ||
-                $auth->DB_ROLE_id == 4 ||
-                $auth->DB_ROLE_id == 5
-            ) {
-                return false;
-            }
-            else {
-                return true;
-            }
+        if (
+            $auth != null &&
+            $auth->is_principal ||
+            $auth->is_administrator ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
+        ) {
+            return false;
         }
         else {
             return true;
@@ -38,7 +36,6 @@ class StudentController extends Controller {
     public function redirect () { return redirect()->to('/students'); }
 
     // INDEX
-    // DENIED: 1, 3, 4, 5
     public function index_1 () {
         // Restrict
         $auth = (new Controller)->auth();
@@ -47,23 +44,11 @@ class StudentController extends Controller {
             return (new Controller)->home();
         }
 
-        // Deny (HTML)
-        $deny = new Role();
-        $deny->principal = $auth->DB_ROLE_id == 1 ? false : true;
-        $deny->grade_level_coordinator = $auth->DB_ROLE_id == 3 ? false : true;
-        $deny->adviser = $auth->DB_ROLE_id == 4 ? false : true;
-        $deny->teacher = $auth->DB_ROLE_id == 5 ? false : true;
-
         // Proceed
-        $students = Student::orderBy('info_name_last', 'ASC')
-            ->orderBy('info_name_first', 'ASC')
-            ->orderBy('info_name_middle', 'ASC')
-            ->orderBy('info_name_suffix', 'ASC')
-            ->get();
+        $students = self::func_format_students(Student::query());
 
         return view('pages.students.index')
             ->with('auth', $auth)
-            ->with('deny', $deny)
             ->with('students', $students);
     }
     public function index_2 () {
@@ -73,13 +58,6 @@ class StudentController extends Controller {
         if (self::restrict($auth)) {
             return (new Controller)->home();
         }
-
-        // Deny (HTML)
-        $deny = new Role();
-        $deny->principal = $auth->DB_ROLE_id == 1 ? false : true;
-        $deny->grade_level_coordinator = $auth->DB_ROLE_id == 3 ? false : true;
-        $deny->adviser = $auth->DB_ROLE_id == 4 ? false : true;
-        $deny->teacher = $auth->DB_ROLE_id == 5 ? false : true;
 
         // Proceed
         $terms = Request::get('terms');
@@ -94,24 +72,16 @@ class StudentController extends Controller {
                     ->orWhere('info_name_first', 'like', '%'.$term.'%')
                     ->orWhere('info_name_suffix', 'like', '%'.$term.'%')
                     ->orWhere('info_name_middle', 'like', '%'.$term.'%')
-                    ->orWhere('info_lrn', 'like', '%'.$term.'%')
-                    ->orWhere('info_sex', 'like', '%'.$term.'%');
+                    ->orWhere('info_lrn', 'like', '%'.$term.'%');
                 });
             }
 
-            $results = $query->orderBy('info_name_last', 'ASC')
-                ->orderBy('info_name_first', 'ASC')
-                ->orderBy('info_name_middle', 'ASC')
-                ->orderBy('info_name_suffix', 'ASC')
-                ->get();
-            $results = (count($results) > 0) ? $results : [];
+            $students = self::func_format_students($query);
 
             return view('pages.students.index')
                 ->with('auth', $auth)
-                ->with('deny', $deny)
-                ->with('isSearched', true)
                 ->with('terms', $terms)
-                ->with('results', $results);
+                ->with('students', $students);
         }
         else {
             return self::redirect();
@@ -119,21 +89,16 @@ class StudentController extends Controller {
     }
 
     // CREATE
-    // DENIED: 1, 3, 4, 5
     public function create_1 () {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -146,16 +111,12 @@ class StudentController extends Controller {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -197,8 +158,15 @@ class StudentController extends Controller {
         $student = Student::find($id);
 
         if ($student != null) {
+            $grades = Grade::all();
+
+            $student = self::func_format_student($student);
+
+			$student->ST_locker = true;
+
             return view('pages.students.view')
                 ->with('auth', $auth)
+                ->with('grades', $grades)
                 ->with('student', $student);
         }
         else {
@@ -207,21 +175,16 @@ class StudentController extends Controller {
     }
 
     // EDIT (Info)
-    // DENIED: 1, 3, 4, 5
     public function edit_info_1 ($id) {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -242,16 +205,12 @@ class StudentController extends Controller {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -290,21 +249,16 @@ class StudentController extends Controller {
     }
 
     // EDIT (Area)
-    // DENIED: 1, 3, 4, 5
     public function edit_area_1 ($id) {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -340,16 +294,12 @@ class StudentController extends Controller {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -403,19 +353,14 @@ class StudentController extends Controller {
     }
 
     // EDIT (Form)
-    // DENIED: 1, 2
     public function edit_form_1 ($id) {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -426,76 +371,7 @@ class StudentController extends Controller {
         if ($student != null) {
             $grades = Grade::all();
 
-            foreach ($grades as $grade) {
-                $section = Section::find($student->{'DB_SECTION_id_g'.$grade->grade});
-                $user = null;
-
-                if ($section != null) {
-                    $user = User::find($section->DB_USER_id);
-                    $student->{'sf9_g'.$grade->grade.'_report_section'} = $section->section;
-                }
-                else {
-                    $student->{'sf9_g'.$grade->grade.'_report_section'} = $student->{'LG_SECTION_name_g'.$grade->grade};
-                }
-
-                $user_name_last = $student->{'LG_USER_name_last_g'.$grade->grade};
-                $user_name_first = $student->{'LG_USER_name_first_g'.$grade->grade};
-
-                if (
-                    $user != null &&
-                    $user_name_last == null &&
-                    $user_name_first == null
-                ) {
-                    $student->{'sf9_g'.$grade->grade.'_report_adviser'} = strtoupper($user->name_last).', '.ucfirst($user->name_first);
-                }
-                else if (
-                    $user == null &&
-                    $user_name_last != null &&
-                    $user_name_first != null
-                ) {
-                    $student->{'sf9_g'.$grade->grade.'_report_adviser'} = strtoupper($user_name_last).', '.ucfirst($user_name_first);
-                }
-            }
-
-            foreach ($grades as $grade) {
-                $year = Year::find($student->{'DB_YEAR_id_g'.$grade->grade});
-
-                if ($year != null) {
-                    $student->{'sf9_g'.$grade->grade.'_report_year'} = $year->year.'-'.$year->year + 1;
-
-                    $user = User::find($year->DB_USER_id);
-                    $user_name_last = $year->LG_USER_name_last;
-                    $user_name_first = $year->LG_USER_name_first;
-
-                    if (
-                        $user != null &&
-                        $user_name_last == null &&
-                        $user_name_first == null
-                    ) {
-                        $student->{'sf9_g'.$grade->grade.'_report_principal'} = strtoupper($user->name_last).', '.ucfirst($user->name_first);
-                    }
-                    else if (
-                        $user == null &&
-                        $user_name_last != null &&
-                        $user_name_first != null
-                    ) {
-                        $student->{'sf9_g'.$grade->grade.'_report_principal'} = strtoupper($user_name_last).', '.ucfirst($user_name_first);
-                    }
-
-                    $student->{'sf9_g'.$grade->grade.'_attendance_jan_t'} = $year->attendance_jan_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_feb_t'} = $year->attendance_feb_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_mar_t'} = $year->attendance_mar_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_apr_t'} = $year->attendance_apr_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_may_t'} = $year->attendance_may_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_jun_t'} = $year->attendance_jun_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_jul_t'} = $year->attendance_jul_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_aug_t'} = $year->attendance_aug_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_sep_t'} = $year->attendance_sep_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_oct_t'} = $year->attendance_oct_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_nov_t'} = $year->attendance_nov_t;
-                    $student->{'sf9_g'.$grade->grade.'_attendance_dec_t'} = $year->attendance_dec_t;
-                }
-            }
+            $student = self::func_format_student($student);
 
             return view('pages.students.edit-form')
                 ->with('auth', $auth)
@@ -510,14 +386,10 @@ class StudentController extends Controller {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -1068,6 +940,36 @@ class StudentController extends Controller {
                 ]);
 
                 // All: Subject -> nihongo
+                if ($student->{'ST_sf9_g'.$grade->grade.'_subject_jp'}) {
+                    $validate_sf9_subject_jp = request()->validate([
+                        'sf9_g'.$grade->grade.'_subject_qr1_jp' => 'nullable',
+                        'sf9_g'.$grade->grade.'_subject_qr2_jp' => 'nullable',
+                        'sf9_g'.$grade->grade.'_subject_qr3_jp' => 'nullable',
+                        'sf9_g'.$grade->grade.'_subject_qr4_jp' => 'nullable',
+                    ]);
+
+                    $student->update([
+                        'sf9_g'.$grade->grade.'_subject_qr1_jp' => $validate_sf9_subject_jp['sf9_g'.$grade->grade.'_subject_qr1_jp'],
+                        'sf9_g'.$grade->grade.'_subject_qr2_jp' => $validate_sf9_subject_jp['sf9_g'.$grade->grade.'_subject_qr2_jp'],
+                        'sf9_g'.$grade->grade.'_subject_qr3_jp' => $validate_sf9_subject_jp['sf9_g'.$grade->grade.'_subject_qr3_jp'],
+                        'sf9_g'.$grade->grade.'_subject_qr4_jp' => $validate_sf9_subject_jp['sf9_g'.$grade->grade.'_subject_qr4_jp'],
+                    ]);
+                }
+                if ($student->{'ST_sf10_g'.$grade->grade.'_subject_jp'}) {
+                    $validate_sf10_subject_jp = request()->validate([
+                        'sf10_g'.$grade->grade.'_subject_qr1_jp' => 'nullable',
+                        'sf10_g'.$grade->grade.'_subject_qr2_jp' => 'nullable',
+                        'sf10_g'.$grade->grade.'_subject_qr3_jp' => 'nullable',
+                        'sf10_g'.$grade->grade.'_subject_qr4_jp' => 'nullable',
+                    ]);
+
+                    $student->update([
+                        'sf10_g'.$grade->grade.'_subject_qr1_jp' => $validate_sf10_subject_jp['sf10_g'.$grade->grade.'_subject_qr1_jp'],
+                        'sf10_g'.$grade->grade.'_subject_qr2_jp' => $validate_sf10_subject_jp['sf10_g'.$grade->grade.'_subject_qr2_jp'],
+                        'sf10_g'.$grade->grade.'_subject_qr3_jp' => $validate_sf10_subject_jp['sf10_g'.$grade->grade.'_subject_qr3_jp'],
+                        'sf10_g'.$grade->grade.'_subject_qr4_jp' => $validate_sf10_subject_jp['sf10_g'.$grade->grade.'_subject_qr4_jp'],
+                    ]);
+                }
             }
 
             // Touch
@@ -1082,21 +984,16 @@ class StudentController extends Controller {
     }
 
     // EDIT (Lock)
-    // DENIED: 1, 3, 4, 5
     public function edit_lock_1 ($id) {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -1120,16 +1017,12 @@ class StudentController extends Controller {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -1170,21 +1063,16 @@ class StudentController extends Controller {
     }
 
     // DELETE
-    // DENIED: 1, 3, 4, 5
     public function delete_1 ($id) {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
@@ -1205,25 +1093,111 @@ class StudentController extends Controller {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
         if (
-            $auth->DB_ROLE_id == 1 ||
-            $auth->DB_ROLE_id == 3 ||
-            $auth->DB_ROLE_id == 4 ||
-            $auth->DB_ROLE_id == 5
+            self::restrict($auth) ||
+            $auth->is_principal ||
+            $auth->is_grade_level_coordinator ||
+            $auth->is_adviser ||
+            $auth->is_teacher
         ) {
             return (new Controller)->home();
         }
 
         // Proceed
+        $student = Student::find($id);
+
         if ($student != null) {
             $student->delete();
         }
 
         return self::redirect();
+    }
+
+    // FUNCTION: format student (multiple)
+    public function func_format_students ($students) {
+        // Order
+        $students = $students->orderBy('info_name_last', 'ASC')
+            ->orderBy('info_name_first', 'ASC')
+            ->orderBy('info_name_middle', 'ASC')
+            ->orderBy('info_name_suffix', 'ASC')
+            ->get();
+
+        // Return
+        return $students;
+    }
+
+    // FUNCTION: format student (signle)
+    public function func_format_student ($student) {
+        $grades = Grade::all();
+
+        foreach ($grades as $grade) {
+            // Section
+            $section = Section::find($student->{'DB_SECTION_id_g'.$grade->grade});
+            $user = null;
+
+            if ($section != null) {
+                $student->{'sf9_g'.$grade->grade.'_report_section'} = $section->section;
+                $user = User::find($section->DB_USER_id);
+            }
+            else {
+                $student->{'sf9_g'.$grade->grade.'_report_section'} = $student->{'LG_SECTION_name_g'.$grade->grade};
+            }
+
+            // Principal
+            if (
+                $user != null &&
+                $student->{'LG_USER_name_last_g'.$grade->grade} == null &&
+                $student->{'LG_USER_name_first_g'.$grade->grade} == null
+            ) {
+                $student->{'sf9_g'.$grade->grade.'_report_adviser'} = strtoupper($user->name_last).', '.ucfirst($user->name_first);
+            }
+            else if (
+                $user == null &&
+                $student->{'LG_USER_name_last_g'.$grade->grade} != null &&
+                $student->{'LG_USER_name_first_g'.$grade->grade} != null
+            ) {
+                $student->{'sf9_g'.$grade->grade.'_report_adviser'} = strtoupper($student->{'LG_USER_name_last_g'.$grade->grade}).', '.ucfirst($student->{'LG_USER_name_first_g'.$grade->grade});
+            }
+
+            // Year
+            $year = Year::find($student->{'DB_YEAR_id_g'.$grade->grade});
+
+            if ($year != null) {
+                $student->{'sf9_g'.$grade->grade.'_report_year'} = $year->full;
+
+                $user = User::find($year->DB_USER_id);
+
+                if (
+                    $user != null &&
+                    $year->LG_USER_name_last == null &&
+                    $year->LG_USER_name_first == null
+                ) {
+                    $student->{'sf9_g'.$grade->grade.'_report_principal'} = strtoupper($user->name_last).', '.ucfirst($user->name_first);
+                }
+                else if (
+                    $user == null &&
+                    $year->LG_USER_name_last != null &&
+                    $year->LG_USER_name_first != null
+                ) {
+                    $student->{'sf9_g'.$grade->grade.'_report_principal'} = strtoupper($year->LG_USER_name_last).', '.ucfirst($year->LG_USER_name_first);
+                }
+
+                $student->{'sf9_g'.$grade->grade.'_attendance_jan_t'} = $year->attendance_jan_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_feb_t'} = $year->attendance_feb_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_mar_t'} = $year->attendance_mar_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_apr_t'} = $year->attendance_apr_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_may_t'} = $year->attendance_may_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_jun_t'} = $year->attendance_jun_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_jul_t'} = $year->attendance_jul_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_aug_t'} = $year->attendance_aug_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_sep_t'} = $year->attendance_sep_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_oct_t'} = $year->attendance_oct_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_nov_t'} = $year->attendance_nov_t;
+                $student->{'sf9_g'.$grade->grade.'_attendance_dec_t'} = $year->attendance_dec_t;
+            }
+        }
+
+        // Return
+        return $student;
     }
 }

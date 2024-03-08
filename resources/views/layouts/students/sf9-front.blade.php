@@ -1,17 +1,15 @@
-<div class = "container paper">
+<div class = "container-fluid paper">
 	<div class = "row">
 
 		<!-- Left -->
 		<div class = "col-6">
 			<div class = "container-fluid">
-
-				<!-- Header -->
 				<div class = "row">
-					<div class = "col">
+
+					<!-- Header -->
+					<div class = "col-12">
 						<h6 class = "heading">Learner's Progress Report Card (SF9)</h6>
 					</div>
-				</div>
-				<div class = "row">
 					<div class = "col-3">
 						<img src = "{{ asset('assets/img/deped-2.png') }}" height = 100>
 					</div>
@@ -26,133 +24,143 @@
 					<div class = "col-3">
 						<img class = "float-right"  src = "{{ asset('assets/img/irisan.png') }}" height = 100>
 					</div>
-				</div>
-				<br>
+					<br>
 
-				<!-- Info -->
-				<div class = "row">
-					<div class = "col">
+					<!-- Learning Reference Number -->
+					<div class = "col-12">
 						<span>Leaner Reference Number: {{ $student->info_lrn }}</span>
+					</div>
+
+					<!-- Name -->
+					<div class = "col-12">
 						<span>Name: {{ strtoupper($student->info_name_last) }}, {{ ucfirst($student->info_name_first) }} {{ ucfirst($student->info_name_middle) }} {{ ucfirst($student->info_name_suffix) }}</span>
 					</div>
-				</div>
-				<div class = "row">
-					<div class = "col">
-						<label>
+
+					<!-- Age -->
+					<div class = "col-6">
+						<label class = "highlight">
 							<span>Age:&nbsp;</span>
 							<input
 								name = "sf9_g{{ $grade->grade }}_report_age"
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_age'} }}"
+								{{ $student->ST_locker ? "disabled" : "" }}
 							>
 						</label>
+					</div>
+
+					<!-- Sex -->
+					<div class = "col-6">
+						<span>Sex: {{ $student->info_sex }}</span>
+					</div>
+
+					<!-- Grade -->
+					<div class = "col-6">
 						<span>Grade: {{ $grade->grade }}</span>
 					</div>
-					<div class = "col">
-						<span>Sex: {{ $student->info_sex }}</span>
+
+					<!-- Section -->
+					<div class = "col-6">
 						<span>Section: {{ $student->{'sf9_g'.$grade->grade.'_report_section'} }}</span>
 					</div>
-				</div>
-				<div class = "row">
-					<div class = "col">
+
+					<!-- School Year -->
+					<div class = "col-12">
 						<span>School Year: {{ $student->{'sf9_g'.$grade->grade.'_report_year'} }}</span>
 					</div>
-				</div>
-				<br>
 
-				<!-- Letter -->
-				<div class = "row">
-					<div class = "col">
+					<!-- Letter -->
+					<div class = "col-12">
+						<br>
 						<span>Dear parent:</span>
 						<span style = "text-indent: 60px;">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
+						<br>
 					</div>
-				</div>
-				<br>
 
-				<div class = "row">
-					<div class = "col">
+					<!-- Letter Signatures -->
+					<div class = "col-6">
 						<div class = "text-center">
 							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_principal'} }}&nbsp;</span>
 							<span>OIC - Office of the Principal</span>
 						</div>
 					</div>
-					<div class = "col">
+					<div class = "col-6">
 						<div class = "text-center">
 							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_adviser'} }}&nbsp;</span>
 							<span>Adviser</span>
 						</div>
 					</div>
-				</div>
-				<br>
 
-				<!-- Transfer -->
-				<div class = "row">
-					<div class = "col">
+					<!-- Transfer -->
+					<div class = "col-12">
+						<br>
 						<h6>Certificate Of Transfer</h6>
-						<label>
+						<label class = "highlight">
 							<span>Admitted to:&nbsp;</span>
 							<input
 								name = "sf9_g{{ $grade->grade }}_report_transfer_input_1"
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_transfer_input_1'} }}"
+								{{ $student->ST_locker ? "disabled" : "" }}
 							>
 						</label>
-						<label>
+						<label class = "highlight">
 							<span>Approved:&nbsp;</span>
 							<input
 								name = "sf9_g{{ $grade->grade }}_report_transfer_input_2"
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_transfer_input_2'} }}"
+								{{ $student->ST_locker ? "disabled" : "" }}
 							>
 						</label>
+						<br>
 					</div>
-				</div>
-				<br>
 
-				<div class = "row">
-					<div class = "col">
+					<!-- Transfer Signatures -->
+					<div class = "col-6">
 						<div class = "text-center">
 							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_principal'} }}&nbsp;</span>
 							<span>OIC - Office of the Principal</span>
 						</div>
 					</div>
-					<div class = "col">
+					<div class = "col-6">
 						<div class = "text-center">
 							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_adviser'} }}&nbsp;</span>
 							<span>Adviser</span>
 						</div>
 					</div>
-				</div>
-				<br>
 
-				<div class = "row">
-					<div class = "col">
+					<!-- Transfer Cancel -->
+					<div class = "col-12">
+						<br>
 						<h6>Cancellation of Eligibility to Transfer</h6>
-						<label>
+						<label class = "highlight">
 							<span>Admitted to:&nbsp;</span>
 							<input
 								name = "sf9_g{{ $grade->grade }}_report_transfer_input_3"
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_transfer_input_3'} }}"
+								{{ $student->ST_locker ? "disabled" : "" }}
 							>
 						</label>
-						<label>
+						<label class = "highlight">
 							<span>Date:&nbsp;</span>
 							<input
 								name = "sf9_g{{ $grade->grade }}_report_transfer_input_date"
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_transfer_input_date'} }}"
+								{{ $student->ST_locker ? "disabled" : "" }}
 							>
 						</label>
+						<br>
 					</div>
-				</div>
-				<br>
 
+				</div>
 			</div>
 		</div>
 
@@ -176,15 +184,16 @@
 				<!-- October -->
 				<tr>
 					<td class = "text-center">Oct</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_oct_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_oct_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_oct_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_oct_p"
@@ -192,9 +201,10 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_oct_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_oct_a"
@@ -202,6 +212,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_oct_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -209,15 +220,16 @@
 				<!-- November -->
 				<tr>
 					<td class = "text-center">Nov</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_nov_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_nov_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_nov_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_nov_p"
@@ -225,9 +237,10 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_nov_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_nov_a"
@@ -235,6 +248,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_nov_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -242,15 +256,16 @@
 				<!-- December -->
 				<tr>
 					<td class = "text-center">Dec</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_dec_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_dec_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_dec_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_dec_p"
@@ -258,9 +273,10 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_dec_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_dec_a"
@@ -268,6 +284,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_dec_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -275,15 +292,16 @@
 				<!-- January -->
 				<tr>
 					<td class = "text-center">Jan</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_jan_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jan_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jan_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jan_p"
@@ -291,9 +309,10 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jan_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jan_a"
@@ -301,6 +320,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jan_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -308,15 +328,16 @@
 				<!-- February -->
 				<tr>
 					<td class = "text-center">Feb</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_feb_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_feb_p"
@@ -324,9 +345,10 @@
 							min = "0"
 							max = "29"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_feb_a"
@@ -334,6 +356,7 @@
 							min = "0"
 							max = "29"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -341,15 +364,16 @@
 				<!-- March -->
 				<tr>
 					<td class = "text-center">Mar</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_mar_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_mar_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_mar_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_mar_p"
@@ -357,9 +381,10 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_mar_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_mar_a"
@@ -367,6 +392,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_mar_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -374,15 +400,16 @@
 				<!-- April -->
 				<tr>
 					<td class = "text-center">Apr</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_apr_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_apr_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_apr_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_apr_p"
@@ -390,9 +417,10 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_apr_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_apr_a"
@@ -400,6 +428,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_apr_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -407,15 +436,16 @@
 				<!-- May -->
 				<tr>
 					<td class = "text-center">May</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_may_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_may_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_may_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_may_p"
@@ -423,9 +453,10 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_may_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_may_a"
@@ -433,6 +464,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_may_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -440,15 +472,16 @@
 				<!-- June -->
 				<tr>
 					<td class = "text-center">Jun</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_jun_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jun_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jun_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jun_p"
@@ -456,9 +489,10 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jun_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jun_a"
@@ -466,6 +500,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jun_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -473,15 +508,16 @@
 				<!-- July -->
 				<tr>
 					<td class = "text-center">Jul</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_jul_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jul_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jul_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jul_p"
@@ -489,9 +525,10 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jul_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_jul_a"
@@ -499,6 +536,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jul_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -506,15 +544,16 @@
 				<!-- August -->
 				<tr>
 					<td class = "text-center">Aug</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_aug_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_aug_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_aug_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_aug_p"
@@ -522,9 +561,10 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_aug_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_aug_a"
@@ -532,6 +572,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_aug_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>
@@ -539,15 +580,16 @@
 				<!-- September -->
 				<tr>
 					<td class = "text-center">Sep</td>
-					<td class = "text-center">
-						{{ $student->{'sf9_g'.$grade->grade.'_attendance_sep_t'} }}
+					<td>
 						<input
-							class = "display-none"
+							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_sep_t"
+							type = "text"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_sep_t'} }}"
+							disabled
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_sep_p"
@@ -555,9 +597,10 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_sep_p'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
-					<td>
+					<td class = "highlight">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_attendance_sep_a"
@@ -565,6 +608,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_sep_a'} }}"
+							{{ $student->ST_locker ? "disabled" : "" }}
 						>
 					</td>
 				</tr>

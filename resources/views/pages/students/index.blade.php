@@ -22,12 +22,7 @@
 				</div>
 				<div class = "align-self-center col-4">
 
-					@if (
-						$deny->principal &&
-						$deny->grade_level_coordinator &&
-						$deny->adviser &&
-						$deny->teacher
-					)
+					@if ($auth->is_administrator)
 
 						<a href = "{{ url('/students/create') }}">
 							<button class = "button float-right" type = "button">Add</button>
@@ -56,28 +51,10 @@
 						</a>
 					</label>
 
-					@if (isset($isSearched))
+					@if (isset($terms))
 
 						<br>
-						<p class = "text-center">
-
-							@if (count($results) > 0)
-
-								Found results for <b>{{ $terms }}</b>
-
-							@else
-
-								No results for <b>{{ $terms }}</b>
-
-							@endif
-
-						</p>
-
-						@php
-
-							$students = $results;
-
-						@endphp
+						<p class = "text-center">Results for <b>{{ $terms }}</b></p>
 
 					@endif
 
@@ -103,57 +80,53 @@
 								<td class = "text-center" style = "width: 100px;">
 									<a href = "{{ url('/students/view', $student->id) }}">View</a>
 								</td>
+								<td class = "text-center" style = "width: 100px;">
 
-								@if (
-									$deny->principal &&
-									$deny->grade_level_coordinator &&
-									$deny->adviser &&
-									$deny->teacher
-								)
+									@if (
+										!$student->ST_locker &&
+										$auth->is_administrator
+									)
 
-									<td class = "text-center" style = "width: 100px;">
 										<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
-									</td>
 
-								@endif
+									@endif
 
-								@if (
-									$deny->principal &&
-									$deny->grade_level_coordinator &&
-									$deny->adviser &&
-									$deny->teacher
-								)
+								</td>
+								<td class = "text-center" style = "width: 100px;">
 
-									<td class = "text-center" style = "width: 100px;">
+									@if (
+										!$student->ST_locker &&
+										$auth->is_administrator
+									)
+
 										<a href = "{{ url('/students/edit/area', $student->id) }}">Edit Areas</a>
-									</td>
 
-								@endif
+									@endif
 
-								@if (
-									$deny->principal &&
-									$deny->teacher
-								)
+								</td>
+								<td class = "text-center" style = "width: 100px;">
 
-									<td class = "text-center" style = "width: 100px;">
+									@if (
+										!$student->ST_locker &&
+										$auth->is_administrator ||
+										$auth->is_grade_level_coordinator ||
+										$auth->is_adviser
+									)
+
 										<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
-									</td>
 
-								@endif
+									@endif
 
-								@if (
-									$deny->principal &&
-									$deny->grade_level_coordinator &&
-									$deny->adviser &&
-									$deny->teacher
-								)
+								</td>
+								<td class = "text-center" style = "width: 100px;">
 
-									<td class = "text-center" style = "width: 100px;">
-											<a href = "{{ url('/students/edit/lock', $student->id) }}">Settings</a>
-									</td>
+									@if ($auth->is_administrator)
 
-								@endif
+										<a href = "{{ url('/students/edit/lock', $student->id) }}">Settings</a>
+										
+									@endif
 
+								</td>
 							</tr>
 
 						@endforeach

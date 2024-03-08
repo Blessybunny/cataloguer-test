@@ -9,6 +9,6 @@ echo "Caching routes..."
 php artisan route:cache
 
 echo "Running migrations..."
-php artisan migrate:refresh --force #rebuild database with data clearing
-#fresh - rebuild database without data clearing
+# When next to the final deployment, run these both and then comment out on the final commit.
+php artisan migrate:refresh --force
 php artisan db:seed --force

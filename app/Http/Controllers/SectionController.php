@@ -11,20 +11,18 @@ use App\Models\Year;
 
 use Request;
 
+// Do-not-touch
+// Whitespace-checked
+
 class SectionController extends Controller {
     // RESTRICTION
-    // ALLOWED: 1, 2
     public function restrict ($auth) {
-        if ($auth != null) {
-            if (
-                $auth->DB_ROLE_id == 1 ||
-                $auth->DB_ROLE_id == 2
-            ) {
-                return false;
-            }
-            else {
-                return true;
-            }
+        if (
+            $auth != null &&
+            $auth->is_principal ||
+            $auth->is_administrator
+        ) {
+            return false;
         }
         else {
             return true;
@@ -35,7 +33,6 @@ class SectionController extends Controller {
     public function redirect () { return redirect()->to('/sections'); }
 
     // INDEX
-    // DENIED: 2
     public function index () {
         // Restrict
         $auth = (new Controller)->auth();
@@ -44,16 +41,11 @@ class SectionController extends Controller {
             return (new Controller)->home();
         }
 
-        // Deny (HTML)
-        $deny = new Role();
-        $deny->administrator = $auth->DB_ROLE_id == 2 ? false : true;
-
         // Proceed
         $grades = Grade::all();
 
         return view('pages.sections.index')
             ->with('auth', $auth)
-            ->with('deny', $deny)
             ->with('grades', $grades);
     }
 
@@ -89,6 +81,7 @@ class SectionController extends Controller {
                 ->where('DB_GRADE_id', $id)
                 ->where('DB_ROLE_id', 3)
                 ->get();
+
             $users_5 = User::orderBy('name_last', 'ASC')
                 ->orderBy('name_first', 'ASC')
                 ->where('DB_GRADE_id', $id)
@@ -98,9 +91,9 @@ class SectionController extends Controller {
             return view('pages.sections.view')
                 ->with('auth', $auth)
                 ->with('grade', $grade)
+                ->with('sections', $sections)
                 ->with('users_3', $users_3)
-                ->with('users_5', $users_5)
-                ->with('sections', $sections);
+                ->with('users_5', $users_5);
         }
         else {
             return self::redirect();
@@ -108,17 +101,14 @@ class SectionController extends Controller {
     }
 
     // EDIT
-    // DENIED: 2
     public function edit_1 ($id) {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
-        if ($auth->DB_ROLE_id == 2) {
+        if (
+            self::restrict($auth) ||
+            $auth->is_administrator
+        ) {
             return (new Controller)->home();
         }
 
@@ -141,12 +131,10 @@ class SectionController extends Controller {
         // Restrict
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Deny (restrict)
-        if ($auth->DB_ROLE_id == 2) {
+        if (
+            self::restrict($auth) ||
+            $auth->is_administrator
+        ) {
             return (new Controller)->home();
         }
 
@@ -175,7 +163,6 @@ class SectionController extends Controller {
     }
 
     // FUNCTION: apply user preserves from all students with the student's section ID on name change (strict)
-    // edit_2
     public function func_preserve_STUDENT_User_on_name_change ($grade, $section, $section_old) {
         if ($section_old->section !== $section->section) {
             $user = User::find($section->DB_USER_id);
@@ -197,7 +184,6 @@ class SectionController extends Controller {
     }
 
     // FUNCTION: apply section preserves from all students with the student's section ID on name change (strict)
-    // edit_2
     public function func_preserve_STUDENT_Section_on_name_change ($grade, $section, $section_old) {
         if ($section_old->section !== $section->section) {
             $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();

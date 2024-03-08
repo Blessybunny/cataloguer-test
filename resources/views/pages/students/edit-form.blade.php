@@ -16,7 +16,7 @@
 
         <section class = "container">
 
-			<!-- Header -->
+            <!-- Header -->
             <div class = "row">
                 <div class = "align-self-center col-4">
                     <a href = "{{ url('/students') }}">
@@ -24,16 +24,16 @@
                     </a>
                 </div>
                 <div class = "align-self-center col-4">
-					<h4 class = "text-center">Student Editor</h4>
-					<p class = "text-center">{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</p>
-				</div>
+                    <h4 class = "text-center">Student Editor</h4>
+                    <p class = "text-center">{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</p>
+                </div>
                 <div class = "align-self-center col-4">
                     <input class = "button float-right" type = "submit" value = "Save">
-                    <button class = "button float-right" type = "button" onclick = "window.print(); window.close();" style = "margin-right: 5px;">Print</button>
+                    <button id = "highlight" class = "button float-right" type = "button" style = "margin-right: 5px;">Highlight Fields</button>
                 </div>
             </div>
 
-			<!-- Content -->
+            <!-- Content -->
             <div class = "row">
                 <div class = "col-12">
                     <hr>
@@ -68,11 +68,11 @@
 
                                 @php
 
-                                    $debug = $grade->grade == '7' ? 'active show' : '';
+                                    $debug = $grade->grade == '' ? 'active show' : '';
 
                                 @endphp
 
-                                <div id = "tab-sf9-{{ $grade->grade }}-front" class = "{{ $debug }} fade tab-pane">@include('layouts.students.sf9-front', ['student' => $student, 'grade' => $grade])</div>
+                                <div id = "tab-sf9-{{ $grade->grade }}-front" class = "fade tab-pane">@include('layouts.students.sf9-front', ['student' => $student, 'grade' => $grade])</div>
                                 <div id = "tab-sf9-{{ $grade->grade }}-back" class = "fade tab-pane">@include('layouts.students.sf9-back', ['student' => $student, 'grade' => $grade])</div>
 
                             @endforeach

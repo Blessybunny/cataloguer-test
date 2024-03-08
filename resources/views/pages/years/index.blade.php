@@ -22,7 +22,7 @@
 				</div>
 				<div class = "align-self-center col-4">
 
-					@if ($deny->administrator)
+					@if ($auth->is_principal)
 
 						<a href = "{{ url('/years/create') }}">
 							<button class = "button float-right" type = "button">Add</button>
@@ -51,28 +51,10 @@
 						</a>
 					</label>
 
-					@if (isset($isSearched))
+					@if (isset($terms))
 
 						<br>
-						<p class = "text-center">
-
-							@if (count($results) > 0)
-
-								Found results for <b>{{ $terms }}</b>
-
-							@else
-
-								No results for <b>{{ $terms }}</b>
-
-							@endif
-
-						</p>
-
-						@php
-
-							$years = $results;
-
-						@endphp
+						<p class = "text-center">Results for <b>{{ $terms }}</b></p>
 
 					@endif
 
@@ -98,15 +80,15 @@
 								<td class = "text-center" style = "width: 100px;">
 									<a href = "{{ url('/years/view', $year->id) }}">View</a>
 								</td>
+								<td class = "text-center" style = "width: 100px;">
 
-								@if ($deny->administrator)
+									@if ($auth->is_principal)
 
-									<td class = "text-center" style = "width: 100px;">
 										<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
-									</td>
 
-								@endif
+									@endif
 
+								</td>
 							</tr>
 
 						@endforeach

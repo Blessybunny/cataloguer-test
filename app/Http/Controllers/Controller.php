@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Auth;
+
+use App\Models\Grade;
+use App\Models\Role;
+use App\Models\Section;
+use App\Models\Student;
 use App\Models\User;
+use App\Models\Year;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -12,19 +18,29 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController {
     use AuthorizesRequests, ValidatesRequests;
 
-    // Auth
-    public function auth () { return User::find(4); } //find(1)
-
-    // Redirect
+    // REDIRECT
     public function home () { return redirect()->to('/home'); }
 
-    // Home (GET)
+    // AUTH
+    public function auth () {
+        $auth = Auth::user();
+
+        $auth->is_principal = $auth->DB_ROLE_id == 1 ? true : false;
+        $auth->is_administrator = $auth->DB_ROLE_id == 2 ? true : false;
+        $auth->is_grade_level_coordinator = $auth->DB_ROLE_id == 3 ? true : false;
+        $auth->is_adviser = $auth->DB_ROLE_id == 4 ? true : false;
+        $auth->is_teacher = $auth->DB_ROLE_id == 5 ? true : false;
+
+        return $auth;
+    }
+
+    // HOME
     public function land () {
         $auth = self::auth();
 
         //
         if ($auth == null) dd("This user does not exist enymore (auth logout then put login redirection here)");
-
+        // Proceed
         return view('pages.home')
             ->with('auth', $auth);
     }
