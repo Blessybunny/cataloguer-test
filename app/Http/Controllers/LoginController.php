@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\Models\User;
 
 use Request;
 
@@ -30,6 +29,8 @@ class LoginController extends Controller {
         ]);
 
         if (Auth::attempt($credentials)) {
+            Auth::user()->touch();
+
             return (new Controller)->home();
         }
 
@@ -37,7 +38,8 @@ class LoginController extends Controller {
     }
 
     // FUNCTION: logout
-    public function logout () {
+    protected function logout () {
+        Auth::user()->touch();
         Auth::logout();
 
         return self::redirect();

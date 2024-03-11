@@ -59,11 +59,11 @@
 
                                         <div class = "form-outline mb-4">
                                             <label class = "form-label">DepEd ID</label>
-                                            <input name = "email" type = "text" class = "form-control form-control-lg">
+                                            <input name = "email" type = "text" class = "form-control form-control-lg" required>
                                         </div>
                                         <div class = "form-outline mb-4">
                                             <label class = "form-label">Password</label>
-                                            <input name = "password" type = "password" class = "form-control form-control-lg">
+                                            <input name = "password" type = "password" class = "form-control form-control-lg" required>
                                         </div>
 
                                         <button class = "button" type = "submit">Login</button>

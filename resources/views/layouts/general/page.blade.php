@@ -8,6 +8,7 @@
 
             <a href = "{{ url('/login') }}" class = "align-items-center d-flex logo me-auto me-lg-0">
                 <h1>Cataloger<span>.</span></h1>
+                <span>{{ $auth->name_last }}, {{ $auth->name_first }}</span>
             </a>
 
             <nav id = "navbar" class = "navbar">

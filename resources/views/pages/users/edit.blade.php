@@ -126,7 +126,7 @@
 						<button class = "button" type = "button">Change Password</button>
 					</a>
 
-					@if ($user->is_logged_out)
+					@if ($user->is_yesterold)
 
 						<a href = "{{ url('/users/delete', $user->id) }}">
 							<button class = "button" type = "button">Delete</button>

@@ -175,7 +175,7 @@ class UserController extends Controller {
 
         $sections = self::func_format_sections($sections);
 
-        $user->is_logged_out = Auth::id() != $user->id;
+        $user->is_yesterold = $user->updated_at->isYesterday();
 
         return view('pages.users.edit')
             ->with('auth', $auth)
@@ -223,6 +223,8 @@ class UserController extends Controller {
             'name_last' => $validate['name_last'],
             'name_first' => $validate['name_first'],
         ]);
+
+        $user->touch();
 
         self::func_preserve_STUDENT_User_on_role_change($user, $user_old);
         self::func_preserve_STUDENT_User_on_section_change($user, $user_old);
@@ -283,6 +285,8 @@ class UserController extends Controller {
             'password' => bcrypt($validate['password']),
         ]);
 
+        $user->touch();
+
         return redirect()->to('/users/edit/'.$id);
     }
 
@@ -300,7 +304,7 @@ class UserController extends Controller {
                 $user->DB_ROLE_id == 1 ||
                 $user->DB_ROLE_id == 2
             ) ||
-            Auth::id() == $user->id // If logged in
+            !$user->updated_at->isYesterday()
         ) {
             return (new Controller)->home();
         }
@@ -323,7 +327,7 @@ class UserController extends Controller {
                 $user->DB_ROLE_id == 1 ||
                 $user->DB_ROLE_id == 2
             ) ||
-            Auth::id() == $user->id // If logged in
+            !$user->updated_at->isYesterday()
         ) {
             return (new Controller)->home();
         }
