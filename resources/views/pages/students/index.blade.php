@@ -51,7 +51,7 @@
 						</a>
 					</label>
 
-					@if (isset($terms))
+					@if ($terms)
 
 						<br>
 						<p class = "text-center">Results for <b>{{ $terms }}</b></p>
@@ -65,73 +65,107 @@
 			<!-- Index -->
 			<div class = "row">
 				<div class = "col-12">
-					<table class = "table">
-						<tr>
-							<th>LRN</th>
-							<th>Name</th>
-							<th colspan = "5">Action</th>
-						</tr>
 
-						@foreach ($students as $student)
+					@if (count($students) > 0)
 
-							<tr>
-								<td class = "text-center" style = "width: 200px;">{{ $student->info_lrn }}</td>
-								<td>{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "{{ url('/students/view', $student->id) }}">View</a>
-								</td>
-								<td class = "text-center" style = "width: 100px;">
+						<table id = "index" class = "table">
+							<thead>
+								<tr>
+									<th width = "200">LRN</th>
+									<th width = "400">Name</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
 
-									@if (
-										!$student->ST_locker &&
-										$auth->is_administrator
-									)
+								@foreach ($students as $student)
 
-										<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
+									<tr>
+										<td>{{ $student->info_lrn }}</td>
+										<td>{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</td>
+										<td>
+											<div class = "container-fluid">
+												<div class = "row">
+													<div class = "col">
+														<a href = "{{ url('/students/view', $student->id) }}">View</a>
+													</div>
+													<div class = "col">
 
-									@endif
+														@if (
+															!$student->ST_locker &&
+															$auth->is_administrator
+														)
 
-								</td>
-								<td class = "text-center" style = "width: 100px;">
+															<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
 
-									@if (
-										!$student->ST_locker &&
-										$auth->is_administrator
-									)
+														@endif
 
-										<a href = "{{ url('/students/edit/area', $student->id) }}">Edit Areas</a>
+													</div>
+													<div class = "col">
 
-									@endif
+														@if (
+															!$student->ST_locker &&
+															$auth->is_administrator
+														)
 
-								</td>
-								<td class = "text-center" style = "width: 100px;">
+															<a href = "{{ url('/students/edit/area', $student->id) }}">Edit Areas</a>
 
-									@if (
-										!$student->ST_locker &&
-										$auth->is_administrator ||
-										$auth->is_grade_level_coordinator ||
-										$auth->is_adviser
-									)
+														@endif
 
-										<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
+													</div>
+													<div class = "col">
 
-									@endif
+														@if (
+															!$student->ST_locker &&
+															$auth->is_administrator ||
+															$auth->is_grade_level_coordinator ||
+															$auth->is_adviser
+														)
 
-								</td>
-								<td class = "text-center" style = "width: 100px;">
+															<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
 
-									@if ($auth->is_administrator)
+														@endif
 
-										<a href = "{{ url('/students/edit/lock', $student->id) }}">Settings</a>
-										
-									@endif
+													</div>
+													<div class = "col">
 
-								</td>
-							</tr>
+														@if ($auth->is_administrator)
 
-						@endforeach
+														<a href = "{{ url('/students/edit/lock', $student->id) }}">Settings</a>
 
-					</table>
+														@endif
+
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+								@endforeach
+
+							</tbody>
+						</table>
+
+						<script>
+							const table = new DataTable('#index', {
+								columnDefs: [
+									{ className: "dt-head-left", targets: [ 0, 1, 2 ] },
+									{ "orderable": false, "targets": [2] },
+								],
+								info: false,
+								paging: false,
+								searching: false,
+							});
+						</script>
+
+						<hr>
+
+						{!! $students->appends(array("terms" => $terms))->links() !!}
+
+						<p>Showing <b>{{ $students->firstItem() }}</b> to <b>{{ $students->firstItem() + $students->count() - 1 }}</b> of <b>{{ $students->total() }}</b> entries</p>
+
+					@endif
+
 				</div>
 			</div>
 

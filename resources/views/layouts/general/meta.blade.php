@@ -24,7 +24,11 @@
 		<link href = "{{ asset('yummy/css/main.css') }}" rel = "stylesheet">
 
 		<!-- Custom -->
+		<link href = "{{ asset('assets/css/dataTables.dataTables.min.css') }}" rel = "stylesheet">
 		<link href = "{{ asset('assets/less/general.less') }}" rel = "stylesheet" type = "text/less">
+
+		<script src = "{{ asset('assets/js/jquery.min.js') }}"></script>
+		<script src = "{{ asset('assets/js/dataTables.min.js') }}"></script>
 
 		@yield('head')
 

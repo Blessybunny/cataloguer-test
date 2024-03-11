@@ -13,6 +13,7 @@ use Request;
 
 // Do-not-touch
 // Whitespace-checked
+// Restriction-checked
 
 class SectionController extends Controller {
     // RESTRICTION
@@ -53,113 +54,101 @@ class SectionController extends Controller {
     public function view ($id) {
         // Restrict
         $auth = (new Controller)->auth();
+        $grade = Grade::find($id);
 
-        if (self::restrict($auth)) {
+        if (
+            self::restrict($auth) ||
+            $grade == null
+
+        ) {
             return (new Controller)->home();
         }
 
         // Proceed
-        $grade = Grade::find($id);
+        $sections = Section::where('DB_GRADE_id', $id)
+            ->whereNotNull('section')
+            ->get();
 
-        if ($grade != null) {
-            $sections = Section::where('DB_GRADE_id', $id)
-                ->whereNotNull('section')
-                ->get();
+        foreach ($sections as $section) {
+            $user_4 = User::find($section->DB_USER_id);
 
-            foreach ($sections as $section) {
-                $user_4 = User::find($section->DB_USER_id);
-
-                if ($user_4 != null) {
-                    $section->user_id = $user_4->id;
-                    $section->user_name_last = $user_4->name_last;
-                    $section->user_name_first = $user_4->name_first;
-                }
+            if ($user_4 != null) {
+                $section->user_id = $user_4->id;
+                $section->user_name_last = $user_4->name_last;
+                $section->user_name_first = $user_4->name_first;
             }
-
-            $users_3 = User::orderBy('name_last', 'ASC')
-                ->orderBy('name_first', 'ASC')
-                ->where('DB_GRADE_id', $id)
-                ->where('DB_ROLE_id', 3)
-                ->get();
-
-            $users_5 = User::orderBy('name_last', 'ASC')
-                ->orderBy('name_first', 'ASC')
-                ->where('DB_GRADE_id', $id)
-                ->where('DB_ROLE_id', 5)
-                ->get();
-
-            return view('pages.sections.view')
-                ->with('auth', $auth)
-                ->with('grade', $grade)
-                ->with('sections', $sections)
-                ->with('users_3', $users_3)
-                ->with('users_5', $users_5);
         }
-        else {
-            return self::redirect();
-        }
+
+        $users_3 = User::orderBy('name_last', 'ASC')
+            ->orderBy('name_first', 'ASC')
+            ->where('DB_GRADE_id', $id)
+            ->where('DB_ROLE_id', 3)
+            ->get();
+
+        $users_5 = User::orderBy('name_last', 'ASC')
+            ->orderBy('name_first', 'ASC')
+            ->where('DB_GRADE_id', $id)
+            ->where('DB_ROLE_id', 5)
+            ->get();
+
+        return view('pages.sections.view')
+            ->with('auth', $auth)
+            ->with('grade', $grade)
+            ->with('sections', $sections)
+            ->with('users_3', $users_3)
+            ->with('users_5', $users_5);
     }
 
     // EDIT
     public function edit_1 ($id) {
         // Restrict
         $auth = (new Controller)->auth();
+        $grade = Grade::find($id);
 
         if (
             self::restrict($auth) ||
-            $auth->is_administrator
+            $auth->is_administrator ||
+            $grade == null
         ) {
             return (new Controller)->home();
         }
 
         // Proceed
-        $grade = Grade::find($id);
+        $sections = Section::where('DB_GRADE_id', $id)->get();
 
-        if ($grade != null) {
-            $sections = Section::where('DB_GRADE_id', $id)->get();
-
-            return view('pages.sections.edit')
-                ->with('auth', $auth)
-                ->with('grade', $grade)
-                ->with('sections', $sections);
-        }
-        else {
-            return self::redirect();
-        }
+        return view('pages.sections.edit')
+            ->with('auth', $auth)
+            ->with('grade', $grade)
+            ->with('sections', $sections);
     }
     public function edit_2 ($id) {
         // Restrict
         $auth = (new Controller)->auth();
+        $grade = Grade::find($id);
 
         if (
             self::restrict($auth) ||
-            $auth->is_administrator
+            $auth->is_administrator ||
+            $grade == null
         ) {
             return (new Controller)->home();
         }
 
         // Proceed
-        $grade = Grade::find($id);
+        $sections = Section::where('DB_GRADE_id', $id)->get();
 
-        if ($grade != null) {
-            $sections = Section::where('DB_GRADE_id', $id)->get();
+        foreach ($sections as $section) {
+            $validate = request()->validate(['section_'.$section->DB_GRADE_id.'_'.$section->id => 'nullable']);
 
-            foreach ($sections as $section) {
-                $validate = request()->validate(['section_'.$section->DB_GRADE_id.'_'.$section->id => 'nullable']);
+            $section_old = clone $section;
 
-                $section_old = clone $section;
+            $section->update(['section' => $validate['section_'.$section->DB_GRADE_id.'_'.$section->id]]);
 
-                $section->update(['section' => $validate['section_'.$section->DB_GRADE_id.'_'.$section->id]]);
-
-                self::func_preserve_STUDENT_User_on_name_change($grade, $section, $section_old);
-                self::func_preserve_STUDENT_Section_on_name_change($grade, $section, $section_old);
-            }
-
-            return redirect()->to('/sections/edit/'.$id);
+            self::func_preserve_STUDENT_User_on_name_change($grade, $section, $section_old);
+            self::func_preserve_STUDENT_Section_on_name_change($grade, $section, $section_old);
         }
-        else {
-            return self::redirect();
-        }
+
+        return redirect()->to('/sections/edit/'.$id);
     }
 
     // FUNCTION: apply user preserves from all students with the student's section ID on name change (strict)

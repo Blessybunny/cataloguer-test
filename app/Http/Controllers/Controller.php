@@ -23,7 +23,7 @@ class Controller extends BaseController {
 
     // AUTH
     public function auth () {
-        $auth = Auth::user();
+        $auth = Auth::user(); //Auth::user();//User::find(4)
 
         $auth->is_principal = $auth->DB_ROLE_id == 1 ? true : false;
         $auth->is_administrator = $auth->DB_ROLE_id == 2 ? true : false;

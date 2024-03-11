@@ -9,6 +9,7 @@ use Request;
 
 // Do-not-touch
 // Whitespace-checked
+// Restriction-checked
 
 class LoginController extends Controller {
     // REDIRECT

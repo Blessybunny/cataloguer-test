@@ -30,7 +30,17 @@
 
 				<!-- Principal -->
 				<b>Principal:</b>
-				{{ $year->principal }}
+
+				@if ($year->user_id)
+
+					<a href = "{{ url('/users/view', $year->user_id) }}">{{ $year->user_name_last }}, {{ $year->user_name_first }}</a>
+
+				@else
+
+					{{ $year->user_legacy }}
+
+				@endif
+
 				<br>
 				<br>
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+
 use App\Models\Grade;
 use App\Models\Role;
 use App\Models\Section;
@@ -13,6 +15,7 @@ use Request;
 
 // Do-not-touch
 // Whitespace-checked
+// Restriction-checked
 
 class UserController extends Controller {
     // RESTRICTION
@@ -33,22 +36,7 @@ class UserController extends Controller {
     public function redirect () { return redirect()->to('/users'); }
 
     // INDEX
-    public function index_1 () {
-        // Restrict
-        $auth = (new Controller)->auth();
-
-        if (self::restrict($auth)) {
-            return (new Controller)->home();
-        }
-
-        // Proceed
-        $users = self::func_format_users($auth, User::query());
-
-        return view('pages.users.index')
-            ->with('auth', $auth)
-            ->with('users', $users);
-    }
-    public function index_2 () {
+    public function index () {
         // Restrict
         $auth = (new Controller)->auth();
 
@@ -58,28 +46,22 @@ class UserController extends Controller {
 
         // Proceed
         $terms = Request::get('terms');
+        $search = explode(' ', $terms);
+        $users = User::query();
 
-        if (isset($terms)) {
-            $temp_terms = explode(' ', $terms);
-            $query = User::query();
-
-            foreach ($temp_terms as $term) {
-                $query->where(function ($q) use ($term) {
-                    $q->where('name_last', 'like', '%'.$term.'%')
-                    ->orWhere('name_first', 'like', '%'.$term.'%');
-                });
-            }
-
-            $users = self::func_format_users($auth, $query);
-
-            return view('pages.users.index')
-                ->with('auth', $auth)
-                ->with('terms', $terms)
-                ->with('users', $users);
+        foreach ($search as $term) {
+            $users->where(function ($q) use ($term) {
+                $q->where('name_last', 'like', '%'.$term.'%')
+                ->orWhere('name_first', 'like', '%'.$term.'%');
+            });
         }
-        else {
-            return self::redirect();
-        }
+
+        $users = self::func_format_users($auth, $users);
+
+        return view('pages.users.index')
+            ->with('auth', $auth)
+            ->with('terms', $terms)
+            ->with('users', $users);
     }
 
     // CREATE
@@ -121,7 +103,7 @@ class UserController extends Controller {
             'DB_SECTION_id' => 'nullable',
 
             'email' => 'required|unique:users,email',
-            'password' => 'required',
+            'password' => 'required|confirmed|min:6',
 
             'name_last' => 'required',
             'name_first' => 'required',
@@ -148,179 +130,211 @@ class UserController extends Controller {
     public function view ($id) {
         // Restrict
         $auth = (new Controller)->auth();
+        $user = User::find($id);
 
-        if (self::restrict($auth)) {
+        if (
+            self::restrict($auth) ||
+            $user == null
+        ) {
             return (new Controller)->home();
         }
 
         // Proceed
-        $user = User::find($id);
+        $user = self::func_format_user($auth, $user);
 
-        if ($user != null) {
-            $user = self::func_format_user($auth, $user);
-
-            return view('pages.users.view')
-                ->with('auth', $auth)
-                ->with('user', $user);
-        }
-        else {
-            return self::redirect();
-        }
+        return view('pages.users.view')
+            ->with('auth', $auth)
+            ->with('user', $user);
     }
 
     // EDIT
     public function edit_1 ($id) {
         // Proceed
+        $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        if ($user != null) {
-            // Restrict
-            $auth = (new Controller)->auth();
-
-            if (
-                self::restrict($auth) ||
-                $auth->is_administrator &&
-                (
-                    $user->DB_ROLE_id == 1 ||
-                    $user->DB_ROLE_id == 2
-                )
-            ) {
-                return (new Controller)->home();
-            }
-
-            // Proceed
-            $grades = Grade::all();
-            $roles = self::func_format_roles($auth, Role::query());
-            $sections = Section::whereNotNull('section')
-                ->whereNull('DB_USER_id')
-                ->orWhere('DB_USER_id', $user->id)
-                ->get();
-
-            $sections = self::func_format_sections($sections);
-
-            return view('pages.users.edit')
-                ->with('auth', $auth)
-                ->with('grades', $grades)
-                ->with('roles', $roles)
-                ->with('sections', $sections)
-                ->with('user', $user);
+        if (
+            self::restrict($auth) ||
+            $user == null ||
+            $auth->is_administrator &&
+            (
+                $user->DB_ROLE_id == 1 ||
+                $user->DB_ROLE_id == 2
+            )
+        ) {
+            return (new Controller)->home();
         }
-        else {
-            return self::redirect();
-        }
+
+        // Proceed
+        $grades = Grade::all();
+        $roles = self::func_format_roles($auth, Role::query());
+        $sections = Section::whereNotNull('section')
+            ->whereNull('DB_USER_id')
+            ->orWhere('DB_USER_id', $user->id)
+            ->get();
+
+        $sections = self::func_format_sections($sections);
+
+        $user->is_logged_out = Auth::id() != $user->id;
+
+        return view('pages.users.edit')
+            ->with('auth', $auth)
+            ->with('grades', $grades)
+            ->with('roles', $roles)
+            ->with('sections', $sections)
+            ->with('user', $user);
     }
     public function edit_2 ($id) {
         // Proceed
+        $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        if ($user != null) {
-            // Restrict
-            $auth = (new Controller)->auth();
-
-            if (
-                self::restrict($auth) ||
-                $auth->is_administrator &&
-                (
-                    $user->DB_ROLE_id == 1 ||
-                    $user->DB_ROLE_id == 2
-                )
-            ) {
-                return (new Controller)->home();
-            }
-
-            // Proceed
-            $validate = request()->validate([
-                'DB_ROLE_id' => 'required',
-                'DB_GRADE_id' => 'nullable',
-                'DB_SECTION_id' => 'nullable',
-
-                'name_last' => 'required',
-                'name_first' => 'required',
-            ]);
-
-            $user_old = clone $user;
-
-            $validate = self::func_validate_role($validate);
-
-            $user->update([
-                'DB_ROLE_id' => $validate['DB_ROLE_id'],
-                'DB_GRADE_id' => $validate['DB_GRADE_id'],
-                'DB_SECTION_id' => $validate['DB_SECTION_id'],
-
-                'name_last' => $validate['name_last'],
-                'name_first' => $validate['name_first'],
-            ]);
-
-            self::func_preserve_STUDENT_User_on_role_change($user, $user_old);
-            self::func_preserve_STUDENT_User_on_section_change($user, $user_old);
-            self::func_preserve_YEAR_User_on_role_change($user, $user_old);
-
-            self::func_section_unassign($user);
-            self::func_section_reassign($user);
-
-            return redirect()->to('/users/edit/'.$id);
+        if (
+            self::restrict($auth) ||
+            $user == null ||
+            $auth->is_administrator &&
+            (
+                $user->DB_ROLE_id == 1 ||
+                $user->DB_ROLE_id == 2
+            )
+        ) {
+            return (new Controller)->home();
         }
-        else {
-            return self::redirect();
+
+        // Proceed
+        $validate = request()->validate([
+            'DB_ROLE_id' => 'required',
+            'DB_GRADE_id' => 'nullable',
+            'DB_SECTION_id' => 'nullable',
+
+            'name_last' => 'required',
+            'name_first' => 'required',
+        ]);
+
+        $user_old = clone $user;
+
+        $validate = self::func_validate_role($validate);
+
+        $user->update([
+            'DB_ROLE_id' => $validate['DB_ROLE_id'],
+            'DB_GRADE_id' => $validate['DB_GRADE_id'],
+            'DB_SECTION_id' => $validate['DB_SECTION_id'],
+
+            'name_last' => $validate['name_last'],
+            'name_first' => $validate['name_first'],
+        ]);
+
+        self::func_preserve_STUDENT_User_on_role_change($user, $user_old);
+        self::func_preserve_STUDENT_User_on_section_change($user, $user_old);
+        self::func_preserve_YEAR_User_on_role_change($user, $user_old);
+
+        self::func_section_unassign($user);
+        self::func_section_reassign($user);
+
+        return redirect()->to('/users/edit/'.$id);
+    }
+
+    // PASSWORD
+    public function password_1 ($id) {
+        // Proceed
+        $auth = (new Controller)->auth();
+        $user = User::find($id);
+
+        if (
+            self::restrict($auth) ||
+            $user == null ||
+            $auth->is_administrator &&
+            (
+                $user->DB_ROLE_id == 1 ||
+                $user->DB_ROLE_id == 2
+            )
+        ) {
+            return (new Controller)->home();
         }
+
+        // Proceed
+        return view('pages.users.password')
+            ->with('auth', $auth)
+            ->with('user', $user);
+    }
+    public function password_2 ($id) {
+        // Proceed
+        $auth = (new Controller)->auth();
+        $user = User::find($id);
+
+        if (
+            self::restrict($auth) ||
+            $user == null ||
+            $auth->is_administrator &&
+            (
+                $user->DB_ROLE_id == 1 ||
+                $user->DB_ROLE_id == 2
+            )
+        ) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $validate = request()->validate([
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $user->update([
+            'password' => bcrypt($validate['password']),
+        ]);
+
+        return redirect()->to('/users/edit/'.$id);
     }
 
     // DELETE
     public function delete_1 ($id) {
         // Proceed
+        $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        if ($user != null) {
-            // Restrict
-            $auth = (new Controller)->auth();
-
-            if (
-                self::restrict($auth) ||
-                $auth->is_administrator &&
-                (
-                    $user->DB_ROLE_id == 1 ||
-                    $user->DB_ROLE_id == 2
-                )
-            ) {
-                return (new Controller)->home();
-            }
-
-            // Proceed
-            return view('pages.users.delete')
-                ->with('auth', $auth)
-                ->with('user', $user);
+        if (
+            self::restrict($auth) ||
+            $user == null ||
+            $auth->is_administrator &&
+            (
+                $user->DB_ROLE_id == 1 ||
+                $user->DB_ROLE_id == 2
+            ) ||
+            Auth::id() == $user->id // If logged in
+        ) {
+            return (new Controller)->home();
         }
-        else {
-            return self::redirect();
-        }
+
+        // Proceed
+        return view('pages.users.delete')
+            ->with('auth', $auth)
+            ->with('user', $user);
     }
     public function delete_2 ($id) {
         // Proceed
+        $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        if ($user != null) {
-            // Restrict
-            $auth = (new Controller)->auth();
-
-            if (
-                self::restrict($auth) ||
-                $auth->is_administrator &&
-                (
-                    $user->DB_ROLE_id == 1 ||
-                    $user->DB_ROLE_id == 2
-                )
-            ) {
-                return (new Controller)->home();
-            }
-
-            // Proceed
-            self::func_delete_preserve_STUDENT_User_on_deletion($user);
-            self::func_preserve_YEAR_User_on_deletion($user);
-
-            self::func_section_unassign($user);
-
-            $user->delete();
+        if (
+            self::restrict($auth) ||
+            $user == null ||
+            $auth->is_administrator &&
+            (
+                $user->DB_ROLE_id == 1 ||
+                $user->DB_ROLE_id == 2
+            ) ||
+            Auth::id() == $user->id // If logged in
+        ) {
+            return (new Controller)->home();
         }
+
+        // Proceed
+        self::func_delete_preserve_STUDENT_User_on_deletion($user);
+        self::func_preserve_YEAR_User_on_deletion($user);
+
+        self::func_section_unassign($user);
+
+        $user->delete();
 
         return self::redirect();
     }
@@ -331,7 +345,7 @@ class UserController extends Controller {
         $users = $users->orderBy('DB_ROLE_id', 'ASC')
             ->orderBy('name_last', 'ASC')
             ->orderBy('name_first', 'ASC')
-            ->get();
+            ->paginate(100);
 
         // Format
         foreach ($users as $user) {

@@ -54,14 +54,31 @@
 					<br>
 
 					<!-- Password -->
-					<b>Password (min. 10 characters):</b>
+					<b>Password (min. 6 characters):</b>
 					<input
 						name = "password"
 						type = "password"
-						pattern = ".{10,}"
 						value = ""
 						required
 					>
+					<br>
+
+					<!-- Confirm Password -->
+					<b>Confirm Password:</b>
+					<input
+						name = "password_confirmation"
+						type = "password"
+						value = ""
+						required
+					>
+
+					@if($errors->has('password'))
+
+						<b class = "error">* This password is too short or mismatched</b>
+						<br>
+
+					@endif
+
 					<br>
 
 					<!-- Last Name -->

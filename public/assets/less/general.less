@@ -38,7 +38,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
 }
 main { margin: calc(@size-spacing * 4) 0 !important; }
-table { width: 100%; }
+table {
+    margin: auto 0 !important;
+    width: 100% !important;
+}
 td, th {
     border: @border-light;
     vertical-align: middle;
@@ -154,6 +157,19 @@ label {
     padding: calc(@size-spacing / 2 - 6.5px) @size-spacing;
 }
 .error { color: @color-warning; }
+
+/* CLASSES: Pagination */
+.pagination {
+    .page-item.active > .page-link {
+        background-color: @color-theme !important;
+        color: rgb(255, 255, 255);
+    }
+    .page-link {
+        border: @border-light;
+        border-radius: 0 !important;
+        color: @color-theme;
+    }
+}
 
 /* CLASSES: Tab & Pills */
 .container-pill {

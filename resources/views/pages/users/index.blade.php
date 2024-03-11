@@ -45,7 +45,7 @@
 						</a>
 					</label>
 
-					@if (isset($terms))
+					@if ($terms)
 
 						<br>
 						<p class = "text-center">Results for <b>{{ $terms }}</b></p>
@@ -59,39 +59,73 @@
 			<!-- Index -->
 			<div class = "row">
 				<div class = "col-12">
-					<table class = "table">
-						<tr>
-							<th>Role</th>
-							<th>Name</th>
-							<th>Designation</th>
-							<th>School Year</th>
-							<th colspan = "2">Action</th>
-						</tr>
 
-						@foreach ($users as $user)
+					@if (count($users) > 0)
 
-							<tr>
-								<td class = "text-center" style = "width: 200px;">{{ $user->role }}</td>
-								<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
-								<td class = "text-center" style = "width: 200px;">{{ $user->designation }}</td>
-								<td class = "text-center" style = "width: 200px;"></td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "{{ url('/users/view', $user->id) }}">View</a>
-								</td>
-								<td class = "text-center" style = "width: 100px;">
+						<table id = "index" class = "table">
+							<thead>
+								<tr>
+									<th width = "200">Role</th>
+									<th width = "400">Name</th>
+									<th width = "200">Designation</th>
+									<th width = "200">School Year</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
 
-									@if ($user->editable) 
+								@foreach ($users as $user)
 
-										<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
+									<tr>
+										<td>{{ $user->role }}</td>
+										<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
+										<td>{{ $user->designation }}</td>
+										<td></td>
+										<td>
+											<div class = "container-fluid">
+												<div class = "row">
+													<div class = "col">
+														<a href = "{{ url('/users/view', $user->id) }}">View</a>
+													</div>
+													<div class = "col">
 
-									@endif
+														@if ($user->editable) 
 
-								</td>
-							</tr>
+															<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
 
-						@endforeach
+														@endif
 
-					</table>
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+								@endforeach
+
+							</tbody>
+						</table>
+
+						<script>
+							const table = new DataTable('#index', {
+								columnDefs: [
+									{ className: "dt-head-left", targets: [ 0, 1, 2, 3, 4 ] },
+									{ "orderable": false, "targets": [4] },
+								],
+								info: false,
+								paging: false,
+								searching: false,
+							});
+						</script>
+
+						<hr>
+
+						{!! $users->appends(array("terms" => $terms))->links() !!}
+
+						<p>Showing <b>{{ $users->firstItem() }}</b> to <b>{{ $users->firstItem() + $users->count() - 1 }}</b> of <b>{{ $users->total() }}</b> entries</p>
+
+					@endif
+
 				</div>
 			</div>
 

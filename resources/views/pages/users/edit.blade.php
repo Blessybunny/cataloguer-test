@@ -122,9 +122,18 @@
 					<hr>
 				</div>
 				<div class = "col-12">
-					<a href = "{{ url('/users/delete', $user->id) }}">
-						<button class = "button" type = "button">Delete</button>
+					<a href = "{{ url('/users/password', $user->id) }}">
+						<button class = "button" type = "button">Change Password</button>
 					</a>
+
+					@if ($user->is_logged_out)
+
+						<a href = "{{ url('/users/delete', $user->id) }}">
+							<button class = "button" type = "button">Delete</button>
+						</a>
+
+					@endif
+
 				</div>
 			</div>
 

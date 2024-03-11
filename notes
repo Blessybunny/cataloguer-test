@@ -1,14 +1,13 @@
 CHECKPOINT:
-    - locked students should also block forced access inside controllers.
-    - school year view should create a link to user if not legacy
+    - login: input required property
 
 UTMOST PRIORITY:
-    - Password resets into danger zone
     - ISSUE: You can delete yourself while logged in.
         - You must be logged out for anyone to delete you.
             - Make a boolean value to "safety-lock" you while logged in, this goes false when logged out.
             - This boolean will hide the danger zone area in the edit pages.
             - DB_SAFETY_LOCK (boolean)
+
         - Logout a page when a user doesn't exist (POST methods, maybe GET)
         - Since most permission redirects lead to home, bubble home to log out the user.
 
@@ -16,9 +15,6 @@ UTMOST PRIORITY:
     - create a DB_PRESERVE_EDITED for editing.
     - pending addition of DB_YEAR_id for Users
         - this property is exclusive to grade level coordinators, advisers, and teachers
-    - Look up "Laravel 10 - Pagination"
-The Easy Stuff:
-    - add copyright and current year to footer
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DEVELOPER'S NOTES:
     1. AUTH and ROLE are hard coded across multiple files (see also managers).
@@ -26,20 +22,6 @@ DEVELOPER'S NOTES:
         - 2023_11_25_145550_create_students_table.php (migration)
         - DatabaseSeeder.php (seeder)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-BLADE - Pages: (wip)
-    - home                  [100%]
-    - login                 [wip]
-
-
-
-
-
-
 
 
 
@@ -115,6 +97,9 @@ PERMISSION - Teacher:
         - edit lock         Deny
         - delete            Deny
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BLADE - Pages:
+    - home
+    - login
 BLADE - Section:
     - index
     - view
@@ -133,6 +118,7 @@ BLADE - User:
     - delete
     - edit
     - index
+    - password
     - view
 BLADE - Year:
     - create

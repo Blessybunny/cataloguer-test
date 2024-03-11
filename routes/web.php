@@ -7,6 +7,8 @@ Route::get('/', 'App\Http\Controllers\LoginController@redirect');
 Route::get('/login', 'App\Http\Controllers\LoginController@index_1')->name('login');
 Route::post('/login', 'App\Http\Controllers\LoginController@index_2');
 
+// Middleware boundary
+
 // MIDDLEWARE
 Route::middleware(['auth'])->group(function () {
     // HOME
@@ -24,8 +26,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/sections/edit/{id}', 'App\Http\Controllers\SectionController@edit_2');
 
     // STUDENT
-    Route::get('/students', 'App\Http\Controllers\StudentController@index_1');
-    Route::post('/students', 'App\Http\Controllers\StudentController@index_2');
+    Route::get('/students', 'App\Http\Controllers\StudentController@index');
+    Route::post('/students', 'App\Http\Controllers\StudentController@index');
 
     Route::get('/students/create', 'App\Http\Controllers\StudentController@create_1');
     Route::post('/students/create', 'App\Http\Controllers\StudentController@create_2');
@@ -48,8 +50,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/students/delete/{id}', 'App\Http\Controllers\StudentController@delete_2');
 
     // USER
-    Route::get('/users', 'App\Http\Controllers\UserController@index_1');
-    Route::post('/users', 'App\Http\Controllers\UserController@index_2');
+    Route::get('/users', 'App\Http\Controllers\UserController@index');
+    Route::post('/users', 'App\Http\Controllers\UserController@index');
 
     Route::get('/users/create', 'App\Http\Controllers\UserController@create_1');
     Route::post('/users/create', 'App\Http\Controllers\UserController@create_2');
@@ -59,12 +61,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/users/edit/{id}', 'App\Http\Controllers\UserController@edit_1');
     Route::post('/users/edit/{id}', 'App\Http\Controllers\UserController@edit_2');
 
+    Route::get('/users/password/{id}', 'App\Http\Controllers\UserController@password_1');
+    Route::post('/users/password/{id}', 'App\Http\Controllers\UserController@password_2');
+
     Route::get('/users/delete/{id}', 'App\Http\Controllers\UserController@delete_1');
     Route::post('/users/delete/{id}', 'App\Http\Controllers\UserController@delete_2');
 
     // YEAR
-    Route::get('/years', 'App\Http\Controllers\YearController@index_1');
-    Route::post('/years', 'App\Http\Controllers\YearController@index_2');
+    Route::get('/years', 'App\Http\Controllers\YearController@index');
+    Route::post('/years', 'App\Http\Controllers\YearController@index');
 
     Route::get('/years/create', 'App\Http\Controllers\YearController@create_1');
     Route::post('/years/create', 'App\Http\Controllers\YearController@create_2');
@@ -73,4 +78,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/years/edit/{id}', 'App\Http\Controllers\YearController@edit_1');
     Route::post('/years/edit/{id}', 'App\Http\Controllers\YearController@edit_2');
+
+
 });

@@ -69,6 +69,7 @@
 							</li>
 
 						@endif
+
 					</ul>
 
 				@endforeach

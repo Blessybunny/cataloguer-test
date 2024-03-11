@@ -51,7 +51,7 @@
 						</a>
 					</label>
 
-					@if (isset($terms))
+					@if ($terms)
 
 						<br>
 						<p class = "text-center">Results for <b>{{ $terms }}</b></p>
@@ -65,35 +65,81 @@
 			<!-- Index -->
 			<div class = "row">
 				<div class = "col-12">
-					<table class = "table">
-						<tr>
-							<th>School Year</th>
-							<th>Principal</th>
-							<th colspan = "2">Action</th>
-						</tr>
 
-						@foreach ($years as $year)
+					@if (count($years) > 0)
 
-							<tr>
-								<td class = "text-center" style = "width: 200px;">{{ $year->full }}</td>
-								<td>{{ $year->principal }}</td>
-								<td class = "text-center" style = "width: 100px;">
-									<a href = "{{ url('/years/view', $year->id) }}">View</a>
-								</td>
-								<td class = "text-center" style = "width: 100px;">
+						<table id = "index" class = "table">
+							<thead>
+								<tr>
+									<th width = "200">School Year</th>
+									<th width = "800">Principal</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
 
-									@if ($auth->is_principal)
+								@foreach ($years as $year)
 
-										<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
+									<tr>
+										<td class = "text-center">{{ $year->full }}</td>
+										<td>
 
-									@endif
+											@if ($year->user_id)
 
-								</td>
-							</tr>
+												<a href = "{{ url('/users/view', $year->user_id) }}">{{ $year->user_name_last }}, {{ $year->user_name_first }}</a>
 
-						@endforeach
+											@else
 
-					</table>
+												{{ $year->user_legacy }}
+
+											@endif
+
+										</td>
+										<td>
+											<div class = "container-fluid">
+												<div class = "row">
+													<div class = "col">
+														<a href = "{{ url('/years/view', $year->id) }}">View</a>
+													</div>
+													<div class = "col">
+
+														@if ($auth->is_principal)
+
+															<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
+
+														@endif
+
+													</div>
+												</div>
+											</div>
+										</td>
+									</tr>
+
+								@endforeach
+
+							</tbody>
+						</table>
+
+						<script>
+							const table = new DataTable('#index', {
+								columnDefs: [
+									{ className: "dt-head-left", targets: [ 0, 1, 2 ] },
+									{ "orderable": false, "targets": [2] },
+								],
+								info: false,
+								paging: false,
+								searching: false,
+							});
+						</script>
+
+						<hr>
+
+						{!! $years->appends(array("terms" => $terms))->links() !!}
+
+						<p>Showing <b>{{ $years->firstItem() }}</b> to <b>{{ $years->firstItem() + $years->count() - 1 }}</b> of <b>{{ $years->total() }}</b> entries</p>
+
+					@endif
+
 				</div>
 			</div>
 

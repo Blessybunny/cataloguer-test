@@ -457,6 +457,14 @@ class DatabaseSeeder extends Seeder {
             'info_birthdate' => '2000/01/01',
         ]);
         Student::create([
+            'info_name_last' => 'Alamag',
+            'info_name_first' => 'Mark Joseph',
+            'info_name_middle' => 'Bringas',
+            'info_lrn' => '02-0001-002',
+            'info_sex' => 'Male',
+            'info_birthdate' => '2000/01/01',
+        ]);
+        Student::create([
             'info_name_last' => 'Sotelo',
             'info_name_first' => 'Gleister Isaac',
             'info_name_middle' => 'Middle',
