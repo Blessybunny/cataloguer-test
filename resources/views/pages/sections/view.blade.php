@@ -28,25 +28,15 @@
 			</div>
 			<div class = "col-12">
 
-				<!-- Teacher -->
-				<ul>
-					<b>Teachers:</b>
-
-					@foreach ($users_5 as $user)
-
-						<li>
-							<a href = "{{ url('/users/view', $user->id) }}">{{ $user->name_last }}, {{ $user->name_first }}</a>
-						</li>
-
-					@endforeach
-
-				</ul>
+				<!-- Timestamp -->
+				<b>Edited on: </b>{{ $grade->updated_at->format('l jS \\of F Y') }}
+				<hr>
 
 				<!-- Grade Level Coordinator -->
 				<ul>
 					<b>Grade Level Coordinators:</b>
 
-					@foreach ($users_3 as $user)
+					@foreach ($users as $user)
 
 						<li>
 							<a href = "{{ url('/users/view', $user->id) }}">{{ $user->name_last }}, {{ $user->name_first }}</a>
@@ -60,16 +50,32 @@
 				@foreach ($sections as $section)
 
 					<ul>
-						<b>Section {{ $loop->index + 1 }} Adviser | {{ $section->section }}:</b>
+						<b>Section {{ $loop->index + 1 }}:</b>
+						<li>Name: {{ $section->section }}</li>
+						<li>
+							Adviser:
 
-						@if ($section->user_id)
+							@if (isset($section->adviser->id))
 
-							<li>
-								<a href = "{{ url('/users/view', $section->user_id) }}">{{ $section->user_name_last }}, {{ $section->user_name_first }}</a>
-							</li>
+								<a href = "{{ url('/users/view', $section->adviser->id) }}">{{ $section->adviser->name_last }}, {{ $section->adviser->name_first }}</a>
 
-						@endif
+							@endif
 
+						</li>
+						<li>
+							Teachers:
+							<ul>
+
+								@foreach ($section->teachers as $teacher)
+
+									<li>
+										<a href = "{{ url('/users/view', $teacher->id) }}">{{ $teacher->name_last }}, {{ $teacher->name_first }}</a>
+									</li>
+
+								@endforeach
+
+							</ul>
+						</li>
 					</ul>
 
 				@endforeach

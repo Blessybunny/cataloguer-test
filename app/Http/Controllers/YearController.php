@@ -6,22 +6,21 @@ use App\Models\Grade;
 use App\Models\Role;
 use App\Models\Section;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Year;
 
 use Request;
 
-// Do-not-touch
-// Whitespace-checked
-// Restriction-checked
-
 class YearController extends Controller {
-    // RESTRICTION
-    public function restrict ($auth) {
+    // GUARD
+    public function guard ($auth) {
         if (
             $auth != null &&
-            $auth->is_principal ||
-            $auth->is_administrator
+            (
+                $auth->is_principal ||
+                $auth->is_administrator
+            )
         ) {
             return false;
         }
@@ -35,10 +34,10 @@ class YearController extends Controller {
 
     // INDEX
     public function index () {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
+        if (self::guard($auth)) {
             return (new Controller)->home();
         }
 
@@ -63,11 +62,11 @@ class YearController extends Controller {
 
     // CREATE
     public function create_1 () {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
 
         if (
-            self::restrict($auth) ||
+            self::guard($auth) ||
             $auth->is_administrator
         ) {
             return (new Controller)->home();
@@ -81,20 +80,19 @@ class YearController extends Controller {
             ->with('users', $users);
     }
     public function create_2 () {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
 
         if (
-            self::restrict($auth) ||
+            self::guard($auth) ||
             $auth->is_administrator
         ) {
             return (new Controller)->home();
         }
 
         // Proceed
-        $validate = request()->validate([
+        $validated = request()->validate([
             'DB_USER_id' => 'nullable',
-
             'LG_USER_name_last' => 'nullable',
             'LG_USER_name_first' => 'nullable',
 
@@ -115,26 +113,25 @@ class YearController extends Controller {
         ]);
 
         Year::create([
-            'DB_USER_id' => $validate['DB_USER_id'],
+            'DB_USER_id' => $validated['DB_USER_id'],
+            'LG_USER_name_last' =>  $validated['DB_USER_id'] == null ? $validated['LG_USER_name_last'] : null,
+            'LG_USER_name_first' => $validated['DB_USER_id'] == null ? $validated['LG_USER_name_first'] : null,
 
-            'LG_USER_name_last' =>  $validate['DB_USER_id'] == null ? $validate['LG_USER_name_last'] : null,
-            'LG_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['LG_USER_name_first'] : null,
+            'year' => $validated['year'],
+            'full' => $validated['year'].'-'.$validated['year'] + 1,
 
-            'year' => $validate['year'],
-            'full' => $validate['year'].'-'.$validate['year'] + 1,
-
-            'attendance_jan_t' => $validate['attendance_jan_t'],
-            'attendance_feb_t' => $validate['attendance_feb_t'],
-            'attendance_mar_t' => $validate['attendance_mar_t'],
-            'attendance_apr_t' => $validate['attendance_apr_t'],
-            'attendance_may_t' => $validate['attendance_may_t'],
-            'attendance_jun_t' => $validate['attendance_jun_t'],
-            'attendance_jul_t' => $validate['attendance_jul_t'],
-            'attendance_aug_t' => $validate['attendance_aug_t'],
-            'attendance_sep_t' => $validate['attendance_sep_t'],
-            'attendance_oct_t' => $validate['attendance_oct_t'],
-            'attendance_nov_t' => $validate['attendance_nov_t'],
-            'attendance_dec_t' => $validate['attendance_dec_t'],
+            'attendance_jan_t' => $validated['attendance_jan_t'],
+            'attendance_feb_t' => $validated['attendance_feb_t'],
+            'attendance_mar_t' => $validated['attendance_mar_t'],
+            'attendance_apr_t' => $validated['attendance_apr_t'],
+            'attendance_may_t' => $validated['attendance_may_t'],
+            'attendance_jun_t' => $validated['attendance_jun_t'],
+            'attendance_jul_t' => $validated['attendance_jul_t'],
+            'attendance_aug_t' => $validated['attendance_aug_t'],
+            'attendance_sep_t' => $validated['attendance_sep_t'],
+            'attendance_oct_t' => $validated['attendance_oct_t'],
+            'attendance_nov_t' => $validated['attendance_nov_t'],
+            'attendance_dec_t' => $validated['attendance_dec_t'],
         ]);
 
         return self::redirect();
@@ -142,12 +139,12 @@ class YearController extends Controller {
 
     // VIEW
     public function view ($id) {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
         $year = Year::find($id);
 
         if (
-            self::restrict($auth) ||
+            self::guard($auth) ||
             $year == null
         ) {
             return (new Controller)->home();
@@ -163,12 +160,12 @@ class YearController extends Controller {
 
     // EDIT
     public function edit_1 ($id) {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
         $year = Year::find($id);
 
         if (
-            self::restrict($auth) ||
+            self::guard($auth) ||
             $auth->is_administrator ||
             $year == null
         ) {
@@ -184,12 +181,12 @@ class YearController extends Controller {
             ->with('year', $year);
     }
     public function edit_2 ($id) {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
         $year = Year::find($id);
 
         if (
-            self::restrict($auth) ||
+            self::guard($auth) ||
             $auth->is_administrator ||
             $year == null
         ) {
@@ -197,9 +194,8 @@ class YearController extends Controller {
         }
 
         // Proceed
-        $validate = request()->validate([
+        $validated = request()->validate([
             'DB_USER_id' => 'nullable',
-
             'LG_USER_name_last' => 'nullable',
             'LG_USER_name_first' => 'nullable',
 
@@ -218,29 +214,35 @@ class YearController extends Controller {
         ]);
 
         $year->update([
-            'DB_USER_id' => $validate['DB_USER_id'],
+            'DB_USER_id' => $validated['DB_USER_id'],
+            'LG_USER_name_last' => $validated['DB_USER_id'] == null ? $validated['LG_USER_name_last'] : null,
+            'LG_USER_name_first' => $validated['DB_USER_id'] == null ? $validated['LG_USER_name_first'] : null,
 
-            'LG_USER_name_last' => $validate['DB_USER_id'] == null ? $validate['LG_USER_name_last'] : null,
-            'LG_USER_name_first' => $validate['DB_USER_id'] == null ? $validate['LG_USER_name_first'] : null,
-
-            'attendance_jan_t' => $validate['attendance_jan_t'],
-            'attendance_feb_t' => $validate['attendance_feb_t'],
-            'attendance_mar_t' => $validate['attendance_mar_t'],
-            'attendance_apr_t' => $validate['attendance_apr_t'],
-            'attendance_may_t' => $validate['attendance_may_t'],
-            'attendance_jun_t' => $validate['attendance_jun_t'],
-            'attendance_jul_t' => $validate['attendance_jul_t'],
-            'attendance_aug_t' => $validate['attendance_aug_t'],
-            'attendance_sep_t' => $validate['attendance_sep_t'],
-            'attendance_oct_t' => $validate['attendance_oct_t'],
-            'attendance_nov_t' => $validate['attendance_nov_t'],
-            'attendance_dec_t' => $validate['attendance_dec_t'],
+            'attendance_jan_t' => $validated['attendance_jan_t'],
+            'attendance_feb_t' => $validated['attendance_feb_t'],
+            'attendance_mar_t' => $validated['attendance_mar_t'],
+            'attendance_apr_t' => $validated['attendance_apr_t'],
+            'attendance_may_t' => $validated['attendance_may_t'],
+            'attendance_jun_t' => $validated['attendance_jun_t'],
+            'attendance_jul_t' => $validated['attendance_jul_t'],
+            'attendance_aug_t' => $validated['attendance_aug_t'],
+            'attendance_sep_t' => $validated['attendance_sep_t'],
+            'attendance_oct_t' => $validated['attendance_oct_t'],
+            'attendance_nov_t' => $validated['attendance_nov_t'],
+            'attendance_dec_t' => $validated['attendance_dec_t'],
         ]);
+
+        $year->touch();
 
         return redirect()->to('/years/edit/'.$id);
     }
 
-    // FUNCTION: format year (multiple)
+    // ----------------------------------------------------------------------------------------------------
+
+    /*
+        FUNCTION:
+        Format year (multiple)
+    */
     public function func_format_years ($years) {
         // Order
         $years = $years->orderBy('year', 'DESC')
@@ -255,7 +257,10 @@ class YearController extends Controller {
         return $years;
     }
 
-    // FUNCTION: format year (single)
+    /*
+        FUNCTION:
+        Format year (single)
+    */
     public function func_format_year ($year) {
         // Name
         $user = User::find($year->DB_USER_id);

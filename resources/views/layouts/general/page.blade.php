@@ -5,12 +5,9 @@
     <!-- Header -->
     <header id = "header" class = "align-items-center d-flex fixed-top header">
         <div class = "align-items-center container d-flex justify-content-between">
-
             <a href = "{{ url('/login') }}" class = "align-items-center d-flex logo me-auto me-lg-0">
                 <h1>Cataloger<span>.</span></h1>
-                <span>{{ $auth->name_last }}, {{ $auth->name_first }}</span>
             </a>
-
             <nav id = "navbar" class = "navbar">
                 <ul>
 
@@ -44,12 +41,12 @@
                     @endif
 
                     <li><a href = "{{ url('/logout') }}">Log out</a></li>
+
                 </ul>
             </nav>
-
+            <a class = "font-bold username">{{ strtoupper($auth->name_last) }}, {{ $auth->name_first }}</a>
             <i class = "bi bi-list mobile-nav-show mobile-nav-toggle"></i>
             <i class = "bi bi-x d-none mobile-nav-hide mobile-nav-toggle"></i>
-
         </div>
     </header>
 

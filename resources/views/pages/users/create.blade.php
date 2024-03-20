@@ -124,12 +124,27 @@
 				<div class = "col-12">
 					<hr>
 					<h6 class = "text-center">Optional</h6>
+					<p class = "text-center">These apply to grade level coordinators, advisers, and teachers</p>
 					<hr>
 				</div>
-				<div class = "col-12">
+				<div class = "col-4">
 
-					<!-- Designated Grade -->
-					<b>Designated Grade:</b>
+					<!-- School Year Designation -->
+					<b>School Year Designation:</b>
+					<select name = "DB_YEAR_id">
+						<option value = ""></option>
+
+						@foreach ($years as $year)
+
+							<option value = "{{ $year->id }}" {{ old("DB_YEAR_id") == $year->id ? "selected" : "" }}>{{ $year->full }}</option>
+
+						@endforeach
+
+					</select>
+					<br>
+
+					<!-- Grade Level Coordinator's Designation -->
+					<span class = "font-bold">Grade Level Coordinator's Designation:</span>
 					<select name = "DB_GRADE_id">
 						<option value = ""></option>
 
@@ -140,11 +155,9 @@
 						@endforeach
 
 					</select>
-					This field is used for grade level coordinators and teachers
-					<br>
 					<br>
 
-					<!-- Designated Section -->
+					<!-- Adviser's Designation -->
 					<b>Designated Section:</b>
 					<select name = "DB_SECTION_id">
 						<option value = ""></option>
@@ -156,7 +169,84 @@
 						@endforeach
 
 					</select>
-					This field is used for advisers
+
+				</div>
+				<div class = "col-8">
+
+					<!-- Teacher's Designations -->
+					<b>Teacher's Designations:</b>
+					<div class = "border-all-light container-fluid" style = "padding: 15px;">
+						<div class = "row">
+							<div class = "col">
+
+								@foreach ($sections_teacher_g7 as $section)
+
+									<label>
+										<input
+											name = "DB_SECTION_MULTI_id[]"
+											type = "checkbox"
+											value = "{{ $section->id }}"
+											{{ is_array(old('DB_SECTION_MULTI_id')) && in_array($section->id, old('DB_SECTION_MULTI_id')) ? 'checked' : '' }}
+										>
+										Grade {{ $section->grade }} | {{ $section->section }}
+									</label>
+
+								@endforeach
+
+							</div>
+							<div class = "col">
+
+								@foreach ($sections_teacher_g8 as $section)
+
+									<label>
+										<input
+											name = "DB_SECTION_MULTI_id[]"
+											type = "checkbox"
+											value = "{{ $section->id }}"
+											{{ is_array(old('DB_SECTION_MULTI_id')) && in_array($section->id, old('DB_SECTION_MULTI_id')) ? 'checked' : '' }}
+										>
+										Grade {{ $section->grade }} | {{ $section->section }}
+									</label>
+
+								@endforeach
+
+							</div>
+							<div class = "col">
+
+								@foreach ($sections_teacher_g9 as $section)
+
+									<label>
+										<input
+											name = "DB_SECTION_MULTI_id[]"
+											type = "checkbox"
+											value = "{{ $section->id }}"
+											{{ is_array(old('DB_SECTION_MULTI_id')) && in_array($section->id, old('DB_SECTION_MULTI_id')) ? 'checked' : '' }}
+										>
+										Grade {{ $section->grade }} | {{ $section->section }}
+									</label>
+
+								@endforeach
+
+							</div>
+							<div class = "col">
+
+								@foreach ($sections_teacher_g10 as $section)
+
+									<label>
+										<input
+											name = "DB_SECTION_MULTI_id[]"
+											type = "checkbox"
+											value = "{{ $section->id }}"
+											{{ is_array(old('DB_SECTION_MULTI_id')) && in_array($section->id, old('DB_SECTION_MULTI_id')) ? 'checked' : '' }}
+										>
+										Grade {{ $section->grade }} | {{ $section->section }}
+									</label>
+
+								@endforeach
+
+							</div>
+						</div>
+					</div>
 
 				</div>
 			</div>

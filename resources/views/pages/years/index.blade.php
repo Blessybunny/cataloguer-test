@@ -72,8 +72,8 @@
 							<thead>
 								<tr>
 									<th width = "200">School Year</th>
-									<th width = "800">Principal</th>
-									<th>Action</th>
+									<th></th>
+									<th width = "200">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -82,19 +82,7 @@
 
 									<tr>
 										<td class = "text-center">{{ $year->full }}</td>
-										<td>
-
-											@if ($year->user_id)
-
-												<a href = "{{ url('/users/view', $year->user_id) }}">{{ $year->user_name_last }}, {{ $year->user_name_first }}</a>
-
-											@else
-
-												{{ $year->user_legacy }}
-
-											@endif
-
-										</td>
+										<td></td>
 										<td>
 											<div class = "container-fluid">
 												<div class = "row">
@@ -124,7 +112,7 @@
 							const table = new DataTable('#index', {
 								columnDefs: [
 									{ className: "dt-head-left", targets: [ 0, 1, 2 ] },
-									{ "orderable": false, "targets": [2] },
+									{ "orderable": false, "targets": [1, 2] },
 								],
 								info: false,
 								paging: false,

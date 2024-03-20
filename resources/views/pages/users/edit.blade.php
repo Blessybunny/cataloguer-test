@@ -36,7 +36,7 @@
 				<div class = "col-12">
 
 					<!-- Last Name -->
-					<span class = "font-bold">Last Name:</span>
+					<b>Last Name:</b>
 					<input
 						name = "name_last"
 						type = "text"
@@ -47,7 +47,7 @@
 					<br>
 
 					<!-- First Name -->
-					<span class = "font-bold">First Name:</span>
+					<b>First Name:</b>
 					<input
 						name = "name_first"
 						type = "text"
@@ -58,7 +58,7 @@
 					<br>
 
 					<!-- Role -->
-					<span class = "font-bold">Role:</span>
+					<b>Role:</b>
 					<select name = "DB_ROLE_id" required>
 
 						@foreach ($roles as $role)
@@ -77,12 +77,27 @@
 				<div class = "col-12">
 					<hr>
 					<h6 class = "text-center">Optional</h6>
+					<p class = "text-center">These apply to grade level coordinators, advisers, and teachers</p>
 					<hr>
 				</div>
-				<div class = "col-12">
+				<div class = "col-4">
 
-					<!-- Designated Grade -->
-					<span class = "font-bold">Designated Grade:</span>
+					<!-- School Year Designation -->
+					<b>School Year Designation:</b>
+					<select name = "DB_YEAR_id">
+						<option value = ""></option>
+
+						@foreach ($years as $year)
+
+							<option value = "{{ $year->id }}" {{ $user->DB_YEAR_id == $year->id ? "selected" : "" }}>{{ $year->full }}</option>
+
+						@endforeach
+
+					</select>
+					<br>
+
+					<!-- Grade Level Coordinator's Designation -->
+					<b>Grade Level Coordinator's Designation:</b>
 					<select name = "DB_GRADE_id">
 						<option value = ""></option>
 
@@ -93,23 +108,98 @@
 						@endforeach
 
 					</select>
-					This field is used for grade level coordinators and teachers
-					<br>
 					<br>
 
-					<!-- Designated Section -->
-					<span class = "font-bold">Designated Section:</span>
+					<!-- Adviser's Designation -->
+					<b>Adviser's Designation:</b>
 					<select name = "DB_SECTION_id">
 						<option value = ""></option>
 
 						@foreach ($sections as $section)
 
-							<option value = "{{ $section->id }}" {{ $user->DB_SECTION_id == $section->id ? "selected" : "" }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
+							<option value = "{{ $section->id }}" {{ $user->id == $section->DB_USER_id ? "selected" : "" }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
 
 						@endforeach
 
 					</select>
-					This field is used for advisers
+
+				</div>
+				<div class = "col-8">
+
+					<!-- Teacher's Designations -->
+					<b>Teacher's Designations:</b>
+					<div class = "border-all-light container-fluid" style = "padding: 15px;">
+						<div class = "row">
+							<div class = "col">
+
+								@foreach ($sections_teacher_g7 as $section)
+
+									<label>
+										<input
+											name = "DB_SECTION_MULTI_id[]"
+											type = "checkbox"
+											value = "{{ $section->id }}"
+											{{  $section->is_existing == true ? "checked" : "" }}
+										>
+										Grade {{ $section->grade }} | {{ $section->section }}
+									</label>
+
+								@endforeach
+
+							</div>
+							<div class = "col">
+
+								@foreach ($sections_teacher_g8 as $section)
+
+									<label>
+										<input
+											name = "DB_SECTION_MULTI_id[]"
+											type = "checkbox"
+											value = "{{ $section->id }}"
+											{{  $section->is_existing == true ? "checked" : "" }}
+										>
+										Grade {{ $section->grade }} | {{ $section->section }}
+									</label>
+
+								@endforeach
+
+							</div>
+							<div class = "col">
+
+								@foreach ($sections_teacher_g9 as $section)
+
+									<label>
+										<input
+											name = "DB_SECTION_MULTI_id[]"
+											type = "checkbox"
+											value = "{{ $section->id }}"
+											{{  $section->is_existing == true ? "checked" : "" }}
+										>
+										Grade {{ $section->grade }} | {{ $section->section }}
+									</label>
+
+								@endforeach
+
+							</div>
+							<div class = "col">
+
+								@foreach ($sections_teacher_g10 as $section)
+
+									<label>
+										<input
+											name = "DB_SECTION_MULTI_id[]"
+											type = "checkbox"
+											value = "{{ $section->id }}"
+											{{  $section->is_existing == true ? "checked" : "" }}
+										>
+										Grade {{ $section->grade }} | {{ $section->section }}
+									</label>
+
+								@endforeach
+
+							</div>
+						</div>
+					</div>
 
 				</div>
 			</div>
@@ -126,7 +216,7 @@
 						<button class = "button" type = "button">Change Password</button>
 					</a>
 
-					@if ($user->is_yesterold)
+					@if ($user->is_one_day_old)
 
 						<a href = "{{ url('/users/delete', $user->id) }}">
 							<button class = "button" type = "button">Delete</button>

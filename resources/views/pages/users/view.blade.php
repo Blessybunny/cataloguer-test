@@ -28,6 +28,12 @@
 			</div>
 			<div class = "col-12">
 
+				<!-- Timestamp -->
+				<b>Created on: </b>{{ $user->created_at->format('l jS \\of F Y') }}
+				<br>
+				<b>Edited on: </b>{{ $user->updated_at->format('l jS \\of F Y') }}
+				<hr>
+
 				<!-- DepEd ID -->
 				<b>DepEd ID:</b>
 				{{ $user->email }}
@@ -45,13 +51,32 @@
 				{{ $user->role }}
 				<br>
 
-				<!-- Designation -->
-				<b>Designation:</b>
-				{{ $user->designation }}
+				<!-- School Year Designation -->
+				<b>School Year Designation:</b>
+				{{ $user->year }}
 				<br>
 
-				<!-- School Year -->
-				<b>School Year:</b>
+				<!-- Grade Level Coordinator's Designation -->
+				<b>Grade Level Coordinator's Designation:</b>
+				{{ $user->designation_user_3 }}
+				<br>
+
+				<!-- Adviser's Designation -->
+				<b>Adviser's Designation:</b>
+				{{ $user->designation_user_4_1 }}
+				<br>
+
+				<!-- Teacher's Designation -->
+				<b>Teacher's Designations:</b>
+				<ul>
+
+					@foreach ($user->designation_user_4_2 as $class)
+
+						<li>Grade {{ $class->grade }} | {{ $class->section }}</li>
+
+					@endforeach
+
+				</ul>
 
 			</div>
 		</div>

@@ -110,22 +110,22 @@
                             <td>password</td>
                         </tr>
                         <tr>
-                            <td>Adviser</td>
+                            <td>Adviser / Teacher</td>
                             <td>user4_1</td>
                             <td>password</td>
                         </tr>
                         <tr>
-                            <td>Adviser</td>
+                            <td>Adviser / Teacher</td>
                             <td>user4_2</td>
                             <td>password</td>
                         </tr>
                         <tr>
-                            <td>Teacher</td>
+                            <td>Adviser / Teacher</td>
                             <td>user5_1</td>
                             <td>password</td>
                         </tr>
                         <tr>
-                            <td>Teacher</td>
+                            <td>Adviser / Teacher</td>
                             <td>user5_2</td>
                             <td>password</td>
                         </tr>

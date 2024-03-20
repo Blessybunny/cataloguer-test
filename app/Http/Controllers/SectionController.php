@@ -6,22 +6,21 @@ use App\Models\Grade;
 use App\Models\Role;
 use App\Models\Section;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use App\Models\Year;
 
 use Request;
 
-// Do-not-touch
-// Whitespace-checked
-// Restriction-checked
-
 class SectionController extends Controller {
-    // RESTRICTION
-    public function restrict ($auth) {
+    // GUARD
+    public function guard ($auth) {
         if (
             $auth != null &&
-            $auth->is_principal ||
-            $auth->is_administrator
+            (
+                $auth->is_principal ||
+                $auth->is_administrator
+            )
         ) {
             return false;
         }
@@ -35,10 +34,10 @@ class SectionController extends Controller {
 
     // INDEX
     public function index () {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
 
-        if (self::restrict($auth)) {
+        if (self::guard($auth)) {
             return (new Controller)->home();
         }
 
@@ -52,12 +51,12 @@ class SectionController extends Controller {
 
     // VIEW
     public function view ($id) {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
         $grade = Grade::find($id);
 
         if (
-            self::restrict($auth) ||
+            self::guard($auth) ||
             $grade == null
 
         ) {
@@ -70,43 +69,33 @@ class SectionController extends Controller {
             ->get();
 
         foreach ($sections as $section) {
-            $user_4 = User::find($section->DB_USER_id);
+            $section->adviser = User::find($section->DB_USER_id);
+            $section->teachers = Teacher::where('DB_SECTION_id', $section->id)->get();
 
-            if ($user_4 != null) {
-                $section->user_id = $user_4->id;
-                $section->user_name_last = $user_4->name_last;
-                $section->user_name_first = $user_4->name_first;
+            foreach ($section->teachers as $teacher => $value) {
+                $section->teachers[$teacher] = User::find($value->DB_USER_id);
             }
         }
 
-        $users_3 = User::orderBy('name_last', 'ASC')
-            ->orderBy('name_first', 'ASC')
-            ->where('DB_GRADE_id', $id)
+        $users = User::where('DB_GRADE_id', $id)
             ->where('DB_ROLE_id', 3)
-            ->get();
-
-        $users_5 = User::orderBy('name_last', 'ASC')
-            ->orderBy('name_first', 'ASC')
-            ->where('DB_GRADE_id', $id)
-            ->where('DB_ROLE_id', 5)
             ->get();
 
         return view('pages.sections.view')
             ->with('auth', $auth)
             ->with('grade', $grade)
             ->with('sections', $sections)
-            ->with('users_3', $users_3)
-            ->with('users_5', $users_5);
+            ->with('users', $users);
     }
 
     // EDIT
     public function edit_1 ($id) {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
         $grade = Grade::find($id);
 
         if (
-            self::restrict($auth) ||
+            self::guard($auth) ||
             $auth->is_administrator ||
             $grade == null
         ) {
@@ -122,12 +111,12 @@ class SectionController extends Controller {
             ->with('sections', $sections);
     }
     public function edit_2 ($id) {
-        // Restrict
+        // Guard
         $auth = (new Controller)->auth();
         $grade = Grade::find($id);
 
         if (
-            self::restrict($auth) ||
+            self::guard($auth) ||
             $auth->is_administrator ||
             $grade == null
         ) {
@@ -138,52 +127,96 @@ class SectionController extends Controller {
         $sections = Section::where('DB_GRADE_id', $id)->get();
 
         foreach ($sections as $section) {
-            $validate = request()->validate(['section_'.$section->DB_GRADE_id.'_'.$section->id => 'nullable']);
-
             $section_old = clone $section;
 
-            $section->update(['section' => $validate['section_'.$section->DB_GRADE_id.'_'.$section->id]]);
+            $validated = request()->validate([
+                'section_'.$section->DB_GRADE_id.'_'.$section->id => 'nullable',
+            ]);
+
+            $section->update([
+                'section' => $validated['section_'.$section->DB_GRADE_id.'_'.$section->id],
+            ]);
 
             self::func_preserve_STUDENT_User_on_name_change($grade, $section, $section_old);
             self::func_preserve_STUDENT_Section_on_name_change($grade, $section, $section_old);
+
+            self::func_delete_DB_Teacher_on_name_change($grade, $section, $section_old);
         }
+
+        $grade->touch();
 
         return redirect()->to('/sections/edit/'.$id);
     }
 
-    // FUNCTION: apply user preserves from all students with the student's section ID on name change (strict)
+    // ----------------------------------------------------------------------------------------------------
+
+    /*
+        FUNCTION:
+        On section name change (strict):
+            ...preserve the associated adviser's name (if any) on all students (if any)
+            ...clear the associated adviser's ID
+    */
     public function func_preserve_STUDENT_User_on_name_change ($grade, $section, $section_old) {
-        if ($section_old->section !== $section->section) {
-            $user = User::find($section->DB_USER_id);
+        // Guard
+        if ($section_old->section === $section->section) {
+            return;
+        }
 
-            if ($user != null) {
-                $section->update(['DB_USER_id' => null]);
-                $user->update(['DB_SECTION_id' => null]);
+        $user = User::find($section->DB_USER_id);
 
-                $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
+        if ($user == null) {
+            return;
+        }
 
-                foreach ($students as $student) {
-                    $student->update([
-                        'LG_USER_name_last_g'.$grade->grade => $user->name_last,
-                        'LG_USER_name_first_g'.$grade->grade => $user->name_first,
-                    ]);
-                }
-            }
+        // Proceed
+        $section->update([
+            'DB_USER_id' => null,
+        ]);
+
+        $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
+
+        foreach ($students as $student) {
+            $student->update([
+                'LG_USER_name_last_g'.$grade->grade => $user->name_last,
+                'LG_USER_name_first_g'.$grade->grade => $user->name_first,
+            ]);
         }
     }
 
-    // FUNCTION: apply section preserves from all students with the student's section ID on name change (strict)
+    /*
+        FUNCTION:
+        On section name change (strict):
+            ...preserve the section's old name on all students (if any)
+    */
     public function func_preserve_STUDENT_Section_on_name_change ($grade, $section, $section_old) {
-        if ($section_old->section !== $section->section) {
-            $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
-
-            foreach ($students as $student) {
-                $student->update([
-                    'DB_SECTION_id_g'.$grade->grade => null,
-
-                    'LG_SECTION_name_g'.$grade->grade => $section_old->section,
-                ]);
-            }
+        // Guard
+        if ($section_old->section === $section->section) {
+            return;
         }
+
+        // Proceed
+        $students = Student::where('DB_SECTION_id_g'.$grade->grade, $section->id)->get();
+
+        foreach ($students as $student) {
+            $student->update([
+                'DB_SECTION_id_g'.$grade->grade => null,
+                'LG_SECTION_name_g'.$grade->grade => $section_old->section,
+            ]);
+        }
+    }
+
+    /*
+        FUNCTION:
+        On section name change (strict):
+            ...delete the multisection teacher's IDs (if any)
+    */
+    public function func_delete_DB_Teacher_on_name_change ($grade, $section, $section_old) {
+        // Guard
+        if ($section_old->section === $section->section) {
+            return;
+        }
+
+        // Proceed
+        Teacher::where('DB_SECTION_id', $section->id)->delete();
     }
 }

@@ -66,10 +66,8 @@
 							<thead>
 								<tr>
 									<th width = "200">Role</th>
-									<th width = "400">Name</th>
-									<th width = "200">Designation</th>
-									<th width = "200">School Year</th>
-									<th>Action</th>
+									<th>Name</th>
+									<th width = "200">Action</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -79,8 +77,6 @@
 									<tr>
 										<td>{{ $user->role }}</td>
 										<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
-										<td>{{ $user->designation }}</td>
-										<td></td>
 										<td>
 											<div class = "container-fluid">
 												<div class = "row">
@@ -89,7 +85,7 @@
 													</div>
 													<div class = "col">
 
-														@if ($user->editable) 
+														@if ($user->is_editable) 
 
 															<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
 
@@ -109,8 +105,8 @@
 						<script>
 							const table = new DataTable('#index', {
 								columnDefs: [
-									{ className: "dt-head-left", targets: [ 0, 1, 2, 3, 4 ] },
-									{ "orderable": false, "targets": [4] },
+									{ className: "dt-head-left", targets: [ 0, 1 ] },
+									{ "orderable": false, "targets": [2] },
 								],
 								info: false,
 								paging: false,

@@ -16,8 +16,8 @@
                 if (target !== undefined) total += parseInt(target.value);
                 else skip++;
             }
-
-            field[i].innerHTML = !isNaN(total) && skip === 0 ? Math.round(total / (length - skip)) : `&nbsp;`;
+ 
+            field[i].innerHTML = !isNaN(total) ? Math.round(total / (length - skip)) : `&nbsp;`;
         }
     };
     const remarks = () => {
@@ -38,7 +38,7 @@
                 else skip++;
             }
 
-            field[i].innerHTML = !isNaN(total) && skip === 0 ? (Math.round(total / (length - skip)) >= threshold ? `Passed` : `Failed`) : `&nbsp;`;
+            field[i].innerHTML = !isNaN(total) ? (Math.round(total / (length - skip)) >= threshold ? `Passed` : `Failed`) : `&nbsp;`;
         }
     };
     const grand = () => {
@@ -59,7 +59,7 @@
                 else skip++;
             }
 
-            field[i].innerHTML = !isNaN(total) && skip === 0 ? (Math.round(total / length) >= threshold ? `Promoted` : `Failed`) : `&nbsp;`;
+            field[i].innerHTML = !isNaN(total) ? (Math.round(total / length) >= threshold ? `Promoted` : `Failed`) : `&nbsp;`;
         }
     };
     const total = () => {

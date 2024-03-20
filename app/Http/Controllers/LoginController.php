@@ -3,12 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-
 use Request;
-
-// Do-not-touch
-// Whitespace-checked
-// Restriction-checked
 
 class LoginController extends Controller {
     // REDIRECT
@@ -37,7 +32,7 @@ class LoginController extends Controller {
         return back()->withErrors(['credentials' => 'Incorrect email or password.']);
     }
 
-    // FUNCTION: logout
+    // LOGOUT
     protected function logout () {
         Auth::user()->touch();
         Auth::logout();

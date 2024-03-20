@@ -72,7 +72,7 @@
 							<thead>
 								<tr>
 									<th width = "200">LRN</th>
-									<th width = "400">Name</th>
+									<th width = "600">Name</th>
 									<th>Action</th>
 								</tr>
 							</thead>
@@ -96,7 +96,7 @@
 															$auth->is_administrator
 														)
 
-															<a href = "{{ url('/students/edit/info', $student->id) }}">Edit Info</a>
+															<a href = "{{ url('/students/edit/info', $student->id) }}">Edit</a>
 
 														@endif
 
@@ -108,7 +108,7 @@
 															$auth->is_administrator
 														)
 
-															<a href = "{{ url('/students/edit/area', $student->id) }}">Edit Areas</a>
+															<a href = "{{ url('/students/edit/area', $student->id) }}">Areas</a>
 
 														@endif
 
@@ -117,12 +117,14 @@
 
 														@if (
 															!$student->ST_locker &&
-															$auth->is_administrator ||
-															$auth->is_grade_level_coordinator ||
-															$auth->is_adviser
+															(
+																$auth->is_administrator ||
+																$auth->is_grade_level_coordinator ||
+																$auth->is_adviser
+															)
 														)
 
-															<a href = "{{ url('/students/edit/form', $student->id) }}">Edit Forms</a>
+															<a href = "{{ url('/students/edit/form', $student->id) }}">Forms</a>
 
 														@endif
 

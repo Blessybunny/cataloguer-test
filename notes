@@ -1,9 +1,4 @@
-CHECKPOINT:
-
-UTMOST PRIORITY:
-    - Student: add creation date to view.php
-    - Student: add DB_PRESERVE_EDITED or "Last edited by: <user>" to view.php
-    - User: DB_YEAR_id for grade level coordinators, advisers, and teachers
+CHECKPOINT: Done
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DEVELOPER'S NOTES:
     1. AUTH and ROLE are hard coded across multiple files (see also managers).
@@ -12,10 +7,49 @@ DEVELOPER'S NOTES:
         - DatabaseSeeder.php (seeder)
     3. A User can only be deleted if a day has passed since the last login, logout, or account edit.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-THE COMPLETE BOUNDARY
+THE COMPLETE BOUNDARY:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CONTROLLER:
+    - Controller
+    - Login
+    - Section
+    - Student
+    - User
+    - Year
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+MIGRATION:
+    - grade
+    - role
+    - section
+    - year
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BLADE - Pages:
+    - home
+    - login
+BLADE - Section:
+    - edit
+    - index
+BLADE - Student:
+    - create
+    - delete
+    - edit-area
+    - edit-form
+    - edit-info
+    - edit-lock
+    - index
+    - view                  SFcoded -> 9, 10
+BLADE - User:
+    - create
+    - delete
+    - edit
+    - index
+    - password
+    - view
+BLADE - Year:
+    - create
+    - edit
+    - index
+    - view
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PERMISSION - Principal:
     - Section
@@ -87,34 +121,22 @@ PERMISSION - Teacher:
         - edit lock         Deny
         - delete            Deny
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-BLADE - Pages:
-    - home
-    - login
-BLADE - Section:
-    - index
-    - view
-    - edit
-BLADE - Student:
-    - create
-    - delete
-    - edit-area
-    - edit-form
-    - edit-info
-    - edit-lock
-    - index
-    - view                  SFcoded -> 9, 10
-BLADE - User:
-    - create
-    - delete
-    - edit
-    - index
-    - password
-    - view
-BLADE - Year:
-    - create
-    - edit
-    - index
-    - view
+RESOURCES - Layout:
+    - meta
+    - page
+    - sf9-back
+    - sf9-front
+    - sf10-back                     Gradecoded -> 9, 10, Sidecoded -> back
+    - sf10-certification
+    - sf10-front                    Gradecoded -> 7, 8, Sidecoded -> front
+    - sf10-scholastic-record
+    - stats
+RESOURCES - Less:
+    - general.Less
+    - students.less
+RESOURCES - Script:
+    - general.js
+    - students.js
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SEARCH - Student:
     - info_name_last
@@ -127,24 +149,4 @@ SEARCH - User:
     - name_first
 SEARCH - Year:
     - full
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-RESOURCES:
-    - Layouts
-        - meta
-        - page
-        - sf9-back
-        - sf9-front
-        - sf10-back                     Gradecoded -> 9, 10, Sidecoded -> back
-        - sf10-certification
-        - sf10-front                    Gradecoded -> 7, 8, Sidecoded -> front
-        - sf10-scholastic-record
-        - stats
-
-    - Less
-        - general.Less
-        - students.less
-
-    - Script
-        - general.js
-        - students.js
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

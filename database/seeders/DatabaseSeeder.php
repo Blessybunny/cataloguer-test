@@ -24,70 +24,69 @@ class DatabaseSeeder extends Seeder {
 
     // GRADE: All
     public function grade () : void {
-        Grade::create(['grade' => '7',]);
-        Grade::create(['grade' => '8',]);
-        Grade::create(['grade' => '9',]);
-        Grade::create(['grade' => '10',]);
+        Grade::create(['grade' => '7']);
+        Grade::create(['grade' => '8']);
+        Grade::create(['grade' => '9']);
+        Grade::create(['grade' => '10']);
     }
 
     // ROLE: All
     public function role () : void {
-        Role::create(['role' => 'Principal',]);
-        Role::create(['role' => 'Administrator',]);
-        Role::create(['role' => 'Grade Level Coordinator',]);
-        Role::create(['role' => 'Adviser',]);
-        Role::create(['role' => 'Teacher',]);
+        Role::create(['role' => 'Principal']);
+        Role::create(['role' => 'Administrator']);
+        Role::create(['role' => 'Grade Level Coordinator']);
+        Role::create(['role' => 'Adviser / Teacher']);
     }
 
     // SECTION: All
     public function section () : void {
-        Section::create(['DB_GRADE_id' => '1', 'section' => '7-A',]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => '7-B',]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => '7-C',]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => '7-D',]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => '7-E',]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => '7-F',]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '1', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-A']);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-B']);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-C']);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-D']);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-E']);
+        Section::create(['DB_GRADE_id' => '1', 'section' => '7-F']);
+        Section::create(['DB_GRADE_id' => '1', 'section' => null]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => null]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => null]);
+        Section::create(['DB_GRADE_id' => '1', 'section' => null]);
 
-        Section::create(['DB_GRADE_id' => '2', 'section' => '8-A',]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => '8-B',]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => '8-C',]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => '8-D',]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => '8-E',]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => '8-F',]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => '8-G',]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => '8-H',]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '2', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => '9-A',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => '9-B',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => '9-C',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => '9-D',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => '9-E',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => '9-F',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => '9-G',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => '9-H',]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '3', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-A']);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-B']);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-C']);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-D']);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-E']);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-F']);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-G']);
+        Section::create(['DB_GRADE_id' => '2', 'section' => '8-H']);
+        Section::create(['DB_GRADE_id' => '2', 'section' => null]);
+        Section::create(['DB_GRADE_id' => '2', 'section' => null]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-A']);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-B']);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-C']);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-D']);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-E']);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-F']);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-G']);
+        Section::create(['DB_GRADE_id' => '3', 'section' => '9-H']);
+        Section::create(['DB_GRADE_id' => '3', 'section' => null]);
+        Section::create(['DB_GRADE_id' => '3', 'section' => null]);
 
-        Section::create(['DB_GRADE_id' => '4', 'section' => '10-A',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => '10-B',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => '10-C',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => '10-D',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => '10-E',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => '10-F',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => '10-G',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => '10-H',]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
-        Section::create(['DB_GRADE_id' => '4', 'section' => null,]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-A']);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-B']);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-C']);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-D']);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-E']);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-F']);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-G']);
+        Section::create(['DB_GRADE_id' => '4', 'section' => '10-H']);
+        Section::create(['DB_GRADE_id' => '4', 'section' => null]);
+        Section::create(['DB_GRADE_id' => '4', 'section' => null]);
     }
 
     // USER: Debug
     public function user () : void {
-        // 1
+        // 1-1
         User::create([
             'DB_ROLE_id' => 1,
 
@@ -96,6 +95,8 @@ class DatabaseSeeder extends Seeder {
             'name_last' => 'Olsen',
             'name_first' => 'Tulip',
         ]);
+
+        // 2-1
         User::create([
             'DB_ROLE_id' => 1,
 
@@ -105,7 +106,7 @@ class DatabaseSeeder extends Seeder {
             'name_first' => 'Lake',
         ]);
 
-        // 2
+        // 3-2
         User::create([
             'DB_ROLE_id' => 2,
 
@@ -114,6 +115,8 @@ class DatabaseSeeder extends Seeder {
             'name_last' => 'Cosay',
             'name_first' => 'Jesse',
         ]);
+
+        // 4-2
         User::create([
             'DB_ROLE_id' => 2,
 
@@ -123,7 +126,7 @@ class DatabaseSeeder extends Seeder {
             'name_first' => 'Alan',
         ]);
 
-        // 3
+        // 5-3
         User::create([
             'DB_ROLE_id' => 3,
 
@@ -132,6 +135,8 @@ class DatabaseSeeder extends Seeder {
             'name_last' => 'Monroe',
             'name_first' => 'Grace',
         ]);
+
+        // 6-3
         User::create([
             'DB_ROLE_id' => 3,
 
@@ -141,7 +146,7 @@ class DatabaseSeeder extends Seeder {
             'name_first' => 'Simon',
         ]);
 
-        // 4
+        // 7-4
         User::create([
             'DB_ROLE_id' => 4,
 
@@ -150,6 +155,8 @@ class DatabaseSeeder extends Seeder {
             'name_last' => 'Hughes',
             'name_first' => 'Amelia',
         ]);
+
+        // 8-4
         User::create([
             'DB_ROLE_id' => 4,
 
@@ -159,17 +166,19 @@ class DatabaseSeeder extends Seeder {
             'name_first' => 'Alrick',
         ]);
 
-        // 5
+        // 9-4
         User::create([
-            'DB_ROLE_id' => 5,
+            'DB_ROLE_id' => 4,
 
             'email' => 'user5_1',
             'password' => bcrypt('password'),
             'name_last' => 'Corgi',
             'name_first' => 'Atticus',
         ]);
+
+        // 10-4
         User::create([
-            'DB_ROLE_id' => 5,
+            'DB_ROLE_id' => 4,
 
             'email' => 'user5_2',
             'password' => bcrypt('password'),
@@ -233,7 +242,7 @@ class DatabaseSeeder extends Seeder {
         ]);
     }
 
-    // STUDENT: Phineas Flynn
+    // STUDENT: Debug
     public function student_1 () : void {
         Student::create([
             // All: Info

@@ -10,8 +10,8 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
 
-            $table->tinyInteger('DB_GRADE_id');
-            $table->integer('DB_USER_id')->nullable(); // Used to reference an adviser
+            $table->tinyInteger('DB_GRADE_id'); // Reference a grade
+            $table->integer('DB_USER_id')->nullable()->unique(); // Reference a user (adviser)
 
             $table->string('section', 50)->nullable();
         });

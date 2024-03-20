@@ -31,7 +31,7 @@
 						<tr>
 							<th class = "text-left" width = "200">Level</th>
 							<th></th>
-							<th class = "text-left" width = "400">Action</th>
+							<th class = "text-left" width = "200">Action</th>
 						</tr>
 					</thead>
 					<tbody>

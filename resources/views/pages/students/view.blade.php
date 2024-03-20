@@ -35,6 +35,14 @@
 				<hr>
 			</div>
 			<div class = "col-12">
+
+				<!-- Timestamp -->
+				<b>Created on: </b>{{ $student->created_at->format('l jS \\of F Y') }}
+				<br>
+				<b>Edited on: </b>{{ $student->updated_at->format('l jS \\of F Y') }}
+				<hr>
+
+				<!-- Pills -->
 				<div class = "container-pill">
 					<ul class = "nav nav-fill nav-pills">
 						<li class = "dropdown nav-item">
@@ -79,7 +87,7 @@
 
 						@endforeach
 
-						<div id = "tab-sf10-front" class = "fade tab-pane">@include('layouts.students.sf10-front', ['student' => $student])</div>
+						<div id = "tab-sf10-front" class = "fade show active tab-pane">@include('layouts.students.sf10-front', ['student' => $student])</div>
 						<div id = "tab-sf10-back" class = "fade tab-pane">@include('layouts.students.sf10-back', ['student' => $student])</div>
 
 						<div id = "tab-sf9-stats" class = "fade tab-pane">@include('layouts.students.stats', ['student' => $student, 'sf' => 9])</div>
@@ -87,6 +95,7 @@
 
 					</div>
 				</div>
+
 			</div>
 		</div>
 

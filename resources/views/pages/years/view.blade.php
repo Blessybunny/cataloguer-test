@@ -28,6 +28,12 @@
 			</div>
 			<div class = "col-12">
 
+				<!-- Timestamp -->
+				<b>Created on: </b>{{ $year->created_at->format('l jS \\of F Y') }}
+				<br>
+				<b>Edited on: </b>{{ $year->updated_at->format('l jS \\of F Y') }}
+				<hr>
+
 				<!-- Principal -->
 				<b>Principal:</b>
 

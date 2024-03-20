@@ -41,7 +41,7 @@
                             type = "checkbox"
                             {{  $student->ST_locker == true ? "checked" : "" }}
                         >
-                        <span>Lock Editing</span>
+                        Lock Editing
                     </label>
                     <br>
                     
@@ -56,7 +56,7 @@
                                 type = "checkbox"
                                 {{  $student->{'ST_sf9_g'.$grade->grade.'_subject_jp'} == true ? "checked" : "" }}
                             >
-                            <span>Show subject Nihongo for SF9 (Grade {{ $grade->grade }})</span>
+                            Show subject Nihongo for SF9 (Grade {{ $grade->grade }})
                         </label>
                         <label>
                             &nbsp;
@@ -65,7 +65,7 @@
                                 type = "checkbox"
                                 {{  $student->{'ST_sf10_g'.$grade->grade.'_subject_jp'} == true ? "checked" : "" }}
                             >
-                            <span>Show subject Nihongo for SF10 (Grade {{ $grade->grade }})</span>
+                            Show subject Nihongo for SF10 (Grade {{ $grade->grade }})
                         </label>
 
                         @if ($loop->index + 1 != $loop->count)

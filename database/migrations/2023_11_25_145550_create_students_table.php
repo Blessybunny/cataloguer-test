@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
 
-            $table->boolean('ST_locker')->default(0);
+            $table->boolean('ST_locker')->default(0); // Setting
 
             $table->string('info_name_last', 50);
             $table->string('info_name_first', 50);
@@ -67,14 +67,11 @@ return new class extends Migration {
 
             // SF9: Report (edit-area)
             for ($i = $grade_min; $i <= $grade_max; $i++) {
-                $table->integer('DB_SECTION_id_g'.$i)->nullable(); // Used to reference a section
-
-                $table->string('LG_SECTION_name_g'.$i, 50)->nullable();
-
-                $table->string('LG_USER_name_last_g'.$i, 50)->nullable();
-                $table->string('LG_USER_name_first_g'.$i, 50)->nullable();
-
-                $table->integer('DB_YEAR_id_g'.$i)->nullable(); // Used to reference a year
+                $table->integer('DB_SECTION_id_g'.$i)->nullable(); // Reference a section and adviser
+                $table->integer('DB_YEAR_id_g'.$i)->nullable(); // Reference a year and principal
+                $table->string('LG_SECTION_name_g'.$i, 50)->nullable(); // Preserve or force (section)
+                $table->string('LG_USER_name_last_g'.$i, 50)->nullable(); // Preserve or force (adviser)
+                $table->string('LG_USER_name_first_g'.$i, 50)->nullable(); // Preserve or force (adviser)
             }
 
             // SF9: Report (edit-form)
@@ -322,8 +319,8 @@ return new class extends Migration {
 
             // All: Subject -> nihongo (edit-lock)
             for ($i = $grade_min; $i <= $grade_max; $i++) {
-                $table->boolean('ST_sf9_g'.$i.'_subject_jp')->default(0);
-                $table->boolean('ST_sf10_g'.$i.'_subject_jp')->default(0);
+                $table->boolean('ST_sf9_g'.$i.'_subject_jp')->default(0); // Setting
+                $table->boolean('ST_sf10_g'.$i.'_subject_jp')->default(0); // Setting
 
                 $table->tinyInteger('sf9_g'.$i.'_subject_qr1_jp')->nullable();
                 $table->tinyInteger('sf9_g'.$i.'_subject_qr2_jp')->nullable();
