@@ -1081,11 +1081,13 @@ class StudentController extends Controller {
         }
 
         // Step 4: Year
-        $students = $students
-            ->whereIn('DB_YEAR_id_g7', [$auth->DB_YEAR_id])
-            ->orWhereIn('DB_YEAR_id_g8', [$auth->DB_YEAR_id])
-            ->orWhereIn('DB_YEAR_id_g9', [$auth->DB_YEAR_id])
-            ->orWhereIn('DB_YEAR_id_g10', [$auth->DB_YEAR_id]);
+        if ($auth->DB_YEAR_id != null) {
+            $students = $students
+                ->whereIn('DB_YEAR_id_g7', [$auth->DB_YEAR_id])
+                ->orWhereIn('DB_YEAR_id_g8', [$auth->DB_YEAR_id])
+                ->orWhereIn('DB_YEAR_id_g9', [$auth->DB_YEAR_id])
+                ->orWhereIn('DB_YEAR_id_g10', [$auth->DB_YEAR_id]);
+        }
 
         // Step 5: Paginate
         $students = $students->paginate(100);

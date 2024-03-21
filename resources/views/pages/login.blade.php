@@ -48,6 +48,8 @@
                 @csrf
 
                 <section class = "container">
+
+                    <!-- Form -->
                     <div class = "justify-content-center row">
                         <div class = "col-12 col-lg-6 col-md-8 col-xl-5">
                             <div class = "card">
@@ -66,6 +68,14 @@
                                             <input name = "password" type = "password" class = "form-control form-control-lg" required>
                                         </div>
 
+                                        @if($errors->has('credentials'))
+
+                                            <b class = "error">Invalid username or password.</b>
+                                            <br>
+                                            <br>
+
+                                        @endif
+
                                         <button class = "button" type = "submit">Login</button>
 
                                     </div>
@@ -73,58 +83,75 @@
                             </div>
                         </div>
                     </div>
-                    <table>
+
+                    <!-- Premade accounds -->
+                    <hr>
+                    <h6 class = "text-center">Premade accounts for testing</h6>
+                    <hr>
+
+                    <table class = "table">
                         <tr>
+                            <th>Name</th>
                             <th>Role</th>
-                            <th>Username</th>
+                            <th>DepEd ID / Username</th>
                             <th>Password</th>
                         </tr>
                         <tr>
+                            <td>OLSEN, Tulip</td>
                             <td>Principal</td>
                             <td>user1_1</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>OLSEN, Lake</td>
                             <td>Principal</td>
                             <td>user1_2</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>COSAY, Jesse</td>
                             <td>Administrator</td>
                             <td>user2_1</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>DRACULA, Alan</td>
                             <td>Administrator</td>
                             <td>user2_2</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>MONROE, Grace</td>
                             <td>Grade Level Coordinator</td>
                             <td>user3_1</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>LAURENT, Simon</td>
                             <td>Grade Level Coordinator</td>
                             <td>user3_2</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>HUGHES, Amelia</td>
                             <td>Adviser / Teacher</td>
                             <td>user4_1</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>TIMMENS, Alrick</td>
                             <td>Adviser / Teacher</td>
                             <td>user4_2</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>CORGI, Atticus</td>
                             <td>Adviser / Teacher</td>
                             <td>user5_1</td>
                             <td>password</td>
                         </tr>
                         <tr>
+                            <td>ONE, One</td>
                             <td>Adviser / Teacher</td>
                             <td>user5_2</td>
                             <td>password</td>

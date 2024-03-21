@@ -87,7 +87,7 @@
 
 						@endforeach
 
-						<div id = "tab-sf10-front" class = "fade show active tab-pane">@include('layouts.students.sf10-front', ['student' => $student])</div>
+						<div id = "tab-sf10-front" class = "fade tab-pane">@include('layouts.students.sf10-front', ['student' => $student])</div>
 						<div id = "tab-sf10-back" class = "fade tab-pane">@include('layouts.students.sf10-back', ['student' => $student])</div>
 
 						<div id = "tab-sf9-stats" class = "fade tab-pane">@include('layouts.students.stats', ['student' => $student, 'sf' => 9])</div>
