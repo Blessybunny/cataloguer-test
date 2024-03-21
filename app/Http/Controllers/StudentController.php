@@ -1080,13 +1080,36 @@ class StudentController extends Controller {
                 ->orWhereIn('DB_SECTION_id_g10', [$section->id]);
         }
 
-        // Step 4: Year
-        if ($auth->DB_YEAR_id != null) {
-            $students = $students
-                ->whereIn('DB_YEAR_id_g7', [$auth->DB_YEAR_id])
-                ->orWhereIn('DB_YEAR_id_g8', [$auth->DB_YEAR_id])
-                ->orWhereIn('DB_YEAR_id_g9', [$auth->DB_YEAR_id])
-                ->orWhereIn('DB_YEAR_id_g10', [$auth->DB_YEAR_id]);
+        // Step 4: Year (only yield results if a grade level is specified, otherwise, yield nothing)
+        if ($auth->is_grade_level_coordinator) {
+            $grade = Grade::find($auth->DB_GRADE_id);
+
+            if ($grade != null) {
+                $students = $students->whereIn('DB_YEAR_id_g'.$grade->grade, [$auth->DB_YEAR_id]);
+            }
+            else {
+                $students = $students
+                    ->whereIn('DB_YEAR_id_g7', [-1])
+                    ->orWhereIn('DB_YEAR_id_g8', [-1])
+                    ->orWhereIn('DB_YEAR_id_g9', [-1])
+                    ->orWhereIn('DB_YEAR_id_g10', [-1]);
+            }
+        }
+        if ($auth->is_adviser) {
+            if ($section != null) {
+                $grade = Grade::find($section->DB_GRADE_id);
+
+                if ($grade != null) {
+                    $students = $students->whereIn('DB_YEAR_id_g'.$grade->grade, [$auth->DB_YEAR_id]);
+                }
+            }
+            else {
+                $students = $students
+                    ->whereIn('DB_YEAR_id_g7', [-1])
+                    ->orWhereIn('DB_YEAR_id_g8', [-1])
+                    ->orWhereIn('DB_YEAR_id_g9', [-1])
+                    ->orWhereIn('DB_YEAR_id_g10', [-1]);
+            }
         }
 
         // Step 5: Paginate
