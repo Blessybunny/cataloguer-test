@@ -21,9 +21,15 @@
 					<h4 class = "text-center">User Index</h4>
 				</div>
 				<div class = "align-self-center col-4">
-					<a href = "{{ url('/users/create') }}">
-						<button class = "button float-right" type = "button">Add</button>
-					</a>
+
+					@if ($auth->is_administrator)
+
+						<a href = "{{ url('/users/create') }}">
+							<button class = "button float-right" type = "button">Add</button>
+						</a>
+
+					@endif
+
 				</div>
 			</div>
 
@@ -85,7 +91,7 @@
 													</div>
 													<div class = "col">
 
-														@if ($user->is_editable) 
+														@if ($auth->is_administrator)
 
 															<a href = "{{ url('/users/edit', $user->id) }}">Edit</a>
 

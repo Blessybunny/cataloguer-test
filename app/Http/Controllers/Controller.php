@@ -18,12 +18,16 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController {
     use AuthorizesRequests, ValidatesRequests;
 
-    // REDIRECT
+    /**
+     * REDIRECT
+     */
     public function home () { return redirect()->to('/home'); }
 
-    // AUTH
+    /**
+     * AUTH
+     */
     public function auth () {
-        $auth = Auth::user(); // Auth::user(); // User::find(4)
+        $auth = User::find(8); // Auth::user(); // User::find(4)
 
         if ($auth != null) {
             $auth->is_principal = $auth->DB_ROLE_id == 1 ? true : false;
@@ -35,7 +39,9 @@ class Controller extends BaseController {
         return $auth;
     }
 
-    // HOME
+    /**
+     * HOME
+     */
     public function land () {
         // Check if user still exists
         $auth = self::auth();

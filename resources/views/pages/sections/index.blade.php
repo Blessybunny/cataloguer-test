@@ -49,7 +49,7 @@
 											</div>
 											<div class = "col">
 
-												@if ($auth->is_principal)
+												@if ($auth->is_administrator)
 
 													<a href = "{{ url('/sections/edit', $grade->id) }}">Edit</a>
 

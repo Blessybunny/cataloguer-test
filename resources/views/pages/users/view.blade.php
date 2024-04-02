@@ -56,21 +56,25 @@
 				{{ $user->year }}
 				<br>
 
+				<!-- Subject Designations -->
+				<b>Subject Designations:</b>
+				<br>
+
 				<!-- Grade Level Coordinator's Designation -->
 				<b>Grade Level Coordinator's Designation:</b>
-				{{ $user->designation_user_3 }}
+				{{ $user->grade }}
 				<br>
 
 				<!-- Adviser's Designation -->
 				<b>Adviser's Designation:</b>
-				{{ $user->designation_user_4_1 }}
+				{{ $user->section }}
 				<br>
 
-				<!-- Teacher's Designation -->
-				<b>Teacher's Designations:</b>
+				<!-- Class Designations -->
+				<b>Class Designations:</b>
 				<ul>
 
-					@foreach ($user->designation_user_4_2 as $class)
+					@foreach ($user->classes as $class)
 
 						<li>Grade {{ $class->grade }} | {{ $class->section }}</li>
 

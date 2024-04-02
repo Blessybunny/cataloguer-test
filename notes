@@ -1,4 +1,16 @@
 CHECKPOINT: Done
+make flexible section slots
+recheck Wela
+subject designation (BIG)
+PRINCIPALS SHOULD HAVE NO FORM OF INPUT (JUST VIEW, DASHBOARDS, GRAPHS ETC.)
+    - student dashboards:
+        - how many enrollees of a school year,
+        - how many in this section,
+        - how many male/female (maybe)
+        - ...
+Table form for sections, remove the simple lists
+Restrict school year editing priveledges to only admins.
+Since principals can't make accounts, make 5 premade admins
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DEVELOPER'S NOTES:
     1. AUTH and ROLE are hard coded across multiple files (see also managers).
@@ -7,15 +19,19 @@ DEVELOPER'S NOTES:
         - DatabaseSeeder.php (seeder)
     3. A User can only be deleted if a day has passed since the last login, logout, or account edit.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-THE COMPLETE BOUNDARY:
+
+
+
+
+
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 CONTROLLER:
     - Controller
     - Login
-    - Section
-    - Student
+    - Student               Gradecoded -> 7, 8, 9, 10
     - User
-    - Year
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MIGRATION:
     - grade
@@ -26,9 +42,8 @@ MIGRATION:
 BLADE - Pages:
     - home
     - login
-BLADE - Section:
-    - edit
-    - index
+
+
 BLADE - Student:
     - create
     - delete
@@ -38,61 +53,8 @@ BLADE - Student:
     - edit-lock
     - index
     - view                  SFcoded -> 9, 10
-BLADE - User:
-    - create
-    - delete
-    - edit
-    - index
-    - password
-    - view
-BLADE - Year:
-    - create
-    - edit
-    - index
-    - view
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-PERMISSION - Principal:
-    - Section
-        - view              Allow
-        - edit              Allow
-    - Student
-        - create            Deny
-        - view              Allow
-        - edit info         Deny
-        - edit area         Deny
-        - edit form         Deny
-        - edit lock         Deny
-        - delete            Deny
-    - User
-        - create            Allow
-        - view              Allow
-        - edit              Allow
-        - delete            Allow
-    - Year
-        - create            Allow
-        - view              Allow
-        - edit              Allow
-PERMISSION - Administrator:
-    - Section
-        - view              Allow
-        - edit              Deny
-    - Student
-        - create            Allow
-        - view              Allow
-        - edit info         Allow
-        - edit area         Allow
-        - edit form         Allow
-        - edit lock         Allow
-        - delete            Allow
-    - User
-        - create            Allow
-        - view              Allow
-        - edit              Allow
-        - delete            Allow
-    - Year
-        - create            Deny
-        - view              Allow
-        - edit              Deny
 PERMISSION - Grade Level Coordinator:
     - Student
         - create            Deny
@@ -138,6 +100,80 @@ RESOURCES - Script:
     - general.js
     - students.js
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+THE COMPLETE BOUNDARY:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CONTROLLER:
+    - Section (Tested)
+    - User (Tested)
+    - Year (Tested)
+//mark tests inside comments for each function later
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+PERMISSION - Principal:
+    - Section
+        - edit              Deny
+        - view              Allow
+    - Student
+        - create            Deny
+        - delete            Deny
+        - edit area         Deny
+        - edit form         Deny
+        - edit info         Deny
+        - edit lock         Deny
+        - view              Allow
+    - User
+        - create            Deny
+        - delete            Deny
+        - edit              Deny
+        - view              Allow
+    - Year
+        - create            Deny
+        - edit              Deny
+        - view              Allow
+PERMISSION - Administrator:
+    - Section
+        - edit              Allow
+        - view              Allow
+    - Student
+        - create            Allow
+        - delete            Allow
+        - edit area         Allow
+        - edit form         Allow
+        - edit info         Allow
+        - edit lock         Allow
+        - view              Allow
+    - User
+        - create            Allow
+        - delete            Allow
+        - edit              Allow
+        - view              Allow
+    - Year
+        - create            Allow
+        - view              Allow
+        - edit              Allow
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BLADE - Section:
+    - edit
+    - index
+    - view
+BLADE - User:
+    - create
+    - delete
+    - edit
+    - index
+    - password
+    - view
+BLADE - Year:
+    - create
+    - edit
+    - index
+    - view
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SEARCH - Student:
     - info_name_last
     - info_name_first
@@ -149,4 +185,3 @@ SEARCH - User:
     - name_first
 SEARCH - Year:
     - full
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

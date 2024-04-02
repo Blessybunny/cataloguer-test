@@ -6,10 +6,14 @@ use Auth;
 use Request;
 
 class LoginController extends Controller {
-    // REDIRECT
+    /**
+     * REDIRECT
+     */
     public function redirect () { return redirect()->to('/login'); }
 
-    // INDEX
+    /**
+     * INDEX
+     */
     public function index_1 () {
         if (Auth::check()) {
             return (new Controller)->home();
@@ -32,7 +36,9 @@ class LoginController extends Controller {
         return back()->withErrors(['credentials' => 'Incorrect email or password.']);
     }
 
-    // LOGOUT
+    /**
+     * LOGOUT
+     */
     protected function logout () {
         Auth::user()->touch();
         Auth::logout();

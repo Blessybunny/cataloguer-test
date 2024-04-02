@@ -13,17 +13,12 @@ use App\Models\Year;
 use Request;
 
 class StudentController extends Controller {
-    // GUARD
+    /**
+     * GUARD
+     * Accessible by all
+     */
     public function guard ($auth) {
-        if (
-            $auth != null &&
-            (
-                $auth->is_principal ||
-                $auth->is_administrator ||
-                $auth->is_grade_level_coordinator ||
-                $auth->is_adviser
-            )
-        ) {
+        if ($auth != null) {
             return false;
         }
         else {
@@ -31,10 +26,14 @@ class StudentController extends Controller {
         }
     }
 
-    // REDIRECT
+    /**
+     * REDIRECT
+     */
     public function redirect () { return redirect()->to('/students'); }
 
-    // INDEX
+    /**
+     * INDEX
+     */
     public function index () {
         // Guard
         $auth = (new Controller)->auth();
@@ -58,7 +57,7 @@ class StudentController extends Controller {
             });
         }
 
-        $students = self::func_format_students($auth, $students);
+        $students = self::Format_Students($auth, $students);
 
         return view('pages.students.index')
             ->with('auth', $auth)
@@ -66,7 +65,9 @@ class StudentController extends Controller {
             ->with('students', $students);
     }
 
-    // CREATE
+    /**
+     * CREATE
+     */
     public function create_1 () {
         // Guard
         $auth = (new Controller)->auth();
@@ -121,9 +122,11 @@ class StudentController extends Controller {
         return self::redirect();
     }
 
-    // VIEW
+    /**
+     * VIEW
+     */
     public function view ($id) {
-        // Guard 1
+        // Guard
         $auth = (new Controller)->auth();
         $student = Student::find($id);
 
@@ -134,15 +137,15 @@ class StudentController extends Controller {
             return (new Controller)->home();
         }
 
-        // Guard 2
-        $student = self::func_format_student($auth, $student);
+        // Permission
+        $student = self::Format_Student($auth, $student);
 
-        if ($student->is_not_viewable) {
+        if ($student->is_inaccessible) {
             return (new Controller)->home();
         }
 
         // Proceed
-        $grades = self::func_format_grades($auth, Grade::query());
+        $grades = self::Format_Grades($auth, $student, Grade::query());
 
         $student->ST_locker = true;
 
@@ -152,7 +155,9 @@ class StudentController extends Controller {
             ->with('student', $student);
     }
 
-    // EDIT (Info)
+    /**
+     * EDIT (Info)
+     */
     public function edit_info_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -216,7 +221,9 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/info/'.$id);
     }
 
-    // EDIT (Area)
+    /**
+     * EDIT (Area)
+     */
     public function edit_area_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -305,9 +312,11 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/area/'.$id);
     }
 
-    // EDIT (Form)
+    /**
+     * EDIT (Form)
+     */
     public function edit_form_1 ($id) {
-        // Guard 1
+        // Guard
         $auth = (new Controller)->auth();
         $student = Student::find($id);
 
@@ -320,15 +329,15 @@ class StudentController extends Controller {
             return (new Controller)->home();
         }
 
-        // Guard 2
-        $student = self::func_format_student($auth, $student);
+        // Permission
+        $student = self::Format_Student($auth, $student);
 
-        if ($student->is_not_editable) {
+        if ($student->is_inaccessible) {
             return (new Controller)->home();
         }
 
         // Proceed
-        $grades = self::func_format_grades($auth, Grade::query());
+        $grades = self::Format_Grades($auth, $student, Grade::query());
 
         return view('pages.students.edit-form')
             ->with('auth', $auth)
@@ -350,7 +359,7 @@ class StudentController extends Controller {
         }
 
         // Proceed
-        $grades = self::func_format_grades($auth, Grade::query());
+        $grades = self::Format_Grades($auth, $student, Grade::query());
 
         // SF10: Enrollment
         $validated_sf10_enrollment = request()->validate([
@@ -931,7 +940,9 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/form/'.$id);
     }
 
-    // EDIT (Lock)
+    /**
+     * EDIT (Lock)
+     */
     public function edit_lock_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -1000,7 +1011,9 @@ class StudentController extends Controller {
         return redirect()->to('/students/edit/lock/'.$id);
     }
 
-    // DELETE
+    /**
+     * DELETE
+     */
     public function delete_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -1046,90 +1059,50 @@ class StudentController extends Controller {
 
     // ----------------------------------------------------------------------------------------------------
 
-    /*
-        FUNCTION:
-        Format student (multiple)
-    */
-    public function func_format_students ($auth, $students) {
-        // Step 1: Order
-        $students = $students
-            ->orderBy('info_name_last', 'ASC')
-            ->orderBy('info_name_first', 'ASC')
-            ->orderBy('info_name_middle', 'ASC')
-            ->orderBy('info_name_suffix', 'ASC');
-
-        // Step 2: Class
-        $classes = Teacher::where('DB_USER_id', $auth->id)->pluck('DB_SECTION_id')->toArray();
-
-        if (count($classes) > 0) {
-            $students = $students
-                ->whereIn('DB_SECTION_id_g7', $classes)
-                ->orWhereIn('DB_SECTION_id_g8', $classes)
-                ->orWhereIn('DB_SECTION_id_g9', $classes)
-                ->orWhereIn('DB_SECTION_id_g10', $classes);
+    /**
+     * FUNCTION: format grades (many)
+     */
+    public function Format_Grades ($auth, $student, $grades) {
+        // Grades
+        if (
+            $auth->is_principal ||
+            $auth->is_administrator
+        ) {
+            $grades = $grades->get();
         }
-
-        // Step 3: Section
-        $section = Section::where('DB_USER_id', $auth->id)->first();
-
-        if ($section != null) {
-            $students = $students
-                ->whereIn('DB_SECTION_id_g7', [$section->id])
-                ->orWhereIn('DB_SECTION_id_g8', [$section->id])
-                ->orWhereIn('DB_SECTION_id_g9', [$section->id])
-                ->orWhereIn('DB_SECTION_id_g10', [$section->id]);
-        }
-
-        // Step 4: Year (only yield results if a grade level is specified, otherwise, yield nothing)
         if ($auth->is_grade_level_coordinator) {
-            $grade = Grade::find($auth->DB_GRADE_id);
-
-            if ($grade != null) {
-                $students = $students->whereIn('DB_YEAR_id_g'.$grade->grade, [$auth->DB_YEAR_id]);
-            }
-            else {
-                $students = $students
-                    ->whereIn('DB_YEAR_id_g7', [-1])
-                    ->orWhereIn('DB_YEAR_id_g8', [-1])
-                    ->orWhereIn('DB_YEAR_id_g9', [-1])
-                    ->orWhereIn('DB_YEAR_id_g10', [-1]);
-            }
+            $grades = Grade::where('id', $auth->DB_GRADE_id)->get();
         }
         if ($auth->is_adviser) {
+            $section = null;
+
+            if (Teacher::where('DB_SECTION_id', $student->DB_SECTION_id_g7)->exists()) {
+                $section = Section::find($student->DB_SECTION_id_g7);
+            }
+            if (Teacher::where('DB_SECTION_id', $student->DB_SECTION_id_g8)->exists()) {
+                $section = Section::find($student->DB_SECTION_id_g8);
+            }
+            if (Teacher::where('DB_SECTION_id', $student->DB_SECTION_id_g9)->exists()) {
+                $section = Section::find($student->DB_SECTION_id_g9);
+            }
+            if (Teacher::where('DB_SECTION_id', $student->DB_SECTION_id_g10)->exists()) {
+                $section = Section::find($student->DB_SECTION_id_g10);
+            }
+
             if ($section != null) {
-                $grade = Grade::find($section->DB_GRADE_id);
-
-                if ($grade != null) {
-                    $students = $students->whereIn('DB_YEAR_id_g'.$grade->grade, [$auth->DB_YEAR_id]);
-                }
+                $grades = Grade::where('id', $section->DB_GRADE_id)->get();
             }
-            else {
-                $students = $students
-                    ->whereIn('DB_YEAR_id_g7', [-1])
-                    ->orWhereIn('DB_YEAR_id_g8', [-1])
-                    ->orWhereIn('DB_YEAR_id_g9', [-1])
-                    ->orWhereIn('DB_YEAR_id_g10', [-1]);
-            }
-        }
-
-        // Step 5: Paginate
-        $students = $students->paginate(100);
-
-        // Format
-        foreach ($students as $student) {
-            $student = self::func_format_student($auth, $student);
         }
 
         // Return
-        return $students;
+        return $grades;
     }
 
-    /*
-        FUNCTION:
-        Format student (multiple)
-    */
-    public function func_format_student ($auth, $student) {
-        // Properties
+    /**
+     * FUNCTION: format year (one)
+     */
+    public function Format_Student ($auth, $student) {
+        // Format
         $grades = Grade::all();
 
         foreach ($grades as $grade) {
@@ -1145,7 +1118,7 @@ class StudentController extends Controller {
                 $student->{'sf9_g'.$grade->grade.'_report_section'} = $student->{'LG_SECTION_name_g'.$grade->grade};
             }
 
-            // Principal
+            // Adviser
             if (
                 $user != null &&
                 $student->{'LG_USER_name_last_g'.$grade->grade} == null &&
@@ -1199,96 +1172,114 @@ class StudentController extends Controller {
             }
         }
 
-        // Viewability: Lock
-        $student->is_not_viewable = true;
+        // Permission
+        $student->is_inaccessible = true;
 
-        // Viewability: Year
-        if ($auth->DB_YEAR_id != null) {
-            if (
-                $student->DB_YEAR_id_g7 == $auth->DB_YEAR_id ||
-                $student->DB_YEAR_id_g8 == $auth->DB_YEAR_id ||
-                $student->DB_YEAR_id_g9 == $auth->DB_YEAR_id ||
-                $student->DB_YEAR_id_g10 == $auth->DB_YEAR_id
-            ) {
-                $student->is_not_viewable = false;
-            }
-        }
-
-        // Viewability: Roles
         if (
             $auth->is_principal ||
             $auth->is_administrator
         ) {
-            $student->is_not_viewable = false;
+            $student->is_inaccessible = false;
         }
-
-        // Editability: Lock
-        $section = Section::where('DB_USER_id', $auth->id)->first();
-        $student->ST_locker = true;
-        $student->is_not_editable = true;
-
-        // Editability: Section
-        if ($section != null) {
-            if (
-                $student->DB_SECTION_id_g7 == $section->id ||
-                $student->DB_SECTION_id_g8 == $section->id ||
-                $student->DB_SECTION_id_g9 == $section->id ||
-                $student->DB_SECTION_id_g10 == $section->id
-            ) {
-                $student->is_not_editable = false;
-                $student->ST_locker = false;
-            }
-        }
-
-        // Editability: Year
         if ($auth->is_grade_level_coordinator) {
-            if ($auth->DB_YEAR_id != null) {
-                if (
-                    $student->DB_YEAR_id_g7 == $auth->DB_YEAR_id ||
-                    $student->DB_YEAR_id_g8 == $auth->DB_YEAR_id ||
-                    $student->DB_YEAR_id_g9 == $auth->DB_YEAR_id ||
-                    $student->DB_YEAR_id_g10 == $auth->DB_YEAR_id
-                ) {
-                    $student->is_not_editable = false;
-                    $student->ST_locker = false;
+            $grade = Grade::find($auth->DB_GRADE_id);
+
+            if ($grade != null) {
+                if ($auth->DB_YEAR_id != null) {
+                    if ($student->{'DB_YEAR_id_g'.$grade->grade} == $auth->DB_YEAR_id) {
+                        $student->is_inaccessible = false;
+                    }
                 }
             }
         }
-
-        // Editability: Roles
-        if ($auth->is_administrator) {
-            $student->is_not_editable = false;
-            $student->ST_locker = false;
+        if ($auth->is_adviser) {
+            if (
+                (Teacher::where('DB_SECTION_id', $student->DB_SECTION_id_g7)->exists() && $student->DB_YEAR_id_g7 == $auth->DB_YEAR_id) ||
+                (Teacher::where('DB_SECTION_id', $student->DB_SECTION_id_g8)->exists() && $student->DB_YEAR_id_g8 == $auth->DB_YEAR_id) ||
+                (Teacher::where('DB_SECTION_id', $student->DB_SECTION_id_g9)->exists() && $student->DB_YEAR_id_g9 == $auth->DB_YEAR_id) ||
+                (Teacher::where('DB_SECTION_id', $student->DB_SECTION_id_g10)->exists() && $student->DB_YEAR_id_g10 == $auth->DB_YEAR_id)
+            ) {
+                $student->is_inaccessible = false;
+            }
         }
 
         // Return
         return $student;
     }
 
-    /*
-        FUNCTION:
-        Format grades (multiple)
-    */
-    public function func_format_grades ($auth, $grades) {
-        // Grades
-        if (
-            $auth->is_principal ||
-            $auth->is_administrator
-        ) {
-            $grades = $grades->get();
-        }
+    /**
+     * FUNCTION: format year (many)
+     */
+    public function Format_Students ($auth, $students) {
+        // Order
+        $students = $students
+            ->orderBy('info_name_last', 'ASC')
+            ->orderBy('info_name_first', 'ASC')
+            ->orderBy('info_name_middle', 'ASC')
+            ->orderBy('info_name_suffix', 'ASC');
+        
+        // Grade Level Coordinator
         if ($auth->is_grade_level_coordinator) {
-            $grades = Grade::where('id', $auth->DB_GRADE_id)->get();
-        }
-        if ($auth->is_adviser) {
-            $section = Section::where('DB_USER_id', $auth->id)->first();
+            $grade = Grade::find($auth->DB_GRADE_id);
 
-            if ($section != null) {
-                $grades = Grade::where('id', $section->DB_GRADE_id)->get();
+            // Grab something if both the designated school year and grade level are defined
+            if ($auth->DB_YEAR_id != null && $grade != null) {
+                $students = $students
+                    ->whereNotNull('DB_SECTION_id_g'.$grade->grade)
+                    ->whereNotNull('DB_YEAR_id_g'.$grade->grade)
+                    ->where('DB_YEAR_id_g'.$grade->grade, $auth->DB_YEAR_id);
+            }
+            else {
+                $students = $students->where('id', -1);
             }
         }
 
+        // Adviser
+        if ($auth->is_adviser) {
+            $classes = Teacher::where('DB_USER_id', $auth->id)->pluck('DB_SECTION_id')->toArray();
+
+            // Grab something if both the designated school year and classes are defined
+            if ($auth->DB_YEAR_id != null && count($classes) > 0) {
+                $students = $students
+                    ->where(function ($query) use ($auth, $classes) {
+                        $query->whereNotNull('DB_SECTION_id_g7')
+                            ->whereNotNull('DB_YEAR_id_g7')
+                            ->whereIn('DB_SECTION_id_g7', $classes)
+                            ->where('DB_YEAR_id_g7', $auth->DB_YEAR_id);
+                    })
+                    ->orWhere(function($query) use ($auth, $classes) {
+                        $query->whereNotNull('DB_SECTION_id_g8')
+                            ->whereNotNull('DB_YEAR_id_g8')
+                            ->whereIn('DB_SECTION_id_g8', $classes)
+                            ->where('DB_YEAR_id_g8', $auth->DB_YEAR_id);
+                    })
+                    ->orWhere(function($query) use ($auth, $classes) {
+                        $query->whereNotNull('DB_SECTION_id_g9')
+                            ->whereNotNull('DB_YEAR_id_g9')
+                            ->whereIn('DB_SECTION_id_g9', $classes)
+                            ->where('DB_YEAR_id_g9', $auth->DB_YEAR_id);
+                    })
+                    ->orWhere(function($query) use ($auth, $classes) {
+                        $query->whereNotNull('DB_SECTION_id_g10')
+                            ->whereNotNull('DB_YEAR_id_g10')
+                            ->whereIn('DB_SECTION_id_g10', $classes)
+                            ->where('DB_YEAR_id_g10', $auth->DB_YEAR_id);
+                    });
+            }
+            else {
+                $students = $students->where('id', -1);
+            }
+        }
+
+        // Paginate
+        $students = $students->paginate(100);
+
+        // Format
+        foreach ($students as $student) {
+            $student = self::Format_Student($auth, $student);
+        }
+
         // Return
-        return $grades;
+        return $students;
     }
 }

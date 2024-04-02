@@ -13,7 +13,10 @@ use App\Models\Year;
 use Request;
 
 class SectionController extends Controller {
-    // GUARD
+    /**
+     * GUARD
+     * Accessible by principals and administrators
+     */
     public function guard ($auth) {
         if (
             $auth != null &&
@@ -29,10 +32,14 @@ class SectionController extends Controller {
         }
     }
 
-    // REDIRECT
+    /**
+     * REDIRECT
+     */
     public function redirect () { return redirect()->to('/sections'); }
 
-    // INDEX
+    /**
+     * INDEX
+     */
     public function index () {
         // Guard
         $auth = (new Controller)->auth();
@@ -49,7 +56,9 @@ class SectionController extends Controller {
             ->with('grades', $grades);
     }
 
-    // VIEW
+    /**
+     * VIEW
+     */
     public function view ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -58,7 +67,6 @@ class SectionController extends Controller {
         if (
             self::guard($auth) ||
             $grade == null
-
         ) {
             return (new Controller)->home();
         }
@@ -88,7 +96,9 @@ class SectionController extends Controller {
             ->with('users', $users);
     }
 
-    // EDIT
+    /**
+     * EDIT
+     */
     public function edit_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -96,7 +106,7 @@ class SectionController extends Controller {
 
         if (
             self::guard($auth) ||
-            $auth->is_administrator ||
+            $auth->is_principal ||
             $grade == null
         ) {
             return (new Controller)->home();
@@ -117,7 +127,7 @@ class SectionController extends Controller {
 
         if (
             self::guard($auth) ||
-            $auth->is_administrator ||
+            $auth->is_principal ||
             $grade == null
         ) {
             return (new Controller)->home();
@@ -137,10 +147,10 @@ class SectionController extends Controller {
                 'section' => $validated['section_'.$section->DB_GRADE_id.'_'.$section->id],
             ]);
 
-            self::func_preserve_STUDENT_User_on_name_change($grade, $section, $section_old);
-            self::func_preserve_STUDENT_Section_on_name_change($grade, $section, $section_old);
+            self::func_STUDENT_User_on_name_change($grade, $section, $section_old);
+            self::func_STUDENT_Section_on_name_change($grade, $section, $section_old);
 
-            self::func_delete_DB_Teacher_on_name_change($grade, $section, $section_old);
+            self::func_TEACHER_on_name_change($grade, $section, $section_old);
         }
 
         $grade->touch();
@@ -150,13 +160,12 @@ class SectionController extends Controller {
 
     // ----------------------------------------------------------------------------------------------------
 
-    /*
-        FUNCTION:
-        On section name change (strict):
-            ...preserve the associated adviser's name (if any) on all students (if any)
-            ...clear the associated adviser's ID
-    */
-    public function func_preserve_STUDENT_User_on_name_change ($grade, $section, $section_old) {
+    /**
+     * FUNCTION: on edit
+     *      SECTION -> wipe the user ID (tested)
+     *      STUDENT -> keep the user name (tested)
+     */
+    public function func_STUDENT_User_on_name_change ($grade, $section, $section_old) {
         // Guard
         if ($section_old->section === $section->section) {
             return;
@@ -183,12 +192,12 @@ class SectionController extends Controller {
         }
     }
 
-    /*
-        FUNCTION:
-        On section name change (strict):
-            ...preserve the section's old name on all students (if any)
-    */
-    public function func_preserve_STUDENT_Section_on_name_change ($grade, $section, $section_old) {
+    /**
+     * FUNCTION: on edit
+     *      STUDENT -> wipe the section ID (tested)
+     *      STUDENT -> keep the old section name (tested)
+     */
+    public function func_STUDENT_Section_on_name_change ($grade, $section, $section_old) {
         // Guard
         if ($section_old->section === $section->section) {
             return;
@@ -205,12 +214,11 @@ class SectionController extends Controller {
         }
     }
 
-    /*
-        FUNCTION:
-        On section name change (strict):
-            ...delete the multisection teacher's IDs (if any)
-    */
-    public function func_delete_DB_Teacher_on_name_change ($grade, $section, $section_old) {
+    /**
+     * FUNCTION: on edit
+     *      TEACHER -> delete with section ID (tested)
+     */
+    public function func_TEACHER_on_name_change ($grade, $section, $section_old) {
         // Guard
         if ($section_old->section === $section->section) {
             return;

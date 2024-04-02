@@ -22,7 +22,7 @@
 				</div>
 				<div class = "align-self-center col-4">
 
-					@if ($auth->is_principal)
+					@if ($auth->is_administrator)
 
 						<a href = "{{ url('/years/create') }}">
 							<button class = "button float-right" type = "button">Add</button>
@@ -91,7 +91,7 @@
 													</div>
 													<div class = "col">
 
-														@if ($auth->is_principal)
+														@if ($auth->is_administrator)
 
 															<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
 

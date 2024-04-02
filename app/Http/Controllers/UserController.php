@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-
 use App\Models\Grade;
 use App\Models\Role;
 use App\Models\Section;
@@ -15,7 +13,10 @@ use App\Models\Year;
 use Request;
 
 class UserController extends Controller {
-    // GUARD
+    /**
+     * GUARD
+     * Accessible by principals and administrators
+     */
     public function guard ($auth) {
         if (
             $auth != null &&
@@ -31,10 +32,14 @@ class UserController extends Controller {
         }
     }
 
-    // REDIRECT
+    /**
+     * REDIRECT
+     */
     public function redirect () { return redirect()->to('/users'); }
 
-    // INDEX
+    /**
+     * INDEX
+     */
     public function index () {
         // Guard
         $auth = (new Controller)->auth();
@@ -55,7 +60,7 @@ class UserController extends Controller {
             });
         }
 
-        $users = self::func_format_users($auth, $users);
+        $users = self::Format_Users($users);
 
         return view('pages.users.index')
             ->with('auth', $auth)
@@ -63,57 +68,41 @@ class UserController extends Controller {
             ->with('users', $users);
     }
 
-    // CREATE
+    /**
+     * CREATE
+     */
     public function create_1 () {
         // Guard
         $auth = (new Controller)->auth();
 
-        if (self::guard($auth)) {
+        if (
+            self::guard($auth) ||
+            $auth->is_principal
+        ) {
             return (new Controller)->home();
         }
 
         // Proceed
         $grades = Grade::all();
-        $roles = self::func_format_roles($auth, Role::query());
-        $sections = Section::whereNotNull('section')
-            ->whereNull('DB_USER_id')
-            ->get();
-        $sections_teacher_g7 = Section::whereNotNull('section')
-            ->where('DB_GRADE_id', 1)
-            ->get();
-        $sections_teacher_g8 = Section::whereNotNull('section')
-            ->where('DB_GRADE_id', 2)
-            ->get();
-        $sections_teacher_g9 = Section::whereNotNull('section')
-            ->where('DB_GRADE_id', 3)
-            ->get();
-        $sections_teacher_g10 = Section::whereNotNull('section')
-            ->where('DB_GRADE_id', 4)
-            ->get();
+        $roles = Role::all();
+        $sections = self::Format_Sections(Section::query());
         $years = Year::all();
-
-        $sections = self::func_format_sections($sections);
-        $sections_teacher_g7 = self::func_format_sections($sections_teacher_g7);
-        $sections_teacher_g8 = self::func_format_sections($sections_teacher_g8);
-        $sections_teacher_g9 = self::func_format_sections($sections_teacher_g9);
-        $sections_teacher_g10 = self::func_format_sections($sections_teacher_g10);
 
         return view('pages.users.create')
             ->with('auth', $auth)
             ->with('grades', $grades)
             ->with('roles', $roles)
             ->with('sections', $sections)
-            ->with('sections_teacher_g7', $sections_teacher_g7)
-            ->with('sections_teacher_g8', $sections_teacher_g8)
-            ->with('sections_teacher_g9', $sections_teacher_g9)
-            ->with('sections_teacher_g10', $sections_teacher_g10)
             ->with('years', $years);
     }
     public function create_2 () {
         // Guard
         $auth = (new Controller)->auth();
 
-        if (self::guard($auth)) {
+        if (
+            self::guard($auth) ||
+            $auth->is_principal
+        ) {
             return (new Controller)->home();
         }
 
@@ -144,15 +133,17 @@ class UserController extends Controller {
             'name_first' => $validated['name_first'],
         ]);
 
-        self::func_designation_clear_adviser($user);
-        // func_designation_clear_teacher not needed
-        self::func_designation_adviser($user);
-        self::func_designation_teacher($user);
+        self::func_designation_clear_section($user);
+        self::func_designation_clear_classes($user);
+        self::func_designation_section($user);
+        self::func_designation_classes($user);
 
         return self::redirect();
     }
 
-    // VIEW
+    /**
+     * VIEW
+     */
     public function view ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -166,14 +157,16 @@ class UserController extends Controller {
         }
 
         // Proceed
-        $user = self::func_format_user($auth, $user);
+        $user = self::Format_User($user);
 
         return view('pages.users.view')
             ->with('auth', $auth)
             ->with('user', $user);
     }
 
-    // EDIT
+    /**
+     * EDIT
+     */
     public function edit_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -181,76 +174,44 @@ class UserController extends Controller {
 
         if (
             self::guard($auth) ||
-            $user == null ||
-            $auth->is_administrator &&
-            (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
-            )
+            $auth->is_principal ||
+            $user == null
         ) {
             return (new Controller)->home();
         }
 
         // Proceed
         $grades = Grade::all();
-        $roles = self::func_format_roles($auth, Role::query());
-        $sections = Section::whereNotNull('section')
-            ->whereNull('DB_USER_id')
-            ->orWhere('DB_USER_id', $user->id)
-            ->get();
-        $sections_teacher_g7 = Section::whereNotNull('section')
-            ->where('DB_GRADE_id', 1)
-            ->get();
-        $sections_teacher_g8 = Section::whereNotNull('section')
-            ->where('DB_GRADE_id', 2)
-            ->get();
-        $sections_teacher_g9 = Section::whereNotNull('section')
-            ->where('DB_GRADE_id', 3)
-            ->get();
-        $sections_teacher_g10 = Section::whereNotNull('section')
-            ->where('DB_GRADE_id', 4)
-            ->get();
+        $roles = Role::all();
+        $sections = self::Format_Sections_Classes(Section::query(), $user);
         $years = Year::all();
 
-        $sections = self::func_format_sections($sections);
-        $sections_teacher_g7 = self::func_format_sections_teacher($sections_teacher_g7, $user);
-        $sections_teacher_g8 = self::func_format_sections_teacher($sections_teacher_g8, $user);
-        $sections_teacher_g9 = self::func_format_sections_teacher($sections_teacher_g9, $user);
-        $sections_teacher_g10 = self::func_format_sections_teacher($sections_teacher_g10, $user);
-
-        $user->is_one_day_old = strtotime($user->updated_at) < strtotime('-1 day');
+        $user->is_deletable = strtotime($user->updated_at) < strtotime('-1 day');
 
         return view('pages.users.edit')
             ->with('auth', $auth)
             ->with('grades', $grades)
             ->with('roles', $roles)
             ->with('sections', $sections)
-            ->with('sections_teacher_g7', $sections_teacher_g7)
-            ->with('sections_teacher_g8', $sections_teacher_g8)
-            ->with('sections_teacher_g9', $sections_teacher_g9)
-            ->with('sections_teacher_g10', $sections_teacher_g10)
-            ->with('years', $years)
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('years', $years);
     }
     public function edit_2 ($id) {
         // Guard
         $auth = (new Controller)->auth();
         $user = User::find($id);
-        $user_old = clone $user;
 
         if (
             self::guard($auth) ||
-            $user == null ||
-            $auth->is_administrator &&
-            (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
-            )
+            $auth->is_principal ||
+            $user == null
         ) {
             return (new Controller)->home();
         }
 
         // Proceed
+        $user_old = clone $user;
+
         $validated = request()->validate([
             'DB_GRADE_id' => 'nullable',
             'DB_ROLE_id' => 'required',
@@ -273,19 +234,21 @@ class UserController extends Controller {
 
         $user->touch();
 
-        self::func_preserve_STUDENT_User_on_role_change($user, $user_old);
-        self::func_preserve_STUDENT_User_on_section_change($user, $user_old);
-        self::func_preserve_YEAR_User_on_role_change($user, $user_old);
+        self::func_STUDENT_User_on_role_change($user, $user_old);
+        self::func_STUDENT_User_on_section_change($user, $user_old);
+        self::func_YEAR_User_on_role_change($user, $user_old);
 
-        self::func_designation_clear_adviser($user);
-        self::func_designation_clear_teacher($user);
-        self::func_designation_adviser($user);
-        self::func_designation_teacher($user);
+        self::func_designation_clear_section($user);
+        self::func_designation_clear_classes($user);
+        self::func_designation_section($user);
+        self::func_designation_classes($user);
 
         return redirect()->to('/users/edit/'.$id);
     }
 
-    // PASSWORD
+    /**
+     * PASSWORD
+     */
     public function password_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -293,12 +256,8 @@ class UserController extends Controller {
 
         if (
             self::guard($auth) ||
-            $user == null ||
-            $auth->is_administrator &&
-            (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
-            )
+            $auth->is_principal ||
+            $user == null
         ) {
             return (new Controller)->home();
         }
@@ -315,12 +274,8 @@ class UserController extends Controller {
 
         if (
             self::guard($auth) ||
-            $user == null ||
-            $auth->is_administrator &&
-            (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
-            )
+            $auth->is_principal ||
+            $user == null
         ) {
             return (new Controller)->home();
         }
@@ -339,7 +294,9 @@ class UserController extends Controller {
         return redirect()->to('/users/edit/'.$id);
     }
 
-    // DELETE
+    /**
+     * DELETE
+     */
     public function delete_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -347,12 +304,8 @@ class UserController extends Controller {
 
         if (
             self::guard($auth) ||
+            $auth->is_principal ||
             $user == null ||
-            $auth->is_administrator &&
-            (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
-            ) ||
             !(strtotime($user->updated_at) < strtotime('-1 day'))
         ) {
             return (new Controller)->home();
@@ -370,23 +323,19 @@ class UserController extends Controller {
 
         if (
             self::guard($auth) ||
+            $auth->is_principal ||
             $user == null ||
-            $auth->is_administrator &&
-            (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
-            ) ||
             !(strtotime($user->updated_at) < strtotime('-1 day'))
         ) {
             return (new Controller)->home();
         }
 
         // Proceed
-        self::func_preserve_STUDENT_User_on_deletion($user);
-        self::func_preserve_YEAR_User_on_deletion($user);
+        self::func_STUDENT_User_on_deletion($user);
+        self::func_YEAR_User_on_deletion($user);
 
-        self::func_designation_clear_adviser($user);
-        self::func_designation_clear_teacher($user);
+        self::func_designation_clear_section($user);
+        self::func_designation_clear_classes($user);
 
         $user->delete();
 
@@ -395,11 +344,10 @@ class UserController extends Controller {
 
     // ----------------------------------------------------------------------------------------------------
 
-    /*
-        FUNCTION:
-        Format user (single)
-    */
-    public function func_format_user ($auth, $user) {
+    /**
+     * FUNCTION: format user (one)
+     */
+    public function Format_User ($user) {
         // Role
         $role = Role::find($user->DB_ROLE_id);
 
@@ -414,11 +362,13 @@ class UserController extends Controller {
             $user->year = $year->full;
         }
 
+        // Subject Designations
+
         // Grade Level Coordinator's Designation
         $grade = Grade::find($user->DB_GRADE_id);
 
         if ($grade != null) {
-            $user->designation_user_3 = 'Grade '.$grade->grade;
+            $user->grade = 'Grade '.$grade->grade;
         }
 
         // Adviser's Designation
@@ -428,46 +378,31 @@ class UserController extends Controller {
             $grade = Grade::find($section->DB_GRADE_id);
             
             if ($grade != null) {
-                $user->designation_user_4_1 = 'Grade '.$grade->grade.' | '.$section->section;
+                $user->section = 'Grade '.$grade->grade.' | '.$section->section;
             }
         }
 
-        // Teacher's Designation
-        $user->designation_user_4_2 = Teacher::where('DB_USER_id', $user->id)->get();
+        // Class Designations
+        $user->classes = Teacher::where('DB_USER_id', $user->id)->get();
 
-        foreach ($user->designation_user_4_2 as $class => $value) {
-            $user->designation_user_4_2[$class] = Section::find($value->DB_SECTION_id);
+        foreach ($user->classes as $class => $value) {
+            $user->classes[$class] = Section::find($value->DB_SECTION_id);
 
-            $grade = Grade::find($user->designation_user_4_2[$class]->DB_GRADE_id);
+            $grade = Grade::find($user->classes[$class]->DB_GRADE_id);
 
             if ($grade != null) {
-                $user->designation_user_4_2[$class]->grade = $grade->grade;
+                $user->classes[$class]->grade = $grade->grade;
             }
-        }
-
-        // Editability
-        if (
-            $auth->is_administrator &&
-            (
-                $user->DB_ROLE_id == 1 ||
-                $user->DB_ROLE_id == 2
-            )
-        ) {
-            $user->is_editable = false;
-        }
-        else {
-            $user->is_editable = true;
         }
 
         // Return
         return $user;
     }
 
-    /*
-        FUNCTION:
-        Format user (multiple)
-    */
-    public function func_format_users ($auth, $users) {
+    /**
+     * FUNCTION: format user (many)
+     */
+    public function Format_Users ($users) {
         // Order
         $users = $users->orderBy('DB_ROLE_id', 'ASC')
             ->orderBy('name_last', 'ASC')
@@ -476,33 +411,19 @@ class UserController extends Controller {
 
         // Format
         foreach ($users as $user) {
-            $user = self::func_format_user($auth, $user);
+            $user = self::Format_User($user);
         }
 
         // Return
         return $users;
     }
 
-    /*
-        FUNCTION:
-        Format role (multiple)
-    */
-    public function func_format_roles ($auth, $roles) {
-        if ($auth->is_administrator) {
-            return $roles->where('id', 3)
-                ->orWhere('id', 4)
-                ->get();
-        }
-        else {
-            return $roles->get();
-        }
-    }
+    /**
+     * FUNCTION: format section (many)
+     */
+    public function Format_Sections ($sections) {
+        $sections = Section::whereNotNull('section')->get();
 
-    /*
-        FUNCTION:
-        Format section (multiple)
-    */
-    public function func_format_sections ($sections) {
         foreach ($sections as $section) {
             $grade = Grade::find($section->DB_GRADE_id);
 
@@ -513,23 +434,25 @@ class UserController extends Controller {
 
         return $sections;
     }
-    public function func_format_sections_teacher ($sections, $user) {
+    public function Format_Sections_Classes ($sections, $user) {
+        $sections = Section::whereNotNull('section')->get();
+
         foreach ($sections as $section) {
             $grade = Grade::find($section->DB_GRADE_id);
 
             if ($grade != null) {
                 $section->grade = $grade->grade;
-                $section->is_existing = Teacher::where('DB_SECTION_ID', $section->id)->where('DB_USER_id', $user->id)->exists();
             }
+
+            $section->is_classed = Teacher::where('DB_SECTION_ID', $section->id)->where('DB_USER_id', $user->id)->exists();
         }
 
         return $sections;
     }
 
-    /*
-        FUNCTION:
-        Validate role
-    */
+    /**
+     * FUNCTION: validate role
+     */
     public function func_validate_role ($validated) {
         if (
             $validated['DB_ROLE_id'] == '1' ||
@@ -549,12 +472,11 @@ class UserController extends Controller {
         return $validated;
     }
 
-    /*
-        FUNCTION:
-        On role change:
-            ...preserve the associated adviser's name (if any) on all students (if any)
-    */
-    public function func_preserve_STUDENT_User_on_role_change ($user, $user_old) {
+    /**
+     * FUNCTION: on edit
+     *      STUDENT -> keep the user name
+     */
+    public function func_STUDENT_User_on_role_change ($user, $user_old) {
         // Guard
         if (
             $user_old->DB_ROLE_id != 4 ||
@@ -586,12 +508,11 @@ class UserController extends Controller {
         }
     }
 
-    /*
-        FUNCTION:
-        On section change:
-            ...preserve the associated adviser's name (if any) on all students (if any)
-    */
-    public function func_preserve_STUDENT_User_on_section_change ($user, $user_old) {
+    /**
+     * FUNCTION: on edit
+     *      STUDENT -> keep the user name
+     */
+    public function func_STUDENT_User_on_section_change ($user, $user_old) {
         // Guard
         if ($user_old->DB_ROLE_id != 4) {
             return;
@@ -620,12 +541,12 @@ class UserController extends Controller {
         }
     }
 
-    /*
-        FUNCTION:
-        On section change:
-            ...preserve the associated principal's name (if any) on all school years (if any)
-    */
-    public function func_preserve_YEAR_User_on_role_change ($user, $user_old) {
+    /**
+     * FUNCTION: on edit
+     *      YEAR -> wipe the user ID
+     *      YEAR -> keep the user name
+     */
+    public function func_YEAR_User_on_role_change ($user, $user_old) {
         // Guard
         if (
             $user_old->DB_ROLE_id != 1 ||
@@ -646,28 +567,28 @@ class UserController extends Controller {
         }
     }
 
-    /*
-        FUNCTION:
-        Clear the section's adviser ID (if any)
-        Delete the multisection teacher's IDs (if any)
-    */
-    public function func_designation_clear_adviser ($user) {
+    /**
+     * FUNCTION: on create / delete / edit
+     *      SECTION -> wipe the user ID
+     *      TEACHER -> delete with user ID
+     */
+    public function func_designation_clear_section ($user) {
         $section = Section::where('DB_USER_id', $user->id)->first();
 
         if ($section != null) {
             $section->update(['DB_USER_id' => null]);
         }
     }
-    public function func_designation_clear_teacher ($user) {
+    public function func_designation_clear_classes ($user) {
         Teacher::where('DB_USER_id', $user->id)->delete();
     }
 
-    /*
-        FUNCTION:
-        Apply the section's adviser ID (if any)
-        Clear the associated adviser's name (if any) on all students (if any)
-    */
-    public function func_designation_adviser ($user) {
+    /**
+     * FUNCTION: on create / edit
+     *      SECTION -> set the user ID
+     *      STUDENT -> wipe the user name
+     */
+    public function func_designation_section ($user) {
         // Guard
         if ($user->DB_ROLE_id != 4) {
             return;
@@ -704,22 +625,22 @@ class UserController extends Controller {
         }
     }
 
-    /*
-        FUNCTION:
-        Manage the multisection teacher's IDs (if any)
-    */
-    public function func_designation_teacher ($user) {
+    /**
+     * FUNCTION: on create / edit
+     *      TEACHER -> manage CRUD
+     */
+    public function func_designation_classes ($user) {
         // Guard
         if ($user->DB_ROLE_id != 4) {
             return;
         }
 
         // Proceed
-        $instances = Teacher::where('DB_USER_id', $user->id)->get();
+        $sections = Teacher::where('DB_USER_id', $user->id)->get();
         $sections_checked = array();
 
-        foreach ($instances as $instance) {
-            array_push($sections_checked, $instance->DB_SECTION_id);
+        foreach ($sections as $section) {
+            array_push($sections_checked, $section->DB_SECTION_id);
         }
 
         $validated = request()->validate([
@@ -747,7 +668,7 @@ class UserController extends Controller {
                 Teacher::where('DB_USER_id', $user->id)->where('DB_SECTION_id', $delete)->delete();
             }
 
-            // Create if checked.
+            // Create if checked
             $creates = array_diff($validated['DB_SECTION_MULTI_id'], $exists);
 
             foreach ($creates as $create) {
@@ -759,12 +680,11 @@ class UserController extends Controller {
         }
     }
 
-    /*
-        FUNCTION:
-        On deletion:
-            ...preserve the associated adviser's name (if any) on all students (if any)
-    */
-    public function func_preserve_STUDENT_User_on_deletion ($user) {
+    /**
+     * FUNCTION: on delete
+     *      STUDENT -> keep the user name
+     */
+    public function func_STUDENT_User_on_deletion ($user) {
         // Guard
         if ($user->DB_ROLE_id != 4) {
             return;
@@ -793,12 +713,12 @@ class UserController extends Controller {
         }
     }
 
-    /*
-        FUNCTION:
-        On deletion:
-            ...preserve the associated principal's name (if any) on all school years (if any)
-    */
-    public function func_preserve_YEAR_User_on_deletion ($user) {
+    /**
+     * FUNCTION: on delete
+     *      YEAR -> wipe the user ID
+     *      YEAR -> keep the user name
+     */
+    public function func_YEAR_User_on_deletion ($user) {
         // Guard
         if ($user->DB_ROLE_id != 1) {
             return;

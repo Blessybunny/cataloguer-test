@@ -43,7 +43,7 @@
 
 				@else
 
-					{{ $year->user_legacy }}
+					{{ $year->user_name_last }}, {{ $year->user_name_first }} (Legacy)
 
 				@endif
 

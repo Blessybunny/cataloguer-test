@@ -13,7 +13,10 @@ use App\Models\Year;
 use Request;
 
 class YearController extends Controller {
-    // GUARD
+    /**
+     * GUARD
+     * Accessible by principals and administrators
+     */
     public function guard ($auth) {
         if (
             $auth != null &&
@@ -29,10 +32,14 @@ class YearController extends Controller {
         }
     }
 
-    // REDIRECT
+    /**
+     * REDIRECT
+     */
     public function redirect () { return redirect()->to('/years'); }
 
-    // INDEX
+    /**
+     * INDEX
+     */
     public function index () {
         // Guard
         $auth = (new Controller)->auth();
@@ -52,7 +59,7 @@ class YearController extends Controller {
             });
         }
 
-        $years = self::func_format_years($years);
+        $years = self::Format_Years($years);
 
         return view('pages.years.index')
             ->with('auth', $auth)
@@ -60,14 +67,16 @@ class YearController extends Controller {
             ->with('years', $years);
     }
 
-    // CREATE
+    /**
+     * CREATE
+     */
     public function create_1 () {
         // Guard
         $auth = (new Controller)->auth();
 
         if (
             self::guard($auth) ||
-            $auth->is_administrator
+            $auth->is_principal
         ) {
             return (new Controller)->home();
         }
@@ -85,7 +94,7 @@ class YearController extends Controller {
 
         if (
             self::guard($auth) ||
-            $auth->is_administrator
+            $auth->is_principal
         ) {
             return (new Controller)->home();
         }
@@ -137,7 +146,9 @@ class YearController extends Controller {
         return self::redirect();
     }
 
-    // VIEW
+    /**
+     * VIEW
+     */
     public function view ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -151,14 +162,16 @@ class YearController extends Controller {
         }
 
         // Proceed
-        $year = self::func_format_year($year);
+        $year = self::Format_Year($year);
 
         return view('pages.years.view')
             ->with('auth', $auth)
             ->with('year', $year);
     }
 
-    // EDIT
+    /**
+     * EDIT
+     */
     public function edit_1 ($id) {
         // Guard
         $auth = (new Controller)->auth();
@@ -166,7 +179,7 @@ class YearController extends Controller {
 
         if (
             self::guard($auth) ||
-            $auth->is_administrator ||
+            $auth->is_principal ||
             $year == null
         ) {
             return (new Controller)->home();
@@ -187,7 +200,7 @@ class YearController extends Controller {
 
         if (
             self::guard($auth) ||
-            $auth->is_administrator ||
+            $auth->is_principal ||
             $year == null
         ) {
             return (new Controller)->home();
@@ -239,29 +252,10 @@ class YearController extends Controller {
 
     // ----------------------------------------------------------------------------------------------------
 
-    /*
-        FUNCTION:
-        Format year (multiple)
-    */
-    public function func_format_years ($years) {
-        // Order
-        $years = $years->orderBy('year', 'DESC')
-            ->paginate(100);
-
-        // Format
-        foreach ($years as $year) {
-            $year = self::func_format_year($year);
-        }
-
-        // Return
-        return $years;
-    }
-
-    /*
-        FUNCTION:
-        Format year (single)
-    */
-    public function func_format_year ($year) {
+    /**
+     * FUNCTION: format year (one)
+     */
+    public function Format_Year ($year) {
         // Name
         $user = User::find($year->DB_USER_id);
 
@@ -279,10 +273,28 @@ class YearController extends Controller {
             $year->LG_USER_name_last != null &&
             $year->LG_USER_name_first != null
         ) {
-            $year->user_legacy = $year->LG_USER_name_last.', '.$year->LG_USER_name_first.' (Legacy)';
+            $year->user_name_last = $year->LG_USER_name_last;
+            $year->user_name_first = $year->LG_USER_name_first;
         }
 
         // Return
         return $year;
+    }
+
+    /**
+     * FUNCTION: format year (many)
+     */
+    public function Format_Years ($years) {
+        // Order
+        $years = $years->orderBy('year', 'DESC')
+            ->paginate(100);
+
+        // Format
+        foreach ($years as $year) {
+            $year = self::Format_Year($year);
+        }
+
+        // Return
+        return $years;
     }
 }

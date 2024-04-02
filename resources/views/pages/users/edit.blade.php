@@ -77,7 +77,7 @@
 				<div class = "col-12">
 					<hr>
 					<h6 class = "text-center">Optional</h6>
-					<p class = "text-center">These apply to grade level coordinators, advisers, and teachers</p>
+					<p class = "text-center">These apply to grade level coordinators and advisers</p>
 					<hr>
 				</div>
 				<div class = "col-4">
@@ -96,6 +96,12 @@
 					</select>
 					<br>
 
+					<!-- Subject Designation -->
+					<b>Subject Designations:</b>
+
+				</div>
+				<div class = "col-4">
+
 					<!-- Grade Level Coordinator's Designation -->
 					<b>Grade Level Coordinator's Designation:</b>
 					<select name = "DB_GRADE_id">
@@ -108,7 +114,9 @@
 						@endforeach
 
 					</select>
-					<br>
+
+				</div>
+				<div class = "col-4">
 
 					<!-- Adviser's Designation -->
 					<b>Adviser's Designation:</b>
@@ -117,88 +125,35 @@
 
 						@foreach ($sections as $section)
 
-							<option value = "{{ $section->id }}" {{ $user->id == $section->DB_USER_id ? "selected" : "" }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
+							@if ($section->DB_USER_id == null || $section->DB_USER_id == $user->id)
+
+								<option value = "{{ $section->id }}" {{ $user->id == $section->DB_USER_id ? "selected" : "" }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
+
+							@endif
 
 						@endforeach
 
 					</select>
+					<br>
 
-				</div>
-				<div class = "col-8">
+					<!-- Class Designations -->
+					<b>Class Designations:</b>
+					<div class = "border-all-light" style = "padding: 15px;">
 
-					<!-- Teacher's Designations -->
-					<b>Teacher's Designations:</b>
-					<div class = "border-all-light container-fluid" style = "padding: 15px;">
-						<div class = "row">
-							<div class = "col">
+						@foreach ($sections as $section)
 
-								@foreach ($sections_teacher_g7 as $section)
+							<label>
+								<input
+									name = "DB_SECTION_MULTI_id[]"
+									type = "checkbox"
+									value = "{{ $section->id }}"
+									{{  $section->is_classed == true ? "checked" : "" }}
+								>
+								Grade {{ $section->grade }} | {{ $section->section }}
+							</label>
 
-									<label>
-										<input
-											name = "DB_SECTION_MULTI_id[]"
-											type = "checkbox"
-											value = "{{ $section->id }}"
-											{{  $section->is_existing == true ? "checked" : "" }}
-										>
-										Grade {{ $section->grade }} | {{ $section->section }}
-									</label>
+						@endforeach
 
-								@endforeach
-
-							</div>
-							<div class = "col">
-
-								@foreach ($sections_teacher_g8 as $section)
-
-									<label>
-										<input
-											name = "DB_SECTION_MULTI_id[]"
-											type = "checkbox"
-											value = "{{ $section->id }}"
-											{{  $section->is_existing == true ? "checked" : "" }}
-										>
-										Grade {{ $section->grade }} | {{ $section->section }}
-									</label>
-
-								@endforeach
-
-							</div>
-							<div class = "col">
-
-								@foreach ($sections_teacher_g9 as $section)
-
-									<label>
-										<input
-											name = "DB_SECTION_MULTI_id[]"
-											type = "checkbox"
-											value = "{{ $section->id }}"
-											{{  $section->is_existing == true ? "checked" : "" }}
-										>
-										Grade {{ $section->grade }} | {{ $section->section }}
-									</label>
-
-								@endforeach
-
-							</div>
-							<div class = "col">
-
-								@foreach ($sections_teacher_g10 as $section)
-
-									<label>
-										<input
-											name = "DB_SECTION_MULTI_id[]"
-											type = "checkbox"
-											value = "{{ $section->id }}"
-											{{  $section->is_existing == true ? "checked" : "" }}
-										>
-										Grade {{ $section->grade }} | {{ $section->section }}
-									</label>
-
-								@endforeach
-
-							</div>
-						</div>
 					</div>
 
 				</div>
@@ -216,7 +171,7 @@
 						<button class = "button" type = "button">Change Password</button>
 					</a>
 
-					@if ($user->is_one_day_old)
+					@if ($user->is_deletable)
 
 						<a href = "{{ url('/users/delete', $user->id) }}">
 							<button class = "button" type = "button">Delete</button>
