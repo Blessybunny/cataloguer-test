@@ -90,8 +90,8 @@
 					<b>Sex:</b>
 					<select name = "info_sex" required>
 						<option value = ""></option>
-						<option value = "Male" {{ old("info_sex") == "Male" ? "selected" : "" }}>Male</option>
-						<option value = "Female" {{ old("info_sex") == "Female" ? "selected" : "" }}>Female</option>
+						<option value = "Male" {{ old('info_sex') == 'Male' ? 'selected' : '' }}>Male</option>
+						<option value = "Female" {{ old('info_sex') == 'Female' ? 'selected' : '' }}>Female</option>
 					</select>
 					<br>
 

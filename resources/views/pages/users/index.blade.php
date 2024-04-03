@@ -122,7 +122,7 @@
 
 						<hr>
 
-						{!! $users->appends(array("terms" => $terms))->links() !!}
+						{!! $users->appends(array('terms' => $terms))->links() !!}
 
 						<p>Showing <b>{{ $users->firstItem() }}</b> to <b>{{ $users->firstItem() + $users->count() - 1 }}</b> of <b>{{ $users->total() }}</b> entries</p>
 

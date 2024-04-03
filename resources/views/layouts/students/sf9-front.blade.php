@@ -45,7 +45,7 @@
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_age'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker ? 'disabled' : '' }}
 							>
 						</label>
 					</div>
@@ -103,7 +103,7 @@
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_transfer_input_1'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker ? 'disabled' : '' }}
 							>
 						</label>
 						<label class = "highlight">
@@ -113,7 +113,7 @@
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_transfer_input_2'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker ? 'disabled' : '' }}
 							>
 						</label>
 						<br>
@@ -144,7 +144,7 @@
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_transfer_input_3'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker ? 'disabled' : '' }}
 							>
 						</label>
 						<label class = "highlight">
@@ -154,7 +154,7 @@
 								type = "text"
 								maxlength = "50"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_report_transfer_input_date'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker ? 'disabled' : '' }}
 							>
 						</label>
 						<br>
@@ -201,7 +201,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_oct_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -212,7 +212,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_oct_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -237,7 +237,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_nov_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -248,7 +248,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_nov_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -273,7 +273,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_dec_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -284,7 +284,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_dec_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -309,7 +309,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jan_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -320,7 +320,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jan_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -345,7 +345,7 @@
 							min = "0"
 							max = "29"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -356,7 +356,7 @@
 							min = "0"
 							max = "29"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_feb_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -381,7 +381,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_mar_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -392,7 +392,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_mar_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -417,7 +417,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_apr_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -428,7 +428,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_apr_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -453,7 +453,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_may_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -464,7 +464,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_may_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -489,7 +489,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jun_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -500,7 +500,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jun_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -525,7 +525,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jul_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -536,7 +536,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_jul_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -561,7 +561,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_aug_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -572,7 +572,7 @@
 							min = "0"
 							max = "31"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_aug_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -597,7 +597,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_sep_p'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "highlight">
@@ -608,7 +608,7 @@
 							min = "0"
 							max = "30"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_attendance_sep_a'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>

@@ -362,74 +362,78 @@ class StudentController extends Controller {
         $grades = self::Format_Grades($auth, $student, Grade::query());
 
         // SF10: Enrollment
-        $validated_sf10_enrollment = request()->validate([
-            'sf10_enrollment_elementary_boolean' => 'nullable',
-            'sf10_enrollment_elementary_average' => 'nullable',
-            'sf10_enrollment_elementary_citation' => 'nullable',
-            'sf10_enrollment_elementary_name' => 'nullable',
-            'sf10_enrollment_elementary_id' => 'nullable',
-            'sf10_enrollment_elementary_address' => 'nullable',
+        if ($auth->ST_subject_sf10_acads) {
+            $validated_sf10_enrollment = request()->validate([
+                'sf10_enrollment_elementary_boolean' => 'nullable',
+                'sf10_enrollment_elementary_average' => 'nullable',
+                'sf10_enrollment_elementary_citation' => 'nullable',
+                'sf10_enrollment_elementary_name' => 'nullable',
+                'sf10_enrollment_elementary_id' => 'nullable',
+                'sf10_enrollment_elementary_address' => 'nullable',
 
-            'sf10_enrollment_other_pept_boolean' => 'nullable',
-            'sf10_enrollment_other_pept_rating' => 'nullable',
-            'sf10_enrollment_other_alsae_boolean' => 'nullable',
-            'sf10_enrollment_other_alsae_rating' => 'nullable',
-            'sf10_enrollment_other_specify_boolean' => 'nullable',
-            'sf10_enrollment_other_specify_rating' => 'nullable',
-            'sf10_enrollment_other_date' => 'nullable',
-            'sf10_enrollment_other_location' => 'nullable',
-        ]);
+                'sf10_enrollment_other_pept_boolean' => 'nullable',
+                'sf10_enrollment_other_pept_rating' => 'nullable',
+                'sf10_enrollment_other_alsae_boolean' => 'nullable',
+                'sf10_enrollment_other_alsae_rating' => 'nullable',
+                'sf10_enrollment_other_specify_boolean' => 'nullable',
+                'sf10_enrollment_other_specify_rating' => 'nullable',
+                'sf10_enrollment_other_date' => 'nullable',
+                'sf10_enrollment_other_location' => 'nullable',
+            ]);
 
-        $student->update([
-            'sf10_enrollment_elementary_boolean' => isset($validated_sf10_enrollment['sf10_enrollment_elementary_boolean']) ? 1 : 0,
-            'sf10_enrollment_elementary_average' => $validated_sf10_enrollment['sf10_enrollment_elementary_average'],
-            'sf10_enrollment_elementary_citation' => $validated_sf10_enrollment['sf10_enrollment_elementary_citation'],
-            'sf10_enrollment_elementary_name' => $validated_sf10_enrollment['sf10_enrollment_elementary_name'],
-            'sf10_enrollment_elementary_id' => $validated_sf10_enrollment['sf10_enrollment_elementary_id'],
-            'sf10_enrollment_elementary_address' => $validated_sf10_enrollment['sf10_enrollment_elementary_address'],
+            $student->update([
+                'sf10_enrollment_elementary_boolean' => isset($validated_sf10_enrollment['sf10_enrollment_elementary_boolean']) ? 1 : 0,
+                'sf10_enrollment_elementary_average' => $validated_sf10_enrollment['sf10_enrollment_elementary_average'],
+                'sf10_enrollment_elementary_citation' => $validated_sf10_enrollment['sf10_enrollment_elementary_citation'],
+                'sf10_enrollment_elementary_name' => $validated_sf10_enrollment['sf10_enrollment_elementary_name'],
+                'sf10_enrollment_elementary_id' => $validated_sf10_enrollment['sf10_enrollment_elementary_id'],
+                'sf10_enrollment_elementary_address' => $validated_sf10_enrollment['sf10_enrollment_elementary_address'],
 
-            'sf10_enrollment_other_pept_boolean' => isset($validated_sf10_enrollment['sf10_enrollment_other_pept_boolean']) ? 1 : 0,
-            'sf10_enrollment_other_pept_rating' => $validated_sf10_enrollment['sf10_enrollment_other_pept_rating'],
-            'sf10_enrollment_other_alsae_boolean' => isset($validated_sf10_enrollment['sf10_enrollment_other_alsae_boolean']) ? 1 : 0,
-            'sf10_enrollment_other_alsae_rating' => $validated_sf10_enrollment['sf10_enrollment_other_alsae_rating'],
-            'sf10_enrollment_other_specify_boolean' => isset($validated_sf10_enrollment['sf10_enrollment_other_specify_boolean']) ? 1 : 0,
-            'sf10_enrollment_other_specify_rating' => $validated_sf10_enrollment['sf10_enrollment_other_specify_rating'],
-            'sf10_enrollment_other_date' => $validated_sf10_enrollment['sf10_enrollment_other_date'],
-            'sf10_enrollment_other_location' => $validated_sf10_enrollment['sf10_enrollment_other_location'],
-        ]);
+                'sf10_enrollment_other_pept_boolean' => isset($validated_sf10_enrollment['sf10_enrollment_other_pept_boolean']) ? 1 : 0,
+                'sf10_enrollment_other_pept_rating' => $validated_sf10_enrollment['sf10_enrollment_other_pept_rating'],
+                'sf10_enrollment_other_alsae_boolean' => isset($validated_sf10_enrollment['sf10_enrollment_other_alsae_boolean']) ? 1 : 0,
+                'sf10_enrollment_other_alsae_rating' => $validated_sf10_enrollment['sf10_enrollment_other_alsae_rating'],
+                'sf10_enrollment_other_specify_boolean' => isset($validated_sf10_enrollment['sf10_enrollment_other_specify_boolean']) ? 1 : 0,
+                'sf10_enrollment_other_specify_rating' => $validated_sf10_enrollment['sf10_enrollment_other_specify_rating'],
+                'sf10_enrollment_other_date' => $validated_sf10_enrollment['sf10_enrollment_other_date'],
+                'sf10_enrollment_other_location' => $validated_sf10_enrollment['sf10_enrollment_other_location'],
+            ]);
+        }
 
         // SF10: Certification
-        $validated_sf10_certification = request()->validate([
-            'sf10_certification_back_grade' => 'nullable',
-            'sf10_certification_back_school_name' => 'nullable',
-            'sf10_certification_back_school_id' => 'nullable',
-            'sf10_certification_back_school_year' => 'nullable',
-            'sf10_certification_back_date' => 'nullable',
-            'sf10_certification_back_principal' => 'nullable',
+        if ($auth->ST_subject_sf10_acads) {
+            $validated_sf10_certification = request()->validate([
+                'sf10_certification_back_grade' => 'nullable',
+                'sf10_certification_back_school_name' => 'nullable',
+                'sf10_certification_back_school_id' => 'nullable',
+                'sf10_certification_back_school_year' => 'nullable',
+                'sf10_certification_back_date' => 'nullable',
+                'sf10_certification_back_principal' => 'nullable',
 
-            'sf10_certification_front_grade' => 'nullable',
-            'sf10_certification_front_school_name' => 'nullable',
-            'sf10_certification_front_school_id' => 'nullable',
-            'sf10_certification_front_school_year' => 'nullable',
-            'sf10_certification_front_date' => 'nullable',
-            'sf10_certification_front_principal' => 'nullable',
-        ]);
+                'sf10_certification_front_grade' => 'nullable',
+                'sf10_certification_front_school_name' => 'nullable',
+                'sf10_certification_front_school_id' => 'nullable',
+                'sf10_certification_front_school_year' => 'nullable',
+                'sf10_certification_front_date' => 'nullable',
+                'sf10_certification_front_principal' => 'nullable',
+            ]);
 
-        $student->update([
-            'sf10_certification_back_grade' => $validated_sf10_certification['sf10_certification_back_grade'],
-            'sf10_certification_back_school_name' => $validated_sf10_certification['sf10_certification_back_school_name'],
-            'sf10_certification_back_school_id' => $validated_sf10_certification['sf10_certification_back_school_id'],
-            'sf10_certification_back_school_year' => $validated_sf10_certification['sf10_certification_back_school_year'],
-            'sf10_certification_back_date' => $validated_sf10_certification['sf10_certification_back_date'],
-            'sf10_certification_back_principal' => $validated_sf10_certification['sf10_certification_back_principal'],
+            $student->update([
+                'sf10_certification_back_grade' => $validated_sf10_certification['sf10_certification_back_grade'],
+                'sf10_certification_back_school_name' => $validated_sf10_certification['sf10_certification_back_school_name'],
+                'sf10_certification_back_school_id' => $validated_sf10_certification['sf10_certification_back_school_id'],
+                'sf10_certification_back_school_year' => $validated_sf10_certification['sf10_certification_back_school_year'],
+                'sf10_certification_back_date' => $validated_sf10_certification['sf10_certification_back_date'],
+                'sf10_certification_back_principal' => $validated_sf10_certification['sf10_certification_back_principal'],
 
-            'sf10_certification_front_grade' => $validated_sf10_certification['sf10_certification_front_grade'],
-            'sf10_certification_front_school_name' => $validated_sf10_certification['sf10_certification_front_school_name'],
-            'sf10_certification_front_school_id' => $validated_sf10_certification['sf10_certification_front_school_id'],
-            'sf10_certification_front_school_year' => $validated_sf10_certification['sf10_certification_front_school_year'],
-            'sf10_certification_front_date' => $validated_sf10_certification['sf10_certification_front_date'],
-            'sf10_certification_front_principal' => $validated_sf10_certification['sf10_certification_front_principal'],
-        ]);
+                'sf10_certification_front_grade' => $validated_sf10_certification['sf10_certification_front_grade'],
+                'sf10_certification_front_school_name' => $validated_sf10_certification['sf10_certification_front_school_name'],
+                'sf10_certification_front_school_id' => $validated_sf10_certification['sf10_certification_front_school_id'],
+                'sf10_certification_front_school_year' => $validated_sf10_certification['sf10_certification_front_school_year'],
+                'sf10_certification_front_date' => $validated_sf10_certification['sf10_certification_front_date'],
+                'sf10_certification_front_principal' => $validated_sf10_certification['sf10_certification_front_principal'],
+            ]);
+        }
 
         // Various
         foreach ($grades as $grade) {
@@ -597,311 +601,391 @@ class StudentController extends Controller {
             ]);
 
             // SF10: Scholastic record
-            $validated_sf10_record = request()->validate([
-                'sf10_g'.$grade->grade.'_record_school_name' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_school_id' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_school_district' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_school_division' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_school_region' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_school_grade' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_school_section' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_school_year' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_school_teacher' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_remedial_date_start' => 'nullable',
-                'sf10_g'.$grade->grade.'_record_remedial_date_end' => 'nullable',
-            ]);
+            if ($auth->ST_subject_sf10_grade) {
+                $validated_sf10_record = request()->validate([
+                    'sf10_g'.$grade->grade.'_record_school_name' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_school_id' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_school_district' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_school_division' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_school_region' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_school_grade' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_school_section' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_school_year' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_school_teacher' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_remedial_date_start' => 'nullable',
+                    'sf10_g'.$grade->grade.'_record_remedial_date_end' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf10_g'.$grade->grade.'_record_school_name' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_name'],
-                'sf10_g'.$grade->grade.'_record_school_id' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_id'],
-                'sf10_g'.$grade->grade.'_record_school_district' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_district'],
-                'sf10_g'.$grade->grade.'_record_school_division' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_division'],
-                'sf10_g'.$grade->grade.'_record_school_region' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_region'],
-                'sf10_g'.$grade->grade.'_record_school_grade' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_grade'],
-                'sf10_g'.$grade->grade.'_record_school_section' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_section'],
-                'sf10_g'.$grade->grade.'_record_school_year' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_year'],
-                'sf10_g'.$grade->grade.'_record_school_teacher' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_teacher'],
-                'sf10_g'.$grade->grade.'_record_remedial_date_start' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_remedial_date_start'],
-                'sf10_g'.$grade->grade.'_record_remedial_date_end' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_remedial_date_end'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_record_school_name' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_name'],
+                    'sf10_g'.$grade->grade.'_record_school_id' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_id'],
+                    'sf10_g'.$grade->grade.'_record_school_district' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_district'],
+                    'sf10_g'.$grade->grade.'_record_school_division' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_division'],
+                    'sf10_g'.$grade->grade.'_record_school_region' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_region'],
+                    'sf10_g'.$grade->grade.'_record_school_grade' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_grade'],
+                    'sf10_g'.$grade->grade.'_record_school_section' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_section'],
+                    'sf10_g'.$grade->grade.'_record_school_year' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_year'],
+                    'sf10_g'.$grade->grade.'_record_school_teacher' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_school_teacher'],
+                    'sf10_g'.$grade->grade.'_record_remedial_date_start' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_remedial_date_start'],
+                    'sf10_g'.$grade->grade.'_record_remedial_date_end' => $validated_sf10_record['sf10_g'.$grade->grade.'_record_remedial_date_end'],
+                ]);
+            }
 
             // All: Subject -> filipino
-            $validated_all_subject_fil = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_fil' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_fil' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_fil' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_fil' => 'nullable',
+            if ($auth->ST_subject_fil) {
+                $validated_all_subject_fil = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_fil' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_fil' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_fil' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_fil' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_fil' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_fil' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_fil' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_fil' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_fil' => $validated_all_subject_fil['sf9_g'.$grade->grade.'_subject_qr1_fil'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_fil' => $validated_all_subject_fil['sf9_g'.$grade->grade.'_subject_qr2_fil'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_fil' => $validated_all_subject_fil['sf9_g'.$grade->grade.'_subject_qr3_fil'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_fil' => $validated_all_subject_fil['sf9_g'.$grade->grade.'_subject_qr4_fil'],
+                ]);
+            }
+            if ($auth->ST_subject_fil && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_fil = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_fil' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_fil' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_fil' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_fil' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_fil' => $validated_all_subject_fil['sf9_g'.$grade->grade.'_subject_qr1_fil'],
-                'sf9_g'.$grade->grade.'_subject_qr2_fil' => $validated_all_subject_fil['sf9_g'.$grade->grade.'_subject_qr2_fil'],
-                'sf9_g'.$grade->grade.'_subject_qr3_fil' => $validated_all_subject_fil['sf9_g'.$grade->grade.'_subject_qr3_fil'],
-                'sf9_g'.$grade->grade.'_subject_qr4_fil' => $validated_all_subject_fil['sf9_g'.$grade->grade.'_subject_qr4_fil'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_fil' => $validated_all_subject_fil['sf10_g'.$grade->grade.'_subject_qr1_fil'],
-                'sf10_g'.$grade->grade.'_subject_qr2_fil' => $validated_all_subject_fil['sf10_g'.$grade->grade.'_subject_qr2_fil'],
-                'sf10_g'.$grade->grade.'_subject_qr3_fil' => $validated_all_subject_fil['sf10_g'.$grade->grade.'_subject_qr3_fil'],
-                'sf10_g'.$grade->grade.'_subject_qr4_fil' => $validated_all_subject_fil['sf10_g'.$grade->grade.'_subject_qr4_fil'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_fil' => $validated_all_subject_fil['sf10_g'.$grade->grade.'_subject_qr1_fil'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_fil' => $validated_all_subject_fil['sf10_g'.$grade->grade.'_subject_qr2_fil'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_fil' => $validated_all_subject_fil['sf10_g'.$grade->grade.'_subject_qr3_fil'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_fil' => $validated_all_subject_fil['sf10_g'.$grade->grade.'_subject_qr4_fil'],
+                ]);
+            }
 
             // All: Subject -> english
-            $validated_all_subject_eng = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_eng' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_eng' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_eng' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_eng' => 'nullable',
+            if ($auth->ST_subject_eng) {
+                $validated_all_subject_eng = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_eng' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_eng' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_eng' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_eng' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_eng' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_eng' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_eng' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_eng' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_eng' => $validated_all_subject_eng['sf9_g'.$grade->grade.'_subject_qr1_eng'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_eng' => $validated_all_subject_eng['sf9_g'.$grade->grade.'_subject_qr2_eng'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_eng' => $validated_all_subject_eng['sf9_g'.$grade->grade.'_subject_qr3_eng'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_eng' => $validated_all_subject_eng['sf9_g'.$grade->grade.'_subject_qr4_eng'],
+                ]);
+            }
+            if ($auth->ST_subject_eng && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_eng = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_eng' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_eng' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_eng' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_eng' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_eng' => $validated_all_subject_eng['sf9_g'.$grade->grade.'_subject_qr1_eng'],
-                'sf9_g'.$grade->grade.'_subject_qr2_eng' => $validated_all_subject_eng['sf9_g'.$grade->grade.'_subject_qr2_eng'],
-                'sf9_g'.$grade->grade.'_subject_qr3_eng' => $validated_all_subject_eng['sf9_g'.$grade->grade.'_subject_qr3_eng'],
-                'sf9_g'.$grade->grade.'_subject_qr4_eng' => $validated_all_subject_eng['sf9_g'.$grade->grade.'_subject_qr4_eng'],
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_eng' => $validated_all_subject_eng['sf10_g'.$grade->grade.'_subject_qr1_eng'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_eng' => $validated_all_subject_eng['sf10_g'.$grade->grade.'_subject_qr2_eng'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_eng' => $validated_all_subject_eng['sf10_g'.$grade->grade.'_subject_qr3_eng'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_eng' => $validated_all_subject_eng['sf10_g'.$grade->grade.'_subject_qr4_eng'],
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_eng' => $validated_all_subject_eng['sf10_g'.$grade->grade.'_subject_qr1_eng'],
-                'sf10_g'.$grade->grade.'_subject_qr2_eng' => $validated_all_subject_eng['sf10_g'.$grade->grade.'_subject_qr2_eng'],
-                'sf10_g'.$grade->grade.'_subject_qr3_eng' => $validated_all_subject_eng['sf10_g'.$grade->grade.'_subject_qr3_eng'],
-                'sf10_g'.$grade->grade.'_subject_qr4_eng' => $validated_all_subject_eng['sf10_g'.$grade->grade.'_subject_qr4_eng'],
-            ]);
+            }
 
             // All: Subject -> mathematics
-            $validated_all_subject_mat = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_mat' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_mat' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_mat' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_mat' => 'nullable',
+            if ($auth->ST_subject_mat) {
+                $validated_all_subject_mat = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_mat' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_mat' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_mat' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_mat' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_mat' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_mat' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_mat' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_mat' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_mat' => $validated_all_subject_mat['sf9_g'.$grade->grade.'_subject_qr1_mat'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_mat' => $validated_all_subject_mat['sf9_g'.$grade->grade.'_subject_qr2_mat'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_mat' => $validated_all_subject_mat['sf9_g'.$grade->grade.'_subject_qr3_mat'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_mat' => $validated_all_subject_mat['sf9_g'.$grade->grade.'_subject_qr4_mat'],
+                ]);
+            }
+            if ($auth->ST_subject_mat && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_mat = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_mat' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_mat' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_mat' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_mat' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_mat' => $validated_all_subject_mat['sf9_g'.$grade->grade.'_subject_qr1_mat'],
-                'sf9_g'.$grade->grade.'_subject_qr2_mat' => $validated_all_subject_mat['sf9_g'.$grade->grade.'_subject_qr2_mat'],
-                'sf9_g'.$grade->grade.'_subject_qr3_mat' => $validated_all_subject_mat['sf9_g'.$grade->grade.'_subject_qr3_mat'],
-                'sf9_g'.$grade->grade.'_subject_qr4_mat' => $validated_all_subject_mat['sf9_g'.$grade->grade.'_subject_qr4_mat'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_mat' => $validated_all_subject_mat['sf10_g'.$grade->grade.'_subject_qr1_mat'],
-                'sf10_g'.$grade->grade.'_subject_qr2_mat' => $validated_all_subject_mat['sf10_g'.$grade->grade.'_subject_qr2_mat'],
-                'sf10_g'.$grade->grade.'_subject_qr3_mat' => $validated_all_subject_mat['sf10_g'.$grade->grade.'_subject_qr3_mat'],
-                'sf10_g'.$grade->grade.'_subject_qr4_mat' => $validated_all_subject_mat['sf10_g'.$grade->grade.'_subject_qr4_mat'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_mat' => $validated_all_subject_mat['sf10_g'.$grade->grade.'_subject_qr1_mat'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_mat' => $validated_all_subject_mat['sf10_g'.$grade->grade.'_subject_qr2_mat'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_mat' => $validated_all_subject_mat['sf10_g'.$grade->grade.'_subject_qr3_mat'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_mat' => $validated_all_subject_mat['sf10_g'.$grade->grade.'_subject_qr4_mat'],
+                ]);
+            }
 
             // All: Subject -> science
-            $validated_all_subject_sci = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_sci' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_sci' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_sci' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_sci' => 'nullable',
+            if ($auth->ST_subject_sci) {
+                $validated_all_subject_sci = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_sci' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_sci' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_sci' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_sci' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_sci' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_sci' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_sci' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_sci' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_sci' => $validated_all_subject_sci['sf9_g'.$grade->grade.'_subject_qr1_sci'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_sci' => $validated_all_subject_sci['sf9_g'.$grade->grade.'_subject_qr2_sci'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_sci' => $validated_all_subject_sci['sf9_g'.$grade->grade.'_subject_qr3_sci'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_sci' => $validated_all_subject_sci['sf9_g'.$grade->grade.'_subject_qr4_sci'],
+                ]);
+            }
+            if ($auth->ST_subject_sci && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_sci = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_sci' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_sci' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_sci' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_sci' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_sci' => $validated_all_subject_sci['sf9_g'.$grade->grade.'_subject_qr1_sci'],
-                'sf9_g'.$grade->grade.'_subject_qr2_sci' => $validated_all_subject_sci['sf9_g'.$grade->grade.'_subject_qr2_sci'],
-                'sf9_g'.$grade->grade.'_subject_qr3_sci' => $validated_all_subject_sci['sf9_g'.$grade->grade.'_subject_qr3_sci'],
-                'sf9_g'.$grade->grade.'_subject_qr4_sci' => $validated_all_subject_sci['sf9_g'.$grade->grade.'_subject_qr4_sci'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_sci' => $validated_all_subject_sci['sf10_g'.$grade->grade.'_subject_qr1_sci'],
-                'sf10_g'.$grade->grade.'_subject_qr2_sci' => $validated_all_subject_sci['sf10_g'.$grade->grade.'_subject_qr2_sci'],
-                'sf10_g'.$grade->grade.'_subject_qr3_sci' => $validated_all_subject_sci['sf10_g'.$grade->grade.'_subject_qr3_sci'],
-                'sf10_g'.$grade->grade.'_subject_qr4_sci' => $validated_all_subject_sci['sf10_g'.$grade->grade.'_subject_qr4_sci'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_sci' => $validated_all_subject_sci['sf10_g'.$grade->grade.'_subject_qr1_sci'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_sci' => $validated_all_subject_sci['sf10_g'.$grade->grade.'_subject_qr2_sci'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_sci' => $validated_all_subject_sci['sf10_g'.$grade->grade.'_subject_qr3_sci'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_sci' => $validated_all_subject_sci['sf10_g'.$grade->grade.'_subject_qr4_sci'],
+                ]);
+            }
 
             // All: Subject -> araling panlipunan (ap)
-            $validated_all_subject_ap = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_ap' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_ap' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_ap' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_ap' => 'nullable',
+            if ($auth->ST_subject_ap) {
+                $validated_all_subject_ap = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_ap' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_ap' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_ap' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_ap' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_ap' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_ap' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_ap' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_ap' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_ap' => $validated_all_subject_ap['sf9_g'.$grade->grade.'_subject_qr1_ap'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_ap' => $validated_all_subject_ap['sf9_g'.$grade->grade.'_subject_qr2_ap'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_ap' => $validated_all_subject_ap['sf9_g'.$grade->grade.'_subject_qr3_ap'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_ap' => $validated_all_subject_ap['sf9_g'.$grade->grade.'_subject_qr4_ap'],
+                ]);
+            }
+            if ($auth->ST_subject_ap && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_ap = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_ap' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_ap' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_ap' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_ap' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_ap' => $validated_all_subject_ap['sf9_g'.$grade->grade.'_subject_qr1_ap'],
-                'sf9_g'.$grade->grade.'_subject_qr2_ap' => $validated_all_subject_ap['sf9_g'.$grade->grade.'_subject_qr2_ap'],
-                'sf9_g'.$grade->grade.'_subject_qr3_ap' => $validated_all_subject_ap['sf9_g'.$grade->grade.'_subject_qr3_ap'],
-                'sf9_g'.$grade->grade.'_subject_qr4_ap' => $validated_all_subject_ap['sf9_g'.$grade->grade.'_subject_qr4_ap'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_ap' => $validated_all_subject_ap['sf10_g'.$grade->grade.'_subject_qr1_ap'],
-                'sf10_g'.$grade->grade.'_subject_qr2_ap' => $validated_all_subject_ap['sf10_g'.$grade->grade.'_subject_qr2_ap'],
-                'sf10_g'.$grade->grade.'_subject_qr3_ap' => $validated_all_subject_ap['sf10_g'.$grade->grade.'_subject_qr3_ap'],
-                'sf10_g'.$grade->grade.'_subject_qr4_ap' => $validated_all_subject_ap['sf10_g'.$grade->grade.'_subject_qr4_ap'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_ap' => $validated_all_subject_ap['sf10_g'.$grade->grade.'_subject_qr1_ap'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_ap' => $validated_all_subject_ap['sf10_g'.$grade->grade.'_subject_qr2_ap'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_ap' => $validated_all_subject_ap['sf10_g'.$grade->grade.'_subject_qr3_ap'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_ap' => $validated_all_subject_ap['sf10_g'.$grade->grade.'_subject_qr4_ap'],
+                ]);
+            }
 
             // All: Subject -> edukasyon sa pagpapakatao (ep)
-            $validated_all_subject_ep = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_ep' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_ep' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_ep' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_ep' => 'nullable',
+            if ($auth->ST_subject_ep) {
+                $validated_all_subject_ep = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_ep' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_ep' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_ep' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_ep' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_ep' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_ep' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_ep' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_ep' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_ep' => $validated_all_subject_ep['sf9_g'.$grade->grade.'_subject_qr1_ep'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_ep' => $validated_all_subject_ep['sf9_g'.$grade->grade.'_subject_qr2_ep'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_ep' => $validated_all_subject_ep['sf9_g'.$grade->grade.'_subject_qr3_ep'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_ep' => $validated_all_subject_ep['sf9_g'.$grade->grade.'_subject_qr4_ep'],
+                ]);
+            }
+            if ($auth->ST_subject_ep && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_ep = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_ep' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_ep' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_ep' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_ep' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_ep' => $validated_all_subject_ep['sf9_g'.$grade->grade.'_subject_qr1_ep'],
-                'sf9_g'.$grade->grade.'_subject_qr2_ep' => $validated_all_subject_ep['sf9_g'.$grade->grade.'_subject_qr2_ep'],
-                'sf9_g'.$grade->grade.'_subject_qr3_ep' => $validated_all_subject_ep['sf9_g'.$grade->grade.'_subject_qr3_ep'],
-                'sf9_g'.$grade->grade.'_subject_qr4_ep' => $validated_all_subject_ep['sf9_g'.$grade->grade.'_subject_qr4_ep'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_ep' => $validated_all_subject_ep['sf10_g'.$grade->grade.'_subject_qr1_ep'],
-                'sf10_g'.$grade->grade.'_subject_qr2_ep' => $validated_all_subject_ep['sf10_g'.$grade->grade.'_subject_qr2_ep'],
-                'sf10_g'.$grade->grade.'_subject_qr3_ep' => $validated_all_subject_ep['sf10_g'.$grade->grade.'_subject_qr3_ep'],
-                'sf10_g'.$grade->grade.'_subject_qr4_ep' => $validated_all_subject_ep['sf10_g'.$grade->grade.'_subject_qr4_ep'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_ep' => $validated_all_subject_ep['sf10_g'.$grade->grade.'_subject_qr1_ep'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_ep' => $validated_all_subject_ep['sf10_g'.$grade->grade.'_subject_qr2_ep'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_ep' => $validated_all_subject_ep['sf10_g'.$grade->grade.'_subject_qr3_ep'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_ep' => $validated_all_subject_ep['sf10_g'.$grade->grade.'_subject_qr4_ep'],
+                ]);
+            }
 
             // All: Subject -> technology and livelihood education (tle)
-            $validated_all_subject_tle = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_tle' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_tle' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_tle' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_tle' => 'nullable',
+            if ($auth->ST_subject_tle) {
+                $validated_all_subject_tle = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_tle' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_tle' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_tle' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_tle' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_tle' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_tle' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_tle' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_tle' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_tle' => $validated_all_subject_tle['sf9_g'.$grade->grade.'_subject_qr1_tle'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_tle' => $validated_all_subject_tle['sf9_g'.$grade->grade.'_subject_qr2_tle'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_tle' => $validated_all_subject_tle['sf9_g'.$grade->grade.'_subject_qr3_tle'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_tle' => $validated_all_subject_tle['sf9_g'.$grade->grade.'_subject_qr4_tle'],
+                ]);
+            }
+            if ($auth->ST_subject_tle && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_tle = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_tle' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_tle' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_tle' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_tle' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_tle' => $validated_all_subject_tle['sf9_g'.$grade->grade.'_subject_qr1_tle'],
-                'sf9_g'.$grade->grade.'_subject_qr2_tle' => $validated_all_subject_tle['sf9_g'.$grade->grade.'_subject_qr2_tle'],
-                'sf9_g'.$grade->grade.'_subject_qr3_tle' => $validated_all_subject_tle['sf9_g'.$grade->grade.'_subject_qr3_tle'],
-                'sf9_g'.$grade->grade.'_subject_qr4_tle' => $validated_all_subject_tle['sf9_g'.$grade->grade.'_subject_qr4_tle'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_tle' => $validated_all_subject_tle['sf10_g'.$grade->grade.'_subject_qr1_tle'],
-                'sf10_g'.$grade->grade.'_subject_qr2_tle' => $validated_all_subject_tle['sf10_g'.$grade->grade.'_subject_qr2_tle'],
-                'sf10_g'.$grade->grade.'_subject_qr3_tle' => $validated_all_subject_tle['sf10_g'.$grade->grade.'_subject_qr3_tle'],
-                'sf10_g'.$grade->grade.'_subject_qr4_tle' => $validated_all_subject_tle['sf10_g'.$grade->grade.'_subject_qr4_tle'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_tle' => $validated_all_subject_tle['sf10_g'.$grade->grade.'_subject_qr1_tle'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_tle' => $validated_all_subject_tle['sf10_g'.$grade->grade.'_subject_qr2_tle'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_tle' => $validated_all_subject_tle['sf10_g'.$grade->grade.'_subject_qr3_tle'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_tle' => $validated_all_subject_tle['sf10_g'.$grade->grade.'_subject_qr4_tle'],
+                ]);
+            }
 
             // All: Subject -> music
-            $validated_all_subject_mus = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_mus' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_mus' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_mus' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_mus' => 'nullable',
+            if ($auth->ST_subject_mapeh) {
+                $validated_all_subject_mus = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_mus' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_mus' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_mus' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_mus' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_mus' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_mus' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_mus' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_mus' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_mus' => $validated_all_subject_mus['sf9_g'.$grade->grade.'_subject_qr1_mus'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_mus' => $validated_all_subject_mus['sf9_g'.$grade->grade.'_subject_qr2_mus'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_mus' => $validated_all_subject_mus['sf9_g'.$grade->grade.'_subject_qr3_mus'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_mus' => $validated_all_subject_mus['sf9_g'.$grade->grade.'_subject_qr4_mus'],
+                ]);
+            }
+            if ($auth->ST_subject_mapeh && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_mus = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_mus' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_mus' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_mus' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_mus' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_mus' => $validated_all_subject_mus['sf9_g'.$grade->grade.'_subject_qr1_mus'],
-                'sf9_g'.$grade->grade.'_subject_qr2_mus' => $validated_all_subject_mus['sf9_g'.$grade->grade.'_subject_qr2_mus'],
-                'sf9_g'.$grade->grade.'_subject_qr3_mus' => $validated_all_subject_mus['sf9_g'.$grade->grade.'_subject_qr3_mus'],
-                'sf9_g'.$grade->grade.'_subject_qr4_mus' => $validated_all_subject_mus['sf9_g'.$grade->grade.'_subject_qr4_mus'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_mus' => $validated_all_subject_mus['sf10_g'.$grade->grade.'_subject_qr1_mus'],
-                'sf10_g'.$grade->grade.'_subject_qr2_mus' => $validated_all_subject_mus['sf10_g'.$grade->grade.'_subject_qr2_mus'],
-                'sf10_g'.$grade->grade.'_subject_qr3_mus' => $validated_all_subject_mus['sf10_g'.$grade->grade.'_subject_qr3_mus'],
-                'sf10_g'.$grade->grade.'_subject_qr4_mus' => $validated_all_subject_mus['sf10_g'.$grade->grade.'_subject_qr4_mus'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_mus' => $validated_all_subject_mus['sf10_g'.$grade->grade.'_subject_qr1_mus'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_mus' => $validated_all_subject_mus['sf10_g'.$grade->grade.'_subject_qr2_mus'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_mus' => $validated_all_subject_mus['sf10_g'.$grade->grade.'_subject_qr3_mus'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_mus' => $validated_all_subject_mus['sf10_g'.$grade->grade.'_subject_qr4_mus'],
+                ]);
+            }
 
             // All: Subject -> arts
-            $validated_all_subject_art = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_art' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_art' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_art' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_art' => 'nullable',
+            if ($auth->ST_subject_mapeh) {
+                $validated_all_subject_art = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_art' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_art' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_art' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_art' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_art' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_art' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_art' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_art' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_art' => $validated_all_subject_art['sf9_g'.$grade->grade.'_subject_qr1_art'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_art' => $validated_all_subject_art['sf9_g'.$grade->grade.'_subject_qr2_art'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_art' => $validated_all_subject_art['sf9_g'.$grade->grade.'_subject_qr3_art'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_art' => $validated_all_subject_art['sf9_g'.$grade->grade.'_subject_qr4_art'],
+                ]);
+            }
+            if ($auth->ST_subject_mapeh && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_art = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_art' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_art' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_art' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_art' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_art' => $validated_all_subject_art['sf9_g'.$grade->grade.'_subject_qr1_art'],
-                'sf9_g'.$grade->grade.'_subject_qr2_art' => $validated_all_subject_art['sf9_g'.$grade->grade.'_subject_qr2_art'],
-                'sf9_g'.$grade->grade.'_subject_qr3_art' => $validated_all_subject_art['sf9_g'.$grade->grade.'_subject_qr3_art'],
-                'sf9_g'.$grade->grade.'_subject_qr4_art' => $validated_all_subject_art['sf9_g'.$grade->grade.'_subject_qr4_art'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_art' => $validated_all_subject_art['sf10_g'.$grade->grade.'_subject_qr1_art'],
-                'sf10_g'.$grade->grade.'_subject_qr2_art' => $validated_all_subject_art['sf10_g'.$grade->grade.'_subject_qr2_art'],
-                'sf10_g'.$grade->grade.'_subject_qr3_art' => $validated_all_subject_art['sf10_g'.$grade->grade.'_subject_qr3_art'],
-                'sf10_g'.$grade->grade.'_subject_qr4_art' => $validated_all_subject_art['sf10_g'.$grade->grade.'_subject_qr4_art'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_art' => $validated_all_subject_art['sf10_g'.$grade->grade.'_subject_qr1_art'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_art' => $validated_all_subject_art['sf10_g'.$grade->grade.'_subject_qr2_art'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_art' => $validated_all_subject_art['sf10_g'.$grade->grade.'_subject_qr3_art'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_art' => $validated_all_subject_art['sf10_g'.$grade->grade.'_subject_qr4_art'],
+                ]);
+            }
 
             // All: Subject -> physical education
-            $validated_all_subject_pe = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_pe' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_pe' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_pe' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_pe' => 'nullable',
+            if ($auth->ST_subject_mapeh) {
+                $validated_all_subject_pe = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_pe' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_pe' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_pe' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_pe' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_pe' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_pe' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_pe' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_pe' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_pe' => $validated_all_subject_pe['sf9_g'.$grade->grade.'_subject_qr1_pe'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_pe' => $validated_all_subject_pe['sf9_g'.$grade->grade.'_subject_qr2_pe'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_pe' => $validated_all_subject_pe['sf9_g'.$grade->grade.'_subject_qr3_pe'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_pe' => $validated_all_subject_pe['sf9_g'.$grade->grade.'_subject_qr4_pe'],
+                ]);
+            }
+            if ($auth->ST_subject_mapeh && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_pe = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_pe' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_pe' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_pe' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_pe' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_pe' => $validated_all_subject_pe['sf9_g'.$grade->grade.'_subject_qr1_pe'],
-                'sf9_g'.$grade->grade.'_subject_qr2_pe' => $validated_all_subject_pe['sf9_g'.$grade->grade.'_subject_qr2_pe'],
-                'sf9_g'.$grade->grade.'_subject_qr3_pe' => $validated_all_subject_pe['sf9_g'.$grade->grade.'_subject_qr3_pe'],
-                'sf9_g'.$grade->grade.'_subject_qr4_pe' => $validated_all_subject_pe['sf9_g'.$grade->grade.'_subject_qr4_pe'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_pe' => $validated_all_subject_pe['sf10_g'.$grade->grade.'_subject_qr1_pe'],
-                'sf10_g'.$grade->grade.'_subject_qr2_pe' => $validated_all_subject_pe['sf10_g'.$grade->grade.'_subject_qr2_pe'],
-                'sf10_g'.$grade->grade.'_subject_qr3_pe' => $validated_all_subject_pe['sf10_g'.$grade->grade.'_subject_qr3_pe'],
-                'sf10_g'.$grade->grade.'_subject_qr4_pe' => $validated_all_subject_pe['sf10_g'.$grade->grade.'_subject_qr4_pe'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_pe' => $validated_all_subject_pe['sf10_g'.$grade->grade.'_subject_qr1_pe'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_pe' => $validated_all_subject_pe['sf10_g'.$grade->grade.'_subject_qr2_pe'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_pe' => $validated_all_subject_pe['sf10_g'.$grade->grade.'_subject_qr3_pe'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_pe' => $validated_all_subject_pe['sf10_g'.$grade->grade.'_subject_qr4_pe'],
+                ]);
+            }
 
             // All: Subject -> health
-            $validated_all_subject_hp = request()->validate([
-                'sf9_g'.$grade->grade.'_subject_qr1_hp' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr2_hp' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr3_hp' => 'nullable',
-                'sf9_g'.$grade->grade.'_subject_qr4_hp' => 'nullable',
+            if ($auth->ST_subject_mapeh) {
+                $validated_all_subject_hp = request()->validate([
+                    'sf9_g'.$grade->grade.'_subject_qr1_hp' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr2_hp' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr3_hp' => 'nullable',
+                    'sf9_g'.$grade->grade.'_subject_qr4_hp' => 'nullable',
+                ]);
 
-                'sf10_g'.$grade->grade.'_subject_qr1_hp' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr2_hp' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr3_hp' => 'nullable',
-                'sf10_g'.$grade->grade.'_subject_qr4_hp' => 'nullable',
-            ]);
+                $student->update([
+                    'sf9_g'.$grade->grade.'_subject_qr1_hp' => $validated_all_subject_hp['sf9_g'.$grade->grade.'_subject_qr1_hp'],
+                    'sf9_g'.$grade->grade.'_subject_qr2_hp' => $validated_all_subject_hp['sf9_g'.$grade->grade.'_subject_qr2_hp'],
+                    'sf9_g'.$grade->grade.'_subject_qr3_hp' => $validated_all_subject_hp['sf9_g'.$grade->grade.'_subject_qr3_hp'],
+                    'sf9_g'.$grade->grade.'_subject_qr4_hp' => $validated_all_subject_hp['sf9_g'.$grade->grade.'_subject_qr4_hp'],
+                ]);
+            }
+            if ($auth->ST_subject_mapeh && $auth->ST_subject_sf10_grade) {
+                $validated_all_subject_hp = request()->validate([
+                    'sf10_g'.$grade->grade.'_subject_qr1_hp' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr2_hp' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr3_hp' => 'nullable',
+                    'sf10_g'.$grade->grade.'_subject_qr4_hp' => 'nullable',
+                ]);
 
-            $student->update([
-                'sf9_g'.$grade->grade.'_subject_qr1_hp' => $validated_all_subject_hp['sf9_g'.$grade->grade.'_subject_qr1_hp'],
-                'sf9_g'.$grade->grade.'_subject_qr2_hp' => $validated_all_subject_hp['sf9_g'.$grade->grade.'_subject_qr2_hp'],
-                'sf9_g'.$grade->grade.'_subject_qr3_hp' => $validated_all_subject_hp['sf9_g'.$grade->grade.'_subject_qr3_hp'],
-                'sf9_g'.$grade->grade.'_subject_qr4_hp' => $validated_all_subject_hp['sf9_g'.$grade->grade.'_subject_qr4_hp'],
-
-                'sf10_g'.$grade->grade.'_subject_qr1_hp' => $validated_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr1_hp'],
-                'sf10_g'.$grade->grade.'_subject_qr2_hp' => $validated_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr2_hp'],
-                'sf10_g'.$grade->grade.'_subject_qr3_hp' => $validated_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr3_hp'],
-                'sf10_g'.$grade->grade.'_subject_qr4_hp' => $validated_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr4_hp'],
-            ]);
+                $student->update([
+                    'sf10_g'.$grade->grade.'_subject_qr1_hp' => $validated_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr1_hp'],
+                    'sf10_g'.$grade->grade.'_subject_qr2_hp' => $validated_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr2_hp'],
+                    'sf10_g'.$grade->grade.'_subject_qr3_hp' => $validated_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr3_hp'],
+                    'sf10_g'.$grade->grade.'_subject_qr4_hp' => $validated_all_subject_hp['sf10_g'.$grade->grade.'_subject_qr4_hp'],
+                ]);
+            }
 
             // All: Subject -> nihongo
-            if ($student->{'ST_sf9_g'.$grade->grade.'_subject_jp'}) {
+            if ($auth->ST_subject_jp && $student->{'ST_sf9_g'.$grade->grade.'_subject_jp'}) {
                 $validated_sf9_subject_jp = request()->validate([
                     'sf9_g'.$grade->grade.'_subject_qr1_jp' => 'nullable',
                     'sf9_g'.$grade->grade.'_subject_qr2_jp' => 'nullable',
@@ -916,7 +1000,7 @@ class StudentController extends Controller {
                     'sf9_g'.$grade->grade.'_subject_qr4_jp' => $validated_sf9_subject_jp['sf9_g'.$grade->grade.'_subject_qr4_jp'],
                 ]);
             }
-            if ($student->{'ST_sf10_g'.$grade->grade.'_subject_jp'}) {
+            if ($auth->ST_subject_jp && $student->{'ST_sf10_g'.$grade->grade.'_subject_jp'} && $auth->ST_subject_sf10_grade) {
                 $validated_sf10_subject_jp = request()->validate([
                     'sf10_g'.$grade->grade.'_subject_qr1_jp' => 'nullable',
                     'sf10_g'.$grade->grade.'_subject_qr2_jp' => 'nullable',

@@ -19,6 +19,19 @@ return new class extends Migration {
 
             $table->string('name_last', 50);
             $table->string('name_first', 50);
+
+            $table->boolean('ST_subject_fil')->default(0); // Setting
+            $table->boolean('ST_subject_eng')->default(0); // Setting
+            $table->boolean('ST_subject_mat')->default(0); // Setting
+            $table->boolean('ST_subject_sci')->default(0); // Setting
+            $table->boolean('ST_subject_ap')->default(0); // Setting
+            $table->boolean('ST_subject_ep')->default(0); // Setting
+            $table->boolean('ST_subject_tle')->default(0); // Setting
+            $table->boolean('ST_subject_mapeh')->default(0); // Setting
+            $table->boolean('ST_subject_jp')->default(0); // Setting
+
+            $table->boolean('ST_subject_sf10_acads')->default(0); // Setting
+            $table->boolean('ST_subject_sf10_grade')->default(0); // Setting
         });
     }
     public function down () : void { Schema::dropIfExists('users'); }

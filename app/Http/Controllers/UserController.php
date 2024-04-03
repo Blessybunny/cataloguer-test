@@ -117,6 +117,19 @@ class UserController extends Controller {
 
             'name_last' => 'required',
             'name_first' => 'required',
+
+            'ST_subject_fil' => 'nullable',
+            'ST_subject_eng' => 'nullable',
+            'ST_subject_mat' => 'nullable',
+            'ST_subject_sci' => 'nullable',
+            'ST_subject_ap' => 'nullable',
+            'ST_subject_ep' => 'nullable',
+            'ST_subject_tle' => 'nullable',
+            'ST_subject_mapeh' => 'nullable',
+            'ST_subject_jp' => 'nullable',
+
+            'ST_subject_sf10_acads' => 'nullable',
+            'ST_subject_sf10_grade' => 'nullable',
         ]);
 
         $validated = self::func_validate_role($validated);
@@ -131,6 +144,19 @@ class UserController extends Controller {
 
             'name_last' => $validated['name_last'],
             'name_first' => $validated['name_first'],
+
+            'ST_subject_fil' => isset($validated['ST_subject_fil']) ? 1 : 0,
+            'ST_subject_eng' => isset($validated['ST_subject_eng']) ? 1 : 0,
+            'ST_subject_mat' => isset($validated['ST_subject_mat']) ? 1 : 0,
+            'ST_subject_sci' => isset($validated['ST_subject_sci']) ? 1 : 0,
+            'ST_subject_ap' => isset($validated['ST_subject_ap']) ? 1 : 0,
+            'ST_subject_ep' => isset($validated['ST_subject_ep']) ? 1 : 0,
+            'ST_subject_tle' => isset($validated['ST_subject_tle']) ? 1 : 0,
+            'ST_subject_mapeh' => isset($validated['ST_subject_mapeh']) ? 1 : 0,
+            'ST_subject_jp' => isset($validated['ST_subject_jp']) ? 1 : 0,
+
+            'ST_subject_sf10_acads' => isset($validated['ST_subject_sf10_acads']) ? 1 : 0,
+            'ST_subject_sf10_grade' => isset($validated['ST_subject_sf10_grade']) ? 1 : 0,
         ]);
 
         self::func_designation_clear_section($user);
@@ -219,6 +245,19 @@ class UserController extends Controller {
 
             'name_last' => 'required',
             'name_first' => 'required',
+
+            'ST_subject_fil' => 'nullable',
+            'ST_subject_eng' => 'nullable',
+            'ST_subject_mat' => 'nullable',
+            'ST_subject_sci' => 'nullable',
+            'ST_subject_ap' => 'nullable',
+            'ST_subject_ep' => 'nullable',
+            'ST_subject_tle' => 'nullable',
+            'ST_subject_mapeh' => 'nullable',
+            'ST_subject_jp' => 'nullable',
+
+            'ST_subject_sf10_acads' => 'nullable',
+            'ST_subject_sf10_grade' => 'nullable',
         ]);
 
         $validated = self::func_validate_role($validated);
@@ -230,6 +269,19 @@ class UserController extends Controller {
 
             'name_last' => $validated['name_last'],
             'name_first' => $validated['name_first'],
+
+            'ST_subject_fil' => isset($validated['ST_subject_fil']) ? 1 : 0,
+            'ST_subject_eng' => isset($validated['ST_subject_eng']) ? 1 : 0,
+            'ST_subject_mat' => isset($validated['ST_subject_mat']) ? 1 : 0,
+            'ST_subject_sci' => isset($validated['ST_subject_sci']) ? 1 : 0,
+            'ST_subject_ap' => isset($validated['ST_subject_ap']) ? 1 : 0,
+            'ST_subject_ep' => isset($validated['ST_subject_ep']) ? 1 : 0,
+            'ST_subject_tle' => isset($validated['ST_subject_tle']) ? 1 : 0,
+            'ST_subject_mapeh' => isset($validated['ST_subject_mapeh']) ? 1 : 0,
+            'ST_subject_jp' => isset($validated['ST_subject_jp']) ? 1 : 0,
+
+            'ST_subject_sf10_acads' => isset($validated['ST_subject_sf10_acads']) ? 1 : 0,
+            'ST_subject_sf10_grade' => isset($validated['ST_subject_sf10_grade']) ? 1 : 0,
         ]);
 
         $user->touch();
@@ -461,6 +513,19 @@ class UserController extends Controller {
             $validated['DB_GRADE_id'] = null;
             $validated['DB_SECTION_id'] = null;
             $validated['DB_YEAR_id'] = null;
+
+            $validated['ST_subject_fil'] = null;
+            $validated['ST_subject_eng'] = null;
+            $validated['ST_subject_mat'] = null;
+            $validated['ST_subject_sci'] = null;
+            $validated['ST_subject_ap'] = null;
+            $validated['ST_subject_ep'] = null;
+            $validated['ST_subject_tle'] = null;
+            $validated['ST_subject_mapeh'] = null;
+            $validated['ST_subject_jp'] = null;
+
+            $validated['ST_subject_sf10_acads'] = null;
+            $validated['ST_subject_sf10_grade'] = null;
         }
         else if ($validated['DB_ROLE_id'] == '3') {
             $validated['DB_SECTION_id'] = null;

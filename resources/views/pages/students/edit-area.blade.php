@@ -45,7 +45,7 @@
 
 								@if ($grade->id == $section->DB_GRADE_id)
 
-									<option value = "{{ $section->id }}" {{ $student->{'DB_SECTION_id_g'.$grade->grade} == $section->id ? "selected" : "" }}>{{ $section->section }} {{ $section->user }}</option>
+									<option value = "{{ $section->id }}" {{ $student->{'DB_SECTION_id_g'.$grade->grade} == $section->id ? 'selected' : '' }}>{{ $section->section }} {{ $section->user }}</option>
 
 								@endif
 
@@ -100,7 +100,7 @@
 
 							@foreach ($years as $year)
 
-								<option value = "{{ $year->id }}" {{ $student->{'DB_YEAR_id_g'.$grade->grade} == $year->id ? "selected" : "" }}>{{ $year->year }}-{{ $year->year + 1 }}</option>
+								<option value = "{{ $year->id }}" {{ $student->{'DB_YEAR_id_g'.$grade->grade} == $year->id ? 'selected' : '' }}>{{ $year->year }}-{{ $year->year + 1 }}</option>
 
 							@endforeach
 

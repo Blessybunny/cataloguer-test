@@ -7,6 +7,8 @@ Route::get('/', 'App\Http\Controllers\LoginController@redirect');
 Route::get('/login', 'App\Http\Controllers\LoginController@index_1')->name('login');
 Route::post('/login', 'App\Http\Controllers\LoginController@index_2');
 
+// MIDDLEWARE
+Route::middleware(['auth'])->group(function () {
     // HOME
     Route::get('/home', 'App\Http\Controllers\Controller@land');
 
@@ -74,6 +76,4 @@ Route::post('/login', 'App\Http\Controllers\LoginController@index_2');
 
     Route::get('/years/edit/{id}', 'App\Http\Controllers\YearController@edit_1');
     Route::post('/years/edit/{id}', 'App\Http\Controllers\YearController@edit_2');
-    // MIDDLEWARE
-    Route::middleware(['auth'])->group(function () {
 });

@@ -27,13 +27,31 @@ class Controller extends BaseController {
      * AUTH
      */
     public function auth () {
-        $auth = User::find(8); // Auth::user(); // User::find(4)
+        $auth = Auth::user(); // Auth::user(); // User::find(4)
 
         if ($auth != null) {
             $auth->is_principal = $auth->DB_ROLE_id == 1 ? true : false;
             $auth->is_administrator = $auth->DB_ROLE_id == 2 ? true : false;
             $auth->is_grade_level_coordinator = $auth->DB_ROLE_id == 3 ? true : false;
             $auth->is_adviser = $auth->DB_ROLE_id == 4 ? true : false;
+
+            if (
+                $auth->is_principal ||
+                $auth->is_administrator
+            ) {
+                $auth->ST_subject_fil = true;
+                $auth->ST_subject_eng = true;
+                $auth->ST_subject_mat = true;
+                $auth->ST_subject_sci = true;
+                $auth->ST_subject_ap = true;
+                $auth->ST_subject_ep = true;
+                $auth->ST_subject_tle = true;
+                $auth->ST_subject_mapeh = true;
+                $auth->ST_subject_jp = true;
+
+                $auth->ST_subject_sf10_acads = true;
+                $auth->ST_subject_sf10_grade = true;
+            }
         }
 
         return $auth;

@@ -61,6 +61,7 @@ class DatabaseSeeder extends Seeder {
         Section::create(['DB_GRADE_id' => '2', 'section' => '8-H']);
         Section::create(['DB_GRADE_id' => '2', 'section' => null]);
         Section::create(['DB_GRADE_id' => '2', 'section' => null]);
+
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-A']);
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-B']);
         Section::create(['DB_GRADE_id' => '3', 'section' => '9-C']);

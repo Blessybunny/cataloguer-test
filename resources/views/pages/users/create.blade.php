@@ -136,7 +136,7 @@
 
 						@foreach ($years as $year)
 
-							<option value = "{{ $year->id }}" {{ old("DB_YEAR_id") == $year->id ? "selected" : "" }}>{{ $year->full }}</option>
+							<option value = "{{ $year->id }}" {{ old('DB_YEAR_id') == $year->id ? 'selected' : '' }}>{{ $year->full }}</option>
 
 						@endforeach
 
@@ -145,6 +145,112 @@
 
 					<!-- Subject Designation -->
 					<b>Subject Designations:</b>
+					<div class = "border-all-light" style = "padding: 15px;">
+						<label class = "highlight">
+							<input
+								name = "ST_subject_fil"
+								type = "checkbox"
+								{{ old('ST_subject_fil') ? 'checked' : '' }}
+							>
+							<span>Filipino</span>
+						</label>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_eng"
+								type = "checkbox"
+								{{ old('ST_subject_eng') ? 'checked' : '' }}
+							>
+							<span>English</span>
+						</label>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_mat"
+								type = "checkbox"
+								{{ old('ST_subject_mat') ? 'checked' : '' }}
+							>
+							<span>Mathematics</span>
+						</label>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_sci"
+								type = "checkbox"
+								{{ old('ST_subject_sci') ? 'checked' : '' }}
+							>
+							<span>Science</span>
+						</label>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_ap"
+								type = "checkbox"
+								{{ old('ST_subject_ap') ? 'checked' : '' }}
+							>
+							<span>Araling Panlipunan (AP)</span>
+						</label>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_ep"
+								type = "checkbox"
+								{{ old('ST_subject_ep') ? 'checked' : '' }}
+							>
+							<span>Edukasyon sa Pagpapakatao (EP)</span>
+						</label>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_tle"
+								type = "checkbox"
+								{{ old('ST_subject_tle') ? 'checked' : '' }}
+							>
+							<span>Technology and Livelihood Education (TLE)</span>
+						</label>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_mapeh"
+								type = "checkbox"
+								{{ old('ST_subject_mapeh') ? 'checked' : '' }}
+							>
+							<span>MAPEH</span>
+						</label>
+						<hr>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_jp"
+								type = "checkbox"
+								{{ old('ST_subject_jp') ? 'checked' : '' }}
+							>
+							<span>Nihongo</span>
+						</label>
+					</div>
+					<br>
+
+					<!-- Miscellaneous -->
+					<b>Miscellaneous:</b>
+					<div class = "border-all-light" style = "padding: 15px;">
+						<label class = "highlight">
+							<input
+								name = "ST_subject_sf10_acads"
+								type = "checkbox"
+								{{ old('ST_subject_sf10_acads') ? 'checked' : '' }}
+							>
+							<span>
+								Allow editing on SF10 academic fields
+								<br>
+								(enrollment, certification)
+							</span>
+						</label>
+						<hr>
+						<label class = "highlight">
+							<input
+								name = "ST_subject_sf10_grade"
+								type = "checkbox"
+								{{ old('ST_subject_sf10_grade') ? 'checked' : '' }}
+							>
+							<span>
+								Allow editing on SF10 grading fields
+								<br>
+								(scholastic records)
+							</span>
+						</label>
+					</div>
 
 				</div>
 				<div class = "col-4">
@@ -156,7 +262,7 @@
 
 						@foreach ($grades as $grade)
 
-							<option value = "{{ $grade->id }}" {{ old("DB_GRADE_id") == $grade->id ? "selected" : "" }}>Grade {{ $grade->grade }}</option>
+							<option value = "{{ $grade->id }}" {{ old('DB_GRADE_id') == $grade->id ? 'selected' : '' }}>Grade {{ $grade->grade }}</option>
 
 						@endforeach
 
@@ -172,7 +278,7 @@
 
 						@foreach ($sections as $section)
 
-							<option value = "{{ $section->id }}" {{ old("DB_SECTION_id") == $section->id ? "selected" : "" }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
+							<option value = "{{ $section->id }}" {{ old('DB_SECTION_id') == $section->id ? 'selected' : '' }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
 
 						@endforeach
 

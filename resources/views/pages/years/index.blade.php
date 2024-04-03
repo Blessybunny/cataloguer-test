@@ -122,7 +122,7 @@
 
 						<hr>
 
-						{!! $years->appends(array("terms" => $terms))->links() !!}
+						{!! $years->appends(array('terms' => $terms))->links() !!}
 
 						<p>Showing <b>{{ $years->firstItem() }}</b> to <b>{{ $years->firstItem() + $years->count() - 1 }}</b> of <b>{{ $years->total() }}</b> entries</p>
 

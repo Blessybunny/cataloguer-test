@@ -1,6 +1,19 @@
-CHECKPOINT: Done
-make flexible section slots
-recheck Wela
+CHECKPOINT:
+
+
+
+MID PRIORITY:
+    - Subject designation
+    - Update student lock page, use layout similar to user edit/create
+        - miscellaneous
+        - subjects
+
+LOW PRIORITY:
+    - Flexible section slots (add / delete)
+    - Wela
+    - Since principals can't make accounts, make 5 premade admins
+
+
 subject designation (BIG)
 PRINCIPALS SHOULD HAVE NO FORM OF INPUT (JUST VIEW, DASHBOARDS, GRAPHS ETC.)
     - student dashboards:
@@ -9,110 +22,57 @@ PRINCIPALS SHOULD HAVE NO FORM OF INPUT (JUST VIEW, DASHBOARDS, GRAPHS ETC.)
         - how many male/female (maybe)
         - ...
 Table form for sections, remove the simple lists
-Restrict school year editing priveledges to only admins.
-Since principals can't make accounts, make 5 premade admins
+
+
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-DEVELOPER'S NOTES:
-    1. AUTH and ROLE are hard coded across multiple files (see also managers).
-    2. GRADE is hard coded across multiple files (see also layouts and views).
-        - 2023_11_25_145550_create_students_table.php (migration)
-        - DatabaseSeeder.php (seeder)
-    3. A User can only be deleted if a day has passed since the last login, logout, or account edit.
+DEVELOPER'S IMPORTANT NOTES:
+    1. A USER can only be deleted if a day has passed since the following of any of these activities:
+        - Create
+        - Edit
+        - Password change
+        - Login
+        - Logout
+    2. Many AUTH values are hardcoded across all work files:
+        - Blades
+        - Controllers
+    3. Many miscellaneous values are hardcoded across all work files (see also work files):
+        - Blades
+        - Controllers
+        - Migrations
+    4. Many seeder values are hardcoded:
+        - Grades
+        - Roles
+        - Sections (10 minimum)
+        - Users (5 minimum administrators)
+    4. All subject values have no dedicated table and are hardcoded across all work files:
+        - Blades
+        - Controllers
+        - Migrations
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
-
-
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+THE WORK FILES (Complete boundary):
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 CONTROLLER:
     - Controller
     - Login
-    - Student               Gradecoded -> 7, 8, 9, 10
+    - Section
+    - Student               Hardcoded (Grade-based query fields)
     - User
+    - Year
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 MIGRATION:
-    - grade
-    - role
-    - section
-    - year
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-BLADE - Pages:
-    - home
-    - login
-
-
-BLADE - Student:
-    - create
-    - delete
-    - edit-area
-    - edit-form
-    - edit-info
-    - edit-lock
-    - index
-    - view                  SFcoded -> 9, 10
-
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-PERMISSION - Grade Level Coordinator:
-    - Student
-        - create            Deny
-        - view              Allow
-        - edit info         Deny
-        - edit area         Deny
-        - edit form         Allow
-        - edit lock         Deny
-        - delete            Deny
-PERMISSION - Adviser:
-    - Student
-        - create            Deny
-        - view              Allow
-        - edit info         Deny
-        - edit area         Deny
-        - edit form         Allow
-        - edit lock         Deny
-        - delete            Deny
-PERMISSION - Teacher:
-    - Student
-        - create            Deny
-        - view              Allow
-        - edit info         Deny
-        - edit area         Deny
-        - edit form         Deny
-        - edit lock         Deny
-        - delete            Deny
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-RESOURCES - Layout:
-    - meta
-    - page
-    - sf9-back
-    - sf9-front
-    - sf10-back                     Gradecoded -> 9, 10, Sidecoded -> back
-    - sf10-certification
-    - sf10-front                    Gradecoded -> 7, 8, Sidecoded -> front
-    - sf10-scholastic-record
-    - stats
-RESOURCES - Less:
-    - general.Less
-    - students.less
-RESOURCES - Script:
-    - general.js
-    - students.js
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-THE COMPLETE BOUNDARY:
---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-CONTROLLER:
-    - Section (Tested)
-    - User (Tested)
-    - Year (Tested)
-//mark tests inside comments for each function later
-
+    - grades
+    - roles
+    - sections
+    - students              Hardcoded ('grade_min' = [7]; 'grade_max' = [10])
+    - teachers
+    - users
+    - years
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 PERMISSION - Principal:
     - Section
@@ -156,11 +116,31 @@ PERMISSION - Administrator:
         - create            Allow
         - view              Allow
         - edit              Allow
+PERMISSION - Grade Level Coordinator / Adviser:
+        - create            Deny
+        - delete            Deny
+        - edit area         Deny
+        - edit form         Allow (limited)
+        - edit info         Deny
+        - edit lock         Deny
+        - view              Allow (limited)
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BLADE - Pages:
+    - home
+    - login
 BLADE - Section:
     - edit
     - index
     - view
+BLADE - Student:
+    - create
+    - delete
+    - edit-area
+    - edit-form
+    - edit-info
+    - edit-lock
+    - index
+    - view                  Hardcoded ('sf' = [9, 10])
 BLADE - User:
     - create
     - delete
@@ -173,6 +153,23 @@ BLADE - Year:
     - edit
     - index
     - view
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+RESOURCE - Layout:
+    - meta
+    - page
+    - sf9-back
+    - sf9-front
+    - sf10-back                     Hardcoded ('grade' = [9, 10]; 'side' = [back])
+    - sf10-certification
+    - sf10-front                    Hardcoded ('grade' = [7, 8]; 'side' = [front])
+    - sf10-scholastic-record
+    - stats
+RESOURCE - Less:
+    - general.Less
+    - students.less
+RESOURCE - Script:
+    - general.js
+    - students.js
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 SEARCH - Student:
     - info_name_last

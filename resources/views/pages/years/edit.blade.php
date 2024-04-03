@@ -40,7 +40,7 @@
 
 						@foreach ($users as $user)
 
-							<option value = "{{ $user->id }}" {{ $year->DB_USER_id == $user->id ? "selected" : "" }}>{{ $user->name_last }}, {{ $user->name_first }}</option>
+							<option value = "{{ $user->id }}" {{ $year->DB_USER_id == $user->id ? 'selected' : '' }}>{{ $user->name_last }}, {{ $user->name_first }}</option>
 
 						@endforeach
 

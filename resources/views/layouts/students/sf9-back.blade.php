@@ -27,7 +27,7 @@
 				<!-- Subject -> filipino -->
 				<tr>
 					<td>Filipino {{ $grade->grade }}</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_fil ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_fil"
@@ -35,10 +35,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_fil'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_fil ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_fil ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_fil"
@@ -46,10 +46,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_fil'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_fil ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_fil ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_fil"
@@ -57,10 +57,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_fil'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_fil ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_fil ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_fil"
@@ -68,7 +68,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_fil'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_fil ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "text-center" data-property = "average" data-targets = '[
@@ -88,7 +88,7 @@
 				<!-- Subject -> english -->
 				<tr>
 					<td>English {{ $grade->grade }}</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_eng ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_eng"
@@ -96,10 +96,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_eng'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_eng ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_eng ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_eng"
@@ -107,10 +107,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_eng'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_eng ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_eng ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_eng"
@@ -118,10 +118,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_eng'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_eng ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_eng ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_eng"
@@ -129,7 +129,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_eng'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_eng ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "text-center" data-property = "average" data-targets = '[
@@ -149,7 +149,7 @@
 				<!-- Subject -> mathematics -->
 				<tr>
 					<td>Mathemathics {{ $grade->grade }}</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mat ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_mat"
@@ -157,10 +157,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_mat'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mat ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mat ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_mat"
@@ -168,10 +168,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_mat'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mat ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mat ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_mat"
@@ -179,10 +179,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_mat'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mat ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mat ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_mat"
@@ -190,7 +190,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_mat'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mat ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "text-center" data-property = "average" data-targets = '[
@@ -210,7 +210,7 @@
 				<!-- Subject -> science -->
 				<tr>
 					<td>Science {{ $grade->grade }}</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_sci ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_sci"
@@ -218,10 +218,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_sci'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_sci ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_sci ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_sci"
@@ -229,10 +229,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_sci'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_sci ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_sci ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_sci"
@@ -240,10 +240,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_sci'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_sci ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_sci ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_sci"
@@ -251,7 +251,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_sci'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_sci ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "text-center" data-property = "average" data-targets = '[
@@ -271,7 +271,7 @@
 				<!-- Subject -> araling panlipunan (ap) -->
 				<tr>
 					<td>Araling Panlipunan (AP) {{ $grade->grade }}</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ap ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_ap"
@@ -279,10 +279,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_ap'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_ap ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ap ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_ap"
@@ -290,10 +290,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_ap'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_ap ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ap ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_ap"
@@ -301,10 +301,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_ap'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_ap ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ap ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_ap"
@@ -312,7 +312,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_ap'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_ap ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "text-center" data-property = "average" data-targets = '[
@@ -332,7 +332,7 @@
 				<!-- Subject -> edukasyon sa pagpapakatao (ep) -->
 				<tr>
 					<td>Edukasyon sa Pagpapakatao (EP) {{ $grade->grade }}</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ep ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_ep"
@@ -340,10 +340,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_ep'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_ep ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ep ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_ep"
@@ -351,10 +351,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_ep'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_ep ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ep ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_ep"
@@ -362,10 +362,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_ep'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_ep ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ep ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_ep"
@@ -373,7 +373,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_ep'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_ep ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "text-center" data-property = "average" data-targets = '[
@@ -393,7 +393,7 @@
 				<!-- Subject -> technology and livelihood education (tle) -->
 				<tr>
 					<td>Technology and Livelihood Education (TLE) {{ $grade->grade }}</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_tle ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_tle"
@@ -401,10 +401,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_tle'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_tle ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_tle ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_tle"
@@ -412,10 +412,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_tle'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_tle ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_tle ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_tle"
@@ -423,10 +423,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_tle'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_tle ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_tle ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_tle"
@@ -434,7 +434,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_tle'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_tle ? 'disabled' : '' }}
 						>
 					</td>
 					<td class = "text-center" data-property = "average" data-targets = '[
@@ -525,7 +525,7 @@
 				<!-- Subject -> music -->
 				<tr>
 					<td style = "text-indent: 15px;">Music</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_mus"
@@ -533,10 +533,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_mus'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_mus"
@@ -544,10 +544,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_mus'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_mus"
@@ -555,10 +555,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_mus'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_mus"
@@ -566,7 +566,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_mus'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
 					<td colspan = "2" rowspan = "4"></td>
@@ -575,7 +575,7 @@
 				<!-- Subject -> arts -->
 				<tr>
 					<td style = "text-indent: 15px;">Arts</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_art"
@@ -583,10 +583,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_art'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_art"
@@ -594,10 +594,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_art'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_art"
@@ -605,10 +605,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_art'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_art"
@@ -616,7 +616,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_art'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -624,7 +624,7 @@
 				<!-- Subject -> physical education -->
 				<tr>
 					<td style = "text-indent: 15px;">Physical Education</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_pe"
@@ -632,10 +632,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_pe'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_pe"
@@ -643,10 +643,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_pe'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_pe"
@@ -654,10 +654,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_pe'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_pe"
@@ -665,7 +665,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_pe'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -673,7 +673,7 @@
 				<!-- Subject -> health -->
 				<tr>
 					<td style = "text-indent: 15px;">Health</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr1_hp"
@@ -681,10 +681,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_hp'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr2_hp"
@@ -692,10 +692,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_hp'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr3_hp"
@@ -703,10 +703,10 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_hp'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
-					<td class = "highlight">
+					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
 						<input
 							class = "text-center"
 							name = "sf9_g{{ $grade->grade }}_subject_qr4_hp"
@@ -714,7 +714,7 @@
 							min = "0"
 							max = "100"
 							value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_hp'} }}"
-							{{ $student->ST_locker ? "disabled" : "" }}
+							{{ $student->ST_locker || !$auth->ST_subject_mapeh ? 'disabled' : '' }}
 						>
 					</td>
 				</tr>
@@ -725,7 +725,7 @@
 
 					<tr>
 						<td>Nihongo {{ $grade->grade }}</td>
-						<td class = "highlight">
+						<td class = "{{ $student->ST_locker || !$auth->ST_subject_jp ? '' : 'highlight' }}">
 							<input
 								class = "text-center"
 								name = "sf9_g{{ $grade->grade }}_subject_qr1_jp"
@@ -733,10 +733,10 @@
 								min = "0"
 								max = "100"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr1_jp'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker || !$auth->ST_subject_jp ? 'disabled' : '' }}
 							>
 						</td>
-						<td class = "highlight">
+						<td class = "{{ $student->ST_locker || !$auth->ST_subject_jp ? '' : 'highlight' }}">
 							<input
 								class = "text-center"
 								name = "sf9_g{{ $grade->grade }}_subject_qr2_jp"
@@ -744,10 +744,10 @@
 								min = "0"
 								max = "100"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr2_jp'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker || !$auth->ST_subject_jp ? 'disabled' : '' }}
 							>
 						</td>
-						<td class = "highlight">
+						<td class = "{{ $student->ST_locker || !$auth->ST_subject_jp ? '' : 'highlight' }}">
 							<input
 								class = "text-center"
 								name = "sf9_g{{ $grade->grade }}_subject_qr3_jp"
@@ -755,10 +755,10 @@
 								min = "0"
 								max = "100"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr3_jp'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker || !$auth->ST_subject_jp ? 'disabled' : '' }}
 							>
 						</td>
-						<td class = "highlight">
+						<td class = "{{ $student->ST_locker || !$auth->ST_subject_jp ? '' : 'highlight' }}">
 							<input
 								class = "text-center"
 								name = "sf9_g{{ $grade->grade }}_subject_qr4_jp"
@@ -766,7 +766,7 @@
 								min = "0"
 								max = "100"
 								value = "{{ $student->{'sf9_g'.$grade->grade.'_subject_qr4_jp'} }}"
-								{{ $student->ST_locker ? "disabled" : "" }}
+								{{ $student->ST_locker || !$auth->ST_subject_jp ? 'disabled' : '' }}
 							>
 						</td>
 						<td class = "text-center" data-property = "average" data-targets = '[
@@ -913,78 +913,82 @@
 					<td rowspan = "2">Maka - Diyos</td>
 					<td>Expresses one's spiritual beliefs while respecting the spiritual beliefs of others.</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_md_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_md_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_md_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select
+							class = "text-center"
+							name = "sf9_g{{ $grade->grade }}_values_qr2_md_s1"
+							{{ $student->ST_locker ? 'disabled' : '' }}
+						>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_md_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_md_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_md_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_md_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Shows adherence to ethical principles by upholding truth.</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_md_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_md_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_md_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_md_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_md_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_md_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_md_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_md_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_md_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_md_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_md_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_md_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 				</tr>
@@ -994,78 +998,78 @@
 					<td rowspan = "2">Maka - Tao</td>
 					<td>Is sensitive to individual, social and cultural differences.</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mt_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mt_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mt_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mt_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mt_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mt_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mt_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mt_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Demonstrates contributions toward solidarity.</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mt_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mt_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mt_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mt_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mt_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mt_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mt_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mt_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mt_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mt_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mt_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mt_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 				</tr>
@@ -1075,39 +1079,39 @@
 					<td>Maka - Kalikasan</td>
 					<td>Cares for the environment and utilizes resources  wisely, judiciously and economically.</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mk" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mk" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mk'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mk" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mk" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mk'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mk" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mk" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mk'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mk" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mk" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mk'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 				</tr>
@@ -1117,78 +1121,78 @@
 					<td rowspan = "2">Maka - Bansa</td>
 					<td>Demonstrates pride in being a Filipino; exercises the rights and responsibilities of a Filipino Citizen.</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mb_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mb_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mb_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mb_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mb_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mb_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mb_s1" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mb_s1" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s1'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Demonstrates appropriate behavior in carrying out activities in the school, community and country.</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mb_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr1_mb_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr1_mb_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mb_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr2_mb_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr2_mb_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mb_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr3_mb_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr3_mb_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 					<td class = "highlight">
-						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mb_s2" {{ $student->ST_locker ? "disabled" : "" }}>
-							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == "" ? "selected" : "" }}></option>
-							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == "AO" ? "selected" : "" }}>AO</option>
-							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == "SO" ? "selected" : "" }}>SO</option>
-							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == "RO" ? "selected" : "" }}>RO</option>
-							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == "NO" ? "selected" : "" }}>NO</option>
+						<select class = "text-center" name = "sf9_g{{ $grade->grade }}_values_qr4_mb_s2" {{ $student->ST_locker ? 'disabled' : '' }}>
+							<option value = "" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == '' ? 'selected' : '' }}></option>
+							<option value = "AO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == 'AO' ? 'selected' : '' }}>AO</option>
+							<option value = "SO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == 'SO' ? 'selected' : '' }}>SO</option>
+							<option value = "RO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == 'RO' ? 'selected' : '' }}>RO</option>
+							<option value = "NO" {{ $student->{'sf9_g'.$grade->grade.'_values_qr4_mb_s2'} == 'NO' ? 'selected' : '' }}>NO</option>
 						</select>
 					</td>
 				</tr>

@@ -31,50 +31,56 @@
                 <div class = "col-12">
                     <hr>
                 </div>
-                <div class = "col-12">
+                <div class = "col-4">
 
-                    <!-- Lock Editing -->
-                    <label>
-                        &nbsp;
-                        <input
-                            name = "ST_locker"
-                            type = "checkbox"
-                            {{  $student->ST_locker == true ? "checked" : "" }}
-                        >
-                        Lock Editing
-                    </label>
-                    <br>
+					<!-- Miscellaneous -->
+					<b>Miscellaneous:</b>
+					<div class = "border-all-light" style = "padding: 15px;">
+                        <label>
+                            <input
+                                name = "ST_locker"
+                                type = "checkbox"
+                                {{  $student->ST_locker ? 'checked' : '' }}
+                            >
+                            <span>Lock Editing</span>
+                        </label>
+                    </div>
+
+                </div>
+                <div class = "col-4">
                     
-                    <!-- Show Nihongo -->
+                    <!-- Subject (Nihongo) -->
+					<b>Subject (Nihongo):</b>
+					<div class = "border-all-light" style = "padding: 15px;">
 
-                    @foreach ($grades as $grade)
+                        @foreach ($grades as $grade)
 
-                        <label>
-                            &nbsp;
-                            <input
-                                name = "ST_sf9_g{{ $grade->grade }}_subject_jp"
-                                type = "checkbox"
-                                {{  $student->{'ST_sf9_g'.$grade->grade.'_subject_jp'} == true ? "checked" : "" }}
-                            >
-                            Show subject Nihongo for SF9 (Grade {{ $grade->grade }})
-                        </label>
-                        <label>
-                            &nbsp;
-                            <input
-                                name = "ST_sf10_g{{ $grade->grade }}_subject_jp"
-                                type = "checkbox"
-                                {{  $student->{'ST_sf10_g'.$grade->grade.'_subject_jp'} == true ? "checked" : "" }}
-                            >
-                            Show subject Nihongo for SF10 (Grade {{ $grade->grade }})
-                        </label>
+                            <label>
+                                <input
+                                    name = "ST_sf9_g{{ $grade->grade }}_subject_jp"
+                                    type = "checkbox"
+                                    {{  $student->{'ST_sf9_g'.$grade->grade.'_subject_jp'} ? 'checked' : '' }}
+                                >
+                                <span>Show for SF9 (Grade {{ $grade->grade }})</span>
+                            </label>
+                            <label>
+                                <input
+                                    name = "ST_sf10_g{{ $grade->grade }}_subject_jp"
+                                    type = "checkbox"
+                                    {{  $student->{'ST_sf10_g'.$grade->grade.'_subject_jp'} ? 'checked' : '' }}
+                                >
+                                <span>Show for SF10 (Grade {{ $grade->grade }})</span>
+                            </label>
 
-                        @if ($loop->index + 1 != $loop->count)
+                            @if ($loop->index + 1 != $loop->count)
 
-                            <br>
+                                <hr>
 
-                        @endif
+                            @endif
 
-                    @endforeach
+                        @endforeach
+
+                    </div>
 
                 </div>
             </div>

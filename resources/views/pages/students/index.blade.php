@@ -162,7 +162,7 @@
 
 						<hr>
 
-						{!! $students->appends(array("terms" => $terms))->links() !!}
+						{!! $students->appends(array('terms' => $terms))->links() !!}
 
 						<p>Showing <b>{{ $students->firstItem() }}</b> to <b>{{ $students->firstItem() + $students->count() - 1 }}</b> of <b>{{ $students->total() }}</b> entries</p>
 
