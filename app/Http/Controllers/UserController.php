@@ -183,10 +183,12 @@ class UserController extends Controller {
         }
 
         // Proceed
+        $students = self::Format_Students($user, Student::query());
         $user = self::Format_User($user);
 
         return view('pages.users.view')
             ->with('auth', $auth)
+            ->with('students', $students)
             ->with('user', $user);
     }
 
@@ -395,6 +397,98 @@ class UserController extends Controller {
     }
 
     // ----------------------------------------------------------------------------------------------------
+
+    /**
+     * FUNCTION: format student (many) [BORROWED CODE: see StudentController.php]
+     */
+    public function Format_Students ($user, $students) {
+        // Order
+        $students = $students
+            ->orderBy('info_name_last', 'ASC')
+            ->orderBy('info_name_first', 'ASC')
+            ->orderBy('info_name_middle', 'ASC')
+            ->orderBy('info_name_suffix', 'ASC');
+
+        // Grade Level Coordinator
+        if ($user->DB_ROLE_id == '3') {
+            $grade = Grade::find($user->DB_GRADE_id);
+
+            // Grab something if both the designated school year and grade level are defined
+            if ($user->DB_YEAR_id != null && $grade != null) {
+                $students = $students
+                    ->whereNotNull('DB_SECTION_id_g'.$grade->grade)
+                    ->whereNotNull('DB_YEAR_id_g'.$grade->grade)
+                    ->where('DB_YEAR_id_g'.$grade->grade, $user->DB_YEAR_id);
+            }
+            else {
+                $students = $students->where('id', -1);
+            }
+        }
+
+        // Adviser
+        if ($user->DB_ROLE_id == '4') {
+            $classes = Teacher::where('DB_USER_id', $user->id)->pluck('DB_SECTION_id')->toArray();
+
+            // Grab something if both the designated school year and classes are defined
+            if ($user->DB_YEAR_id != null && count($classes) > 0) {
+                $students = $students
+                    ->where(function ($query) use ($user, $classes) {
+                        $query->whereNotNull('DB_SECTION_id_g7')
+                            ->whereNotNull('DB_YEAR_id_g7')
+                            ->whereIn('DB_SECTION_id_g7', $classes)
+                            ->where('DB_YEAR_id_g7', $user->DB_YEAR_id);
+                    })
+                    ->orWhere(function($query) use ($user, $classes) {
+                        $query->whereNotNull('DB_SECTION_id_g8')
+                            ->whereNotNull('DB_YEAR_id_g8')
+                            ->whereIn('DB_SECTION_id_g8', $classes)
+                            ->where('DB_YEAR_id_g8', $user->DB_YEAR_id);
+                    })
+                    ->orWhere(function($query) use ($user, $classes) {
+                        $query->whereNotNull('DB_SECTION_id_g9')
+                            ->whereNotNull('DB_YEAR_id_g9')
+                            ->whereIn('DB_SECTION_id_g9', $classes)
+                            ->where('DB_YEAR_id_g9', $user->DB_YEAR_id);
+                    })
+                    ->orWhere(function($query) use ($user, $classes) {
+                        $query->whereNotNull('DB_SECTION_id_g10')
+                            ->whereNotNull('DB_YEAR_id_g10')
+                            ->whereIn('DB_SECTION_id_g10', $classes)
+                            ->where('DB_YEAR_id_g10', $user->DB_YEAR_id);
+                    });
+            }
+            else {
+                $students = $students->where('id', -1);
+            }
+        }
+
+        // Get
+        $students = $students->get();
+
+        // Section
+        $grades = Grade::all();
+
+        foreach ($students as $student) {
+            do {
+                foreach ($grades as $grade) {
+                    if ($student->{'DB_YEAR_id_g'.$grade->grade} == $user->DB_YEAR_id) {
+                        $student->section = Section::find($student->{'DB_SECTION_id_g'.$grade->grade});
+
+                        if ($student->section != null) {
+                            $student->grade = Grade::find($student->section->DB_GRADE_id)->grade;
+                            $student->section = $student->section->section;
+                        }
+
+                        break;
+                    }
+                }
+            }
+            while (false);
+        }
+
+        // Return
+        return $students;
+    }
 
     /**
      * FUNCTION: format user (one)

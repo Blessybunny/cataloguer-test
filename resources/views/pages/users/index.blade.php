@@ -111,10 +111,10 @@
 						<script>
 							const table = new DataTable('#index', {
 								columnDefs: [
-									{ className: "dt-head-left", targets: [ 0, 1 ] },
 									{ "orderable": false, "targets": [2] },
 								],
 								info: false,
+								order: [[1, 'asc']],
 								paging: false,
 								searching: false,
 							});

@@ -115,6 +115,7 @@
 									{ "orderable": false, "targets": [1, 2] },
 								],
 								info: false,
+								order: [[0, 'desc']],
 								paging: false,
 								searching: false,
 							});

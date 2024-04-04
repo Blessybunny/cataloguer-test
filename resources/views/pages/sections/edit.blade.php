@@ -42,6 +42,8 @@
 							maxlength = "50"
 							value = "{{ $section->section }}"
 						>
+						Note: changes to this field will have its old value saved (legacy) on all students associated with the section
+						<br>
 
 						@if ($loop->index + 1 != $loop->count)
 

@@ -29,7 +29,7 @@
 				<table class = "table">
 					<thead>
 						<tr>
-							<th class = "text-left" width = "200">Level</th>
+							<th class = "text-left" width = "200">Grade</th>
 							<th></th>
 							<th class = "text-left" width = "200">Action</th>
 						</tr>
@@ -39,7 +39,7 @@
 						@foreach ($grades as $grade)
 
 							<tr>
-								<td class = "text-center">Grade {{ $grade->grade }}</td>
+								<td class = "text-center">{{ $grade->grade }}</td>
 								<td></td>
 								<td>
 									<div class = "container-fluid">

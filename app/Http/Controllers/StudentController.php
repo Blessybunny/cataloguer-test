@@ -119,7 +119,7 @@ class StudentController extends Controller {
             'info_birthdate' => $validated['info_birthdate'],
         ]);
 
-        return self::redirect();
+        return redirect()->to('/students/edit/area/'.$student->id);
     }
 
     /**
@@ -1144,7 +1144,7 @@ class StudentController extends Controller {
     // ----------------------------------------------------------------------------------------------------
 
     /**
-     * FUNCTION: format grades (many)
+     * FUNCTION: format grade (many)
      */
     public function Format_Grades ($auth, $student, $grades) {
         // Grades
@@ -1183,7 +1183,7 @@ class StudentController extends Controller {
     }
 
     /**
-     * FUNCTION: format year (one)
+     * FUNCTION: format student (one)
      */
     public function Format_Student ($auth, $student) {
         // Format
@@ -1292,7 +1292,7 @@ class StudentController extends Controller {
     }
 
     /**
-     * FUNCTION: format year (many)
+     * FUNCTION: format student (many)
      */
     public function Format_Students ($auth, $students) {
         // Order

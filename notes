@@ -1,12 +1,20 @@
 CHECKPOINT:
 
 
+HIGH PRIORITY:
+    - subject designation per section
+    - pseudo check box/drop down plus button
 
 MID PRIORITY:
-    - Subject designation
-    - Update student lock page, use layout similar to user edit/create
-        - miscellaneous
-        - subjects
+    - quality of life changes:
+        - save prompts (saving/success)
+    - enrollee count for unassigned grade ids
+    - archived 9not legacy)
+    - glc missing students?????
+
+
+    - add enrollee tables to (year > view.php)
+            - add legacy "(Legacy)" support for section and adviser columns in enrollee tables (year > view.php and home.php)
 
 LOW PRIORITY:
     - Flexible section slots (add / delete)
@@ -14,14 +22,7 @@ LOW PRIORITY:
     - Since principals can't make accounts, make 5 premade admins
 
 
-subject designation (BIG)
 PRINCIPALS SHOULD HAVE NO FORM OF INPUT (JUST VIEW, DASHBOARDS, GRAPHS ETC.)
-    - student dashboards:
-        - how many enrollees of a school year,
-        - how many in this section,
-        - how many male/female (maybe)
-        - ...
-Table form for sections, remove the simple lists
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

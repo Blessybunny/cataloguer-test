@@ -35,10 +35,7 @@ class Controller extends BaseController {
             $auth->is_grade_level_coordinator = $auth->DB_ROLE_id == 3 ? true : false;
             $auth->is_adviser = $auth->DB_ROLE_id == 4 ? true : false;
 
-            if (
-                $auth->is_principal ||
-                $auth->is_administrator
-            ) {
+            if ($auth->is_administrator) {
                 $auth->ST_subject_fil = true;
                 $auth->ST_subject_eng = true;
                 $auth->ST_subject_mat = true;
@@ -68,8 +65,39 @@ class Controller extends BaseController {
             return (new LoginController)->redirect();
         }
 
+        // Details
+        $year = (new YearController)->Format_Year(Year::orderBy('year', 'DESC')->first());
+        $grades = Grade::all();
+        $students = Student::orderBy('info_name_last', 'ASC')
+            ->where('DB_YEAR_id_g7', $year->id)
+            ->orWhere('DB_YEAR_id_g8', $year->id)
+            ->orWhere('DB_YEAR_id_g9', $year->id)
+            ->orWhere('DB_YEAR_id_g10', $year->id)
+            ->get();
+
+        foreach ($students as $student) {
+            do {
+                foreach ($grades as $grade) {
+                    if ($student->{'DB_YEAR_id_g'.$grade->grade} == $year->id) {
+                        $student->section = Section::find($student->{'DB_SECTION_id_g'.$grade->grade});
+
+                        if ($student->section != null) {
+                            $student->grade = Grade::find($student->section->DB_GRADE_id)->grade;
+                            $student->user = User::find($student->section->DB_USER_id);
+                            $student->section = $student->section->section;
+                        }
+
+                        break;
+                    }
+                }
+            }
+            while (false);
+        }
+
         // Proceed
         return view('pages.home')
-            ->with('auth', $auth);
+            ->with('auth', $auth)
+            ->with('students', $students)
+            ->with('year', $year);
     }
 }

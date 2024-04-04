@@ -68,6 +68,7 @@
 						@endforeach
 
 					</select>
+					Note: changes to this field for advisers will have their names saved (legacy) on all students associated with the user
 
 				</div>
 			</div>
@@ -240,6 +241,8 @@
 						@endforeach
 
 					</select>
+					Note: changes to this field for advisers will have their names saved (legacy) on all students associated with the user
+					<br>
 					<br>
 
 					<!-- Class Designations -->

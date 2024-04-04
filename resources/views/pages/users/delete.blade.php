@@ -34,6 +34,9 @@
 				</div>
 				<div class = "col-12">
                     <p class = "text-center">
+						All fields associated with this user will have some of their values saved (legacy)
+                        <br>
+                        <br>
                         You are about to delete <b>{{ $user->name_last }}, {{ $user->name_first }}</b>
                         <br>
                         This action cannot be reverted

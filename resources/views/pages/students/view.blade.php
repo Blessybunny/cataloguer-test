@@ -66,10 +66,10 @@
 							</ul>
 						</li>
 						<li class = "nav-item">
-							<a class = "nav-link" data-bs-toggle = "tab" data-bs-target = "#tab-sf9-stats">Status Report (SF9)</a>
+							<a class = "nav-link" data-bs-toggle = "tab" data-bs-target = "#tab-sf9-stats">SF9 | Status Report</a>
 						</li>
 						<li class = "nav-item">
-							<a class = "nav-link" data-bs-toggle = "tab" data-bs-target = "#tab-sf10-stats">Status Report (SF10)</a>
+							<a class = "nav-link" data-bs-toggle = "tab" data-bs-target = "#tab-sf10-stats">SF10 | Status Report</a>
 						</li>
 					</ul>
 					<div class = "tab-content" style = "min-height: 720px">

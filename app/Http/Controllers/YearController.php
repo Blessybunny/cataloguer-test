@@ -256,7 +256,7 @@ class YearController extends Controller {
      * FUNCTION: format year (one)
      */
     public function Format_Year ($year) {
-        // Name
+        // Principal
         $user = User::find($year->DB_USER_id);
 
         if (
@@ -273,9 +273,50 @@ class YearController extends Controller {
             $year->LG_USER_name_last != null &&
             $year->LG_USER_name_first != null
         ) {
+            $year->user_legacy = true;
             $year->user_name_last = $year->LG_USER_name_last;
             $year->user_name_first = $year->LG_USER_name_first;
         }
+
+        // Enrollee Count
+        $year->enrollee_count_g7 = Student::where('DB_YEAR_id_g7', $year->id)
+            ->whereNotNull('DB_SECTION_id_g7')
+            ->get()
+            ->count();
+        $year->enrollee_count_g8 = Student::where('DB_YEAR_id_g8', $year->id)
+            ->whereNotNull('DB_SECTION_id_g8')
+            ->get()
+            ->count();
+        $year->enrollee_count_g9 = Student::where('DB_YEAR_id_g9', $year->id)
+            ->whereNotNull('DB_SECTION_id_g9')
+            ->get()
+            ->count();
+        $year->enrollee_count_g10 = Student::where('DB_YEAR_id_g10', $year->id)
+            ->whereNotNull('DB_SECTION_id_g10')
+            ->get()
+            ->count();
+
+        $year->lg_enrollee_count_g7 = Student::where('DB_YEAR_id_g7', $year->id)
+            ->whereNull('DB_SECTION_id_g7')
+            ->whereNotNull('LG_SECTION_name_g7')
+            ->get()
+            ->count();
+
+        $year->lg_enrollee_count_g8 = Student::where('DB_YEAR_id_g8', $year->id)
+            ->whereNull('DB_SECTION_id_g8')
+            ->whereNotNull('LG_SECTION_name_g8')
+            ->get()
+            ->count();
+        $year->lg_enrollee_count_g9 = Student::where('DB_YEAR_id_g9', $year->id)
+            ->whereNull('DB_SECTION_id_g9')
+            ->whereNotNull('LG_SECTION_name_g9')
+            ->get()
+            ->count();
+        $year->lg_enrollee_count_g10 = Student::where('DB_YEAR_id_g10', $year->id)
+            ->whereNull('DB_SECTION_id_g10')
+            ->whereNotNull('LG_SECTION_name_g10')
+            ->get()
+            ->count();
 
         // Return
         return $year;

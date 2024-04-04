@@ -19,69 +19,173 @@
 			</div>
 			<div class = "align-self-center col-4">
 			</div>
-		</div>
-
-		<!-- View -->
-		<div class = "row">
 			<div class = "col-12">
 				<hr>
-			</div>
-			<div class = "col-12">
-
-				<!-- Timestamp -->
 				<b>Created on: </b>{{ $user->created_at->format('l jS \\of F Y') }}
 				<br>
 				<b>Edited on: </b>{{ $user->updated_at->format('l jS \\of F Y') }}
 				<hr>
+			</div>
+		</div>
 
-				<!-- DepEd ID -->
-				<b>DepEd ID:</b>
-				{{ $user->email }}
-				<br>
-				<br>
+		<!-- View -->
+		<div class = "row">
+			<div class = "col-4">
+				<table class = "table">
+					<tr>
+						<th class = "text-left" colspan = "2">General Information</th>
+					</tr>
+					<tr>
+						<td class = "align-top" width = "100">DepEd ID</td>
+						<td>{{ $user->email }}</td>
+					</tr>
+					<tr>
+						<td class = "align-top" width = "100">Name</td>
+						<td>{{ $user->name_last }}, {{ $user->name_first }}</td>
+					</tr>
+					<tr>
+						<td class = "align-top" width = "100">Role</td>
+						<td>{{ $user->role }}</td>
+					</tr>
+				</table>
+			</div>
+			<div class = "col-4">
+				<table class = "table">
+					<tr>
+						<th class = "text-left" colspan = "2">Designations</th>
+					</tr>
+					<tr>
+						<td class = "align-top" width = "100">School Year</td>
+						<td>{{ $user->year }}</td>
+					</tr>
+					<tr>
+						<td class = "align-top" width = "100">Grade Level</td>
+						<td>{{ $user->grade }}</td>
+					</tr>
+					<tr>
+						<td class = "align-top" width = "100">Section</td>
+						<td>{{ $user->section }}</td>
+					</tr>
+					<tr>
+						<td class = "align-top" width = "100">Classes</td>
+						<td>
 
-				<!-- Name -->
-				<b>Name:</b>
-				{{ $user->name_last }}, {{ $user->name_first }}
-				<br>
-				<br>
+							@foreach ($user->classes as $class)
 
-				<!-- Role -->
-				<b>Role:</b>
-				{{ $user->role }}
-				<br>
+							Grade {{ $class->grade }} | {{ $class->section }}
+							<br>
 
-				<!-- School Year Designation -->
-				<b>School Year Designation:</b>
-				{{ $user->year }}
-				<br>
+							@endforeach
 
-				<!-- Subject Designations -->
-				<b>Subject Designations:</b>
-				<br>
+						</td>
+					</tr>
+					<tr>
+						<td class = "align-top" width = "100">Subjects</td>
+						<td>
 
-				<!-- Grade Level Coordinator's Designation -->
-				<b>Grade Level Coordinator's Designation:</b>
-				{{ $user->grade }}
-				<br>
+							@if ($user->ST_subject_fil || $auth->is_administrator)
 
-				<!-- Adviser's Designation -->
-				<b>Adviser's Designation:</b>
-				{{ $user->section }}
-				<br>
+								Filipino
+								<br>
 
-				<!-- Class Designations -->
-				<b>Class Designations:</b>
-				<ul>
+							@endif
 
-					@foreach ($user->classes as $class)
+							@if ($user->ST_subject_eng || $auth->is_administrator)
 
-						<li>Grade {{ $class->grade }} | {{ $class->section }}</li>
+								English
+								<br>
 
-					@endforeach
+							@endif
 
-				</ul>
+							@if ($user->ST_subject_mat || $auth->is_administrator)
 
+								Mathematics
+								<br>
+
+							@endif
+
+							@if ($user->ST_subject_sci || $auth->is_administrator)
+
+								Science
+								<br>
+
+							@endif
+
+							@if ($user->ST_subject_ap || $auth->is_administrator)
+
+								Araling Panlipunan (AP)
+								<br>
+
+							@endif
+
+							@if ($user->ST_subject_ep || $auth->is_administrator)
+
+								Edukasyon sa Pagpapakatao (EP)
+								<br>
+
+							@endif
+
+							@if ($user->ST_subject_tle)
+
+								Technology and Livelihood Education (TLE)
+								<br>
+
+							@endif
+
+							@if ($user->ST_subject_mapeh || $auth->is_administrator)
+
+								MAPEH
+								<br>
+
+							@endif
+
+							@if ($user->ST_subject_jp || $auth->is_administrator)
+
+								Nihongo
+								<br>
+
+							@endif
+
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class = "col-4">
+				<table id = "index" class = "table">
+					<thead>
+						<tr>
+							<th>Class Student Name</th>
+							<th>Grade</th>
+							<th>Section</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						@foreach ($students as $student)
+
+							<tr>
+								<td>
+									<a href = "{{ url('/students/view', $student->id) }}">{{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</a>
+								</td>
+								<td>{{ $student->grade }}</td>
+								<td>{{ $student->section }}</td>
+							</tr>
+
+						@endforeach
+
+					</tbody>
+				</table>
+
+				<script>
+					const table = new DataTable('#index', {
+						columnDefs: [
+							{ className: "dt-body-left", targets: [ 1 ] },
+						],
+						info: false,
+						paging: false,
+						searching: false,
+					});
+				</script>
 			</div>
 		</div>
 
