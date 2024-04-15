@@ -33,11 +33,6 @@ class YearController extends Controller {
     }
 
     /**
-     * REDIRECT
-     */
-    public function redirect () { return redirect()->to('/years'); }
-
-    /**
      * INDEX
      */
     public function index () {
@@ -65,6 +60,89 @@ class YearController extends Controller {
             ->with('auth', $auth)
             ->with('terms', $terms)
             ->with('years', $years);
+    }
+
+    /**
+     * VIEW
+     */
+    public function view ($id) {
+        // Guard
+        $auth = (new Controller)->auth();
+        $year = Year::find($id);
+
+        if (
+            self::guard($auth) ||
+            $year == null
+        ) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $year = self::Format_Year($year);
+        $grades = Grade::all();
+        $students = Student::orderBy('info_name_last', 'ASC')
+            ->where('DB_YEAR_id_g7', $year->id)
+            ->orWhere('DB_YEAR_id_g8', $year->id)
+            ->orWhere('DB_YEAR_id_g9', $year->id)
+            ->orWhere('DB_YEAR_id_g10', $year->id)
+            ->get();
+
+        foreach ($students as $student) {
+            do {
+                foreach ($grades as $grade) {
+                    if ($student->{'DB_YEAR_id_g'.$grade->grade} == $year->id) {
+                        $student->section = Section::find($student->{'DB_SECTION_id_g'.$grade->grade});
+
+                        if ($student->section != null) {
+                            $student->is_archived = false;
+                            $student->grade = Grade::find($student->section->DB_GRADE_id)->grade;
+                            $student->user = User::find($student->section->DB_USER_id);
+                            $student->section = $student->section->section;
+                        }
+                        else if ($student->LG_SECTION_name_g7 != null) {
+                            $student->is_archived = true;
+                            $student->grade = '7';
+                            $student->user = new User();
+                            $student->user->name_last = $student->LG_USER_name_last_g7;
+                            $student->user->name_first = $student->LG_USER_name_first_g7;
+                            $student->section = $student->LG_SECTION_name_g7.' (Archived)';
+                        }
+                        else if ($student->LG_SECTION_name_g8 != null) {
+                            $student->is_archived = true;
+                            $student->grade = '8';
+                            $student->user = new User();
+                            $student->user->name_last = $student->LG_USER_name_last_g8;
+                            $student->user->name_first = $student->LG_USER_name_first_g8;
+                            $student->section = $student->LG_SECTION_name_g8.' (Archived)';
+                        }
+                        else if ($student->LG_SECTION_name_g9 != null) {
+                            $student->is_archived = true;
+                            $student->grade = '9';
+                            $student->user = new User();
+                            $student->user->name_last = $student->LG_USER_name_last_g9;
+                            $student->user->name_first = $student->LG_USER_name_first_g9;
+                            $student->section = $student->LG_SECTION_name_g9.' (Archived)';
+                        }
+                        else if ($student->LG_SECTION_name_g10 != null) {
+                            $student->is_archived = true;
+                            $student->grade = '10';
+                            $student->user = new User();
+                            $student->user->name_last = $student->LG_USER_name_last_g10;
+                            $student->user->name_first = $student->LG_USER_name_first_g10;
+                            $student->section = $student->LG_SECTION_name_g10.' (Archived)';
+                        }
+
+                        break;
+                    }
+                }
+            }
+            while (false);
+        }
+
+        return view('pages.years.view')
+            ->with('auth', $auth)
+            ->with('students', $students)
+            ->with('year', $year);
     }
 
     /**
@@ -121,7 +199,7 @@ class YearController extends Controller {
             'attendance_dec_t' => 'nullable',
         ]);
 
-        Year::create([
+        $year = Year::create([
             'DB_USER_id' => $validated['DB_USER_id'],
             'LG_USER_name_last' =>  $validated['DB_USER_id'] == null ? $validated['LG_USER_name_last'] : null,
             'LG_USER_name_first' => $validated['DB_USER_id'] == null ? $validated['LG_USER_name_first'] : null,
@@ -143,30 +221,8 @@ class YearController extends Controller {
             'attendance_dec_t' => $validated['attendance_dec_t'],
         ]);
 
-        return self::redirect();
-    }
-
-    /**
-     * VIEW
-     */
-    public function view ($id) {
-        // Guard
-        $auth = (new Controller)->auth();
-        $year = Year::find($id);
-
-        if (
-            self::guard($auth) ||
-            $year == null
-        ) {
-            return (new Controller)->home();
-        }
-
-        // Proceed
-        $year = self::Format_Year($year);
-
-        return view('pages.years.view')
-            ->with('auth', $auth)
-            ->with('year', $year);
+        return redirect()->to('/years/edit/'.$year->id)
+            ->with('created', true);
     }
 
     /**
@@ -247,7 +303,8 @@ class YearController extends Controller {
 
         $year->touch();
 
-        return redirect()->to('/years/edit/'.$id);
+        return redirect()->to('/years/edit/'.$id)
+            ->with('updated', true);
     }
 
     // ----------------------------------------------------------------------------------------------------
@@ -273,7 +330,7 @@ class YearController extends Controller {
             $year->LG_USER_name_last != null &&
             $year->LG_USER_name_first != null
         ) {
-            $year->user_legacy = true;
+            $year->user_archived = true;
             $year->user_name_last = $year->LG_USER_name_last;
             $year->user_name_first = $year->LG_USER_name_first;
         }
@@ -296,12 +353,28 @@ class YearController extends Controller {
             ->get()
             ->count();
 
+        $year->un_enrollee_count_g7 = Student::where('DB_YEAR_id_g7', $year->id)
+            ->whereNull('DB_SECTION_id_g7')
+            ->get()
+            ->count();
+        $year->un_enrollee_count_g8 = Student::where('DB_YEAR_id_g8', $year->id)
+            ->whereNull('DB_SECTION_id_g8')
+            ->get()
+            ->count();
+        $year->un_enrollee_count_g9 = Student::where('DB_YEAR_id_g9', $year->id)
+            ->whereNull('DB_SECTION_id_g9')
+            ->get()
+            ->count();
+        $year->un_enrollee_count_g10 = Student::where('DB_YEAR_id_g10', $year->id)
+            ->whereNull('DB_SECTION_id_g10')
+            ->get()
+            ->count();
+
         $year->lg_enrollee_count_g7 = Student::where('DB_YEAR_id_g7', $year->id)
             ->whereNull('DB_SECTION_id_g7')
             ->whereNotNull('LG_SECTION_name_g7')
             ->get()
             ->count();
-
         $year->lg_enrollee_count_g8 = Student::where('DB_YEAR_id_g8', $year->id)
             ->whereNull('DB_SECTION_id_g8')
             ->whereNotNull('LG_SECTION_name_g8')

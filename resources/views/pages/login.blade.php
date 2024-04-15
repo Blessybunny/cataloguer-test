@@ -1,190 +1,132 @@
-<!doctype html>
-<html lang = "en">
-
-	<head>
-
-		<!-- Main -->
-		<meta charset = "utf-8">
-		<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
-		<meta name = "viewport" content = "initial-scale=1, width=device-width">
-		
-		<title>Cataloger - Login</title>
-
-		<!-- Template -->
-		<link href = "{{ asset('yummy/img/favicon.png') }}" rel = "icon">
-		<link href = "{{ asset('yummy/img/apple-touch-icon.png') }}" rel = "apple-touch-icon">
-		<link rel = "preconnect" href = "https://fonts.googleapis.com">
-		<link rel = "preconnect" href = "https://fonts.gstatic.com" crossorigin>
-		<link href = "https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/bootstrap/css/bootstrap.min.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/aos/aos.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/glightbox/css/glightbox.min.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/vendor/swiper/swiper-bundle.min.css') }}" rel = "stylesheet">
-		<link href = "{{ asset('yummy/css/main.css') }}" rel = "stylesheet">
-		
-		<!-- Custom -->
-		<link href = "{{ asset('assets/less/general.less') }}" rel = "stylesheet" type = "text/less">
-
-	</head>
-
-    <body>
-
-		<!-- Header -->
-		<header id = "header" class = "align-items-center d-flex fixed-top header">
-			<div class = "align-items-center container d-flex justify-content-between">
-				
-				<a class = "align-items-center d-flex logo me-auto me-lg-0">
-					<h1 class = "capitalize">Cataloger<span>.</span></h1>
-				</a>
-
-			</div>
-		</header>
-
-		<!-- Main -->
-		<main id = "main">
-            <form action = "{{ url('/login') }}" method = "POST">
-
-                @csrf
-
-                <section class = "container">
-
-                    <!-- Form -->
-                    <div class = "justify-content-center row">
-                        <div class = "col-12 col-lg-6 col-md-8 col-xl-5">
-                            <div class = "card">
-                                <div class = "card-body p-5 text-center">
-                                    <div class = "mt-md-4 mb-md-5 pb-5">
-
-                                        <h2 class = "text-uppercase">Login</h2>
-                                        <p>Please enter your DepEd ID and password</p>
-
-                                        <div class = "form-outline mb-4">
-                                            <label class = "form-label">DepEd ID</label>
-                                            <input name = "email" type = "text" class = "form-control form-control-lg" required>
-                                        </div>
-                                        <div class = "form-outline mb-4">
-                                            <label class = "form-label">Password</label>
-                                            <input name = "password" type = "password" class = "form-control form-control-lg" required>
-                                        </div>
-
-                                        @if($errors->has('credentials'))
-
-                                            <b class = "error">Invalid username or password.</b>
-                                            <br>
-                                            <br>
-
-                                        @endif
-
-                                        <button class = "button" type = "submit">Login</button>
-
-                                    </div>
+@extends('layouts.general.meta')
+@section('title') Cataloger - Login @endsection
+@section('body')
+    <div class = "bg-light py-3 py-md-5">
+        <div class = "container">
+            <div class = "row justify-content-md-center">
+                <div class = "col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
+                    <div class = "bg-white p-4 p-md-5 rounded shadow-sm">
+                        <div class = "row">
+                            <div class = "col-12">
+                                <div class = "text-center mb-5">
+                                    <h1>Cataloger</h1>
                                 </div>
                             </div>
                         </div>
+                        <form action = "{{ url('/login') }}" method = "POST">
+                            @csrf
+                            <div class = "row gy-3 gy-md-4 overflow-hidden">
+                                <div class = "col-12">
+                                    <label for = "email" class = "form-label">DepEd ID <span class = "text-danger">*</span></label>
+                                    <div class = "input-group">
+                                        <input type = "text" name = "email" required>
+                                    </div>
+                                </div>
+                                <div class = "col-12">
+                                    <label for = "password" class = "form-label">Password <span class="text-danger">*</span></label>
+                                    <div class = "input-group">
+                                        <input type = "password" class = "form-control" name = "password" value = "" required>
+                                    </div>
+                                </div>
+                                <div class = "col-12">
+                                    @if($errors->has('credentials'))
+                                        <b class = "custom-warning">Invalid username or password.</b>
+                                        <br>
+                                        <br>
+                                    @endif
+                                    <div class = "d-grid">
+                                        <button class = "custom-button" type = "submit">Log In</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-
-                    <!-- Premade accounds -->
-                    <hr>
-                    <h6 class = "text-center">Premade accounts for testing</h6>
-                    <hr>
-
-                    <table class = "table">
-                        <tr>
-                            <th>Name</th>
-                            <th>Role</th>
-                            <th>DepEd ID / Username</th>
-                            <th>Password</th>
-                        </tr>
-                        <tr>
-                            <td>OLSEN, Tulip</td>
-                            <td>Principal</td>
-                            <td>user1_1</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>OLSEN, Lake</td>
-                            <td>Principal</td>
-                            <td>user1_2</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>COSAY, Jesse</td>
-                            <td>Administrator</td>
-                            <td>user2_1</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>DRACULA, Alan</td>
-                            <td>Administrator</td>
-                            <td>user2_2</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>MONROE, Grace</td>
-                            <td>Grade Level Coordinator</td>
-                            <td>user3_1</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>LAURENT, Simon</td>
-                            <td>Grade Level Coordinator</td>
-                            <td>user3_2</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>HUGHES, Amelia</td>
-                            <td>Adviser / Teacher</td>
-                            <td>user4_1</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>TIMMENS, Alrick</td>
-                            <td>Adviser / Teacher</td>
-                            <td>user4_2</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>CORGI, Atticus</td>
-                            <td>Adviser / Teacher</td>
-                            <td>user5_1</td>
-                            <td>password</td>
-                        </tr>
-                        <tr>
-                            <td>ONE, One</td>
-                            <td>Adviser / Teacher</td>
-                            <td>user5_2</td>
-                            <td>password</td>
-                        </tr>
-                    </table>
-                </section>
-
-            </form>
-		</main>
-
-		<!-- Footer -->
-		<footer id = "footer" class = "align-middle container-fluid footer"></footer>
-        <script>
-            document.getElementById('footer').innerHTML = `
-                Copyright ${new Date().getFullYear()}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "container">
+        <div class = "row">
+            <div class = "align-middle col-3"></div>
+            <div class = "align-middle col-6">
+                <hr>
+                <h6 class = "text-center">Premade accounts for testing</h6>
+                <hr>
+                <table class = "table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>DepEd ID</th>
+                        <th>Password</th>
+                    </tr>
+                    <tr>
+                        <td>OLSEN, Tulip</td>
+                        <td>Principal</td>
+                        <td>user1_1</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>OLSEN, Lake</td>
+                        <td>Principal</td>
+                        <td>user1_2</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>COSAY, Jesse</td>
+                        <td>Administrator</td>
+                        <td>user2_1</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>DRACULA, Alan</td>
+                        <td>Administrator</td>
+                        <td>user2_2</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>MONROE, Grace</td>
+                        <td>Grade Level Coordinator</td>
+                        <td>user3_1</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>LAURENT, Simon</td>
+                        <td>Grade Level Coordinator</td>
+                        <td>user3_2</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>HUGHES, Amelia</td>
+                        <td>Adviser</td>
+                        <td>user4_1</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>TIMMENS, Alrick</td>
+                        <td>Adviser</td>
+                        <td>user4_2</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>CORGI, Atticus</td>
+                        <td>Adviser</td>
+                        <td>user5_1</td>
+                        <td>password</td>
+                    </tr>
+                    <tr>
+                        <td>ONE, One</td>
+                        <td>Adviser</td>
+                        <td>user5_2</td>
+                        <td>password</td>
+                    </tr>
+                </table>
                 <br>
-                Republic of the Philippines. Department of Education.
-            `;
-        </script>
-		
-    </body>
-
-    <!-- Template -->
-	<script src = "{{ asset('yummy/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-	<script src = "{{ asset('yummy/vendor/aos/aos.js') }}"></script>
-	<script src = "{{ asset('yummy/vendor/glightbox/js/glightbox.min.js') }}"></script>
-	<script src = "{{ asset('yummy/vendor/purecounter/purecounter_vanilla.js') }}"></script>
-	<script src = "{{ asset('yummy/vendor/swiper/swiper-bundle.min.js') }}"></script>
-	<script src = "{{ asset('yummy/vendor/php-email-form/validate.js') }}"></script>
-	<script src = "{{ asset('yummy/js/main.js') }}"></script>
-
-	<!-- Custom -->
-	<script src = "{{ asset('assets/js/less.min.js') }}"></script>
-	<script src = "{{ asset('assets/js/general.js') }}"></script>
-	
-</html>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+            <div class = "align-middle col-3"></div>
+        </div>
+    </div>
+@endsection

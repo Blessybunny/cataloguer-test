@@ -1,17 +1,15 @@
 <div class = "container-fluid paper">
 	<div class = "row">
-
-		<!-- Left -->
 		<div class = "col-6">
 			<div class = "container-fluid">
 				<div class = "row">
-
-					<!-- Header -->
 					<div class = "col-12">
 						<h6 class = "heading">Learner's Progress Report Card (SF9)</h6>
 					</div>
+				</div>
+				<div class = "row">
 					<div class = "col-3">
-						<img src = "{{ asset('assets/img/deped-2.png') }}" height = 100>
+						<img src = "{{ asset('assets/img/deped-2.png') }}" height = "100">
 					</div>
 					<div class = "col-6">
 						<span class = "text-center">Republic of the Philippines</span>
@@ -22,21 +20,21 @@
 						<span class = "text-center">Purok 3, Irisan, Baguio City</span>
 					</div>
 					<div class = "col-3">
-						<img class = "float-right"  src = "{{ asset('assets/img/irisan.png') }}" height = 100>
+						<img class = "float-right"  src = "{{ asset('assets/img/irisan.png') }}" height = "100">
 					</div>
-					<br>
-
-					<!-- Learning Reference Number -->
+				</div>
+				<div class = "row">
 					<div class = "col-12">
+						<br>
 						<span>Leaner Reference Number: {{ $student->info_lrn }}</span>
 					</div>
-
-					<!-- Name -->
+				</div>
+				<div class = "row">
 					<div class = "col-12">
 						<span>Name: {{ strtoupper($student->info_name_last) }}, {{ ucfirst($student->info_name_first) }} {{ ucfirst($student->info_name_middle) }} {{ ucfirst($student->info_name_suffix) }}</span>
 					</div>
-
-					<!-- Age -->
+				</div>
+				<div class = "row">
 					<div class = "col-6">
 						<label class = "highlight">
 							<span>Age:&nbsp;</span>
@@ -49,36 +47,32 @@
 							>
 						</label>
 					</div>
-
-					<!-- Sex -->
 					<div class = "col-6">
 						<span>Sex: {{ $student->info_sex }}</span>
 					</div>
-
-					<!-- Grade -->
+				</div>
+				<div class = "row">
 					<div class = "col-6">
 						<span>Grade: {{ $grade->grade }}</span>
 					</div>
-
-					<!-- Section -->
 					<div class = "col-6">
 						<span>Section: {{ $student->{'sf9_g'.$grade->grade.'_report_section'} }}</span>
 					</div>
-
-					<!-- School Year -->
+				</div>
+				<div class = "row">
 					<div class = "col-12">
 						<span>School Year: {{ $student->{'sf9_g'.$grade->grade.'_report_year'} }}</span>
 					</div>
-
-					<!-- Letter -->
+				</div>
+				<div class = "row">
 					<div class = "col-12">
 						<br>
 						<span>Dear parent:</span>
 						<span style = "text-indent: 60px;">This report card shows the ability and progress your child has made in the different learning areas as well as his/her core values. The school welcomes you, should you desire to know more about your child's progress.</span>
 						<br>
 					</div>
-
-					<!-- Letter Signatures -->
+				</div>
+				<div class = "row">
 					<div class = "col-6">
 						<div class = "text-center">
 							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_principal'} }}&nbsp;</span>
@@ -91,8 +85,8 @@
 							<span>Adviser</span>
 						</div>
 					</div>
-
-					<!-- Transfer -->
+				</div>
+				<div class = "row">
 					<div class = "col-12">
 						<br>
 						<h6>Certificate Of Transfer</h6>
@@ -118,8 +112,8 @@
 						</label>
 						<br>
 					</div>
-
-					<!-- Transfer Signatures -->
+				</div>
+				<div class = "row">
 					<div class = "col-6">
 						<div class = "text-center">
 							<span class = "border-bottom-dark float-center" style = "width: 200px;">&nbsp;{{ $student->{'sf9_g'.$grade->grade.'_report_principal'} }}&nbsp;</span>
@@ -132,8 +126,8 @@
 							<span>Adviser</span>
 						</div>
 					</div>
-
-					<!-- Transfer Cancel -->
+				</div>
+				<div class = "row">
 					<div class = "col-12">
 						<br>
 						<h6>Cancellation of Eligibility to Transfer</h6>
@@ -157,31 +151,19 @@
 								{{ $student->ST_locker ? 'disabled' : '' }}
 							>
 						</label>
-						<br>
 					</div>
-
 				</div>
 			</div>
 		</div>
-
-		<!-- Right -->
 		<div class = "col-6">
-
-			<!-- Header -->
 			<h6 class = "heading">Report On Attendance</h6>
-
-			<!-- Table -->
 			<table class = "table">
-
-				<!-- Headers -->
 				<tr>
 					<th>Month</th>
 					<th>No. of school days</th>
 					<th>No. of days present</th>
 					<th>No. of days absent</th>
 				</tr>
-
-				<!-- October -->
 				<tr>
 					<td class = "text-center">Oct</td>
 					<td>
@@ -216,8 +198,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- November -->
 				<tr>
 					<td class = "text-center">Nov</td>
 					<td>
@@ -252,8 +232,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- December -->
 				<tr>
 					<td class = "text-center">Dec</td>
 					<td>
@@ -288,8 +266,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- January -->
 				<tr>
 					<td class = "text-center">Jan</td>
 					<td>
@@ -324,8 +300,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- February -->
 				<tr>
 					<td class = "text-center">Feb</td>
 					<td>
@@ -360,8 +334,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- March -->
 				<tr>
 					<td class = "text-center">Mar</td>
 					<td>
@@ -396,8 +368,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- April -->
 				<tr>
 					<td class = "text-center">Apr</td>
 					<td>
@@ -432,8 +402,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- May -->
 				<tr>
 					<td class = "text-center">May</td>
 					<td>
@@ -468,8 +436,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- June -->
 				<tr>
 					<td class = "text-center">Jun</td>
 					<td>
@@ -504,8 +470,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- July -->
 				<tr>
 					<td class = "text-center">Jul</td>
 					<td>
@@ -540,8 +504,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- August -->
 				<tr>
 					<td class = "text-center">Aug</td>
 					<td>
@@ -576,8 +538,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- September -->
 				<tr>
 					<td class = "text-center">Sep</td>
 					<td>
@@ -612,8 +572,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- Total -->
 				<tr>
 					<th class = "text-center">Total</th>
 					<td class = "text-center" data-property = "total" data-targets = '[
@@ -659,10 +617,7 @@
 						"sf9_g{{ $grade->grade }}_attendance_dec_a"
 					]'></td>
 				</tr>
-
 			</table>
-
-			<!-- Signatures -->
 			<span class = "font-bold text-uppercase">Parent / Guardian's Signature:</span>
 			<br>
 			<span>1st Quarter:</span>
@@ -672,8 +627,6 @@
 			<span>3rd Quarter:</span>
 			<br>
 			<span>4th Quarter:</span>
-
 		</div>
-
 	</div>
 </div>

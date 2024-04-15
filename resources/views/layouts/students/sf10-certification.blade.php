@@ -1,17 +1,11 @@
 <div class = "border-all-light border-space container-fluid">
     <div class = "row">
-
-        <!-- Header -->
         <div class = "col-12">
             <span class = "break"></span>
             <h6>Certification</h6>
             <span class = "break"></span>
         </div>
-
-        <!-- Paragraph -->
         <div class = "col-12">
-
-            <!-- Name, Learner Reference Number, Grade -->
             <span class = "text-center">
                 I CERTIFY that this is a true record of
                 <input
@@ -40,8 +34,6 @@
                     {{ $student->ST_locker || !$auth->ST_subject_sf10_acads ? 'disabled' : '' }}
                 >
             </span>
-
-            <!-- School Name, School ID, School Year -->
             <span class = "text-center">
                 Name of School:
                 <input
@@ -74,13 +66,10 @@
                     {{ $student->ST_locker || !$auth->ST_subject_sf10_acads ? 'disabled' : '' }}
                 >
             </span>
-
         </div>
         <div class = "col-12">
             <span class = "break"></span>
         </div>
-
-        <!-- Year -->
         <div class = "col-3">
             <input
                 class = "border-bottom-dark float-center {{ $student->ST_locker || !$auth->ST_subject_sf10_acads ? '' : 'highlight' }} text-center"
@@ -93,8 +82,6 @@
             >
             <span class = "text-center">Date</span>
         </div>
-
-        <!-- Principal -->
         <div class = "col-6">
             <input
                 class = "border-bottom-dark float-center {{ $student->ST_locker || !$auth->ST_subject_sf10_acads ? '' : 'highlight' }} text-center"
@@ -107,8 +94,6 @@
             >
             <span class = "text-center">Name of Principal/School Head over Printed Name</span>
         </div>
-
-        <!-- Signature -->
         <div class = "col-3">
             <input
                 class = "border-bottom-dark float-center"
@@ -121,6 +106,5 @@
         <div class = "col-12">
             <span class = "break"></span>
         </div>
-
     </div>
 </div>

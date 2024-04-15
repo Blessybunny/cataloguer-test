@@ -1,40 +1,25 @@
 @extends('layouts.general.page')
-
 @section('title') Cataloger - School Year Manager @endsection
-
 @section('content')
-
 	<form action = "{{ url('/years/create') }}" method = "POST">
-
 		@csrf
-
-		<section class = "container">
-
-			<!-- Header -->
+		<div class = "container-fluid">
 			<div class = "row">
-				<div class = "align-self-center col-4">
-					<a href = "{{ url('/years') }}">
-						<button class = "button" type = "button">Back</button>
-					</a>
-				</div>
-				<div class = "align-self-center col-4">
-					<h4 class = "text-center">School Year Creator</h4>
-				</div>
-				<div class = "align-self-center col-4">
-					<input class = "button float-right" type = "submit" value = "Add">
+				<div class = "col-12">
+					<h1 class = "custom-header">
+						<div class = "main">Years</div>
+						<div class = "subtitle">Creator</div>
+						<hr>
+					</h1>
 				</div>
 			</div>
-
-			<!-- Required -->
+		</div>
+		<div class = "container">
 			<div class = "row">
 				<div class = "col-12">
-					<hr>
-					<h6 class = "text-center">Required</h6>
-					<hr>
+					<h1 class = "custom-header-sub">Required Fields</h1>
 				</div>
-				<div class = "col-12">
-
-					<!-- Starting year -->
+				<div class = "col-4">
 					<b id = "year-label"></b>
 					<input
 						id = "year-input"
@@ -48,45 +33,31 @@
 					<script>
 						const yearLabel = document.getElementById('year-label');
 						const yearInput = document.getElementById('year-input');
-
 						yearInput.max = new Date().getFullYear();
 						yearLabel.innerHTML = `Starting Year (1900-${yearInput.max}):`;
 					</script>
-
 					@if($errors->has('year'))
-
-						<b class = "error">* This school year has already been made</b>
-
+						<b class = "custom-warning">This school year has already been made</b>
 					@endif
-
 				</div>
 			</div>
-
-			<!-- Optional -->
+		</div>
+		<div class = "container">
 			<div class = "row">
 				<div class = "col-12">
 					<hr>
-					<h6 class = "text-center">Optional</h6>
-					<hr>
+					<h1 class = "custom-header-sub">Optional Fields</h1>
 				</div>
-				<div class = "col-6">
-
-					<!-- Principal -->
+				<div class = "col-4">
 					<b>Principal:</b>
 					<select name = "DB_USER_id">
 						<option value = ""></option>
-
 						@foreach ($users as $user)
-
 							<option value = "{{ $user->id }}">{{ $user->name_last }}, {{ $user->name_first }}</option>
-
 						@endforeach
-
 					</select>
 					<br>
-
-					<!-- Legacy Principal Last Name -->
-					<b>Legacy Principal Last Name:</b>
+					<b>Archived Principal Last Name:</b>
 					<input
 						name = "LG_USER_name_last"
 						type = "text"
@@ -96,9 +67,7 @@
 					This field is used if the appropriate principal is NOT on the list
 					<br>
 					<br>
-
-					<!-- Legacy Principal First Name -->
-					<b>Legacy Principal First Name:</b>
+					<b>Archived Principal First Name:</b>
 					<input
 						name = "LG_USER_name_first"
 						type = "text"
@@ -108,11 +77,6 @@
 					This field is used if the appropriate principal is NOT on the list
 					<br>
 					<br>
-
-				</div>
-				<div class = "col-6">
-
-					<!-- January -->
 					<b>January Attendance Count:</b>
 					<input
 						name = "attendance_jan_t"
@@ -122,8 +86,6 @@
 						value = "{{ old('attendance_jan_t') }}"
 					>
 					<br>
-
-					<!-- February -->
 					<b>February Attendance Count:</b>
 					<input
 						name = "attendance_feb_t"
@@ -133,8 +95,6 @@
 						value = "{{ old('attendance_feb_t') }}"
 					>
 					<br>
-
-					<!-- March -->
 					<b>March Attendance Count:</b>
 					<input
 						name = "attendance_mar_t"
@@ -144,8 +104,6 @@
 						value = "{{ old('attendance_mar_t') }}"
 					>
 					<br>
-
-					<!-- April -->
 					<b>April Attendance Count:</b>
 					<input
 						name = "attendance_apr_t"
@@ -155,8 +113,6 @@
 						value = "{{ old('attendance_apr_t') }}"
 					>
 					<br>
-
-					<!-- May -->
 					<b>May Attendance Count:</b>
 					<input
 						name = "attendance_may_t"
@@ -166,8 +122,6 @@
 						value = "{{ old('attendance_may_t') }}"
 					>
 					<br>
-
-					<!-- June -->
 					<b>June Attendance Count:</b>
 					<input
 						name = "attendance_jun_t"
@@ -177,8 +131,6 @@
 						value = "{{ old('attendance_jun_t') }}"
 					>
 					<br>
-
-					<!-- July -->
 					<b>July Attendance Count:</b>
 					<input
 						name = "attendance_jul_t"
@@ -188,8 +140,6 @@
 						value = "{{ old('attendance_jul_t') }}"
 					>
 					<br>
-
-					<!-- August -->
 					<b>August Attendance Count:</b>
 					<input
 						name = "attendance_aug_t"
@@ -199,8 +149,6 @@
 						value = "{{ old('attendance_aug_t') }}"
 					>
 					<br>
-
-					<!-- September -->
 					<b>September Attendance Count:</b>
 					<input
 						name = "attendance_sep_t"
@@ -210,8 +158,6 @@
 						value = "{{ old('attendance_sep_t') }}"
 					>
 					<br>
-
-					<!-- October -->
 					<b>October Attendance Count:</b>
 					<input
 						name = "attendance_oct_t"
@@ -221,8 +167,6 @@
 						value = "{{ old('attendance_oct_t') }}"
 					>
 					<br>
-
-					<!-- November -->
 					<b>November Attendance Count:</b>
 					<input
 						name = "attendance_nov_t"
@@ -232,8 +176,6 @@
 						value = "{{ old('attendance_nov_t') }}"
 					>
 					<br>
-
-					<!-- December -->
 					<b>December Attendance Count:</b>
 					<input
 						name = "attendance_dec_t"
@@ -242,12 +184,16 @@
 						max = "31"
 						value = "{{ old('attendance_dec_t') }}"
 					>
-
 				</div>
 			</div>
-
-		</section>
-
+		</div>
+		<div class = "container">
+			<div class = "row">
+				<div class = "col-12">
+					<hr>
+					<input class = "custom-button" type = "submit" value = "Create">
+				</div>
+			</div>
+		</div>
 	</form>
-
 @endsection

@@ -1,7 +1,5 @@
 <div class = "container-fluid paper">
 	<div class = "row">
-
-        <!-- Variables -->
         <script>
             datasets = [];
             daysMin = 0;
@@ -9,35 +7,23 @@
             gradesMin = 50;
             gradesMax = 100;
         </script>
-
         @php
-
             $max_height = 200;
-
         @endphp
-
         @if ($sf == 9)
-
-            <!-- Header -->
             <div class = "col-12">
                 <h6 class = "heading">Attendance</h6>
             </div>
-
-            <!-- Attendance -->
             @foreach ($grades as $grade)
-
                 <div class = "col-6">
                     <div class = "border-all-light chart">
                         <h6 class = "text-center">Grade {{ $grade->grade }}</h6>
-
                         <div>
                             <canvas id = "sf{{ $sf }}_g{{ $grade->grade }}_attendance" style = "max-height: {{ $max_height }}px;"></canvas>
                         </div>
-
                         <script>
                             datasets = [];
                         </script>
-
                         <script>
                             new Chart(document.getElementById('sf{{ $sf }}_g{{ $grade->grade }}_attendance'), {
                                 type: 'line',
@@ -106,7 +92,6 @@
                                 },
                             });
                         </script>
-
                         <table class = "margin-bottom-0 table">
                             <tr>
                                 <th>School Year</th>
@@ -161,39 +146,25 @@
                             </tr>
                         </table>
                     </div>
-
                     @if ($loop->iteration <= $loop->count / 2)
-
                         <br>
-
                     @endif
-
                 </div>
-
             @endforeach
-
         @endif
-
-        <!-- Header -->
         <div class = "col-12">
             <h6 class = "heading">Subjects</h6>
         </div>
-
-        <!-- Subject -> filipino -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Filipino</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_fil" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -206,9 +177,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_fil`), {
                         type: 'line',
@@ -225,16 +194,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -250,29 +216,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_fil"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> english -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">English</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_eng" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -285,9 +243,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_eng`), {
                         type: 'line',
@@ -304,16 +260,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -329,29 +282,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_eng"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> mathematics -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Mathematics</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_mat" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -364,9 +309,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_mat`), {
                         type: 'line',
@@ -383,16 +326,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -408,29 +348,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_mat"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> science -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Science</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_sci" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -443,9 +375,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_sci`), {
                         type: 'line',
@@ -462,16 +392,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -487,29 +414,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_sci"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> araling panlipunan (ap) -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Araling Panlipunan (AP)</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_ap" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -522,9 +441,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_ap`), {
                         type: 'line',
@@ -541,16 +458,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -566,29 +480,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_ap"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> edukasyon sa pagpapakatao (ep) -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Edukasyon sa Pagpapakatao (EP)</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_ep" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -601,9 +507,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_ep`), {
                         type: 'line',
@@ -620,16 +524,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -645,29 +546,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_ep"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> technology and livelihood education (tle) -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Technology and Livelihood Education (TLE)</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_tle" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -680,9 +573,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_tle`), {
                         type: 'line',
@@ -699,16 +590,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -724,29 +612,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_tle"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> music -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">MAPEH: Music</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_mus" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -759,9 +639,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_mus`), {
                         type: 'line',
@@ -778,16 +656,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -803,29 +678,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_mus"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> arts -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">MAPEH: Arts</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_art" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -838,9 +705,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_art`), {
                         type: 'line',
@@ -857,16 +722,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -882,29 +744,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_art"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> physical education -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">MAPEH: Physical Education</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_pe" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -917,9 +771,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_pe`), {
                         type: 'line',
@@ -936,16 +788,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -961,29 +810,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_pe"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> health -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">MAPEH: Health</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_hp" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -996,9 +837,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_hp`), {
                         type: 'line',
@@ -1015,16 +854,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -1040,29 +876,21 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_hp"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
-        <!-- Subject -> nihongo -->
         <div class = "col-6">
             <div class = "border-all-light chart">
                 <h6 class = "text-center">Nihongo</h6>
-
                 <div>
                     <canvas id = "sf{{ $sf }}_subject_jp" style = "max-height: {{ $max_height }}px;"></canvas>
                 </div>
-
                 <script>
                     datasets = [];
                 </script>
-
                 @foreach ($grades as $grade)
-
                     <script>
                         datasets.push({
                             label: 'Grade {{ $grade->grade }}',
@@ -1075,9 +903,7 @@
                             borderWidth: 1,
                         });
                     </script>
-
                 @endforeach
-
                 <script>
                     new Chart(document.getElementById(`sf{{ $sf }}_subject_jp`), {
                         type: 'line',
@@ -1094,16 +920,13 @@
                         },
                     });
                 </script>
-
                 <table class = "margin-bottom-0 table">
                     <tr>
                         <th style = "width: 75px;">Grade</th>
                         <th style = "width: 150px;">Final Rating</th>
                         <th>Remarks</th>
                     </tr>
-
                     @foreach ($grades as $grade)
-
                         <tr>
                             <td class = "text-center">{{ $grade->grade }}</td>
                             <td class = "text-center" data-property = "average" data-targets = '[
@@ -1119,13 +942,10 @@
                                 "sf{{ $sf }}_g{{ $grade->grade }}_subject_qr4_jp"
                             ]'></td>
                         </tr>
-
                     @endforeach
-
                 </table>
             </div>
             <br>
         </div>
-
 	</div>
 </div>

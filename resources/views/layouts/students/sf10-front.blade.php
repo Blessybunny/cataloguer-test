@@ -1,12 +1,10 @@
 <div class = "container-fluid paper">
-
-	<!-- Header -->
 	<div class = "row">
 		<div class = "col-12">
 			<span>SF10-JHS</span>
 		</div>
 		<div class = "col-2">
-			<img src = "{{ asset('assets/img/deped-2.png') }}" height = 75 draggable = "false">
+			<img src = "{{ asset('assets/img/deped-2.png') }}" height = "75" draggable = "false">
 		</div>
 		<div class = "col-8">
 			<span class = "text-center">Republic of the Philippines</span>
@@ -15,11 +13,9 @@
 			<span class = "text-center">(Formerly Form 137)</span>
 		</div>
 		<div class = "col-2">
-			<img class = "float-right" src = "{{ asset('assets/img/deped-1.png') }}" height = 75 draggable = "false">
+			<img class = "float-right" src = "{{ asset('assets/img/deped-1.png') }}" height = "75" draggable = "false">
 		</div>
 	</div>
-
-	<!-- Learner's information -->
 	<div class = "row">
 		<div class = "col-12">
 			<h6 class = "heading">Learner's Information</h6>
@@ -67,8 +63,6 @@
 			</label>
 		</div>
 	</div>
-
-	<!-- Eligibility for JHS enrollment -->
 	<div class = "row">
 		<div class = "col-12">
 			<h6 class = "heading">Eligibility for JHS Enrollment</h6>
@@ -238,18 +232,12 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Scholastic record 7-8 -->
 	<div class = "row">
 		<div class = "col-12">
 			<h6 class = "heading">Scholastic Record</h6>
 		</div>
 	</div>
-
 	@include('layouts.students.sf10-scholastic-record', ['grade' => 7])
 	@include('layouts.students.sf10-scholastic-record', ['grade' => 8])
-
-	<!-- Certification -->
 	@include('layouts.students.sf10-certification', ['side' => 'front'])
-
 </div>

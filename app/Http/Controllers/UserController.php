@@ -33,11 +33,6 @@ class UserController extends Controller {
     }
 
     /**
-     * REDIRECT
-     */
-    public function redirect () { return redirect()->to('/users'); }
-
-    /**
      * INDEX
      */
     public function index () {
@@ -66,6 +61,31 @@ class UserController extends Controller {
             ->with('auth', $auth)
             ->with('terms', $terms)
             ->with('users', $users);
+    }
+
+    /**
+     * VIEW
+     */
+    public function view ($id) {
+        // Guard
+        $auth = (new Controller)->auth();
+        $user = User::find($id);
+
+        if (
+            self::guard($auth) ||
+            $user == null
+        ) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $students = self::Format_Students($user, Student::query());
+        $user = self::Format_User($user);
+
+        return view('pages.users.view')
+            ->with('auth', $auth)
+            ->with('students', $students)
+            ->with('user', $user);
     }
 
     /**
@@ -164,32 +184,8 @@ class UserController extends Controller {
         self::func_designation_section($user);
         self::func_designation_classes($user);
 
-        return self::redirect();
-    }
-
-    /**
-     * VIEW
-     */
-    public function view ($id) {
-        // Guard
-        $auth = (new Controller)->auth();
-        $user = User::find($id);
-
-        if (
-            self::guard($auth) ||
-            $user == null
-        ) {
-            return (new Controller)->home();
-        }
-
-        // Proceed
-        $students = self::Format_Students($user, Student::query());
-        $user = self::Format_User($user);
-
-        return view('pages.users.view')
-            ->with('auth', $auth)
-            ->with('students', $students)
-            ->with('user', $user);
+        return redirect()->to('/users/edit/'.$user->id)
+            ->with('created', true);
     }
 
     /**
@@ -297,7 +293,8 @@ class UserController extends Controller {
         self::func_designation_section($user);
         self::func_designation_classes($user);
 
-        return redirect()->to('/users/edit/'.$id);
+        return redirect()->to('/users/edit/'.$id)
+            ->with('updated', true);
     }
 
     /**
@@ -345,7 +342,8 @@ class UserController extends Controller {
 
         $user->touch();
 
-        return redirect()->to('/users/edit/'.$id);
+        return redirect()->to('/users/password/'.$id)
+            ->with('updated', true);
     }
 
     /**
@@ -393,7 +391,7 @@ class UserController extends Controller {
 
         $user->delete();
 
-        return self::redirect();
+        return redirect()->to('/users');
     }
 
     // ----------------------------------------------------------------------------------------------------

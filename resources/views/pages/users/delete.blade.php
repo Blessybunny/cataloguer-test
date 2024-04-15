@@ -1,52 +1,45 @@
 @extends('layouts.general.page')
-
 @section('title') Cataloger - User Manager @endsection
-
 @section('content')
-
 	<form action = "{{ url('/users/delete', $user->id) }}" method = "POST">
-
 		@csrf
-
-		<section class = "container">
-
-			<!-- Header -->
+		<div class = "container-fluid">
 			<div class = "row">
-				<div class = "align-self-center col-4">
+				<div class = "col-12">
+					<h1 class = "custom-header">
+						<div class = "main">Users</div>
+						<div class = "subtitle">Deleter | {{ $user->name_last }}, {{ $user->name_first }}</div>
+						<hr>
+					</h1>
+					<b>Created on: </b>{{ $user->created_at->format('l jS \\of F Y') }}
+					<br>
+					<b>Edited on: </b>{{ $user->updated_at->format('l jS \\of F Y') }}
+					<hr>
+				</div>
+			</div>
+		</div>
+		<div class = "container">
+			<div class = "row">
+				<div class = "col-4">
+                    All fields associated with this user will have some of their values archived.
+                    <br>
+                    <br>
+                    You are about to delete <b>{{ $user->name_last }}, {{ $user->name_first }}.</b>
+                    <br>
+                    This action cannot be reverted.
+				</div>
+			</div>
+		</div>
+		<div class = "container">
+			<div class = "row">
+				<div class = "col-12">
+					<hr>
                     <a href = "{{ url('/users/edit', $user->id) }}">
-						<button class = "button" type = "button">Back</button>
+						<button class = "custom-button" type = "button">Back</button>
 					</a>
-				</div>
-				<div class = "align-self-center col-4">
-					<h4 class = "text-center">User Editor</h4>
-					<p class = "text-center">{{ $user->name_last }}, {{ $user->name_first }}</p>
-				</div>
-				<div class = "align-self-center col-4">
+					<input class = "custom-button" type = "submit" value = "Confirm and Delete">
 				</div>
 			</div>
-
-			<!-- Danger -->
-			<div class = "row">
-				<div class = "col-12">
-					<hr>
-					<h6 class = "text-center">Danger</h6>
-					<hr>
-				</div>
-				<div class = "col-12">
-                    <p class = "text-center">
-						All fields associated with this user will have some of their values saved (legacy)
-                        <br>
-                        <br>
-                        You are about to delete <b>{{ $user->name_last }}, {{ $user->name_first }}</b>
-                        <br>
-                        This action cannot be reverted
-                    </p>
-					<input class = "button float-center" type = "submit" value = "Confirm and Delete">
-				</div>
-			</div>
-
-		</section>
-
+		</div>
 	</form>
-
 @endsection

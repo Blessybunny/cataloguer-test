@@ -27,7 +27,7 @@ class Controller extends BaseController {
      * AUTH
      */
     public function auth () {
-        $auth = Auth::user(); // Auth::user(); // User::find(4)
+        $auth = Auth::user();
 
         if ($auth != null) {
             $auth->is_principal = $auth->DB_ROLE_id == 1 ? true : false;
@@ -58,14 +58,14 @@ class Controller extends BaseController {
      * HOME
      */
     public function land () {
-        // Check if user still exists
+        // Guard
         $auth = self::auth();
 
         if ($auth == null) {
             return (new LoginController)->redirect();
         }
 
-        // Details
+        // Proceed (borrowed code: see YearController.php)
         $year = (new YearController)->Format_Year(Year::orderBy('year', 'DESC')->first());
         $grades = Grade::all();
         $students = Student::orderBy('info_name_last', 'ASC')

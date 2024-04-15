@@ -1,41 +1,37 @@
 @extends('layouts.general.page')
-
 @section('title') Cataloger - User Manager @endsection
-
 @section('content')
-
 	<form action = "{{ url('/users/edit', $user->id) }}" method = "POST">
-
 		@csrf
-
-		<section class = "container">
-
-			<!-- Header -->
+		<div class = "container-fluid">
 			<div class = "row">
-				<div class = "align-self-center col-4">
-					<a href = "{{ url('/users') }}">
-						<button class = "button" type = "button">Back</button>
-					</a>
-				</div>
-				<div class = "align-self-center col-4">
-					<h4 class = "text-center">User Editor</h4>
-					<p class = "text-center">{{ $user->name_last }}, {{ $user->name_first }}</p>
-				</div>
-				<div class = "align-self-center col-4">
-					<input class = "button float-right" type = "submit" value = "Save">
+				<div class = "col-12">
+					<h1 class = "custom-header">
+						<div class = "main">Users</div>
+						<div class = "subtitle">Editor | {{ $user->name_last }}, {{ $user->name_first }}</div>
+						<hr>
+					</h1>
+					<b>Created on: </b>{{ $user->created_at->format('l jS \\of F Y') }}
+					<br>
+					<b>Edited on: </b>{{ $user->updated_at->format('l jS \\of F Y') }}
+					<hr>
+					@if (session()->get('created'))
+						<b class = "custom-success">Successfully created!</b>
+						<hr>
+					@endif
+					@if (session()->get('updated'))
+						<b class = "custom-success">Successfully updated!</b>
+						<hr>
+					@endif
 				</div>
 			</div>
-
-			<!-- Required -->
+		</div>
+		<div class = "container">
 			<div class = "row">
 				<div class = "col-12">
-					<hr>
-					<h6 class = "text-center">Required</h6>
-					<hr>
+					<h1 class = "custom-header-sub">Required Fields</h1>
 				</div>
-				<div class = "col-12">
-
-					<!-- Last Name -->
+				<div class = "col-4">
 					<b>Last Name:</b>
 					<input
 						name = "name_last"
@@ -45,8 +41,6 @@
 						required
 					>
 					<br>
-
-					<!-- First Name -->
 					<b>First Name:</b>
 					<input
 						name = "name_first"
@@ -56,48 +50,31 @@
 						required
 					>
 					<br>
-
-					<!-- Role -->
 					<b>Role:</b>
 					<select name = "DB_ROLE_id" required>
-
 						@foreach ($roles as $role)
-
 							<option value = "{{ $role->id }}" {{ $user->DB_ROLE_id == $role->id ? 'selected' : '' }}>{{ $role->role }}</option>
-
 						@endforeach
-
 					</select>
-					Note: changes to this field for advisers will have their names saved (legacy) on all students associated with the user
-
+					Note: changes to this field for advisers will have their names archived on all students associated with the user
 				</div>
 			</div>
-
-			<!-- Optional -->
+		</div>
+		<div class = "container">
 			<div class = "row">
 				<div class = "col-12">
 					<hr>
-					<h6 class = "text-center">Optional</h6>
-					<p class = "text-center">These apply to grade level coordinators and advisers</p>
-					<hr>
+					<h1 class = "custom-header-sub">Optional Fields</h1>
 				</div>
 				<div class = "col-4">
-
-					<!-- School Year Designation -->
 					<b>School Year Designation:</b>
 					<select name = "DB_YEAR_id">
 						<option value = ""></option>
-
 						@foreach ($years as $year)
-
 							<option value = "{{ $year->id }}" {{ $user->DB_YEAR_id == $year->id ? 'selected' : '' }}>{{ $year->full }}</option>
-
 						@endforeach
-
 					</select>
 					<br>
-
-					<!-- Subject Designation -->
 					<b>Subject Designations:</b>
 					<div class = "border-all-light" style = "padding: 15px;">
 						<label class = "highlight">
@@ -175,8 +152,6 @@
 						</label>
 					</div>
 					<br>
-
-					<!-- Miscellaneous -->
 					<b>Miscellaneous:</b>
 					<div class = "border-all-light" style = "padding: 15px;">
 						<label class = "highlight">
@@ -205,52 +180,32 @@
 							</span>
 						</label>
 					</div>
-
 				</div>
 				<div class = "col-4">
-
-					<!-- Grade Level Coordinator's Designation -->
 					<b>Grade Level Coordinator's Designation:</b>
 					<select name = "DB_GRADE_id">
 						<option value = ""></option>
-
 						@foreach ($grades as $grade)
-
 							<option value = "{{ $grade->id }}" {{ $user->DB_GRADE_id == $grade->id ? 'selected' : '' }}>Grade {{ $grade->grade }}</option>
-
 						@endforeach
-
 					</select>
-
 				</div>
 				<div class = "col-4">
-
-					<!-- Adviser's Designation -->
 					<b>Adviser's Designation:</b>
 					<select name = "DB_SECTION_id">
 						<option value = ""></option>
-
 						@foreach ($sections as $section)
-
 							@if ($section->DB_USER_id == null || $section->DB_USER_id == $user->id)
-
 								<option value = "{{ $section->id }}" {{ $user->id == $section->DB_USER_id ? 'selected' : '' }}>Grade {{ $section->grade }} | {{ $section->section }}</option>
-
 							@endif
-
 						@endforeach
-
 					</select>
-					Note: changes to this field for advisers will have their names saved (legacy) on all students associated with the user
+					Note: changes to this field for advisers will have their names archived on all students associated with the user
 					<br>
 					<br>
-
-					<!-- Class Designations -->
 					<b>Class Designations:</b>
 					<div class = "border-all-light" style = "padding: 15px;">
-
 						@foreach ($sections as $section)
-
 							<label>
 								<input
 									name = "DB_SECTION_MULTI_id[]"
@@ -260,39 +215,22 @@
 								>
 								Grade {{ $section->grade }} | {{ $section->section }}
 							</label>
-
 						@endforeach
-
 					</div>
-
 				</div>
 			</div>
-
-			<!-- Danger -->
+		</div>
+		<div class = "container">
 			<div class = "row">
 				<div class = "col-12">
 					<hr>
-					<h6 class = "text-center">Danger</h6>
-					<hr>
-				</div>
-				<div class = "col-12">
-					<a href = "{{ url('/users/password', $user->id) }}">
-						<button class = "button" type = "button">Change Password</button>
-					</a>
-
+					<input class = "custom-button" type = "submit" value = "Update">
+					<a href = "{{ url('/users/password', $user->id) }}" class = "custom-button">Change Password</a>
 					@if ($user->is_deletable)
-
-						<a href = "{{ url('/users/delete', $user->id) }}">
-							<button class = "button" type = "button">Delete</button>
-						</a>
-
+						<a href = "{{ url('/users/delete', $user->id) }}" class = "custom-button">Delete</a>
 					@endif
-
 				</div>
 			</div>
-
-		</section>
-
+		</div>
 	</form>
-
 @endsection

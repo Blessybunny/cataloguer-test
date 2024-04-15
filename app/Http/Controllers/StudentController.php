@@ -27,11 +27,6 @@ class StudentController extends Controller {
     }
 
     /**
-     * REDIRECT
-     */
-    public function redirect () { return redirect()->to('/students'); }
-
-    /**
      * INDEX
      */
     public function index () {
@@ -63,6 +58,39 @@ class StudentController extends Controller {
             ->with('auth', $auth)
             ->with('terms', $terms)
             ->with('students', $students);
+    }
+
+    /**
+     * VIEW
+     */
+    public function view ($id) {
+        // Guard
+        $auth = (new Controller)->auth();
+        $student = Student::find($id);
+
+        if (
+            self::guard($auth) ||
+            $student == null
+        ) {
+            return (new Controller)->home();
+        }
+
+        // Permission
+        $student = self::Format_Student($auth, $student);
+
+        if ($student->is_inaccessible) {
+            return (new Controller)->home();
+        }
+
+        // Proceed
+        $grades = self::Format_Grades($auth, $student, Grade::query());
+
+        $student->ST_locker = true;
+
+        return view('pages.students.view')
+            ->with('auth', $auth)
+            ->with('grades', $grades)
+            ->with('student', $student);
     }
 
     /**
@@ -119,40 +147,8 @@ class StudentController extends Controller {
             'info_birthdate' => $validated['info_birthdate'],
         ]);
 
-        return redirect()->to('/students/edit/area/'.$student->id);
-    }
-
-    /**
-     * VIEW
-     */
-    public function view ($id) {
-        // Guard
-        $auth = (new Controller)->auth();
-        $student = Student::find($id);
-
-        if (
-            self::guard($auth) ||
-            $student == null
-        ) {
-            return (new Controller)->home();
-        }
-
-        // Permission
-        $student = self::Format_Student($auth, $student);
-
-        if ($student->is_inaccessible) {
-            return (new Controller)->home();
-        }
-
-        // Proceed
-        $grades = self::Format_Grades($auth, $student, Grade::query());
-
-        $student->ST_locker = true;
-
-        return view('pages.students.view')
-            ->with('auth', $auth)
-            ->with('grades', $grades)
-            ->with('student', $student);
+        return redirect()->to('/students/edit/info/'.$student->id)
+            ->with('created', true);
     }
 
     /**
@@ -218,7 +214,8 @@ class StudentController extends Controller {
 
         $student->touch();
 
-        return redirect()->to('/students/edit/info/'.$id);
+        return redirect()->to('/students/edit/info/'.$id)
+            ->with('updated', true);
     }
 
     /**
@@ -309,7 +306,8 @@ class StudentController extends Controller {
             $student->touch();
         }
 
-        return redirect()->to('/students/edit/area/'.$id);
+        return redirect()->to('/students/edit/area/'.$id)
+            ->with('updated', true);
     }
 
     /**
@@ -1021,7 +1019,8 @@ class StudentController extends Controller {
         $student->touch();
 
         // Redirect
-        return redirect()->to('/students/edit/form/'.$id);
+        return redirect()->to('/students/edit/form/'.$id)
+            ->with('updated', true);
     }
 
     /**
@@ -1092,7 +1091,8 @@ class StudentController extends Controller {
 
         $student->touch();
 
-        return redirect()->to('/students/edit/lock/'.$id);
+        return redirect()->to('/students/edit/lock/'.$id)
+            ->with('updated', true);
     }
 
     /**
@@ -1138,7 +1138,7 @@ class StudentController extends Controller {
         // Proceed
         $student->delete();
 
-        return self::redirect();
+        return redirect()->to('/students');
     }
 
     // ----------------------------------------------------------------------------------------------------

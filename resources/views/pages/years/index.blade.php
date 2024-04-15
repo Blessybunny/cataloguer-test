@@ -1,118 +1,74 @@
 @extends('layouts.general.page')
-
 @section('title') Cataloger - School Year Manager @endsection
-
 @section('content')
-
 	<form action = "{{ url('/years') }}" method = "POST">
-
 		@csrf
-
-		<section class = "container">
-
-			<!-- Header -->
-			<div class = "row">
-				<div class = "align-self-center col-4">
-					<a href = "{{ url('/home') }}">
-						<button class = "button" type = "button">Back</button>
-					</a>
-				</div>
-				<div class = "align-self-center col-4">
-					<h4 class = "text-center">School Year Index</h4>
-				</div>
-				<div class = "align-self-center col-4">
-
-					@if ($auth->is_administrator)
-
-						<a href = "{{ url('/years/create') }}">
-							<button class = "button float-right" type = "button">Add</button>
-						</a>
-
-					@endif
-
-				</div>
-			</div>
-
-			<!-- Search -->
+		<div class = "container-fluid">
 			<div class = "row">
 				<div class = "col-12">
-					<hr>
-					<label>
+					<h1 class = "custom-header">
+						<div class = "main">Years</div>
+						<div class = "subtitle">Index</div>
+						<hr>
+					</h1>
+				</div>
+			</div>
+		</div>
+		<div class = "container">
+			<div class = "row">
+				@if ($auth->is_administrator)
+					<div class = "col-12">
+						<a href = "{{ url('/years/create') }}">
+							<button class = "custom-button" type = "button">Create</button>
+						</a>
+						<hr>
+					</div>
+				@endif
+				<div class = "col-12">
+					<label class = "custom-search">
 						<input
 							name = "terms"
 							type = "text"
-							placeholder = "Search school year"
+							placeholder = "Search year"
 							value = "{{ isset($terms) ? $terms : '' }}"
-							style = "margin-right: 5px;"
 						>
-						<button class = "button-small" type = "submit" style = "margin-right: 5px;">Search</button>
-						<a href = "{{ url('/years') }}">
-							<button class = "button-small" type = "button">Clear</button>
-						</a>
+						<button type = "submit">Search</button>
+						<a href = "{{ url('/years') }}">Clear</a>
 					</label>
-
 					@if ($terms)
-
 						<br>
-						<p class = "text-center">Results for <b>{{ $terms }}</b></p>
-
+						<p>Results for <b>{{ $terms }}</b></p>
 					@endif
-
 					<hr>
 				</div>
-			</div>
-
-			<!-- Index -->
-			<div class = "row">
-				<div class = "col-12">
-
-					@if (count($years) > 0)
-
-						<table id = "index" class = "table">
+				@if (count($years) > 0)
+					<div class = "col-12">
+						<table id = "index" class = "custom-index table">
 							<thead>
 								<tr>
-									<th width = "200">School Year</th>
-									<th></th>
-									<th width = "200">Action</th>
+									<th width = "250">Year</th>
+									<th>Action</th>
 								</tr>
 							</thead>
 							<tbody>
-
 								@foreach ($years as $year)
-
 									<tr>
-										<td class = "text-center">{{ $year->full }}</td>
-										<td></td>
+										<td>{{ $year->full }}</td>
 										<td>
-											<div class = "container-fluid">
-												<div class = "row">
-													<div class = "col">
-														<a href = "{{ url('/years/view', $year->id) }}">View</a>
-													</div>
-													<div class = "col">
-
-														@if ($auth->is_administrator)
-
-															<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
-
-														@endif
-
-													</div>
-												</div>
-											</div>
+											<a href = "{{ url('/years/view', $year->id) }}">View</a>
+											@if ($auth->is_administrator)
+												<a href = "{{ url('/years/edit', $year->id) }}">Edit</a>
+											@endif
 										</td>
 									</tr>
-
 								@endforeach
-
 							</tbody>
 						</table>
-
 						<script>
 							const table = new DataTable('#index', {
 								columnDefs: [
-									{ className: "dt-head-left", targets: [ 0, 1, 2 ] },
-									{ "orderable": false, "targets": [1, 2] },
+									{ className: "dt-head-left", targets: [0, 1] },
+									{ "orderable": false, "targets": [1] },
 								],
 								info: false,
 								order: [[0, 'desc']],
@@ -120,20 +76,12 @@
 								searching: false,
 							});
 						</script>
-
 						<hr>
-
 						{!! $years->appends(array('terms' => $terms))->links() !!}
-
 						<p>Showing <b>{{ $years->firstItem() }}</b> to <b>{{ $years->firstItem() + $years->count() - 1 }}</b> of <b>{{ $years->total() }}</b> entries</p>
-
-					@endif
-
-				</div>
+					</div>
+				@endif
 			</div>
-
-		</section>
-
+		</div>
 	</form>
-
 @endsection

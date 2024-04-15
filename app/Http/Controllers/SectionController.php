@@ -33,11 +33,6 @@ class SectionController extends Controller {
     }
 
     /**
-     * REDIRECT
-     */
-    public function redirect () { return redirect()->to('/sections'); }
-
-    /**
      * INDEX
      */
     public function index () {
@@ -49,7 +44,7 @@ class SectionController extends Controller {
         }
 
         // Proceed
-        $grades = Grade::all();
+        $grades = Grade::orderBy('grade', 'desc')->get();
 
         return view('pages.sections.index')
             ->with('auth', $auth)
@@ -155,7 +150,8 @@ class SectionController extends Controller {
 
         $grade->touch();
 
-        return redirect()->to('/sections/edit/'.$id);
+        return redirect()->to('/sections/edit/'.$id)
+            ->with('updated', true);
     }
 
     // ----------------------------------------------------------------------------------------------------

@@ -2,7 +2,11 @@
 @import "general.less";
 
 /* VARIABLES */
-@size-spacing-paper: 35px;
+@border: 1px rgb(200, 200, 200) solid;
+
+@color-background-header: rgb(225, 225, 225);
+
+@size-spacing-paper: 30px;
 @size-width-paper: 1200px;
 
 /* MEDIA */
@@ -24,7 +28,7 @@
         visibility: visible;
     }
     .paper {
-        transform: scale(0.8325); /* Closest approximation */
+        transform: scale(0.6325); /* Closest approximation */
         transform-origin: 0 0;
     }
 }
@@ -37,27 +41,36 @@ canvas {margin: 0 15px 0 15px;}
     max-width: @size-width-paper;
     min-width: @size-width-paper;
 
-    * { font-family: @font-paper; }
+    * { font-family: @font-paper !important; }
     h6 {
+        font-weight: bold;
         margin: 0;
         text-align: center;
+        text-transform: uppercase;
     }
     input[type=number],
     input[type=text],
     select {
         border: none;
-        padding: 0;
+        padding: 0 !important;
     }
-    select {padding-left: 2px;}
     span { display: block; }
     table { margin: calc(@size-spacing-paper / 2) 0; }
-    td, th { padding: 3px 15px; }
-    th { text-transform: uppercase; }
+    td, th {
+        border: @border !important;
+        padding: 3px 15px !important;
+        vertical-align: middle !important;
+    }
+    th {
+        background-color: @color-background-header !important;
+        text-align: center;
+        text-transform: uppercase;
+    }
 
     .border-space { padding: calc(@size-spacing-paper / 4) @size-spacing-paper; } /* SF10 */
     .break { height: calc(@size-spacing-paper / 2); }
     .heading {
-        background-color: rgba(@color-theme, @opacity-step);
+        background-color: @color-background-header;
         margin: calc(@size-spacing-paper / 2) 0;
         padding: calc(@size-spacing-paper / 4) 0;
     }

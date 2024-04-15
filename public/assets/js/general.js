@@ -9,6 +9,15 @@
     }
 })();
 
+// Input behavior - form confirmation
+(() => {
+    const submits = document.querySelectorAll(`input[type=submit]`);
+
+    for (let i = 0, ii = submits.length; i < ii; i++) {
+        submits[i].onclick = () => confirm(`Are you sure you want to proceed?`);
+    }
+})();
+
 // Input bahavior - numbers
 (() => {
     const numbers = document.querySelectorAll(`input[type = "number"]`);

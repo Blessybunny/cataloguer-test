@@ -1,4 +1,3 @@
-<!-- Row 1 -->
 <div class = "row">
 	<div class = "col-2">
 		<label class = "{{ $student->ST_locker || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -61,8 +60,6 @@
 		</label>
 	</div>
 </div>
-
-<!-- Row 2 -->
 <div class = "row">
 	<div class = "col-2">
 		<label class = "{{ $student->ST_locker || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -118,13 +115,9 @@
 		</label>
 	</div>
 </div>
-
-<!-- Table -->
 <div class = "row">
 	<div class = "col-12">
 		<table class = "table">
-
-			<!-- Headers -->
 			<tr>
 				<th colspan = "2" rowspan = "2">Learning Areas</th>
 				<th colspan = "4">Quarter</th>
@@ -137,8 +130,6 @@
 				<th style = "min-width: 50px;">3rd</th>
 				<th style = "min-width: 50px;">4th</th>
 			</tr>
-
-			<!-- Subject -> filipino -->
 			<tr>
 				<td colspan = "2">Filipino {{ $grade }}</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_fil || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -198,8 +189,6 @@
 					"sf10_g{{ $grade }}_subject_qr4_fil"
 				]'></td>
 			</tr>
-
-			<!-- Subject -> english -->
 			<tr>
 				<td colspan = "2">English {{ $grade }}</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_eng || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -259,8 +248,6 @@
 					"sf10_g{{ $grade }}_subject_qr4_eng"
 				]'></td>
 			</tr>
-
-			<!-- Subject -> mathematics -->
 			<tr>
 				<td colspan = "2">Mathemathics {{ $grade }}</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_mat || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -320,8 +307,6 @@
 					"sf10_g{{ $grade }}_subject_qr4_mat"
 				]'></td>
 			</tr>
-
-			<!-- Subject -> science -->
 			<tr>
 				<td colspan = "2">Science {{ $grade }}</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_sci || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -381,8 +366,6 @@
 					"sf10_g{{ $grade }}_subject_qr4_sci"
 				]'></td>
 			</tr>
-
-			<!-- Subject -> araling panlipunan (ap) -->
 			<tr>
 				<td colspan = "2">Araling Panlipunan (AP) {{ $grade }}</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_ap || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -442,8 +425,6 @@
 					"sf10_g{{ $grade }}_subject_qr4_ap"
 				]'></td>
 			</tr>
-
-			<!-- Subject -> edukasyon sa pagpapakatao (ep) -->
 			<tr>
 				<td colspan = "2">Edukasyon sa Pagpapakatao (EP) {{ $grade }}</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_ep || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -503,8 +484,6 @@
 					"sf10_g{{ $grade }}_subject_qr4_ep"
 				]'></td>
 			</tr>
-
-			<!-- Subject -> technology and livelihood education (tle) -->
 			<tr>
 				<td colspan = "2">Technology and Livelihood Education (TLE) {{ $grade }}</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_tle || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -564,8 +543,6 @@
 					"sf10_g{{ $grade }}_subject_qr4_tle"
 				]'></td>
 			</tr>
-
-			<!-- Average -> MAPEH -->
 			<tr>
 				<td colspan = "2">MAPEH {{ $grade }}</td>
 				<td class = "text-center" data-property = "average" data-targets = '[
@@ -597,17 +574,14 @@
 					"sf10_g{{ $grade }}_subject_qr1_art",
 					"sf10_g{{ $grade }}_subject_qr1_pe",
 					"sf10_g{{ $grade }}_subject_qr1_hp",
-
 					"sf10_g{{ $grade }}_subject_qr2_mus",
 					"sf10_g{{ $grade }}_subject_qr2_art",
 					"sf10_g{{ $grade }}_subject_qr2_pe",
 					"sf10_g{{ $grade }}_subject_qr2_hp",
-
 					"sf10_g{{ $grade }}_subject_qr3_mus",
 					"sf10_g{{ $grade }}_subject_qr3_art",
 					"sf10_g{{ $grade }}_subject_qr3_pe",
 					"sf10_g{{ $grade }}_subject_qr3_hp",
-
 					"sf10_g{{ $grade }}_subject_qr4_mus",
 					"sf10_g{{ $grade }}_subject_qr4_art",
 					"sf10_g{{ $grade }}_subject_qr4_pe",
@@ -618,25 +592,20 @@
 					"sf10_g{{ $grade }}_subject_qr1_art",
 					"sf10_g{{ $grade }}_subject_qr1_pe",
 					"sf10_g{{ $grade }}_subject_qr1_hp",
-
 					"sf10_g{{ $grade }}_subject_qr2_mus",
 					"sf10_g{{ $grade }}_subject_qr2_art",
 					"sf10_g{{ $grade }}_subject_qr2_pe",
 					"sf10_g{{ $grade }}_subject_qr2_hp",
-
 					"sf10_g{{ $grade }}_subject_qr3_mus",
 					"sf10_g{{ $grade }}_subject_qr3_art",
 					"sf10_g{{ $grade }}_subject_qr3_pe",
 					"sf10_g{{ $grade }}_subject_qr3_hp",
-
 					"sf10_g{{ $grade }}_subject_qr4_mus",
 					"sf10_g{{ $grade }}_subject_qr4_art",
 					"sf10_g{{ $grade }}_subject_qr4_pe",
 					"sf10_g{{ $grade }}_subject_qr4_hp"
 				]'></td>
 			</tr>
-
-			<!-- Subject -> music -->
 			<tr>
 				<td colspan = "2" style = "text-indent: 15px;">Music</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -685,8 +654,6 @@
 				</td>
 				<td colspan = "2" rowspan = "4"></td>
 			</tr>
-
-			<!-- Subject -> arts -->
 			<tr>
 				<td colspan = "2" style = "text-indent: 15px;">Arts</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -734,8 +701,6 @@
 					>
 				</td>
 			</tr>
-
-			<!-- Subject -> physical education -->
 			<tr>
 				<td colspan = "2" style = "text-indent: 15px;">Physical Education</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -783,8 +748,6 @@
 					>
 				</td>
 			</tr>
-
-			<!-- Subject -> health -->
 			<tr>
 				<td colspan = "2" style = "text-indent: 15px;">Health</td>
 				<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -832,11 +795,7 @@
 					>
 				</td>
 			</tr>
-
-			<!-- Subject -> nihongo -->
-
 			@if ($student->{'ST_sf10_g'.$grade.'_subject_jp'})
-
 				<tr>
 					<td colspan = "2">Nihongo {{ $grade }}</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_jp || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}">
@@ -896,10 +855,7 @@
 						"sf10_g{{ $grade }}_subject_qr4_jp"
 					]'></td>
 				</tr>
-
 			@endif
-
-			<!-- Average -> all -->
 			<tr>
 				<th class = "border-right-none" colspan = "2"></th>
 				<th class = "border-left-none" colspan = "4">General Average</th>
@@ -908,57 +864,46 @@
 					"sf10_g{{ $grade }}_subject_qr2_fil",
 					"sf10_g{{ $grade }}_subject_qr3_fil",
 					"sf10_g{{ $grade }}_subject_qr4_fil",
-
 					"sf10_g{{ $grade }}_subject_qr1_eng",
 					"sf10_g{{ $grade }}_subject_qr2_eng",
 					"sf10_g{{ $grade }}_subject_qr3_eng",
 					"sf10_g{{ $grade }}_subject_qr4_eng",
-
 					"sf10_g{{ $grade }}_subject_qr1_mat",
 					"sf10_g{{ $grade }}_subject_qr2_mat",
 					"sf10_g{{ $grade }}_subject_qr3_mat",
 					"sf10_g{{ $grade }}_subject_qr4_mat",
-
 					"sf10_g{{ $grade }}_subject_qr1_sci",
 					"sf10_g{{ $grade }}_subject_qr2_sci",
 					"sf10_g{{ $grade }}_subject_qr3_sci",
 					"sf10_g{{ $grade }}_subject_qr4_sci",
-
 					"sf10_g{{ $grade }}_subject_qr1_ap",
 					"sf10_g{{ $grade }}_subject_qr2_ap",
 					"sf10_g{{ $grade }}_subject_qr3_ap",
 					"sf10_g{{ $grade }}_subject_qr4_ap",
-
 					"sf10_g{{ $grade }}_subject_qr1_ep",
 					"sf10_g{{ $grade }}_subject_qr2_ep",
 					"sf10_g{{ $grade }}_subject_qr3_ep",
 					"sf10_g{{ $grade }}_subject_qr4_ep",
-
 					"sf10_g{{ $grade }}_subject_qr1_tle",
 					"sf10_g{{ $grade }}_subject_qr2_tle",
 					"sf10_g{{ $grade }}_subject_qr3_tle",
 					"sf10_g{{ $grade }}_subject_qr4_tle",
-
 					"sf10_g{{ $grade }}_subject_qr1_mus",
 					"sf10_g{{ $grade }}_subject_qr2_mus",
 					"sf10_g{{ $grade }}_subject_qr3_mus",
 					"sf10_g{{ $grade }}_subject_qr4_mus",
-
 					"sf10_g{{ $grade }}_subject_qr1_art",
 					"sf10_g{{ $grade }}_subject_qr2_art",
 					"sf10_g{{ $grade }}_subject_qr3_art",
 					"sf10_g{{ $grade }}_subject_qr4_art",
-
 					"sf10_g{{ $grade }}_subject_qr1_pe",
 					"sf10_g{{ $grade }}_subject_qr2_pe",
 					"sf10_g{{ $grade }}_subject_qr3_pe",
 					"sf10_g{{ $grade }}_subject_qr4_pe",
-
 					"sf10_g{{ $grade }}_subject_qr1_hp",
 					"sf10_g{{ $grade }}_subject_qr2_hp",
 					"sf10_g{{ $grade }}_subject_qr3_hp",
 					"sf10_g{{ $grade }}_subject_qr4_hp",
-
 					"sf10_g{{ $grade }}_subject_qr1_jp",
 					"sf10_g{{ $grade }}_subject_qr2_jp",
 					"sf10_g{{ $grade }}_subject_qr3_jp",
@@ -969,65 +914,52 @@
 					"sf10_g{{ $grade }}_subject_qr2_fil",
 					"sf10_g{{ $grade }}_subject_qr3_fil",
 					"sf10_g{{ $grade }}_subject_qr4_fil",
-
 					"sf10_g{{ $grade }}_subject_qr1_eng",
 					"sf10_g{{ $grade }}_subject_qr2_eng",
 					"sf10_g{{ $grade }}_subject_qr3_eng",
 					"sf10_g{{ $grade }}_subject_qr4_eng",
-
 					"sf10_g{{ $grade }}_subject_qr1_mat",
 					"sf10_g{{ $grade }}_subject_qr2_mat",
 					"sf10_g{{ $grade }}_subject_qr3_mat",
 					"sf10_g{{ $grade }}_subject_qr4_mat",
-
 					"sf10_g{{ $grade }}_subject_qr1_sci",
 					"sf10_g{{ $grade }}_subject_qr2_sci",
 					"sf10_g{{ $grade }}_subject_qr3_sci",
 					"sf10_g{{ $grade }}_subject_qr4_sci",
-
 					"sf10_g{{ $grade }}_subject_qr1_ap",
 					"sf10_g{{ $grade }}_subject_qr2_ap",
 					"sf10_g{{ $grade }}_subject_qr3_ap",
 					"sf10_g{{ $grade }}_subject_qr4_ap",
-
 					"sf10_g{{ $grade }}_subject_qr1_ep",
 					"sf10_g{{ $grade }}_subject_qr2_ep",
 					"sf10_g{{ $grade }}_subject_qr3_ep",
 					"sf10_g{{ $grade }}_subject_qr4_ep",
-
 					"sf10_g{{ $grade }}_subject_qr1_tle",
 					"sf10_g{{ $grade }}_subject_qr2_tle",
 					"sf10_g{{ $grade }}_subject_qr3_tle",
 					"sf10_g{{ $grade }}_subject_qr4_tle",
-
 					"sf10_g{{ $grade }}_subject_qr1_mus",
 					"sf10_g{{ $grade }}_subject_qr2_mus",
 					"sf10_g{{ $grade }}_subject_qr3_mus",
 					"sf10_g{{ $grade }}_subject_qr4_mus",
-
 					"sf10_g{{ $grade }}_subject_qr1_art",
 					"sf10_g{{ $grade }}_subject_qr2_art",
 					"sf10_g{{ $grade }}_subject_qr3_art",
 					"sf10_g{{ $grade }}_subject_qr4_art",
-
 					"sf10_g{{ $grade }}_subject_qr1_pe",
 					"sf10_g{{ $grade }}_subject_qr2_pe",
 					"sf10_g{{ $grade }}_subject_qr3_pe",
 					"sf10_g{{ $grade }}_subject_qr4_pe",
-
 					"sf10_g{{ $grade }}_subject_qr1_hp",
 					"sf10_g{{ $grade }}_subject_qr2_hp",
 					"sf10_g{{ $grade }}_subject_qr3_hp",
 					"sf10_g{{ $grade }}_subject_qr4_hp",
-
 					"sf10_g{{ $grade }}_subject_qr1_jp",
 					"sf10_g{{ $grade }}_subject_qr2_jp",
 					"sf10_g{{ $grade }}_subject_qr3_jp",
 					"sf10_g{{ $grade }}_subject_qr4_jp"
 				]'></td>
 			</tr>
-
-			<!-- Remedial -->
 			<tr>
 				<th style = "min-width: 339px;">Remedial Classes</td>
 				<td class = "border-right-none {{ $student->ST_locker || !$auth->ST_subject_sf10_grade ? '' : 'highlight' }}" colspan = "5">
@@ -1069,7 +1001,6 @@
 				<td>&nbsp;</td>
 				<td>&nbsp;</td>
 			</tr>
-
 		</table>
 	</div>
 </div>

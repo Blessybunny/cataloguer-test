@@ -1,70 +1,49 @@
 @extends('layouts.general.meta')
-
 @section('body')
-
-    <!-- Header -->
-    <header id = "header" class = "align-items-center d-flex fixed-top header">
-        <div class = "align-items-center container d-flex justify-content-between">
-            <a href = "{{ url('/login') }}" class = "align-items-center d-flex logo me-auto me-lg-0">
-                <h1>Cataloger<span>.</span></h1>
-            </a>
-            <nav id = "navbar" class = "navbar">
-                <ul>
-
-					@if (
-                        $auth->is_principal ||
-                        $auth->is_administrator
-                    )
-
-                        <li><a href = "{{ url('/sections') }}">Sections</a></li>
-
-                    @endif
-
-                    <li><a href = "{{ url('/students') }}">Students</a></li>
-
-					@if (
-                        $auth->is_principal ||
-                        $auth->is_administrator
-                    )
-
-                        <li><a href = "{{ url('/users') }}">Users</a></li>
-
-                    @endif
-
-					@if (
-                        $auth->is_principal ||
-                        $auth->is_administrator
-                    )
-
-                        <li><a href = "{{ url('/years') }}">Years</a></li>
-
-                    @endif
-
-                    <li><a href = "{{ url('/logout') }}">Log out</a></li>
-
-                </ul>
-            </nav>
-            <a class = "font-bold username">{{ strtoupper($auth->name_last) }}, {{ $auth->name_first }}</a>
-            <i class = "bi bi-list mobile-nav-show mobile-nav-toggle"></i>
-            <i class = "bi bi-x d-none mobile-nav-hide mobile-nav-toggle"></i>
+    <div id = "wrapper">
+        <div id = "sidebar">
+            <div class = "logo">
+                <a href = "{{ url('/login') }}">
+                    <div class = "upper">Cataloger</div>
+                    <div class = "lower">Record Manager</div>
+                </a>
+            </div>
+            <div class = "user">
+                <div class = "name">{{ $auth->name_first }} {{ $auth->name_last }}</div>
+                <div class = "role">
+                    {{ $auth->is_principal ? 'Principal' : '' }}
+                    {{ $auth->is_administrator ? 'Administrator' : '' }}
+                    {{ $auth->is_grade_level_coordinator ? 'Grade Level Coordinator' : '' }}
+                    {{ $auth->is_adviser ? 'Adviser' : '' }}
+                </div>
+            </div>
+            <div class = "links">
+                @if ($auth->is_principal || $auth->is_administrator)
+                    <a class = "link" href = "{{ url('/home') }}">Home</a>
+                @endif
+                @if ($auth->is_principal || $auth->is_administrator)
+                    <a class = "link" href = "{{ url('/sections') }}">Sections</a>
+                @endif
+                <a class = "link" href = "{{ url('/students') }}">Students</a>
+                @if ($auth->is_principal || $auth->is_administrator)
+                    <a class = "link" href = "{{ url('/users') }}">Users</a>
+                @endif
+                @if ($auth->is_principal || $auth->is_administrator)
+                    <a class = "link" href = "{{ url('/years') }}">Years</a>
+                @endif
+                <a class = "link" href = "{{ url('/logout') }}">Logout</a>
+            </div>
+            <div class = "copyright">
+                <script>
+                    document.getElementsByClassName('copyright')[0].innerHTML = `
+                        <div class = "copy">Copyright &copy;${new Date().getFullYear()}</div>
+                        <div class = "text">Department of Education</div>
+                    `;
+                </script>
+            </div>
         </div>
-    </header>
-
-    <!-- Main -->
-    <main id = "main">
-
-        @yield('content')
-
-    </main>
-
-    <!-- Footer -->
-    <footer id = "footer" class = "align-middle container-fluid footer"></footer>
-    <script>
-        document.getElementById('footer').innerHTML = `
-            Copyright ${new Date().getFullYear()}
-            <br>
-            Republic of the Philippines. Department of Education.
-        `;
-    </script>
-
+        <div id = "content">
+            @yield('content')
+        </div>
+	</div>
 @endsection

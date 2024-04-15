@@ -1,16 +1,9 @@
 <div class = "container-fluid paper">
 	<div class = "row">
-
-		<!-- Left -->
 		<div class = "col-6">
-
 			<h6 class = "heading">Report on Learning Progress and Achievement</h6>
-
 			<span class = "font-bold text-uppercase">Name: {{ $student->info_name_last }}, {{ $student->info_name_first }} {{ $student->info_name_middle }} {{ $student->info_name_suffix }}</span>
-
 			<table class = "table">
-
-				<!-- Headers -->
 				<tr>
 					<th rowspan = "2">Learning Areas</th>
 					<th colspan = "4">Quarter</th>
@@ -23,8 +16,6 @@
 					<th class = "table-cell-thin">3rd</th>
 					<th class = "table-cell-thin">4th</th>
 				</tr>
-
-				<!-- Subject -> filipino -->
 				<tr>
 					<td>Filipino {{ $grade->grade }}</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_fil ? '' : 'highlight' }}">
@@ -84,8 +75,6 @@
 						"sf9_g{{ $grade->grade }}_subject_qr4_fil"
 					]'></td>
 				</tr>
-
-				<!-- Subject -> english -->
 				<tr>
 					<td>English {{ $grade->grade }}</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_eng ? '' : 'highlight' }}">
@@ -145,8 +134,6 @@
 						"sf9_g{{ $grade->grade }}_subject_qr4_eng"
 					]'></td>
 				</tr>
-
-				<!-- Subject -> mathematics -->
 				<tr>
 					<td>Mathemathics {{ $grade->grade }}</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mat ? '' : 'highlight' }}">
@@ -206,8 +193,6 @@
 						"sf9_g{{ $grade->grade }}_subject_qr4_mat"
 					]'></td>
 				</tr>
-
-				<!-- Subject -> science -->
 				<tr>
 					<td>Science {{ $grade->grade }}</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_sci ? '' : 'highlight' }}">
@@ -267,8 +252,6 @@
 						"sf9_g{{ $grade->grade }}_subject_qr4_sci"
 					]'></td>
 				</tr>
-
-				<!-- Subject -> araling panlipunan (ap) -->
 				<tr>
 					<td>Araling Panlipunan (AP) {{ $grade->grade }}</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ap ? '' : 'highlight' }}">
@@ -328,8 +311,6 @@
 						"sf9_g{{ $grade->grade }}_subject_qr4_ap"
 					]'></td>
 				</tr>
-
-				<!-- Subject -> edukasyon sa pagpapakatao (ep) -->
 				<tr>
 					<td>Edukasyon sa Pagpapakatao (EP) {{ $grade->grade }}</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_ep ? '' : 'highlight' }}">
@@ -389,8 +370,6 @@
 						"sf9_g{{ $grade->grade }}_subject_qr4_ep"
 					]'></td>
 				</tr>
-
-				<!-- Subject -> technology and livelihood education (tle) -->
 				<tr>
 					<td>Technology and Livelihood Education (TLE) {{ $grade->grade }}</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_tle ? '' : 'highlight' }}">
@@ -450,8 +429,6 @@
 						"sf9_g{{ $grade->grade }}_subject_qr4_tle"
 					]'></td>
 				</tr>
-
-				<!-- Average -> MAPEH -->
 				<tr>
 					<td>MAPEH {{ $grade->grade }}</td>
 					<td class = "text-center" data-property = "average" data-targets = '[
@@ -483,17 +460,14 @@
 						"sf9_g{{ $grade->grade }}_subject_qr1_art",
 						"sf9_g{{ $grade->grade }}_subject_qr1_pe",
 						"sf9_g{{ $grade->grade }}_subject_qr1_hp",
-
 						"sf9_g{{ $grade->grade }}_subject_qr2_mus",
 						"sf9_g{{ $grade->grade }}_subject_qr2_art",
 						"sf9_g{{ $grade->grade }}_subject_qr2_pe",
 						"sf9_g{{ $grade->grade }}_subject_qr2_hp",
-
 						"sf9_g{{ $grade->grade }}_subject_qr3_mus",
 						"sf9_g{{ $grade->grade }}_subject_qr3_art",
 						"sf9_g{{ $grade->grade }}_subject_qr3_pe",
 						"sf9_g{{ $grade->grade }}_subject_qr3_hp",
-
 						"sf9_g{{ $grade->grade }}_subject_qr4_mus",
 						"sf9_g{{ $grade->grade }}_subject_qr4_art",
 						"sf9_g{{ $grade->grade }}_subject_qr4_pe",
@@ -504,25 +478,20 @@
 						"sf9_g{{ $grade->grade }}_subject_qr1_art",
 						"sf9_g{{ $grade->grade }}_subject_qr1_pe",
 						"sf9_g{{ $grade->grade }}_subject_qr1_hp",
-
 						"sf9_g{{ $grade->grade }}_subject_qr2_mus",
 						"sf9_g{{ $grade->grade }}_subject_qr2_art",
 						"sf9_g{{ $grade->grade }}_subject_qr2_pe",
 						"sf9_g{{ $grade->grade }}_subject_qr2_hp",
-
 						"sf9_g{{ $grade->grade }}_subject_qr3_mus",
 						"sf9_g{{ $grade->grade }}_subject_qr3_art",
 						"sf9_g{{ $grade->grade }}_subject_qr3_pe",
 						"sf9_g{{ $grade->grade }}_subject_qr3_hp",
-
 						"sf9_g{{ $grade->grade }}_subject_qr4_mus",
 						"sf9_g{{ $grade->grade }}_subject_qr4_art",
 						"sf9_g{{ $grade->grade }}_subject_qr4_pe",
 						"sf9_g{{ $grade->grade }}_subject_qr4_hp"
 					]'></td>
 				</tr>
-
-				<!-- Subject -> music -->
 				<tr>
 					<td style = "text-indent: 15px;">Music</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
@@ -571,8 +540,6 @@
 					</td>
 					<td colspan = "2" rowspan = "4"></td>
 				</tr>
-
-				<!-- Subject -> arts -->
 				<tr>
 					<td style = "text-indent: 15px;">Arts</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
@@ -620,8 +587,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- Subject -> physical education -->
 				<tr>
 					<td style = "text-indent: 15px;">Physical Education</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
@@ -669,8 +634,6 @@
 						>
 					</td>
 				</tr>
-
-				<!-- Subject -> health -->
 				<tr>
 					<td style = "text-indent: 15px;">Health</td>
 					<td class = "{{ $student->ST_locker || !$auth->ST_subject_mapeh ? '' : 'highlight' }}">
@@ -718,11 +681,7 @@
 						>
 					</td>
 				</tr>
-
-				<!-- Subject -> nihongo -->
-
 				@if ($student->{'ST_sf9_g'.$grade->grade.'_subject_jp'})
-
 					<tr>
 						<td>Nihongo {{ $grade->grade }}</td>
 						<td class = "{{ $student->ST_locker || !$auth->ST_subject_jp ? '' : 'highlight' }}">
@@ -782,11 +741,8 @@
 							"sf9_g{{ $grade->grade }}_subject_qr4_jp"
 						]'></td>
 					</tr>
-
 				@endif
-
 			</table>
-
 			<div class = "display-flex font-bold text-uppercase">
 				<div>General Average:&nbsp;</div>
 				<div data-property = "average" data-targets = '[
@@ -794,64 +750,52 @@
 					"sf9_g{{ $grade->grade }}_subject_qr2_fil",
 					"sf9_g{{ $grade->grade }}_subject_qr3_fil",
 					"sf9_g{{ $grade->grade }}_subject_qr4_fil",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_eng",
 					"sf9_g{{ $grade->grade }}_subject_qr2_eng",
 					"sf9_g{{ $grade->grade }}_subject_qr3_eng",
 					"sf9_g{{ $grade->grade }}_subject_qr4_eng",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_mat",
 					"sf9_g{{ $grade->grade }}_subject_qr2_mat",
 					"sf9_g{{ $grade->grade }}_subject_qr3_mat",
 					"sf9_g{{ $grade->grade }}_subject_qr4_mat",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_sci",
 					"sf9_g{{ $grade->grade }}_subject_qr2_sci",
 					"sf9_g{{ $grade->grade }}_subject_qr3_sci",
 					"sf9_g{{ $grade->grade }}_subject_qr4_sci",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_ap",
 					"sf9_g{{ $grade->grade }}_subject_qr2_ap",
 					"sf9_g{{ $grade->grade }}_subject_qr3_ap",
 					"sf9_g{{ $grade->grade }}_subject_qr4_ap",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_ep",
 					"sf9_g{{ $grade->grade }}_subject_qr2_ep",
 					"sf9_g{{ $grade->grade }}_subject_qr3_ep",
 					"sf9_g{{ $grade->grade }}_subject_qr4_ep",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_tle",
 					"sf9_g{{ $grade->grade }}_subject_qr2_tle",
 					"sf9_g{{ $grade->grade }}_subject_qr3_tle",
 					"sf9_g{{ $grade->grade }}_subject_qr4_tle",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_mus",
 					"sf9_g{{ $grade->grade }}_subject_qr2_mus",
 					"sf9_g{{ $grade->grade }}_subject_qr3_mus",
 					"sf9_g{{ $grade->grade }}_subject_qr4_mus",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_art",
 					"sf9_g{{ $grade->grade }}_subject_qr2_art",
 					"sf9_g{{ $grade->grade }}_subject_qr3_art",
 					"sf9_g{{ $grade->grade }}_subject_qr4_art",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_pe",
 					"sf9_g{{ $grade->grade }}_subject_qr2_pe",
 					"sf9_g{{ $grade->grade }}_subject_qr3_pe",
 					"sf9_g{{ $grade->grade }}_subject_qr4_pe",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_hp",
 					"sf9_g{{ $grade->grade }}_subject_qr2_hp",
 					"sf9_g{{ $grade->grade }}_subject_qr3_hp",
 					"sf9_g{{ $grade->grade }}_subject_qr4_hp",
-
 					"sf9_g{{ $grade->grade }}_subject_qr1_jp",
 					"sf9_g{{ $grade->grade }}_subject_qr2_jp",
 					"sf9_g{{ $grade->grade }}_subject_qr3_jp",
 					"sf9_g{{ $grade->grade }}_subject_qr4_jp"
 				]'></div>
 			</div>
-
 			<table class = "table">
 				<tr>
 					<th>Descriptors</th>
@@ -884,18 +828,11 @@
 					<td class = "text-center">Failed</td>
 				</tr>
 			</table>
-
 		</div>
-
-		<!-- Right -->
 		<div class = "col-6">
-
 			<h6 class = "heading">Report on Learner's Observed Values</h6>
 			<br>
-
 			<table class = "table">
-
-				<!-- Headers -->
 				<tr>
 					<th rowspan = "2">Core Values</th>
 					<th rowspan = "2">Behavior Statement</th>
@@ -907,8 +844,6 @@
 					<th class = "table-cell-thin">3rd</th>
 					<th class = "table-cell-thin">4th</th>
 				</tr>
-
-				<!-- Values -> maka - diyos -->
 				<tr>
 					<td rowspan = "2">Maka - Diyos</td>
 					<td>Expresses one's spiritual beliefs while respecting the spiritual beliefs of others.</td>
@@ -992,8 +927,6 @@
 						</select>
 					</td>
 				</tr>
-
-				<!-- Values -> maka - tao -->
 				<tr>
 					<td rowspan = "2">Maka - Tao</td>
 					<td>Is sensitive to individual, social and cultural differences.</td>
@@ -1073,8 +1006,6 @@
 						</select>
 					</td>
 				</tr>
-
-				<!-- Values -> maka - kalikasan -->
 				<tr>
 					<td>Maka - Kalikasan</td>
 					<td>Cares for the environment and utilizes resources  wisely, judiciously and economically.</td>
@@ -1115,8 +1046,6 @@
 						</select>
 					</td>
 				</tr>
-
-				<!-- Values -> maka - bansa -->
 				<tr>
 					<td rowspan = "2">Maka - Bansa</td>
 					<td>Demonstrates pride in being a Filipino; exercises the rights and responsibilities of a Filipino Citizen.</td>
@@ -1196,9 +1125,7 @@
 						</select>
 					</td>
 				</tr>
-
 			</table>
-
 			<table class = "table">
 				<tr>
 					<th>Markings</th>
@@ -1221,8 +1148,6 @@
 					<td class = "text-center">Not Observed</td>
 				</tr>
 			</table>
-
 		</div>
-
 	</div>
 </div>
