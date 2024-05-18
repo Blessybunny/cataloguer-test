@@ -35,7 +35,7 @@ class Controller extends BaseController {
             $auth->is_grade_level_coordinator = $auth->DB_ROLE_id == 3 ? true : false;
             $auth->is_adviser = $auth->DB_ROLE_id == 4 ? true : false;
 
-            if ($auth->is_administrator) {
+            /*if ($auth->is_administrator) {
                 $auth->ST_subject_fil = true;
                 $auth->ST_subject_eng = true;
                 $auth->ST_subject_mat = true;
@@ -48,7 +48,7 @@ class Controller extends BaseController {
 
                 $auth->ST_subject_sf10_acads = true;
                 $auth->ST_subject_sf10_grade = true;
-            }
+            }*/
         }
 
         return $auth;

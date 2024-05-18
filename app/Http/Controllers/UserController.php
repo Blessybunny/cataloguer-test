@@ -406,6 +406,11 @@ class UserController extends Controller {
             ->orderBy('info_name_first', 'ASC')
             ->orderBy('info_name_middle', 'ASC')
             ->orderBy('info_name_suffix', 'ASC');
+        
+        // Principal / Administrator
+        if ($user->DB_ROLE_id == '1' || $user->DB_ROLE_id == '2') {
+            $students->where('id', -1);
+        }
 
         // Grade Level Coordinator
         if ($user->DB_ROLE_id == '3') {
