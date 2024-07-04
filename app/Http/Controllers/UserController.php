@@ -210,7 +210,9 @@ class UserController extends Controller {
         $sections = self::Format_Sections_Classes(Section::query(), $user);
         $years = Year::all();
 
-        $user->is_deletable = strtotime($user->updated_at) < strtotime('-1 day');
+        // Temp debug, 7/5/2024
+        //$user->is_deletable = strtotime($user->updated_at) < strtotime('-1 day');
+        $user->is_deletable = false
 
         return view('pages.users.edit')
             ->with('auth', $auth)
