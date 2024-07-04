@@ -196,14 +196,13 @@ class UserController extends Controller {
         $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        /*if (
+        if (
             self::guard($auth) ||
             $auth->is_principal ||
             $user == null
         ) {
             return (new Controller)->home();
         }
-        */
 
         // Proceed
         $grades = Grade::all();
@@ -226,7 +225,6 @@ class UserController extends Controller {
         $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        /*
         if (
             self::guard($auth) ||
             $auth->is_principal ||
@@ -234,7 +232,6 @@ class UserController extends Controller {
         ) {
             return (new Controller)->home();
         }
-        */
 
         // Proceed
         $user_old = clone $user;
@@ -308,7 +305,6 @@ class UserController extends Controller {
         $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        /*
         if (
             self::guard($auth) ||
             $auth->is_principal ||
@@ -316,7 +312,6 @@ class UserController extends Controller {
         ) {
             return (new Controller)->home();
         }
-        */
 
         // Proceed
         return view('pages.users.password')
@@ -328,7 +323,6 @@ class UserController extends Controller {
         $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        /*
         if (
             self::guard($auth) ||
             $auth->is_principal ||
@@ -336,7 +330,6 @@ class UserController extends Controller {
         ) {
             return (new Controller)->home();
         }
-        */
 
         // Proceed
         $validated = request()->validate([
@@ -361,7 +354,6 @@ class UserController extends Controller {
         $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        /*
         if (
             self::guard($auth) ||
             $auth->is_principal ||
@@ -370,7 +362,6 @@ class UserController extends Controller {
         ) {
             return (new Controller)->home();
         }
-        */
 
         // Proceed
         return view('pages.users.delete')
@@ -382,7 +373,6 @@ class UserController extends Controller {
         $auth = (new Controller)->auth();
         $user = User::find($id);
 
-        /*
         if (
             self::guard($auth) ||
             $auth->is_principal ||
@@ -391,7 +381,6 @@ class UserController extends Controller {
         ) {
             return (new Controller)->home();
         }
-        */
 
         // Proceed
         self::func_STUDENT_User_on_deletion($user);
