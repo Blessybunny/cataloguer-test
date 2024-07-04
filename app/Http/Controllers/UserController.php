@@ -593,7 +593,7 @@ class UserController extends Controller {
                 $section->grade = $grade->grade;
             }
 
-            $section->is_classed = Teacher::where('DB_SECTION_ID', $section->id)->where('DB_USER_id', $user->id)->exists();
+            $section->is_classed = Teacher::where('DB_SECTION_id', $section->id)->where('DB_USER_id', $user->id)->exists();
         }
 
         return $sections;
