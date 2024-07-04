@@ -10,5 +10,9 @@ php artisan route:cache
 
 echo "Running migrations..."
 # When next to the final deployment, run these both and then comment out on the final commit.
-php artisan migrate:refresh --force
+php artisan migrate:fresh --force
 php artisan db:seed --force
+
+# original code
+# php artisan migrate:fresh --force
+# php artisan db:seed --force
