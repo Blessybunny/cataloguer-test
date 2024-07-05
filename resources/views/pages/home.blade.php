@@ -136,14 +136,16 @@
 										@endif
 									</td>
 									<td class = "align-top">
-										{!! $student->{'sf9_g'.$student->grade.'_subject_qr1_fil'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr1_fil'} < 75 ? 'Filipino '.$student->grade.' (Q1)<br>' : '' !!}
-										{!! $student->{'sf9_g'.$student->grade.'_subject_qr2_fil'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr2_fil'} < 75 ? 'Filipino '.$student->grade.' (Q2)<br>' : '' !!}
-										{!! $student->{'sf9_g'.$student->grade.'_subject_qr3_fil'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr3_fil'} < 75 ? 'Filipino '.$student->grade.' (Q3)<br>' : '' !!}
-										{!! $student->{'sf9_g'.$student->grade.'_subject_qr4_fil'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr4_fil'} < 75 ? 'Filipino '.$student->grade.' (Q4)<br>' : '' !!}
-										{!! $student->{'sf9_g'.$student->grade.'_subject_qr1_eng'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr1_eng'} < 75 ? 'English '.$student->grade.' (Q1)<br>' : '' !!}
-										{!! $student->{'sf9_g'.$student->grade.'_subject_qr2_eng'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr2_eng'} < 75 ? 'English '.$student->grade.' (Q2)<br>' : '' !!}
-										{!! $student->{'sf9_g'.$student->grade.'_subject_qr3_eng'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr3_eng'} < 75 ? 'English '.$student->grade.' (Q3)<br>' : '' !!}
-										{!! $student->{'sf9_g'.$student->grade.'_subject_qr4_eng'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr4_eng'} < 75 ? 'English '.$student->grade.' (Q4)<br>' : '' !!}
+										{!! $student->{'sf9_g'.$student->grade.'_subject_qr1_fil'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr1_fil'} < 75 ? 'Filipino '.$student->grade.' (Q1 - '.$student->{'sf9_g'.$student->grade.'_subject_qr1_fil'}.' - Failed)<br>' : '' !!}
+										{!! $student->{'sf9_g'.$student->grade.'_subject_qr2_fil'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr2_fil'} < 75 ? 'Filipino '.$student->grade.' (Q2 - '.$student->{'sf9_g'.$student->grade.'_subject_qr1_fil'}.' - Failed)<br>' : '' !!}
+										{!! $student->{'sf9_g'.$student->grade.'_subject_qr3_fil'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr3_fil'} < 75 ? 'Filipino '.$student->grade.' (Q3 - '.$student->{'sf9_g'.$student->grade.'_subject_qr1_fil'}.' - Failed)<br>' : '' !!}
+										{!! $student->{'sf9_g'.$student->grade.'_subject_qr4_fil'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr4_fil'} < 75 ? 'Filipino '.$student->grade.' (Q4 - '.$student->{'sf9_g'.$student->grade.'_subject_qr1_fil'}.' - Failed)<br>' : '' !!}
+
+										{!! $student->{'sf9_g'.$student->grade.'_subject_qr1_eng'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr1_eng'} < 75 ? 'English '.$student->grade.' (Q1 - '.$student->{'sf9_g'.$student->grade.'_subject_qr1_eng'}.' - Failed)<br>' : '' !!}
+										{!! $student->{'sf9_g'.$student->grade.'_subject_qr2_eng'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr2_eng'} < 75 ? 'English '.$student->grade.' (Q2 - '.$student->{'sf9_g'.$student->grade.'_subject_qr2_eng'}.' - Failed)<br>' : '' !!}
+										{!! $student->{'sf9_g'.$student->grade.'_subject_qr3_eng'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr3_eng'} < 75 ? 'English '.$student->grade.' (Q3 - '.$student->{'sf9_g'.$student->grade.'_subject_qr3_eng'}.' - Failed)<br>' : '' !!}
+										{!! $student->{'sf9_g'.$student->grade.'_subject_qr4_eng'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr4_eng'} < 75 ? 'English '.$student->grade.' (Q4 - '.$student->{'sf9_g'.$student->grade.'_subject_qr4_eng'}.' - Failed)<br>' : '' !!}
+										
 										{!! $student->{'sf9_g'.$student->grade.'_subject_qr1_mat'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr1_mat'} < 75 ? 'Mathemathics '.$student->grade.' (Q1)<br>' : '' !!}
 										{!! $student->{'sf9_g'.$student->grade.'_subject_qr2_mat'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr2_mat'} < 75 ? 'Mathemathics '.$student->grade.' (Q2)<br>' : '' !!}
 										{!! $student->{'sf9_g'.$student->grade.'_subject_qr3_mat'} != null && $student->{'sf9_g'.$student->grade.'_subject_qr3_mat'} < 75 ? 'Mathemathics '.$student->grade.' (Q3)<br>' : '' !!}
